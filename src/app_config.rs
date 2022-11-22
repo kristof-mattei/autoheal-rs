@@ -1,5 +1,6 @@
-use crate::env::{parse_env_variable, parse_env_variable_with_default};
 use hyper::Uri;
+
+use crate::env::{parse_env_variable, parse_env_variable_with_default};
 
 pub struct AppConfig {
     pub webhook_url: Option<Uri>,

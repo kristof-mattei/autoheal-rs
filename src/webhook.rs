@@ -1,12 +1,11 @@
+use std::collections::HashMap;
+
 use http_body_util::Full;
-use http_client::{
-     build_request_with_headers_and_body,  send_get_post,
-};
+use http_client::{build_request_with_headers_and_body, send_get_post};
 use hyper::{body::Bytes, http::HeaderValue, Uri};
 use serde_json::json;
-use std::{collections::HashMap, };
 
-use crate::{ http_client, app_config::AppConfig};
+use crate::{app_config::AppConfig, http_client};
 
 pub fn notify_webhook_success(
     app_config: &AppConfig,
