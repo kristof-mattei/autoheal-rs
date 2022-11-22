@@ -1,26 +1,17 @@
 use std::io::Error;
-// use std::io::Error;
 use std::mem::MaybeUninit;
 use std::ptr::null_mut;
 
-// use std::sync::atomic::Ordering;
 use libc::c_int;
 use libc::sigaction;
 use libc::sigset_t;
 use libc::SIGINT;
 use libc::SIGPIPE;
 use libc::SIGTERM;
-// use libc::SIGUSR1;
 use libc::SIG_IGN;
 use tracing::Level;
 
 use crate::wrap_and_report;
-// use tracing::event;
-// use tracing::Level;
-
-// use crate::wrap_and_report;
-// use crate::DUMPSTATS;
-// use crate::RUNNING;
 
 #[no_mangle]
 pub extern "C" fn sig_handler(signal: i32) {

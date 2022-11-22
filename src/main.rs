@@ -3,7 +3,6 @@
 use std::{convert::Infallible, time::Duration};
 
 use app_config::AppConfig;
-use container_info::ContainerInfo;
 use docker::Docker;
 use docker_config::DockerConfig;
 use handlers::set_up_handlers;
@@ -18,10 +17,7 @@ mod env;
 mod handlers;
 mod helpers;
 mod http_client;
-mod utils;
 mod webhook;
-
-use crate::webhook::{notify_webhook_failure, notify_webhook_success};
 
 fn main() -> Result<Infallible, anyhow::Error> {
     tracing_subscriber::fmt::Subscriber::builder()
@@ -63,49 +59,13 @@ async fn healer() -> Result<Infallible, anyhow::Error> {
         match docker.get_container_info(&app_config).await {
             Ok(container_infos) => {
                 for c_i in container_infos {
-                    check_container_health(&docker, &app_config, c_i).await;
+                    docker.check_container_health(&app_config, c_i).await;
                 }
             },
             Err(_) => todo!(),
         }
 
         sleep(Duration::from_secs(app_config.autoheal_interval)).await;
-    }
-}
-
-async fn check_container_health(
-    docker: &Docker,
-    app_config: &AppConfig,
-    container_info: ContainerInfo,
-) {
-    let container_short_id = &container_info.id[0..12];
-    let date = chrono::offset::Utc::now();
-
-    match &container_info.name {
-        None => {
-            eprintln!("{date} Container name of {container_short_id} is null, which implies container does not exist - don't restart");
-        },
-        Some(container_name) => {
-            if container_info.state == "restarting" {
-                println!("{date} Container {container_name:?} ({container_short_id}) found to be restarting - don't restart");
-            } else {
-                let timeout = container_info
-                    .timeout
-                    .unwrap_or(app_config.autoheal_default_stop_timeout);
-
-                println!("{date} Container {container_name} ({container_short_id}) found to be unhealthy - Restarting container now with {}s timeout", timeout);
-
-                match docker.restart_container(&container_info.id, timeout).await {
-                    Ok(()) => {
-                        notify_webhook_success(app_config, container_short_id, container_name);
-                    },
-                    Err(e) => {
-                        eprintln!("{date} Restarting container ({container_short_id}) failed. Error: {e:?}");
-                        notify_webhook_failure(app_config, container_name, container_short_id, &e);
-                    },
-                }
-            }
-        },
     }
 }
 
