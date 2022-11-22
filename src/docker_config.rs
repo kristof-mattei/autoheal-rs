@@ -1,6 +1,5 @@
-use std::ffi::OsString;
-
 use crate::env::parse_env_variable_with_default;
+use std::ffi::OsString;
 
 pub struct DockerConfig {
     pub endpoint: Endpoint,
@@ -14,8 +13,17 @@ pub enum Endpoint {
 }
 
 impl DockerConfig {
-    pub fn new(mut docker_socket_or_uri: String, curl_timeout: u32) -> Self {
+    pub fn build() -> Result<DockerConfig, anyhow::Error> {
         const TCP_START: &str = "tcp://";
+        let mut docker_socket_or_uri = std::env::var_os("DOCKER_SOCK")
+            .map_or_else(
+                || Ok(String::from("/var/run/docker.sock")),
+                OsString::into_string,
+            )
+            .map_err(|err| anyhow::Error::msg(format!("Could not convert {:?} to String", err)))?;
+
+        let curl_timeout = parse_env_variable_with_default("CURL_TIMEOUT", 30)?;
+
         let endpoint = if docker_socket_or_uri.starts_with(TCP_START) {
             docker_socket_or_uri.replace_range(..TCP_START.len(), "https://");
 
@@ -25,11 +33,13 @@ impl DockerConfig {
             Endpoint::Socket(docker_socket_or_uri, "http://localhost".parse().unwrap())
         };
 
-        Self {
+        // TODO check if docker socket exists
+
+        Ok(DockerConfig {
             endpoint,
             curl_timeout,
             options: vec![],
-        }
+        })
     }
 
     // fn curl_options(&self) -> String {
@@ -40,18 +50,4 @@ impl DockerConfig {
     //         ApiConfig::Socket(s) => format!("--unix-socket {s}"),
     //     }
     // }
-}
-
-pub fn build() -> Result<DockerConfig, anyhow::Error> {
-    let docker_sock = std::env::var_os("DOCKER_SOCK")
-        .map_or_else(
-            || Ok(String::from("/var/run/docker.sock")),
-            OsString::into_string,
-        )
-        .map_err(|err| anyhow::Error::msg(format!("Could not convert {:?} to String", err)))?;
-
-    Ok(DockerConfig::new(
-        docker_sock,
-        parse_env_variable_with_default("CURL_TIMEOUT", 30)?,
-    ))
 }

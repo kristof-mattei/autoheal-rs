@@ -6,7 +6,7 @@ use hyper::{body::Bytes, http::HeaderValue, Uri};
 use serde_json::json;
 use std::{collections::HashMap, };
 
-use crate::{app_config::AppConfig, http_client};
+use crate::{ http_client, app_config::AppConfig};
 
 pub fn notify_webhook_success(
     app_config: &AppConfig,

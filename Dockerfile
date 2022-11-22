@@ -1,4 +1,4 @@
-FROM rust:1.64.0@sha256:922d814994d77f8e3ab8a7db45a277e9cebe41a557046eeef91a2e34b28b4962 as builder
+FROM rust:1.65.0@sha256:6d44ed87fe759752c89d1f68596f84a23493d3d3395ed843d3a1c104866e5d9e as builder
 
 ENV TARGET=x86_64-unknown-linux-musl
 RUN rustup target add ${TARGET}
@@ -31,7 +31,7 @@ COPY src ./src
 RUN --mount=type=cache,target=/build/autoheal-rs/target \
     cargo install --path . --target ${TARGET} --root /output
 
-FROM alpine:3.16.2@sha256:bc41182d7ef5ffc53a40b044e725193bc10142a1243f395ee852a8d9730fc2ad
+FROM alpine:3.16.3@sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser

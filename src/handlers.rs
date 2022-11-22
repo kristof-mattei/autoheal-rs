@@ -1,3 +1,4 @@
+use std::io::Error;
 // use std::io::Error;
 use std::mem::MaybeUninit;
 use std::ptr::null_mut;
@@ -11,6 +12,9 @@ use libc::SIGPIPE;
 use libc::SIGTERM;
 // use libc::SIGUSR1;
 use libc::SIG_IGN;
+use tracing::Level;
+
+use crate::wrap_and_report;
 // use tracing::event;
 // use tracing::Level;
 
@@ -35,11 +39,11 @@ fn set_up_handler(signum: c_int, handler: usize) -> Result<(), anyhow::Error> {
     };
 
     if unsafe { sigaction(signum, &sa, null_mut()) } == -1 {
-        // return Err(wrap_and_report!(
-        //     Level::ERROR,
-        //     Error::last_os_error(),
-        //     "Failure to install signal handler"
-        // ));
+        return Err(wrap_and_report!(
+            Level::ERROR,
+            Error::last_os_error(),
+            "Failure to install signal handler"
+        ));
     }
 
     Ok(())

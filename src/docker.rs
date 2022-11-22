@@ -4,7 +4,6 @@ use hyper::{
     body::{Buf, Incoming},
     Response, StatusCode,
 };
-use serde_json::json;
 use tokio::net::UnixStream;
 
 use crate::{
@@ -14,25 +13,27 @@ use crate::{
     http_client::{build_request, build_uri, connect_tcp_stream, send_get_post},
 };
 
-pub struct Docker<'a> {
-    pub docker_config: DockerConfig,
-    pub app_config: &'a AppConfig,
+pub struct Docker {
+    pub config: DockerConfig,
 }
 
-impl<'a> Docker<'a> {
-    pub async fn get_container_info(&self) -> Result<Vec<ContainerInfo>, anyhow::Error> {
+impl Docker {
+    pub async fn get_container_info(
+        &self,
+        app_config: &AppConfig,
+    ) -> Result<Vec<ContainerInfo>, anyhow::Error> {
         let mut json = serde_json::Map::new();
         json.insert(
             "health".into(),
             serde_json::Value::Array(vec![serde_json::Value::String("unhealthy".into())]),
         );
 
-        if "all" != self.app_config.autoheal_container_label {
+        if "all" != app_config.autoheal_container_label {
             json.insert(
                 "label".into(),
                 serde_json::Value::Array(vec![serde_json::Value::String(format!(
                     "{}=true",
-                    self.app_config.autoheal_container_label
+                    app_config.autoheal_container_label
                 ))]),
             );
         };
@@ -74,7 +75,7 @@ impl<'a> Docker<'a> {
     }
 
     async fn send_request(&self, path_and_query: &str) -> Result<Response<Incoming>, Error> {
-        match &self.docker_config.endpoint {
+        match &self.config.endpoint {
             Endpoint::Direct(url) => {
                 let stream = connect_tcp_stream(url).await?;
                 let request = build_request(&build_uri(url.clone(), path_and_query)?)?;
