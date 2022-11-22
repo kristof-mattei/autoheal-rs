@@ -21,7 +21,7 @@ impl DockerConfig {
                 || Ok(String::from("/var/run/docker.sock")),
                 OsString::into_string,
             )
-            .map_err(|err| anyhow::Error::msg(format!("Could not convert {:?} to String", err)))?;
+            .map_err(|err| anyhow::Error::msg(format!("Could not convert {err:?} to String")))?;
 
         let curl_timeout = parse_env_variable_with_default("CURL_TIMEOUT", 30)?;
 
