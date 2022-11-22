@@ -1,5 +1,6 @@
-use crate::env::parse_env_variable_with_default;
 use std::ffi::OsString;
+
+use crate::env::parse_env_variable_with_default;
 
 pub struct DockerConfig {
     pub endpoint: Endpoint,

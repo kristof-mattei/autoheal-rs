@@ -1,11 +1,12 @@
 #![cfg_attr(not(debug_assertions), deny(warnings))]
 
+use std::{convert::Infallible, time::Duration};
+
 use app_config::AppConfig;
 use container_info::ContainerInfo;
 use docker::Docker;
 use docker_config::DockerConfig;
 use handlers::set_up_handlers;
-use std::{convert::Infallible, time::Duration};
 use tokio::time::sleep;
 use tracing::metadata::LevelFilter;
 use tracing_subscriber::{util::SubscriberInitExt, EnvFilter};
