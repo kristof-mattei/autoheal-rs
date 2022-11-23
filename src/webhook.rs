@@ -39,7 +39,7 @@ pub fn notify_webhook_failure(
 async fn notify_webhook_and_log(webhook_url: &Uri, text: String) {
     match notify_webhook(webhook_url, text).await {
         Ok(_) => todo!(),
-        Err(e) => eprintln!("Failure sending webhook: {e:?}"),
+        Err(e) => tracing::error!(message = "Failure sending webhook", error = ?e),
     };
 }
 

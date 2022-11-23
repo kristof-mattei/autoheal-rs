@@ -8,7 +8,7 @@ where
     {
         Some(Ok(Ok(ct))) => Ok(Some(ct)),
         None => {
-            println!("{env_variable_name} not set");
+            tracing::info!("{} not set", env_variable_name);
             Ok(None)
         },
         Some(Ok(Err(err))) => Err(anyhow::Error::msg(format!(
@@ -33,7 +33,7 @@ where
     match parse_env_variable(env_variable_name) {
         Ok(Some(ct)) => Ok(ct),
         Ok(None) => {
-            println!("{env_variable_name} not set, defaulting to {default}");
+            tracing::info!("{} not set, defaulting to {}", env_variable_name, default);
             Ok(default)
         },
         Err(e) => Err(e),
