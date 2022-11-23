@@ -7,7 +7,7 @@ use docker::Docker;
 use docker_config::DockerConfig;
 use handlers::set_up_handlers;
 use tokio::time::sleep;
-use tracing::metadata::LevelFilter;
+use tracing::{info, metadata::LevelFilter, Level};
 use tracing_subscriber::{util::SubscriberInitExt, EnvFilter};
 mod app_config;
 mod container_info;
@@ -48,8 +48,8 @@ async fn healer() -> Result<Infallible, anyhow::Error> {
     // Do we fail? Do we retry?
 
     if app_config.autoheal_start_period > 0 {
-        println!(
-            "Monitoring containers for unhealthy status in {} second(s)",
+        info!(
+            message = "Monitoring containers for unhealthy status in {} second(s)",
             app_config.autoheal_start_period
         );
         sleep(Duration::from_secs(app_config.autoheal_start_period)).await;
@@ -62,7 +62,13 @@ async fn healer() -> Result<Infallible, anyhow::Error> {
                     docker.check_container_health(&app_config, c_i).await;
                 }
             },
-            Err(_) => todo!(),
+            Err(e) => {
+                return Err(wrap_and_report!(
+                    Level::ERROR,
+                    e,
+                    "Failed to fetch container info"
+                ));
+            },
         }
 
         sleep(Duration::from_secs(app_config.autoheal_interval)).await;
