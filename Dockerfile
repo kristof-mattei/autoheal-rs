@@ -38,4 +38,6 @@ USER appuser
 
 WORKDIR /app
 COPY --from=builder /output/bin/autoheal-rs /app
+
+ENV RUST_BACKTRACE=1
 ENTRYPOINT ["/app/autoheal-rs"]

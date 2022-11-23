@@ -5,7 +5,7 @@ use hyper::{
     body::{Body, Bytes},
     header::{HeaderName, IntoHeaderName},
     http::{uri::PathAndQuery, HeaderValue},
-    Request, Response, Uri,
+    Method, Request, Response, Uri,
 };
 use tokio::{
     io::{AsyncRead, AsyncWrite},
@@ -19,38 +19,45 @@ pub async fn connect_tcp_stream(url: &Uri) -> Result<TcpStream, anyhow::Error> {
     TcpStream::connect(addr).await.map_err(Into::into)
 }
 
-pub fn build_request(uri: &Uri) -> Result<Request<Empty<Bytes>>, anyhow::Error> {
+pub fn build_request(uri: &Uri, method: Method) -> Result<Request<Empty<Bytes>>, anyhow::Error> {
     build_request_with_headers_and_body::<_, HeaderName>(
         uri,
         HashMap::default(),
+        method,
         Empty::<Bytes>::new(),
     )
 }
 
 #[allow(unused)]
-pub fn build_request_with_body<B>(uri: &Uri, body: B) -> Result<Request<B>, anyhow::Error>
+pub fn build_request_with_body<B>(
+    uri: &Uri,
+    method: Method,
+    body: B,
+) -> Result<Request<B>, anyhow::Error>
 where
     B: Body + Send + 'static,
     B::Data: Send,
     B::Error: Into<Box<dyn std::error::Error + Send + Sync>>,
 {
-    build_request_with_headers_and_body::<B, HeaderName>(uri, HashMap::default(), body)
+    build_request_with_headers_and_body::<B, HeaderName>(uri, HashMap::default(), method, body)
 }
 
 #[allow(unused)]
 pub fn build_request_with_headers<K>(
     uri: &Uri,
     headers: HashMap<K, HeaderValue>,
+    method: Method,
 ) -> Result<Request<Empty<Bytes>>, anyhow::Error>
 where
     K: IntoHeaderName,
 {
-    build_request_with_headers_and_body(uri, headers, Empty::<Bytes>::new())
+    build_request_with_headers_and_body(uri, headers, method, Empty::<Bytes>::new())
 }
 
 pub fn build_request_with_headers_and_body<B, K>(
     uri: &Uri,
     headers: HashMap<K, HeaderValue>,
+    method: Method,
     body: B,
 ) -> Result<Request<B>, anyhow::Error>
 where
@@ -62,6 +69,8 @@ where
     let host = uri.host().expect("Host not found in uri").to_string();
 
     let mut request = Request::builder().uri(uri).body::<B>(body)?;
+
+    *request.method_mut() = method;
 
     let request_headers = request.headers_mut();
 

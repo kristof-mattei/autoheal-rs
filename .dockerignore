@@ -3,3 +3,5 @@ target
 .git
 .vscode
 Dockerfile
+.gitignore
+.dockerignore

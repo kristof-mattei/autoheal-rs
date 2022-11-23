@@ -1,6 +1,6 @@
 use hyper::Uri;
 
-use crate::env::{parse_env_variable, parse_env_variable_with_default};
+use crate::env::{parse_env_variable_with_default, parse_optional_env_variable};
 
 pub struct AppConfig {
     pub webhook_url: Option<Uri>,
@@ -13,7 +13,7 @@ pub struct AppConfig {
 impl AppConfig {
     pub fn build() -> Result<AppConfig, anyhow::Error> {
         Ok(AppConfig {
-            webhook_url: parse_env_variable("WEBHOOK_URL")?,
+            webhook_url: parse_optional_env_variable("WEBHOOK_URL")?,
             autoheal_container_label: parse_env_variable_with_default(
                 "AUTOHEAL_CONTAINER_LABEL",
                 String::from("autoheal"),

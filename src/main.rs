@@ -49,7 +49,7 @@ async fn healer() -> Result<Infallible, anyhow::Error> {
 
     if app_config.autoheal_start_period > 0 {
         info!(
-            message = "Monitoring containers for unhealthy status in {} second(s)",
+            "Monitoring containers for unhealthy status in {} second(s)",
             app_config.autoheal_start_period
         );
         sleep(Duration::from_secs(app_config.autoheal_start_period)).await;

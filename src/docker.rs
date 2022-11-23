@@ -2,7 +2,7 @@ use anyhow::{bail, Error};
 use http_body_util::BodyExt;
 use hyper::{
     body::{Buf, Incoming},
-    Response, StatusCode,
+    Response, StatusCode, Method,
 };
 use tokio::net::UnixStream;
 
@@ -27,7 +27,7 @@ impl Docker {
 
         let path_and_query = format!("/containers/json?filters={filters}");
 
-        let response = self.send_request(&path_and_query).await?;
+        let response = self.send_request(&path_and_query, Method::GET).await?;
 
         let r = response.collect().await?.aggregate().reader();
 
@@ -41,7 +41,7 @@ impl Docker {
     ) -> Result<(), anyhow::Error> {
         let path_and_query = format!("/containers/{container_id}/restart?t={timeout}");
 
-        let response = self.send_request(&path_and_query).await?;
+        let response = self.send_request(&path_and_query, Method::POST).await?;
 
         let status_code = response.status();
 
@@ -55,16 +55,16 @@ impl Docker {
         }
     }
 
-    async fn send_request(&self, path_and_query: &str) -> Result<Response<Incoming>, Error> {
+    async fn send_request(&self, path_and_query: &str, method: Method) -> Result<Response<Incoming>, Error> {
         match &self.config.endpoint {
             Endpoint::Direct(url) => {
                 let stream = connect_tcp_stream(url).await?;
-                let request = build_request(&build_uri(url.clone(), path_and_query)?)?;
+                let request = build_request(&build_uri(url.clone(), path_and_query)?, method)?;
                 send_get_post(stream, request).await
             },
             Endpoint::Socket(socket, url) => {
                 let stream = UnixStream::connect(&socket).await?;
-                let request = build_request(&build_uri(url.clone(), path_and_query)?)?;
+                let request = build_request(&build_uri(url.clone(), path_and_query)?, method)?;
                 send_get_post(stream, request).await
             },
         }
@@ -79,12 +79,12 @@ impl Docker {
 
         match &container_info.name {
             None => {
-                tracing::error!(message = "Container name of {} is null, which implies container does not exist - don't restart.", container_short_id);
+                tracing::error!("Container name of {} is null, which implies container does not exist - don't restart.", container_short_id);
             },
             Some(container_name) => {
                 if container_info.state == "restarting" {
                     tracing::info!(
-                        message = "Container {} ({}) found to be restarting - don't restart.",
+                        "Container {} ({}) found to be restarting - don't restart.",
                         container_name,
                         container_short_id
                     );
@@ -94,21 +94,21 @@ impl Docker {
                         .unwrap_or(app_config.autoheal_default_stop_timeout);
 
                     tracing::info!(
-                        message = "Container {} ({}) found to be unhealthy - Restarting container now with {}s timeout.",
+                        "Container {} ({}) found to be unhealthy - Restarting container now with {}s timeout.",
                         container_name,
                         container_short_id, timeout
                     );
 
-                    match self.restart_container(&container_info.id, timeout).await {
+                    match self.restart_container(container_short_id, timeout).await {
                         Ok(()) => {
                             notify_webhook_success(app_config, container_short_id, container_name);
                         },
                         Err(e) => {
                             tracing::info!(
-                                message = "Restarting container {} ({}) failed.",
+                                error = ?e,
+                                "Restarting container {} ({}) failed.",
                                 container_name,
-                                container_short_id,
-                                error = ?e
+                                container_short_id
                             );
 
                             notify_webhook_failure(

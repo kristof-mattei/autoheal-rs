@@ -9,13 +9,18 @@ use libc::SIGINT;
 use libc::SIGPIPE;
 use libc::SIGTERM;
 use libc::SIG_IGN;
+use tracing::event;
 use tracing::Level;
 
 use crate::wrap_and_report;
 
 #[no_mangle]
 pub extern "C" fn sig_handler(signal: i32) {
-    // event!(Level::INFO, "Stopping the engine");
+    event!(
+        Level::INFO,
+        message = "Stopping the engine",
+        raw_signal = signal
+    );
     std::process::exit(128 + signal);
     // RUNNING.store(false, Ordering::SeqCst);
 }
