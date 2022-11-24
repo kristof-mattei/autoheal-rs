@@ -208,6 +208,8 @@ jobs:
 
       - name: Run integration tests
         shell: bash
+        env:
+          DOCKER_BUILDKIT: "1" # https://github.com/moby/buildkit/issues/1945#issuecomment-763705334
         run: |
           cd integration-tests
           ./tests.sh
