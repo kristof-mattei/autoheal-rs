@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use http_body_util::Full;
 use http_client::{build_request_with_headers_and_body, send_get_post};
-use hyper::{body::Bytes, http::HeaderValue, Uri, Method};
+use hyper::{body::Bytes, http::HeaderValue, Method, Uri};
 use serde_json::json;
 
 use crate::{app_config::AppConfig, http_client};
@@ -55,14 +55,14 @@ async fn notify_webhook(webhook_url: &Uri, text: String) -> Result<(), anyhow::E
 
     // execute webhook requests as background process to prevent healer from blocking
     #[allow(clippy::mutable_key_type)]
-    let h = HashMap::from_iter([(
+    let headers = HashMap::from_iter([(
         hyper::header::CONTENT_TYPE,
         HeaderValue::from_static("application/json"),
     )]);
 
     let request = build_request_with_headers_and_body(
         webhook_url,
-        h,
+        headers,
         Method::POST,
         Full::new(Bytes::from(data)),
     )?;
