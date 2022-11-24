@@ -195,6 +195,25 @@ jobs:
         run: |
           cargo fmt --all -- --check --verbose
 
+  docker-integration-test:
+    name: Docker integration test
+    runs-on: ubuntu-latest
+    needs:
+      - changes
+    if: |
+      (needs.changes.outputs.code == 'true')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
+
+      - name: Run integration tests
+        shell: bash
+        env:
+          DOCKER_BUILDKIT: "1" # https://github.com/moby/buildkit/issues/1945#issuecomment-763705334
+        run: |
+          cd integration-tests
+          ./tests.sh
+
   cargo-test-and-report:
     name: Cargo test (and report)
     runs-on: ubuntu-latest
@@ -428,6 +447,7 @@ jobs:
       - cargo-build
       - cargo-fmt
       - cargo-test-and-report
+      - docker-integration-test
       - cargo-clippy-and-report
       - docker-build
     if: ${{ github.repository == 'kristof-mattei/autoheal-rs' && github.event_name == 'pull_request' }}
