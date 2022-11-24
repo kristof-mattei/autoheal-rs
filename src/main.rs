@@ -9,11 +9,14 @@ use handlers::set_up_handlers;
 use tokio::time::sleep;
 use tracing::{info, metadata::LevelFilter, Level};
 use tracing_subscriber::{util::SubscriberInitExt, EnvFilter};
+
 mod app_config;
 mod container_info;
 mod docker;
 mod docker_config;
+mod encoding;
 mod env;
+mod filters;
 mod handlers;
 mod helpers;
 mod http_client;
@@ -40,9 +43,11 @@ fn main() -> Result<Infallible, anyhow::Error> {
 
 async fn healer() -> Result<Infallible, anyhow::Error> {
     let app_config = AppConfig::build()?;
-    let docker = Docker {
-        config: DockerConfig::build()?,
-    };
+
+    let docker = Docker::new(
+        DockerConfig::build()?,
+        &filters::build(&app_config.autoheal_container_label),
+    );
 
     // TODO define failure mode
     // Do we fail? Do we retry?
@@ -56,7 +61,7 @@ async fn healer() -> Result<Infallible, anyhow::Error> {
     }
 
     loop {
-        match docker.get_container_info(&app_config).await {
+        match docker.get_container_info().await {
             Ok(container_infos) => {
                 for c_i in container_infos {
                     docker.check_container_health(&app_config, c_i).await;

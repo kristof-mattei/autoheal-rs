@@ -2,7 +2,7 @@ use anyhow::{bail, Error};
 use http_body_util::BodyExt;
 use hyper::{
     body::{Buf, Incoming},
-    Response, StatusCode, Method,
+    Method, Response, StatusCode,
 };
 use tokio::net::UnixStream;
 
@@ -15,23 +15,30 @@ use crate::{
 };
 
 pub struct Docker {
-    pub config: DockerConfig,
+    config: DockerConfig,
+    encoded_filters: String,
 }
 
 impl Docker {
-    pub async fn get_container_info(
-        &self,
-        app_config: &AppConfig,
-    ) -> Result<Vec<ContainerInfo>, anyhow::Error> {
-        let filters = build_filters(&app_config.autoheal_container_label);
+    pub fn new(config: DockerConfig, filters: &serde_json::Value) -> Self {
+        let encoded_filters = crate::encoding::url_encode(filters);
 
-        let path_and_query = format!("/containers/json?filters={filters}");
+        Self {
+            config,
+            encoded_filters,
+        }
+    }
+
+    pub async fn get_container_info(&self) -> Result<Vec<ContainerInfo>, anyhow::Error> {
+        let path_and_query = format!("/containers/json?filters={}", self.encoded_filters);
 
         let response = self.send_request(&path_and_query, Method::GET).await?;
 
-        let r = response.collect().await?.aggregate().reader();
+        let reader = response.collect().await?.aggregate().reader();
 
-        Ok(serde_json::from_reader(r)?)
+        let result = serde_json::from_reader::<_, Vec<ContainerInfo>>(reader)?;
+
+        Ok(result)
     }
 
     pub async fn restart_container(
@@ -55,7 +62,11 @@ impl Docker {
         }
     }
 
-    async fn send_request(&self, path_and_query: &str, method: Method) -> Result<Response<Incoming>, Error> {
+    async fn send_request(
+        &self,
+        path_and_query: &str,
+        method: Method,
+    ) -> Result<Response<Incoming>, Error> {
         match &self.config.endpoint {
             Endpoint::Direct(url) => {
                 let stream = connect_tcp_stream(url).await?;
@@ -122,79 +133,5 @@ impl Docker {
                 }
             },
         }
-    }
-}
-
-fn build_filters(autoheal_container_label: &str) -> String {
-    let mut json: serde_json::Map<String, serde_json::Value> = serde_json::Map::from_iter([(
-        "health".into(),
-        serde_json::Value::Array(vec![serde_json::Value::String("unhealthy".into())]),
-    )]);
-
-    if "all" != autoheal_container_label {
-        json.insert(
-            "label".into(),
-            serde_json::Value::Array(vec![serde_json::Value::String(format!(
-                "{}=true",
-                autoheal_container_label
-            ))]),
-        );
-    };
-
-    percent_encoding::percent_encode(
-        serde_json::Value::Object(json).to_string().as_bytes(),
-        percent_encoding::NON_ALPHANUMERIC,
-    )
-    .to_string()
-}
-
-#[cfg(test)]
-mod tests {
-    use percent_encoding::percent_decode;
-    use serde_json::json;
-
-    use crate::docker::build_filters;
-
-    #[test]
-    fn test_build_filters_all() {
-        let all_unhealthy = build_filters("all");
-
-        assert_eq!(all_unhealthy, "%7B%22health%22%3A%5B%22unhealthy%22%5D%7D");
-
-        let decoded = percent_decode(all_unhealthy.as_bytes());
-
-        assert_eq!(
-            serde_json::from_str::<serde_json::Value>(&decoded.decode_utf8().unwrap()).unwrap(),
-            json!({ "health": ["unhealthy"] })
-        );
-    }
-
-    #[test]
-    fn test_build_filters_autoheal() {
-        let autoheal_and_unhealthy = build_filters("autoheal");
-        assert_eq!(autoheal_and_unhealthy, "%7B%22health%22%3A%5B%22unhealthy%22%5D%2C%22label%22%3A%5B%22autoheal%3Dtrue%22%5D%7D");
-
-        let decoded = percent_decode(autoheal_and_unhealthy.as_bytes());
-
-        assert_eq!(
-            serde_json::from_str::<serde_json::Value>(&decoded.decode_utf8().unwrap()).unwrap(),
-            json!({ "health": ["unhealthy"], "label": ["autoheal=true"] })
-        );
-    }
-
-    #[test]
-    fn test_build_filters_custom() {
-        let custom_and_unhealthy = build_filters("custom");
-        assert_eq!(
-            custom_and_unhealthy,
-            "%7B%22health%22%3A%5B%22unhealthy%22%5D%2C%22label%22%3A%5B%22custom%3Dtrue%22%5D%7D"
-        );
-
-        let decoded = percent_decode(custom_and_unhealthy.as_bytes());
-
-        assert_eq!(
-            serde_json::from_str::<serde_json::Value>(&decoded.decode_utf8().unwrap()).unwrap(),
-            json!({ "health": ["unhealthy"], "label": ["custom=true"] })
-        );
     }
 }

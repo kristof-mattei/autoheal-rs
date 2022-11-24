@@ -1,7 +1,6 @@
-version: '3.7'
+version: "3.7"
 
 services:
-
   should-keep-restarting:
     # this container should be restarted by autoheal because its unhealthy and has the autoheal label
     image: alpine
@@ -49,6 +48,7 @@ services:
     build:
       context: ../
     restart: unless-stopped
+    user: root
     environment:
       AUTOHEAL_CONTAINER_LABEL: "${AUTOHEAL_CONTAINER_LABEL:-all}"
       AUTOHEAL_INTERVAL: "10"

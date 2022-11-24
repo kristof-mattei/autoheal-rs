@@ -25,7 +25,10 @@ where
     <T as std::str::FromStr>::Err: std::fmt::Debug,
 {
     match parse_env_variable(env_variable_name) {
-        Ok(Some(ct)) => Ok(Some(ct)),
+        Ok(Some(ct)) => {
+            tracing::info!("{} set to {:?}", env_variable_name, ct);
+            Ok(Some(ct))
+        },
         Ok(None) => {
             tracing::info!("{} not set", env_variable_name);
             Ok(None)
@@ -43,7 +46,11 @@ where
     <T as std::str::FromStr>::Err: std::fmt::Debug,
 {
     match parse_env_variable(env_variable_name) {
-        Ok(Some(ct)) => Ok(ct),
+        Ok(Some(ct)) => {
+            tracing::info!("{} set to {:?}", env_variable_name, ct);
+            Ok(ct)
+        },
+
         Ok(None) => {
             tracing::info!("{} not set, defaulting to {:?}", env_variable_name, default);
             Ok(default)

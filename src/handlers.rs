@@ -21,7 +21,8 @@ pub extern "C" fn sig_handler(signal: i32) {
         message = "Stopping the engine",
         raw_signal = signal
     );
-    std::process::exit(128 + signal);
+    // std::process::exit(128 + signal);
+    std::process::exit(0);
     // RUNNING.store(false, Ordering::SeqCst);
 }
 
