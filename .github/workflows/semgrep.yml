@@ -27,6 +27,11 @@ jobs:
 
       - name: Run semgrep
         shell: bash
+        run: |
+          exit 1
+
+      - name: Run semgrep
+        shell: bash
         env:
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
         run: |
