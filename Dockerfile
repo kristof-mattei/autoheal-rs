@@ -22,13 +22,13 @@ WORKDIR /build
 RUN cargo new autoheal-rs
 WORKDIR /build/autoheal-rs
 COPY Cargo.toml Cargo.lock ./
-RUN --mount=type=cache,target=/build/autoheal-rs/target \
+RUN --mount=type=cache,id=cargo-only,target=/build/autoheal-rs/target \
     cargo build --release --target ${TARGET}
 
 # now we copy in the source which is more prone to changes and build it
 COPY src ./src
 # --release not needed, it is implied with install
-RUN --mount=type=cache,target=/build/autoheal-rs/target \
+RUN --mount=type=cache,id=full-build,target=/build/autoheal-rs/target \
     cargo install --path . --target ${TARGET} --root /output
 
 FROM alpine:3.17.0@sha256:8914eb54f968791faf6a8638949e480fef81e697984fba772b3976835194c6d4
