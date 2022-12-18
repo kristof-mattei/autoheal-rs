@@ -33,7 +33,7 @@ libc = "0.2.138"
 # ] }
 percent-encoding = "2.2.0"
 serde = { version = "1.0.151", features = ["derive"] }
-serde_json = "1.0.90"
+serde_json = "1.0.91"
 tokio = { version = "1.23.0", features = [
     "rt-multi-thread",
     "macros",
