@@ -45,9 +45,6 @@ services:
     command: tail -f /dev/null
 
   autoheal:
-    # build:
-    # context: ../
-    image: "${IMAGE_ID}"
     restart: unless-stopped
     user: root
     environment:

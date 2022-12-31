@@ -1,0 +1,5 @@
+version: "3.7"
+
+services:
+  autoheal:
+    image: ${IMAGE_ID}
