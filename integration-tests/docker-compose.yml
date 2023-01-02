@@ -45,8 +45,6 @@ services:
     command: tail -f /dev/null
 
   autoheal:
-    build:
-      context: ../
     restart: unless-stopped
     user: root
     environment:
