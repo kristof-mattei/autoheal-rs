@@ -25,8 +25,8 @@ tracing-subscriber = { version = "0.3.16", features = [
     "time",
     "tracing-log",
 ] }
-http-body-util = "0.1.0-rc.1"
-hyper = { version = "1.0.0-rc.1", features = ["full"] }
+http-body-util = "0.1.0-rc.2"
+hyper = { version = "1.0.0-rc.2", features = ["full"] }
 libc = "0.2.139"
 # hyperlocal = { version = "1.0.0-rc1", default-features = false, features = [
 #     "client",
