@@ -7,8 +7,8 @@ export COMPOSE_PROJECT_NAME
 COMPOSE_FILE="docker-compose.yml:docker-compose.autoheal.yml:"
 
 if ! [[ -z ${IMAGE_ID+x} ]]; then
-    # image id from built image
-    COMPOSE_FILE+="docker-compose.imageid.yml"
+    # image id is from built container when ran via GitHub actions. See build.yml
+    COMPOSE_FILE+="docker-compose.image.yml"
 else
     # build ourselves
     COMPOSE_FILE+="docker-compose.build.yml"
@@ -30,11 +30,10 @@ function cleanup() {
 trap cleanup EXIT
 docker-compose build
 docker-compose up --no-start --quiet-pull --force-recreate
-# docker compose $files logs --follow &
 
 docker-compose start should-keep-restarting
 docker-compose start shouldnt-restart-healthy
 docker-compose start shouldnt-restart-no-label
-docker-compose start autoheal # & # run for the logs
+docker-compose start autoheal
 
 docker-compose up --abort-on-container-exit --exit-code-from watch-autoheal watch-autoheal
