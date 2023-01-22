@@ -33,8 +33,9 @@ RUN --mount=type=cache,id=full-build,target=/build/autoheal-rs/target \
 
 FROM alpine:3.17.1@sha256:f271e74b17ced29b915d351685fd4644785c6d1559dd1f2d4189a5e851ef753a
 
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
+# We're explicitely wanting to be root, because most consumers will just
+# run the container expecting it to work. Since Docker runs as root, we match
+USER root
 
 WORKDIR /app
 COPY --from=builder /output/bin/autoheal-rs /app
