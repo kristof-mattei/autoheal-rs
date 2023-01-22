@@ -1,18 +1,14 @@
 use anyhow::{bail, Error};
 use http_body_util::BodyExt;
-use hyper::{
-    body::{Buf, Incoming},
-    Method, Response, StatusCode,
-};
+use hyper::body::{Buf, Incoming};
+use hyper::{Method, Response, StatusCode};
 use tokio::net::UnixStream;
 
-use crate::{
-    app_config::AppConfig,
-    container_info::ContainerInfo,
-    docker_config::{DockerConfig, Endpoint},
-    http_client::{build_request, build_uri, connect_tcp_stream, send_get_post},
-    webhook::{notify_webhook_failure, notify_webhook_success},
-};
+use crate::app_config::AppConfig;
+use crate::container_info::ContainerInfo;
+use crate::docker_config::{DockerConfig, Endpoint};
+use crate::http_client::{build_request, build_uri, connect_tcp_stream, send_get_post};
+use crate::webhook::{notify_webhook_failure, notify_webhook_success};
 
 pub struct Docker {
     config: DockerConfig,

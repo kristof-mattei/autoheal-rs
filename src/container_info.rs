@@ -1,9 +1,9 @@
-use std::{fmt, marker::PhantomData, str::FromStr};
+use std::fmt;
+use std::marker::PhantomData;
+use std::str::FromStr;
 
-use serde::{
-    de::{MapAccess, SeqAccess, Visitor},
-    Deserialize, Deserializer, Serialize,
-};
+use serde::de::{MapAccess, SeqAccess, Visitor};
+use serde::{Deserialize, Deserializer, Serialize};
 
 fn deserialize_timeout<'de, T, D>(deserializer: D) -> Result<Option<T>, D::Error>
 where

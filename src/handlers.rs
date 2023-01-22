@@ -2,15 +2,8 @@ use std::io::Error;
 use std::mem::MaybeUninit;
 use std::ptr::null_mut;
 
-use libc::c_int;
-use libc::sigaction;
-use libc::sigset_t;
-use libc::SIGINT;
-use libc::SIGPIPE;
-use libc::SIGTERM;
-use libc::SIG_IGN;
-use tracing::event;
-use tracing::Level;
+use libc::{c_int, sigaction, sigset_t, SIGINT, SIGPIPE, SIGTERM, SIG_IGN};
+use tracing::{event, Level};
 
 use crate::wrap_and_report;
 
