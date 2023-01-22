@@ -5,10 +5,10 @@ version = "0.0.0-development"
 edition = "2021"
 rust-version = "1.66.1"
 authors = ["Kristof Mattei"]
-description = "Rust end-to-end application"
+description = "Monitoring application for docker containers"
 license-file = "LICENSE"
-categories = ["starter", "end-to-end"]
-keywords = ["integrity", "end-to-end", "starter", "docker", "release"]
+categories = ["command-line-utilities"]
+keywords = ["docker", "health"]
 repository = "https://github.com/kristof-mattei/autoheal-rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -28,9 +28,6 @@ tracing-subscriber = { version = "0.3.16", features = [
 http-body-util = "0.1.0-rc.2"
 hyper = { version = "1.0.0-rc.2", features = ["full"] }
 libc = "0.2.139"
-# hyperlocal = { version = "1.0.0-rc1", default-features = false, features = [
-#     "client",
-# ] }
 percent-encoding = "2.2.0"
 serde = { version = "1.0.152", features = ["derive"] }
 serde_json = "1.0.91"
