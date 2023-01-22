@@ -1,16 +1,15 @@
-use std::{collections::HashMap, convert::Into, str::FromStr};
+use std::collections::HashMap;
+use std::convert::Into;
+use std::str::FromStr;
 
 use http_body_util::Empty;
-use hyper::{
-    body::{Body, Bytes},
-    header::{HeaderName, IntoHeaderName},
-    http::{uri::PathAndQuery, HeaderValue},
-    Method, Request, Response, Uri,
-};
-use tokio::{
-    io::{AsyncRead, AsyncWrite},
-    net::TcpStream,
-};
+use hyper::body::{Body, Bytes};
+use hyper::header::{HeaderName, IntoHeaderName};
+use hyper::http::uri::PathAndQuery;
+use hyper::http::HeaderValue;
+use hyper::{Method, Request, Response, Uri};
+use tokio::io::{AsyncRead, AsyncWrite};
+use tokio::net::TcpStream;
 
 pub async fn connect_tcp_stream(url: &Uri) -> Result<TcpStream, anyhow::Error> {
     let host = url.host().expect("url has no host");
