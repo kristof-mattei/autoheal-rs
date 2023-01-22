@@ -42,6 +42,11 @@ fn main() -> Result<Infallible, anyhow::Error> {
 }
 
 async fn healer() -> Result<Infallible, anyhow::Error> {
+    let name = env!("CARGO_PKG_NAME");
+    let version = env!("CARGO_PKG_VERSION");
+
+    info!("{name} v{version}");
+
     let app_config = AppConfig::build()?;
 
     let docker = Docker::new(
