@@ -37,13 +37,22 @@ pub fn notify_webhook_failure(
 }
 
 async fn notify_webhook_and_log(webhook_url: &Uri, text: String) {
-    match notify_webhook(webhook_url, text).await {
-        Ok(_) => todo!(),
-        Err(e) => tracing::error!(message = "Failure sending webhook", error = ?e),
+    match notify_webhook(webhook_url, &text).await {
+        Ok(()) => tracing::info!(
+            message = "Successfully notified webhook",
+            url = ?webhook_url,
+            text = text
+        ),
+        Err(e) => tracing::error!(
+            message = "Failure sending webhook",
+            url = ?webhook_url,
+            text = text,
+            error = ?e
+        ),
     };
 }
 
-async fn notify_webhook(webhook_url: &Uri, text: String) -> Result<(), anyhow::Error> {
+async fn notify_webhook(webhook_url: &Uri, text: &str) -> Result<(), anyhow::Error> {
     let payload = json!({
         "text": text,
     });
@@ -51,6 +60,7 @@ async fn notify_webhook(webhook_url: &Uri, text: String) -> Result<(), anyhow::E
     let stream = http_client::connect_tcp_stream(webhook_url)
         .await
         .expect("Couldn't establish connection to webhook_url");
+
     let data = serde_json::to_string(&payload).expect("Failed to serialize payload");
 
     // execute webhook requests as background process to prevent healer from blocking

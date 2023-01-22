@@ -1,4 +1,4 @@
-FROM rust:1.65.0@sha256:6d44ed87fe759752c89d1f68596f84a23493d3d3395ed843d3a1c104866e5d9e as builder
+FROM rust:1.66.1@sha256:23b7815cff2b70148cc7fa732825a5384a347b38217f162525c8f86610a6ae35 as builder
 
 ENV TARGET=x86_64-unknown-linux-musl
 RUN rustup target add ${TARGET}
@@ -22,16 +22,20 @@ WORKDIR /build
 RUN cargo new autoheal-rs
 WORKDIR /build/autoheal-rs
 COPY Cargo.toml Cargo.lock ./
-RUN --mount=type=cache,target=/build/autoheal-rs/target \
+RUN --mount=type=cache,id=cargo-only,target=/build/autoheal-rs/target \
     cargo build --release --target ${TARGET}
 
 # now we copy in the source which is more prone to changes and build it
 COPY src ./src
 # --release not needed, it is implied with install
-RUN --mount=type=cache,target=/build/autoheal-rs/target \
+RUN --mount=type=cache,id=full-build,target=/build/autoheal-rs/target \
     cargo install --path . --target ${TARGET} --root /output
 
-FROM alpine:3.17.0@sha256:8914eb54f968791faf6a8638949e480fef81e697984fba772b3976835194c6d4
+FROM alpine:3.17.1@sha256:f271e74b17ced29b915d351685fd4644785c6d1559dd1f2d4189a5e851ef753a
+
+# We're explicitely wanting to be root, because most consumers will just
+# run the container expecting it to work. Since Docker runs as root, we match
+USER root
 
 WORKDIR /app
 COPY --from=builder /output/bin/autoheal-rs /app
