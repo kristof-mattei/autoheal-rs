@@ -52,8 +52,7 @@ impl Docker {
             Ok(())
         } else {
             bail!(format!(
-                "Tried to refresh container but it failed with {:?}",
-                status_code
+                "Tried to refresh container but it failed with {status_code:?}"
             ));
         }
     }
