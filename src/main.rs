@@ -52,7 +52,7 @@ async fn healer() -> Result<Infallible, anyhow::Error> {
     let name = env!("CARGO_PKG_NAME");
     let version = env!("CARGO_PKG_VERSION");
 
-    info!("{name} v{version}");
+    info!("{} v{}", name, version);
 
     let app_config = AppConfig::build()?;
 

@@ -17,7 +17,10 @@ pub fn notify_webhook_success(
 ) {
     let Some(webhook_url) = app_config.webhook_url.clone() else { return };
 
-    let message = format!("Container {container_name} ({container_short_id}) found to be unhealthy. Successfully restarted the container!");
+    let message = format!(
+        "Container {} ({}) found to be unhealthy. Successfully restarted the container!",
+        container_name, container_short_id
+    );
 
     tokio::task::spawn(async move {
         notify_webhook_and_log(&webhook_url, message).await;
@@ -32,7 +35,10 @@ pub fn notify_webhook_failure(
 ) {
     let Some(webhook_url) = app_config.webhook_url.clone() else { return };
 
-    let message = format!("Container {container_name} ({container_short_id}) found to be unhealthy. Failed to restart the container! Error: {error:?}");
+    let message = format!(
+        "Container {} ({}) found to be unhealthy. Failed to restart the container! Error: {:?}",
+        container_name, container_short_id, error
+    );
 
     tokio::task::spawn(async move {
         notify_webhook_and_log(&webhook_url, message).await;

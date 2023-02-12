@@ -21,7 +21,7 @@ impl DockerConfig {
                 || Ok(String::from("/var/run/docker.sock")),
                 OsString::into_string,
             )
-            .map_err(|err| anyhow::Error::msg(format!("Could not convert {err:?} to String")))?;
+            .map_err(|err| anyhow::Error::msg(format!("Could not convert {:?} to String", err)))?;
 
         let curl_timeout = parse_env_variable_with_default("CURL_TIMEOUT", 30)?;
 
@@ -48,7 +48,7 @@ impl DockerConfig {
     //         ApiConfig::Tcp(_) => String::from(
     //             "--cacert /certs/ca.pem --key /certs/client-key.pem --cert /certs/client-cert.pem",
     //         ),
-    //         ApiConfig::Socket(s) => format!("--unix-socket {s}"),
+    //         ApiConfig::Socket(s) => format!("--unix-socket {}", s),
     //     }
     // }
 }

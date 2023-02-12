@@ -42,7 +42,7 @@ impl Docker {
         container_id: &str,
         timeout: u32,
     ) -> Result<(), anyhow::Error> {
-        let path_and_query = format!("/containers/{container_id}/restart?t={timeout}");
+        let path_and_query = format!("/containers/{}/restart?t={}", container_id, timeout);
 
         let response = self.send_request(&path_and_query, Method::POST).await?;
 
@@ -52,7 +52,8 @@ impl Docker {
             Ok(())
         } else {
             bail!(format!(
-                "Tried to refresh container but it failed with {status_code:?}"
+                "Tried to refresh container but it failed with {:?}",
+                status_code
             ));
         }
     }

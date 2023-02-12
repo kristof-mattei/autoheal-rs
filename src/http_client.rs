@@ -14,7 +14,7 @@ use tokio::net::TcpStream;
 pub async fn connect_tcp_stream(url: &Uri) -> Result<TcpStream, anyhow::Error> {
     let host = url.host().expect("url has no host");
     let port = url.port_u16().unwrap_or(80);
-    let addr = format!("{host}:{port}");
+    let addr = format!("{}:{}", host, port);
     TcpStream::connect(addr).await.map_err(Into::into)
 }
 
@@ -98,7 +98,7 @@ where
 
     tokio::task::spawn(async move {
         if let Err(err) = conn.await {
-            return Err(anyhow::Error::msg(format!("Connection failed: {err:?}")));
+            return Err(anyhow::Error::msg(format!("Connection failed: {:?}", err)));
         }
 
         Ok(())
