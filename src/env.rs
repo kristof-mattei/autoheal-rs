@@ -9,10 +9,12 @@ where
         Some(Ok(Ok(ct))) => Ok(Some(ct)),
         None => Ok(None),
         Some(Ok(Err(err))) => Err(anyhow::Error::msg(format!(
-            "Could not parse {err:?} to requested type"
+            "Could not parse {:?} to requested type",
+            err
         )))?,
         Some(Err(err)) => Err(anyhow::Error::msg(format!(
-            "Could not parse {err:?} to String"
+            "Could not parse {:?} to String",
+            err
         )))?,
     }
 }

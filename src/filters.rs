@@ -5,7 +5,7 @@ pub fn build(autoheal_container_label: &str) -> serde_json::Value {
     )]);
 
     if "all" != autoheal_container_label {
-        let label_filter = format!("{autoheal_container_label}=true");
+        let label_filter = format!("{}=true", autoheal_container_label);
         json.insert("label".into(), vec![label_filter].into());
     };
 
