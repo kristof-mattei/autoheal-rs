@@ -17,7 +17,7 @@ repository = "https://github.com/kristof-mattei/autoheal-rs"
 coverage = []
 
 [dependencies]
-anyhow = { version = "1.0.69", features = ["backtrace"] }
+anyhow = { version = "1.0.70", features = ["backtrace"] }
 hex = "0.4.3"
 tracing = "0.1.37"
 tracing-subscriber = { version = "0.3.16", features = [
