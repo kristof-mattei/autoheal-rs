@@ -31,7 +31,7 @@ COPY src ./src
 RUN --mount=type=cache,id=full-build,target=/build/autoheal-rs/target \
     cargo install --path . --target ${TARGET} --root /output
 
-FROM alpine:3.17.2@sha256:ff6bdca1701f3a8a67e328815ff2346b0e4067d32ec36b7992c1fdc001dc8517
+FROM alpine:3.17.3@sha256:124c7d2707904eea7431fffe91522a01e5a861a624ee31d03372cc1d138a3126
 
 # We're explicitely wanting to be root, because most consumers will just
 # run the container expecting it to work. Since Docker runs as root, we match
