@@ -27,7 +27,7 @@ tracing-subscriber = { version = "0.3.16", features = [
 ] }
 http-body-util = "0.1.0-rc.2"
 hyper = { version = "1.0.0-rc.3", features = ["full"] }
-libc = "0.2.140"
+libc = "0.2.141"
 percent-encoding = "2.2.0"
 serde = { version = "1.0.159", features = ["derive"] }
 serde_json = "1.0.95"
