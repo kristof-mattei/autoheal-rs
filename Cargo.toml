@@ -26,7 +26,7 @@ tracing-subscriber = { version = "0.3.17", features = [
     "tracing-log",
 ] }
 http-body-util = "0.1.0-rc.3"
-hyper = { version = "1.0.0-rc.3", features = ["full"] }
+hyper = { version = "1.0.0-rc.4", features = ["full"] }
 libc = "0.2.147"
 percent-encoding = "2.3.0"
 serde = { version = "1.0.171", features = ["derive"] }
@@ -39,6 +39,9 @@ tokio = { version = "1.29.1", features = [
     "net",
 ] }
 url = { version = "2.4.0", features = ["expose_internals"] }
+hyper-util = { version = "0.0.0", default_features = false }
+pin-project-lite = "0.2.10"
+futures-util = "0.3.28"
 
 # We compile the Docker container with musl to get a static library. Smaller, faster.
 # BUT that means that we need to include openssl

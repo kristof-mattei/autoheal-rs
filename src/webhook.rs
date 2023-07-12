@@ -8,7 +8,7 @@ use hyper::{Method, Uri};
 use serde_json::json;
 
 use crate::app_config::AppConfig;
-use crate::http_client;
+use crate::{http_client, support};
 
 pub fn notify_webhook_success(
     app_config: &AppConfig,
@@ -70,6 +70,8 @@ async fn notify_webhook(webhook_url: &Uri, text: &str) -> Result<(), anyhow::Err
         .await
         .expect("Couldn't establish connection to webhook_url");
 
+    let io = support::TokioIo::new(stream);
+
     let data = serde_json::to_string(&payload).expect("Failed to serialize payload");
 
     // execute webhook requests as background process to prevent healer from blocking
@@ -86,7 +88,7 @@ async fn notify_webhook(webhook_url: &Uri, text: &str) -> Result<(), anyhow::Err
         Full::new(Bytes::from(data)),
     )?;
 
-    send_get_post(stream, request).await?;
+    send_get_post(io, request).await?;
 
     Ok(())
 }
