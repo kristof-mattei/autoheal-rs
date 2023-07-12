@@ -28,6 +28,7 @@ mod filters;
 mod handlers;
 mod helpers;
 mod http_client;
+mod support;
 mod webhook;
 
 fn main() -> Result<Infallible, anyhow::Error> {

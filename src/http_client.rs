@@ -7,8 +7,8 @@ use hyper::body::{Body, Bytes};
 use hyper::header::{HeaderName, IntoHeaderName};
 use hyper::http::uri::PathAndQuery;
 use hyper::http::HeaderValue;
+use hyper::rt::{Read, Write};
 use hyper::{Method, Request, Response, Uri};
-use tokio::io::{AsyncRead, AsyncWrite};
 use tokio::net::TcpStream;
 
 pub async fn connect_tcp_stream(url: &Uri) -> Result<TcpStream, anyhow::Error> {
@@ -89,7 +89,7 @@ pub async fn send_get_post<T, B>(
     request: Request<B>,
 ) -> Result<Response<hyper::body::Incoming>, anyhow::Error>
 where
-    T: AsyncRead + AsyncWrite + Unpin + Send + 'static,
+    T: Read + Write + Unpin + Send + 'static,
     B: Body + Send + 'static,
     B::Data: Send,
     B::Error: Into<Box<dyn std::error::Error + Send + Sync>>,

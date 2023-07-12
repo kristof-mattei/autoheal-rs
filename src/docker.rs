@@ -8,6 +8,7 @@ use crate::app_config::AppConfig;
 use crate::container_info::ContainerInfo;
 use crate::docker_config::{DockerConfig, Endpoint};
 use crate::http_client::{build_request, build_uri, connect_tcp_stream, send_get_post};
+use crate::support;
 use crate::webhook::{notify_webhook_failure, notify_webhook_success};
 
 pub struct Docker {
@@ -66,13 +67,15 @@ impl Docker {
         match &self.config.endpoint {
             Endpoint::Direct(url) => {
                 let stream = connect_tcp_stream(url).await?;
+                let io = support::TokioIo::new(stream);
                 let request = build_request(&build_uri(url.clone(), path_and_query)?, method)?;
-                send_get_post(stream, request).await
+                send_get_post(io, request).await
             },
             Endpoint::Socket(socket, url) => {
                 let stream = UnixStream::connect(&socket).await?;
+                let io = support::TokioIo::new(stream);
                 let request = build_request(&build_uri(url.clone(), path_and_query)?, method)?;
-                send_get_post(stream, request).await
+                send_get_post(io, request).await
             },
         }
     }
