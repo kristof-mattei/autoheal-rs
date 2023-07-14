@@ -13,8 +13,8 @@ use docker::Docker;
 use docker_config::DockerConfig;
 use handlers::set_up_handlers;
 use tokio::time::sleep;
-use tracing::metadata::LevelFilter;
 use tracing::{info, Level};
+use tracing::metadata::LevelFilter;
 use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::EnvFilter;
 
@@ -31,7 +31,9 @@ mod http_client;
 mod support;
 mod webhook;
 
-fn main() -> Result<Infallible, anyhow::Error> {
+fn main() -> Result<Infallible, color_eyre::Report> {
+    color_eyre::install()?;
+
     tracing_subscriber::fmt::Subscriber::builder()
         .with_env_filter(
             EnvFilter::builder()
@@ -50,7 +52,7 @@ fn main() -> Result<Infallible, anyhow::Error> {
     rt.block_on(healer())
 }
 
-async fn healer() -> Result<Infallible, anyhow::Error> {
+async fn healer() -> Result<Infallible, color_eyre::Report> {
     let name = env!("CARGO_PKG_NAME");
     let version = env!("CARGO_PKG_VERSION");
 

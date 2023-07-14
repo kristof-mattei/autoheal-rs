@@ -31,7 +31,7 @@ pub fn notify_webhook_failure(
     app_config: &AppConfig,
     container_name: &str,
     container_short_id: &str,
-    error: &anyhow::Error,
+    error: &color_eyre::Report,
 ) {
     let Some(webhook_url) = app_config.webhook_url.clone() else { return };
 
@@ -61,7 +61,7 @@ async fn notify_webhook_and_log(webhook_url: &Uri, text: String) {
     };
 }
 
-async fn notify_webhook(webhook_url: &Uri, text: &str) -> Result<(), anyhow::Error> {
+async fn notify_webhook(webhook_url: &Uri, text: &str) -> Result<(), color_eyre::Report> {
     let payload = json!({
         "text": text,
     });

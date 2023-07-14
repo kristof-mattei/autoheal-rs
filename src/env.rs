@@ -1,28 +1,40 @@
-fn parse_env_variable<T>(env_variable_name: &str) -> Result<Option<T>, anyhow::Error>
+fn parse_env_variable<T>(env_variable_name: &str) -> Result<Option<T>, color_eyre::Report>
 where
-    T: std::str::FromStr + std::fmt::Debug,
-    <T as std::str::FromStr>::Err: std::fmt::Debug,
+    T: std::str::FromStr,
+    <T as std::str::FromStr>::Err: std::error::Error,
+    <T as std::str::FromStr>::Err: std::marker::Send,
+    <T as std::str::FromStr>::Err: std::marker::Sync,
+    <T as std::str::FromStr>::Err: 'static,
 {
     match std::env::var_os(env_variable_name)
         .map(|ct| ct.into_string().map(|s| str::parse::<T>(&s)))
     {
         Some(Ok(Ok(ct))) => Ok(Some(ct)),
         None => Ok(None),
-        Some(Ok(Err(err))) => Err(anyhow::Error::msg(format!(
-            "Could not parse {:?} to requested type",
-            err
-        )))?,
-        Some(Err(err)) => Err(anyhow::Error::msg(format!(
-            "Could not parse {:?} to String",
-            err
-        )))?,
+        Some(Ok(Err(err))) => Err(color_eyre::Report::wrap_err(
+            err.into(),
+            format!(
+                "Env variable {:?} could not be cast to requested type",
+                env_variable_name
+            ),
+        )),
+        Some(Err(err)) => Err(color_eyre::Report::msg(format!(
+            "Env variable {:?} could not be cast to String. Orignal value is {:?}",
+            env_variable_name, err
+        ))),
     }
 }
 
-pub fn parse_optional_env_variable<T>(env_variable_name: &str) -> Result<Option<T>, anyhow::Error>
+pub fn parse_optional_env_variable<T>(
+    env_variable_name: &str,
+) -> Result<Option<T>, color_eyre::Report>
 where
-    T: std::str::FromStr + std::fmt::Debug,
-    <T as std::str::FromStr>::Err: std::fmt::Debug,
+    T: std::fmt::Debug,
+    T: std::str::FromStr,
+    <T as std::str::FromStr>::Err: std::error::Error,
+    <T as std::str::FromStr>::Err: std::marker::Send,
+    <T as std::str::FromStr>::Err: std::marker::Sync,
+    <T as std::str::FromStr>::Err: 'static,
 {
     match parse_env_variable(env_variable_name) {
         Ok(Some(ct)) => {
@@ -40,10 +52,14 @@ where
 pub fn parse_env_variable_with_default<T>(
     env_variable_name: &str,
     default: T,
-) -> Result<T, anyhow::Error>
+) -> Result<T, color_eyre::Report>
 where
-    T: std::str::FromStr + std::fmt::Debug,
-    <T as std::str::FromStr>::Err: std::fmt::Debug,
+    T: std::fmt::Debug,
+    T: std::str::FromStr,
+    <T as std::str::FromStr>::Err: std::error::Error,
+    <T as std::str::FromStr>::Err: std::marker::Send,
+    <T as std::str::FromStr>::Err: std::marker::Sync,
+    <T as std::str::FromStr>::Err: 'static,
 {
     match parse_env_variable(env_variable_name) {
         Ok(Some(ct)) => {

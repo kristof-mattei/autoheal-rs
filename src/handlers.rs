@@ -19,7 +19,7 @@ pub extern "C" fn sig_handler(signal: i32) {
     // RUNNING.store(false, Ordering::SeqCst);
 }
 
-fn set_up_handler(signum: c_int, handler: usize) -> Result<(), anyhow::Error> {
+fn set_up_handler(signum: c_int, handler: usize) -> Result<(), color_eyre::Report> {
     let sa = sigaction {
         sa_sigaction: handler,
         sa_flags: 0,
@@ -39,7 +39,7 @@ fn set_up_handler(signum: c_int, handler: usize) -> Result<(), anyhow::Error> {
     Ok(())
 }
 
-pub(crate) fn set_up_handlers() -> Result<(), anyhow::Error> {
+pub(crate) fn set_up_handlers() -> Result<(), color_eyre::Report> {
     set_up_handler(SIGPIPE, SIG_IGN)?;
     set_up_handler(SIGTERM, sig_handler as usize)?;
     set_up_handler(SIGINT, sig_handler as usize)?;
