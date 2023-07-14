@@ -13,8 +13,8 @@ use docker::Docker;
 use docker_config::DockerConfig;
 use handlers::set_up_handlers;
 use tokio::time::sleep;
-use tracing::{info, Level};
 use tracing::metadata::LevelFilter;
+use tracing::{info, Level};
 use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::EnvFilter;
 

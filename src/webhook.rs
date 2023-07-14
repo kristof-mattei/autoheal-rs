@@ -15,7 +15,9 @@ pub fn notify_webhook_success(
     container_short_id: &str,
     container_name: &str,
 ) {
-    let Some(webhook_url) = app_config.webhook_url.clone() else { return };
+    let Some(webhook_url) = app_config.webhook_url.clone() else {
+        return;
+    };
 
     let message = format!(
         "Container {} ({}) found to be unhealthy. Successfully restarted the container!",
@@ -33,7 +35,9 @@ pub fn notify_webhook_failure(
     container_short_id: &str,
     error: &color_eyre::Report,
 ) {
-    let Some(webhook_url) = app_config.webhook_url.clone() else { return };
+    let Some(webhook_url) = app_config.webhook_url.clone() else {
+        return;
+    };
 
     let message = format!(
         "Container {} ({}) found to be unhealthy. Failed to restart the container! Error: {:?}",
