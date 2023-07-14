@@ -14,14 +14,16 @@ pub enum Endpoint {
 }
 
 impl DockerConfig {
-    pub fn build() -> Result<DockerConfig, anyhow::Error> {
+    pub fn build() -> Result<DockerConfig, color_eyre::Report> {
         const TCP_START: &str = "tcp://";
         let mut docker_socket_or_uri = std::env::var_os("DOCKER_SOCK")
             .map_or_else(
                 || Ok(String::from("/var/run/docker.sock")),
                 OsString::into_string,
             )
-            .map_err(|err| anyhow::Error::msg(format!("Could not convert {:?} to String", err)))?;
+            .map_err(|err| {
+                color_eyre::Report::msg(format!("Could not convert {:?} to String", err))
+            })?;
 
         let curl_timeout = parse_env_variable_with_default("CURL_TIMEOUT", 30)?;
 

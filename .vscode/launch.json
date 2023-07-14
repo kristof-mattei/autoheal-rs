@@ -18,8 +18,8 @@
             "args": [],
             "cwd": "${workspaceFolder}",
             "env": {
-                "RUST_BACKTRACE": "1",
-                "RUST_LOG": "autoheal_rs=trace"
+                "RUST_BACKTRACE": "full",
+                "RUST_LOG": "trace,autoheal_rs=trace"
             }
         },
         {
@@ -41,8 +41,8 @@
             "args": [],
             "cwd": "${workspaceFolder}",
             "env": {
-                "RUST_BACKTRACE": "1",
-                "RUST_LOG": "autoheal_rs=trace"
+                "RUST_BACKTRACE": "full",
+                "RUST_LOG": "trace,autoheal_rs=trace"
             }
         }
     ]

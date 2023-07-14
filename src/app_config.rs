@@ -11,7 +11,7 @@ pub struct AppConfig {
 }
 
 impl AppConfig {
-    pub fn build() -> Result<AppConfig, anyhow::Error> {
+    pub fn build() -> Result<AppConfig, color_eyre::Report> {
         Ok(AppConfig {
             webhook_url: parse_optional_env_variable("WEBHOOK_URL")?,
             autoheal_container_label: parse_env_variable_with_default(

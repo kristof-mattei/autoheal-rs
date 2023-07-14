@@ -11,14 +11,17 @@ use hyper::rt::{Read, Write};
 use hyper::{Method, Request, Response, Uri};
 use tokio::net::TcpStream;
 
-pub async fn connect_tcp_stream(url: &Uri) -> Result<TcpStream, anyhow::Error> {
+pub async fn connect_tcp_stream(url: &Uri) -> Result<TcpStream, color_eyre::Report> {
     let host = url.host().expect("url has no host");
     let port = url.port_u16().unwrap_or(80);
     let addr = format!("{}:{}", host, port);
     TcpStream::connect(addr).await.map_err(Into::into)
 }
 
-pub fn build_request(uri: &Uri, method: Method) -> Result<Request<Empty<Bytes>>, anyhow::Error> {
+pub fn build_request(
+    uri: &Uri,
+    method: Method,
+) -> Result<Request<Empty<Bytes>>, color_eyre::Report> {
     build_request_with_headers_and_body::<_, HeaderName>(
         uri,
         HashMap::default(),
@@ -32,7 +35,7 @@ pub fn build_request_with_body<B>(
     uri: &Uri,
     method: Method,
     body: B,
-) -> Result<Request<B>, anyhow::Error>
+) -> Result<Request<B>, color_eyre::Report>
 where
     B: Body + Send + 'static,
     B::Data: Send,
@@ -46,7 +49,7 @@ pub fn build_request_with_headers<K>(
     uri: &Uri,
     headers: HashMap<K, HeaderValue>,
     method: Method,
-) -> Result<Request<Empty<Bytes>>, anyhow::Error>
+) -> Result<Request<Empty<Bytes>>, color_eyre::Report>
 where
     K: IntoHeaderName,
 {
@@ -58,7 +61,7 @@ pub fn build_request_with_headers_and_body<B, K>(
     headers: HashMap<K, HeaderValue>,
     method: Method,
     body: B,
-) -> Result<Request<B>, anyhow::Error>
+) -> Result<Request<B>, color_eyre::Report>
 where
     B: Body + Send + 'static,
     B::Data: Send,
@@ -87,7 +90,7 @@ where
 pub async fn send_get_post<T, B>(
     stream: T,
     request: Request<B>,
-) -> Result<Response<hyper::body::Incoming>, anyhow::Error>
+) -> Result<Response<hyper::body::Incoming>, color_eyre::Report>
 where
     T: Read + Write + Unpin + Send + 'static,
     B: Body + Send + 'static,
@@ -97,11 +100,8 @@ where
     let (mut sender, conn) = hyper::client::conn::http1::handshake(stream).await?;
 
     tokio::task::spawn(async move {
-        if let Err(err) = conn.await {
-            return Err(anyhow::Error::msg(format!("Connection failed: {:?}", err)));
-        }
-
-        Ok(())
+        conn.await
+            .map_err(|e| Into::<color_eyre::Report>::into(e).wrap_err("Connection failed"))
     });
 
     let response = sender.send_request(request).await?;
@@ -109,7 +109,7 @@ where
     Ok(response)
 }
 
-pub fn build_uri(base_url: Uri, path_and_query: &str) -> Result<Uri, anyhow::Error> {
+pub fn build_uri(base_url: Uri, path_and_query: &str) -> Result<Uri, color_eyre::Report> {
     let mut parts = base_url.into_parts();
 
     parts.path_and_query =

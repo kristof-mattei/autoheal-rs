@@ -17,7 +17,6 @@ repository = "https://github.com/kristof-mattei/autoheal-rs"
 coverage = []
 
 [dependencies]
-anyhow = { version = "1.0.71", features = ["backtrace"] }
 hex = "0.4.3"
 tracing = "0.1.37"
 tracing-subscriber = { version = "0.3.17", features = [
@@ -42,6 +41,7 @@ url = { version = "2.4.0", features = ["expose_internals"] }
 hyper-util = { version = "0.0.0", default_features = false }
 pin-project-lite = "0.2.10"
 futures-util = "0.3.28"
+color-eyre = "0.6.2"
 
 # We compile the Docker container with musl to get a static library. Smaller, faster.
 # BUT that means that we need to include openssl
