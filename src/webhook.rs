@@ -5,10 +5,11 @@ use http_client::{build_request_with_headers_and_body, send_get_post};
 use hyper::body::Bytes;
 use hyper::http::HeaderValue;
 use hyper::{Method, Uri};
+use hyper_util::rt::TokioIo;
 use serde_json::json;
 
 use crate::app_config::AppConfig;
-use crate::{http_client, support};
+use crate::http_client;
 
 pub fn notify_webhook_success(
     app_config: &AppConfig,
@@ -74,7 +75,7 @@ async fn notify_webhook(webhook_url: &Uri, text: &str) -> Result<(), color_eyre:
         .await
         .expect("Couldn't establish connection to webhook_url");
 
-    let io = support::TokioIo::new(stream);
+    let io = TokioIo::new(stream);
 
     let data = serde_json::to_string(&payload).expect("Failed to serialize payload");
 
