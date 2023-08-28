@@ -38,7 +38,7 @@ tokio = { version = "1.32.0", features = [
     "signal",
     "net",
 ] }
-url = { version = "2.4.0", features = ["expose_internals"] }
+url = { version = "2.4.1", features = ["expose_internals"] }
 hyper-util = { git = "https://github.com/hyperium/hyper-util", default-features = false, rev = "f898015fc9eca9f459ddac521db278d904099e89" }
 
 # We compile the Docker container with musl to get a static library. Smaller, faster.
