@@ -1,6 +1,6 @@
 use std::ffi::OsString;
 
-use crate::env::parse_env_variable_with_default;
+use crate::env::try_parse_env_variable_with_default;
 
 pub struct DockerConfig {
     pub endpoint: Endpoint,
@@ -25,7 +25,7 @@ impl DockerConfig {
                 color_eyre::Report::msg(format!("Could not convert {:?} to String", err))
             })?;
 
-        let curl_timeout = parse_env_variable_with_default("CURL_TIMEOUT", 30)?;
+        let curl_timeout = try_parse_env_variable_with_default("CURL_TIMEOUT", 30)?;
 
         let endpoint = if docker_socket_or_uri.starts_with(TCP_START) {
             docker_socket_or_uri.replace_range(..TCP_START.len(), "https://");
