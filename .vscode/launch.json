@@ -18,9 +18,10 @@
             "args": [],
             "cwd": "${workspaceFolder}",
             "env": {
-                "RUST_BACKTRACE": "full",
-                "RUST_LOG": "trace,autoheal_rs=trace"
-            }
+                "RUST_BACKTRACE": "1",
+                "RUST_LOG": "debug,autoheal-rs=trace"
+            },
+            "terminal": "console"
         },
         {
             "type": "lldb",
@@ -41,9 +42,34 @@
             "args": [],
             "cwd": "${workspaceFolder}",
             "env": {
-                "RUST_BACKTRACE": "full",
-                "RUST_LOG": "trace,autoheal_rs=trace"
-            }
+                "RUST_BACKTRACE": "1",
+                "RUST_LOG": "debug,autoheal-rs=trace"
+            },
+            "terminal": "console"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'integration_tests'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=integration_tests",
+                    "--package=autoheal-rs"
+                ],
+                "filter": {
+                    "name": "integration_tests",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "RUST_BACKTRACE": "1",
+                "RUST_LOG": "debug,autoheal-rs=trace"
+            },
+            "terminal": "console"
         }
     ]
 }
