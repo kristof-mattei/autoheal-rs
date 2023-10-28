@@ -6,7 +6,7 @@ use hyper_util::rt::TokioIo;
 use tokio::net::UnixStream;
 
 use crate::app_config::AppConfig;
-use crate::container_info::ContainerInfo;
+use crate::container::Container;
 use crate::docker_config::{DockerConfig, Endpoint};
 use crate::http_client::{build_request, build_uri, connect_tcp_stream, send_get_post};
 use crate::webhook::{notify_webhook_failure, notify_webhook_success};
@@ -26,14 +26,14 @@ impl Docker {
         }
     }
 
-    pub async fn get_container_info(&self) -> Result<Vec<ContainerInfo>, color_eyre::Report> {
+    pub async fn get_containers(&self) -> Result<Vec<Container>, color_eyre::Report> {
         let path_and_query = format!("/containers/json?filters={}", self.encoded_filters);
 
         let response = self.send_request(&path_and_query, Method::GET).await?;
 
         let reader = response.collect().await?.aggregate().reader();
 
-        let result = serde_json::from_reader::<_, Vec<ContainerInfo>>(reader)?;
+        let result = serde_json::from_reader::<_, Vec<Container>>(reader)?;
 
         Ok(result)
     }
@@ -80,11 +80,7 @@ impl Docker {
         }
     }
 
-    pub async fn check_container_health(
-        &self,
-        app_config: &AppConfig,
-        container_info: ContainerInfo,
-    ) {
+    pub async fn check_container_health(&self, app_config: &AppConfig, container_info: Container) {
         let container_short_id = &container_info.id[0..12];
 
         match &container_info.name {
