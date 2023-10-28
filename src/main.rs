@@ -21,7 +21,7 @@ use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::EnvFilter;
 
 mod app_config;
-mod container_info;
+mod container;
 mod docker;
 mod docker_config;
 mod encoding;
@@ -78,7 +78,7 @@ async fn healer() -> Result<Infallible, color_eyre::Report> {
     }
 
     loop {
-        match docker.get_container_info().await {
+        match docker.get_containers().await {
             Ok(container_infos) => {
                 for c_i in container_infos {
                     docker.check_container_health(&app_config, c_i).await;

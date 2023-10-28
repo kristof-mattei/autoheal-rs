@@ -81,7 +81,7 @@ where
 
 #[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
 #[serde(rename_all = "PascalCase")]
-pub struct ContainerInfo {
+pub struct Container {
     pub id: String,
     #[serde(deserialize_with = "deserialize_first")]
     #[serde(rename(deserialize = "Names"), default)]
@@ -94,31 +94,31 @@ pub struct ContainerInfo {
 
 #[cfg(test)]
 mod tests {
-    use crate::container_info::ContainerInfo;
+    use crate::container::Container;
 
     #[test]
     fn test_deserialize() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"State":"running"},{"Id":"281ea0c72e2e4a41fd2f81df945da9dfbfbc7ea0fe5e59c3d2a8234552e367cf","Names":["/whoogle-search"],"State":"running"}]"#;
 
-        let deserialized: Result<Vec<ContainerInfo>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
         assert_eq!(
             &[
-                ContainerInfo {
+                Container {
                     id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
                     name: Some("/photoprism".into()),
                     state: "running".into(),
                     timeout: None,
                 },
-                ContainerInfo {
+                Container {
                     id: "281ea0c72e2e4a41fd2f81df945da9dfbfbc7ea0fe5e59c3d2a8234552e367cf".into(),
                     name: Some("/whoogle-search".into()),
                     state: "running".into(),
                     timeout: None,
                 }
-            ] as &[ContainerInfo],
+            ] as &[Container],
             deserialized.unwrap()
         );
     }
@@ -127,17 +127,17 @@ mod tests {
     fn test_deserialize_multiple_names() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism","/photoprism-name-2"],"State":"running"}]"#;
 
-        let deserialized: Result<Vec<ContainerInfo>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
         assert_eq!(
-            &[ContainerInfo {
+            &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
                 name: Some("/photoprism".into()),
                 state: "running".into(),
                 timeout: None,
-            }] as &[ContainerInfo],
+            }] as &[Container],
             deserialized.unwrap()
         );
     }
@@ -146,17 +146,17 @@ mod tests {
     fn test_deserialize_timeout() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"State":"running","Labels":{"autoheal.stop.timeout":"12"}}]"#;
 
-        let deserialized: Result<Vec<ContainerInfo>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
         assert_eq!(
-            &[ContainerInfo {
+            &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
                 name: Some("/photoprism".into()),
                 state: "running".into(),
                 timeout: Some(12),
-            }] as &[ContainerInfo],
+            }] as &[Container],
             deserialized.unwrap()
         );
     }
@@ -164,17 +164,17 @@ mod tests {
     fn test_deserialize_no_labels() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"State":"running"}]"#;
 
-        let deserialized: Result<Vec<ContainerInfo>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
         assert_eq!(
-            &[ContainerInfo {
+            &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
                 name: Some("/photoprism".into()),
                 state: "running".into(),
                 timeout: None,
-            }] as &[ContainerInfo],
+            }] as &[Container],
             deserialized.unwrap()
         );
     }
@@ -183,17 +183,17 @@ mod tests {
     fn test_deserialize_missing_timeout() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
-        let deserialized: Result<Vec<ContainerInfo>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
         assert_eq!(
-            &[ContainerInfo {
+            &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
                 name: Some("/photoprism".into()),
                 state: "running".into(),
                 timeout: None,
-            }] as &[ContainerInfo],
+            }] as &[Container],
             deserialized.unwrap()
         );
     }
@@ -202,17 +202,17 @@ mod tests {
     fn test_deserialize_with_no_name_array() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
-        let deserialized: Result<Vec<ContainerInfo>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
         assert_eq!(
-            &[ContainerInfo {
+            &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
                 name: None,
                 state: "running".into(),
                 timeout: None,
-            }] as &[ContainerInfo],
+            }] as &[Container],
             deserialized.unwrap()
         );
     }
@@ -221,17 +221,17 @@ mod tests {
     fn test_deserialize_name_array_with_1_null() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":[null],"State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
-        let deserialized: Result<Vec<ContainerInfo>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
         assert_eq!(
-            &[ContainerInfo {
+            &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
                 name: None,
                 state: "running".into(),
                 timeout: None,
-            }] as &[ContainerInfo],
+            }] as &[Container],
             deserialized.unwrap()
         );
     }
@@ -240,17 +240,17 @@ mod tests {
     fn test_deserialize_name_empty_name_array() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":[],"State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
-        let deserialized: Result<Vec<ContainerInfo>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
         assert_eq!(
-            &[ContainerInfo {
+            &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
                 name: None,
                 state: "running".into(),
                 timeout: None,
-            }] as &[ContainerInfo],
+            }] as &[Container],
             deserialized.unwrap()
         );
     }
