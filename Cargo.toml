@@ -26,7 +26,18 @@ tracing-subscriber = { version = "0.3.17", features = [
     "tracing-log",
 ] }
 http-body-util = "0.1.0-rc.3"
-hyper = { version = "1.0.0-rc.4", features = ["full"] }
+hyper = { version = "1.0.0-rc.4", default-features = false }
+
+hyper-util = { git = "https://github.com/hyperium/hyper-util", default-features = false, features = [
+    "client",
+    "http1",
+], rev = "ced9f812460420017705fa7cae4dca7be9e23f4a" }
+
+hyper-tls = { git = "https://github.com/kristof-mattei/hyper-tls", rev = "d6026c4d23a86dc545071c64a052613d2e412b49", features = [
+    "vendored",
+] }
+hyper-unix-socket = { git = "https://github.com/kristof-mattei/hyper-unix-socket", rev = "01572fe3103857baafb0d31161ab85592810602e" }
+
 libc = "0.2.149"
 percent-encoding = "2.3.0"
 serde = { version = "1.0.190", features = ["derive"] }
@@ -38,12 +49,5 @@ tokio = { version = "1.33.0", features = [
     "signal",
     "net",
 ] }
+http = "0.2.9"
 url = { version = "2.4.1", features = ["expose_internals"] }
-hyper-util = { git = "https://github.com/hyperium/hyper-util", default-features = false, rev = "1ed4c2ccdb23f576eb7024555f08b376b9d5c9eb" }
-
-# We compile the Docker container with musl to get a static library. Smaller, faster.
-# BUT that means that we need to include openssl
-# Documentation on the syntax:
-# https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#platform-specific-dependencies
-[target.'cfg(all(target_arch = "x86_64", target_os="linux", target_env="musl"))'.dependencies]
-# openssl = { version = "0.10.36", features = ["vendored"] }

@@ -7,23 +7,19 @@ use hyper::body::{Body, Bytes};
 use hyper::header::{HeaderName, IntoHeaderName};
 use hyper::http::uri::PathAndQuery;
 use hyper::http::HeaderValue;
-use hyper::rt::{Read, Write};
 use hyper::{Method, Request, Response, Uri};
-use tokio::net::TcpStream;
-
-pub async fn connect_tcp_stream(url: &Uri) -> Result<TcpStream, color_eyre::Report> {
-    let host = url.host().expect("url has no host");
-    let port = url.port_u16().unwrap_or(80);
-    let addr = format!("{}:{}", host, port);
-    TcpStream::connect(addr).await.map_err(Into::into)
-}
+use hyper_util::client::connect::Connect;
+use hyper_util::client::legacy::Client;
+use hyper_util::rt::TokioExecutor;
 
 pub fn build_request(
-    uri: &Uri,
+    base: Uri,
+    path_and_query: &str,
     method: Method,
 ) -> Result<Request<Empty<Bytes>>, color_eyre::Report> {
     build_request_with_headers_and_body::<_, HeaderName>(
-        uri,
+        base,
+        path_and_query,
         HashMap::default(),
         method,
         Empty::<Bytes>::new(),
@@ -32,7 +28,8 @@ pub fn build_request(
 
 #[allow(unused)]
 pub fn build_request_with_body<B>(
-    uri: &Uri,
+    base: Uri,
+    path_and_query: &str,
     method: Method,
     body: B,
 ) -> Result<Request<B>, color_eyre::Report>
@@ -41,23 +38,37 @@ where
     B::Data: Send,
     B::Error: Into<Box<dyn std::error::Error + Send + Sync>>,
 {
-    build_request_with_headers_and_body::<B, HeaderName>(uri, HashMap::default(), method, body)
+    build_request_with_headers_and_body::<B, HeaderName>(
+        base,
+        path_and_query,
+        HashMap::default(),
+        method,
+        body,
+    )
 }
 
 #[allow(unused)]
 pub fn build_request_with_headers<K>(
-    uri: &Uri,
+    base: Uri,
+    path_and_query: &str,
     headers: HashMap<K, HeaderValue>,
     method: Method,
 ) -> Result<Request<Empty<Bytes>>, color_eyre::Report>
 where
     K: IntoHeaderName,
 {
-    build_request_with_headers_and_body(uri, headers, method, Empty::<Bytes>::new())
+    build_request_with_headers_and_body(
+        base,
+        path_and_query,
+        headers,
+        method,
+        Empty::<Bytes>::new(),
+    )
 }
 
 pub fn build_request_with_headers_and_body<B, K>(
-    uri: &Uri,
+    base: Uri,
+    path_and_query: &str,
     headers: HashMap<K, HeaderValue>,
     method: Method,
     body: B,
@@ -68,43 +79,35 @@ where
     B::Error: Into<Box<dyn std::error::Error + Send + Sync>>,
     K: IntoHeaderName,
 {
-    let host = uri.host().expect("Host not found in uri").to_string();
+    let full_url = build_uri(base, path_and_query)?;
 
-    let mut request = Request::builder().uri(uri).body::<B>(body)?;
-
-    *request.method_mut() = method;
+    let mut request = Request::builder()
+        .uri(full_url)
+        .method(method)
+        .body::<B>(body)?;
 
     let request_headers = request.headers_mut();
-
-    // default host in case no headers are passed in but allow for overwriting
-    request_headers.insert(hyper::header::HOST, HeaderValue::from_str(&host)?);
 
     for (k, v) in headers {
         request_headers.insert(k, v);
     }
 
-    // headers.insert
-
     Ok(request)
 }
-pub async fn send_get_post<T, B>(
-    stream: T,
+
+pub async fn execute_request<C, B>(
+    connector: C,
     request: Request<B>,
 ) -> Result<Response<hyper::body::Incoming>, color_eyre::Report>
 where
-    T: Read + Write + Unpin + Send + 'static,
-    B: Body + Send + 'static,
+    C: Connect + Clone + Send + Sync + 'static,
+    B: Body + Send + 'static + Unpin,
     B::Data: Send,
     B::Error: Into<Box<dyn std::error::Error + Send + Sync>>,
 {
-    let (mut sender, conn) = hyper::client::conn::http1::handshake(stream).await?;
+    let client = Client::builder(TokioExecutor::new()).build::<_, B>(connector);
 
-    tokio::task::spawn(async move {
-        conn.await
-            .map_err(|e| Into::<color_eyre::Report>::into(e).wrap_err("Connection failed"))
-    });
-
-    let response = sender.send_request(request).await?;
+    let response = client.request(request).await?;
 
     Ok(response)
 }
@@ -112,8 +115,7 @@ where
 pub fn build_uri(base_url: Uri, path_and_query: &str) -> Result<Uri, color_eyre::Report> {
     let mut parts = base_url.into_parts();
 
-    parts.path_and_query =
-        Some(PathAndQuery::from_str(path_and_query).expect("Invalid path and query"));
+    parts.path_and_query = Some(PathAndQuery::from_str(path_and_query)?);
 
     Uri::from_parts(parts).map_err(Into::into)
 }

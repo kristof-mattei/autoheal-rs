@@ -1,15 +1,14 @@
-use std::collections::HashMap;
-
+use color_eyre::eyre::Context;
+use http::Request;
 use http_body_util::Full;
-use http_client::{build_request_with_headers_and_body, send_get_post};
 use hyper::body::Bytes;
 use hyper::http::HeaderValue;
 use hyper::{Method, Uri};
-use hyper_util::rt::TokioIo;
+use hyper_tls::HttpsConnector;
 use serde_json::json;
 
 use crate::app_config::AppConfig;
-use crate::http_client;
+use crate::http_client::execute_request;
 
 pub fn notify_webhook_success(
     app_config: &AppConfig,
@@ -67,33 +66,24 @@ async fn notify_webhook_and_log(webhook_url: &Uri, text: String) {
 }
 
 async fn notify_webhook(webhook_url: &Uri, text: &str) -> Result<(), color_eyre::Report> {
+    let connector = HttpsConnector::new();
+
     let payload = json!({
         "text": text,
     });
 
-    let stream = http_client::connect_tcp_stream(webhook_url)
-        .await
-        .expect("Couldn't establish connection to webhook_url");
+    let data = serde_json::to_string(&payload).wrap_err_with(|| "Failed to serialize payload")?;
 
-    let io = TokioIo::new(stream);
+    let request = Request::builder()
+        .uri(webhook_url)
+        .method(Method::POST)
+        .header(
+            hyper::header::CONTENT_TYPE,
+            HeaderValue::from_static("application/json"),
+        )
+        .body(Full::new(Bytes::from(data)))?;
 
-    let data = serde_json::to_string(&payload).expect("Failed to serialize payload");
-
-    // execute webhook requests as background process to prevent healer from blocking
-    #[allow(clippy::mutable_key_type)]
-    let headers = HashMap::from_iter([(
-        hyper::header::CONTENT_TYPE,
-        HeaderValue::from_static("application/json"),
-    )]);
-
-    let request = build_request_with_headers_and_body(
-        webhook_url,
-        headers,
-        Method::POST,
-        Full::new(Bytes::from(data)),
-    )?;
-
-    send_get_post(io, request).await?;
+    execute_request(connector, request).await?;
 
     Ok(())
 }

@@ -1,14 +1,18 @@
+use std::time::Duration;
+
 use color_eyre::eyre::bail;
+use http::Uri;
 use http_body_util::BodyExt;
 use hyper::body::{Buf, Incoming};
 use hyper::{Method, Response, StatusCode};
-use hyper_util::rt::TokioIo;
-use tokio::net::UnixStream;
+use hyper_tls::HttpsConnector;
+use hyper_unix_socket::UnixSocketConnector;
+use tokio::time::timeout;
 
 use crate::app_config::AppConfig;
 use crate::container::Container;
 use crate::docker_config::{DockerConfig, Endpoint};
-use crate::http_client::{build_request, build_uri, connect_tcp_stream, send_get_post};
+use crate::http_client::{build_request, execute_request};
 use crate::webhook::{notify_webhook_failure, notify_webhook_success};
 
 pub struct Docker {
@@ -65,17 +69,30 @@ impl Docker {
         method: Method,
     ) -> Result<Response<Incoming>, color_eyre::Report> {
         match &self.config.endpoint {
-            Endpoint::Direct(url) => {
-                let stream = connect_tcp_stream(url).await?;
-                let io = TokioIo::new(stream);
-                let request = build_request(&build_uri(url.clone(), path_and_query)?, method)?;
-                send_get_post(io, request).await
+            Endpoint::Direct {
+                url,
+                timeout_milliseconds,
+            } => {
+                let connector = HttpsConnector::new();
+                let request = build_request(url.clone(), path_and_query, method)?;
+
+                let response = execute_request(connector, request);
+
+                match timeout(Duration::from_millis(*timeout_milliseconds), response).await {
+                    Ok(Ok(o)) => Ok(o),
+                    Ok(Err(e)) => Err(e),
+                    Err(e) => Err(e.into()),
+                }
             },
-            Endpoint::Socket(socket, url) => {
-                let stream = UnixStream::connect(&socket).await?;
-                let io = TokioIo::new(stream);
-                let request = build_request(&build_uri(url.clone(), path_and_query)?, method)?;
-                send_get_post(io, request).await
+            Endpoint::Socket(socket) => {
+                let connector = UnixSocketConnector::new(socket.clone());
+
+                let request =
+                    build_request(Uri::from_static("http://localhost"), path_and_query, method)?;
+
+                execute_request(connector, request)
+                    .await
+                    .map_err(Into::into)
             },
         }
     }
