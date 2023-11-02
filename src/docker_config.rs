@@ -4,13 +4,15 @@ use crate::env::try_parse_env_variable_with_default;
 
 pub struct DockerConfig {
     pub endpoint: Endpoint,
-    pub curl_timeout: u32,
     pub options: Vec<String>,
 }
 
 pub enum Endpoint {
-    Direct(hyper::Uri),
-    Socket(String, hyper::Uri),
+    Direct {
+        url: http::Uri,
+        timeout_milliseconds: u64,
+    },
+    Socket(String),
 }
 
 impl DockerConfig {
@@ -25,22 +27,24 @@ impl DockerConfig {
                 color_eyre::Report::msg(format!("Could not convert {:?} to String", err))
             })?;
 
-        let curl_timeout = try_parse_env_variable_with_default("CURL_TIMEOUT", 30)?;
+        let timeout_milliseconds = try_parse_env_variable_with_default("CURL_TIMEOUT", 30)?;
 
         let endpoint = if docker_socket_or_uri.starts_with(TCP_START) {
             docker_socket_or_uri.replace_range(..TCP_START.len(), "https://");
 
-            Endpoint::Direct(docker_socket_or_uri.parse().unwrap())
+            Endpoint::Direct {
+                url: docker_socket_or_uri.parse().unwrap(),
+                timeout_milliseconds,
+            }
         } else {
             // we're connecting over a socket, so the uri is localhost
-            Endpoint::Socket(docker_socket_or_uri, "http://localhost".parse().unwrap())
+            Endpoint::Socket(docker_socket_or_uri)
         };
 
         // TODO check if docker socket exists
 
         Ok(DockerConfig {
             endpoint,
-            curl_timeout,
             options: vec![],
         })
     }
