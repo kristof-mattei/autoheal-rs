@@ -1,6 +1,7 @@
 use std::time::Duration;
 
 use color_eyre::eyre::bail;
+use http::Uri;
 use http_body_util::BodyExt;
 use hyper::body::{Buf, Incoming};
 use hyper::{Method, Response, StatusCode};
@@ -86,7 +87,8 @@ impl Docker {
             Endpoint::Socket(socket) => {
                 let connector = UnixSocketConnector::new(socket.clone());
 
-                let request = build_request("http://localhost".parse()?, path_and_query, method)?;
+                let request =
+                    build_request(Uri::from_static("http://localhost"), path_and_query, method)?;
 
                 execute_request(connector, request)
                     .await
