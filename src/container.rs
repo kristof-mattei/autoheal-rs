@@ -2,7 +2,7 @@ use std::fmt;
 use std::marker::PhantomData;
 use std::str::FromStr;
 
-use serde::de::{MapAccess, SeqAccess, Visitor};
+use serde::de::{MapAccess, Visitor};
 use serde::{Deserialize, Deserializer, Serialize};
 
 fn deserialize_timeout<'de, T, D>(deserializer: D) -> Result<Option<T>, D::Error>
@@ -43,49 +43,12 @@ where
     deserializer.deserialize_map(visitor)
 }
 
-fn deserialize_first<'de, T, D>(deserializer: D) -> Result<Option<T>, D::Error>
-where
-    T: Deserialize<'de> + Ord,
-    D: Deserializer<'de>,
-{
-    struct MaxVisitor<T>(PhantomData<fn() -> T>);
-
-    impl<'de, T> Visitor<'de> for MaxVisitor<T>
-    where
-        T: Deserialize<'de> + Ord,
-    {
-        type Value = Option<T>;
-
-        fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-            formatter.write_str("a nonempty sequence of items")
-        }
-
-        fn visit_seq<S>(self, mut seq: S) -> Result<Self::Value, S::Error>
-        where
-            S: SeqAccess<'de>,
-        {
-            if let Some(first) = seq.next_element()? {
-                // SeqAccess requires us to visit all elements
-                while (seq.next_element::<T>()?).is_some() {}
-
-                Ok(first)
-            } else {
-                Ok(None)
-            }
-        }
-    }
-
-    let visitor = MaxVisitor(PhantomData);
-    deserializer.deserialize_seq(visitor)
-}
-
 #[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
 #[serde(rename_all = "PascalCase")]
 pub struct Container {
     pub id: String,
-    #[serde(deserialize_with = "deserialize_first")]
     #[serde(rename(deserialize = "Names"), default)]
-    pub name: Option<String>,
+    pub names: Vec<String>,
     pub state: String,
     #[serde(deserialize_with = "deserialize_timeout")]
     #[serde(rename(deserialize = "Labels"), default)]
@@ -108,13 +71,13 @@ mod tests {
             &[
                 Container {
                     id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                    name: Some("/photoprism".into()),
+                    names: vec!["/photoprism".into()],
                     state: "running".into(),
                     timeout: None,
                 },
                 Container {
                     id: "281ea0c72e2e4a41fd2f81df945da9dfbfbc7ea0fe5e59c3d2a8234552e367cf".into(),
-                    name: Some("/whoogle-search".into()),
+                    names: vec!["/whoogle-search".into()],
                     state: "running".into(),
                     timeout: None,
                 }
@@ -125,7 +88,7 @@ mod tests {
 
     #[test]
     fn test_deserialize_multiple_names() {
-        let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism","/photoprism-name-2"],"State":"running"}]"#;
+        let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism-1","/photoprism-2"],"State":"running"}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
 
@@ -134,7 +97,7 @@ mod tests {
         assert_eq!(
             &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                name: Some("/photoprism".into()),
+                names: vec!["/photoprism-1".into(), "/photoprism-2".into()],
                 state: "running".into(),
                 timeout: None,
             }] as &[Container],
@@ -153,13 +116,14 @@ mod tests {
         assert_eq!(
             &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                name: Some("/photoprism".into()),
+                names: vec!["/photoprism".into()],
                 state: "running".into(),
                 timeout: Some(12),
             }] as &[Container],
             deserialized.unwrap()
         );
     }
+
     #[test]
     fn test_deserialize_no_labels() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"State":"running"}]"#;
@@ -171,7 +135,7 @@ mod tests {
         assert_eq!(
             &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                name: Some("/photoprism".into()),
+                names: vec!["/photoprism".into()],
                 state: "running".into(),
                 timeout: None,
             }] as &[Container],
@@ -190,7 +154,7 @@ mod tests {
         assert_eq!(
             &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                name: Some("/photoprism".into()),
+                names: vec!["/photoprism".into()],
                 state: "running".into(),
                 timeout: None,
             }] as &[Container],
@@ -199,7 +163,7 @@ mod tests {
     }
 
     #[test]
-    fn test_deserialize_with_no_name_array() {
+    fn test_deserialize_with_no_names_array() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
@@ -209,7 +173,7 @@ mod tests {
         assert_eq!(
             &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                name: None,
+                names: vec![],
                 state: "running".into(),
                 timeout: None,
             }] as &[Container],
@@ -218,26 +182,7 @@ mod tests {
     }
 
     #[test]
-    fn test_deserialize_name_array_with_1_null() {
-        let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":[null],"State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
-
-        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
-
-        assert!(deserialized.is_ok());
-
-        assert_eq!(
-            &[Container {
-                id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                name: None,
-                state: "running".into(),
-                timeout: None,
-            }] as &[Container],
-            deserialized.unwrap()
-        );
-    }
-
-    #[test]
-    fn test_deserialize_name_empty_name_array() {
+    fn test_deserialize_names_empty_names_array() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":[],"State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
@@ -247,7 +192,7 @@ mod tests {
         assert_eq!(
             &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                name: None,
+                names: vec![],
                 state: "running".into(),
                 timeout: None,
             }] as &[Container],

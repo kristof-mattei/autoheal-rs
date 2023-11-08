@@ -100,15 +100,15 @@ impl Docker {
     pub async fn check_container_health(&self, app_config: &AppConfig, container_info: Container) {
         let container_short_id = &container_info.id[0..12];
 
-        match &container_info.name {
-            None => {
+        match &container_info.names[..] {
+            [] => {
                 tracing::error!("Container name of {} is null, which implies container does not exist - don't restart.", container_short_id);
             },
-            Some(container_name) => {
+            container_names => {
                 if container_info.state == "restarting" {
                     tracing::info!(
                         "Container {} ({}) found to be restarting - don't restart.",
-                        container_name,
+                        container_names.join(", "),
                         container_short_id
                     );
                 } else {
@@ -118,25 +118,29 @@ impl Docker {
 
                     tracing::info!(
                         "Container {} ({}) found to be unhealthy - Restarting container now with {}s timeout.",
-                        container_name,
+                        container_names.join(", "),
                         container_short_id, timeout
                     );
 
                     match self.restart_container(container_short_id, timeout).await {
                         Ok(()) => {
-                            notify_webhook_success(app_config, container_short_id, container_name);
+                            notify_webhook_success(
+                                app_config,
+                                container_short_id,
+                                &container_names.join(", "),
+                            );
                         },
                         Err(e) => {
                             tracing::info!(
                                 error = ?e,
                                 "Restarting container {} ({}) failed.",
-                                container_name,
+                                container_names.join(", "),
                                 container_short_id
                             );
 
                             notify_webhook_failure(
                                 app_config,
-                                container_name,
+                                &container_names.join(", "),
                                 container_short_id,
                                 &e,
                             );

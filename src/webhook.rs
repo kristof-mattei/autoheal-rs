@@ -20,7 +20,7 @@ pub fn notify_webhook_success(
     };
 
     let message = format!(
-        "Container {} ({}) found to be unhealthy. Successfully restarted the container!",
+        "Container \"{}\" ({}) found to be unhealthy. Successfully restarted the container!",
         container_name, container_short_id
     );
 
@@ -40,7 +40,7 @@ pub fn notify_webhook_failure(
     };
 
     let message = format!(
-        "Container {} ({}) found to be unhealthy. Failed to restart the container! Error: {:?}",
+        "Container \"{}\" ({}) found to be unhealthy. Failed to restart the container! Error: {:?}",
         container_name, container_short_id, error
     );
 
