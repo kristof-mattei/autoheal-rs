@@ -13,6 +13,9 @@ repository = "https://github.com/kristof-mattei/autoheal-rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[profile.dev.package.backtrace]
+opt-level = 3
+
 [features]
 coverage = []
 
@@ -38,16 +41,16 @@ hyper-tls = { git = "https://github.com/kristof-mattei/hyper-tls", rev = "d6026c
 ] }
 hyper-unix-socket = { git = "https://github.com/kristof-mattei/hyper-unix-socket", rev = "01572fe3103857baafb0d31161ab85592810602e" }
 
-libc = "0.2.149"
+libc = "0.2.150"
 percent-encoding = "2.3.0"
-serde = { version = "1.0.190", features = ["derive"] }
+serde = { version = "1.0.192", features = ["derive"] }
 serde_json = "1.0.108"
-tokio = { version = "1.33.0", features = [
+tokio = { version = "1.34.0", features = [
     "rt-multi-thread",
     "macros",
     "time",
     "signal",
     "net",
 ] }
-http = "0.2.9"
+http = "0.2.10"
 url = { version = "2.4.1", features = ["expose_internals"] }
