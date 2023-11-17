@@ -8,7 +8,7 @@ use hyper::header::{HeaderName, IntoHeaderName};
 use hyper::http::uri::PathAndQuery;
 use hyper::http::HeaderValue;
 use hyper::{Method, Request, Response, Uri};
-use hyper_util::client::connect::Connect;
+use hyper_util::client::legacy::connect::Connect;
 use hyper_util::client::legacy::Client;
 use hyper_util::rt::TokioExecutor;
 
