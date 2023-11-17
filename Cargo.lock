@@ -257,9 +257,9 @@ checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
 name = "http"
-version = "0.2.11"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8947b1a6fad4393052c7ba1f4cd97bed3e953a95c79c92ad9b051a04611d9fbb"
+checksum = "b32afd38673a8016f7c9ae69e5af41a58f81b1d31689040f2f1959594ce194ea"
 dependencies = [
  "bytes",
  "fnv",
@@ -268,9 +268,9 @@ dependencies = [
 
 [[package]]
 name = "http-body"
-version = "1.0.0-rc.2"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "951dfc2e32ac02d67c90c0d65bd27009a635dc9b381a2cc7d284ab01e3a0150d"
+checksum = "1cac85db508abc24a2e48553ba12a996e87244a0395ce011e62b37158745d643"
 dependencies = [
  "bytes",
  "http",
@@ -278,9 +278,9 @@ dependencies = [
 
 [[package]]
 name = "http-body-util"
-version = "0.1.0-rc.3"
+version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "08ef12f041acdd397010e5fb6433270c147d3b8b2d0a840cd7fff8e531dca5c8"
+checksum = "41cb79eb393015dadd30fc252023adb0b2400a0caee0fa2a077e6e21a551e840"
 dependencies = [
  "bytes",
  "futures-util",
@@ -296,36 +296,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d897f394bad6a705d5f4104762e116a75639e470d80901eed05a860a95cb1904"
 
 [[package]]
-name = "httpdate"
-version = "1.0.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "df3b46402a9d5adb4c86a0cf463f42e19994e3ee891101b1841f30a545cb49a9"
-
-[[package]]
 name = "hyper"
-version = "1.0.0-rc.4"
+version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d280a71f348bcc670fc55b02b63c53a04ac0bf2daff2980795aeaf53edae10e6"
+checksum = "403f9214f3e703236b221f1a9cd88ec8b4adfa5296de01ab96216361f4692f56"
 dependencies = [
  "bytes",
  "futures-channel",
  "futures-util",
  "http",
  "http-body",
- "http-body-util",
  "httparse",
- "httpdate",
  "itoa",
  "pin-project-lite",
  "tokio",
- "tracing",
  "want",
 ]
 
 [[package]]
 name = "hyper-tls"
 version = "0.5.0"
-source = "git+https://github.com/kristof-mattei/hyper-tls?rev=d6026c4d23a86dc545071c64a052613d2e412b49#d6026c4d23a86dc545071c64a052613d2e412b49"
+source = "git+https://github.com/kristof-mattei/hyper-tls?rev=46fa8672d75ec022e369cdf71804157c62006321#46fa8672d75ec022e369cdf71804157c62006321"
 dependencies = [
  "bytes",
  "http-body-util",
@@ -340,7 +331,7 @@ dependencies = [
 [[package]]
 name = "hyper-unix-socket"
 version = "0.0.0-development"
-source = "git+https://github.com/kristof-mattei/hyper-unix-socket?rev=01572fe3103857baafb0d31161ab85592810602e#01572fe3103857baafb0d31161ab85592810602e"
+source = "git+https://github.com/kristof-mattei/hyper-unix-socket?rev=67f7304890ab898bf05782ad7a44eb61deec1091#67f7304890ab898bf05782ad7a44eb61deec1091"
 dependencies = [
  "bytes",
  "hyper",
@@ -352,8 +343,9 @@ dependencies = [
 
 [[package]]
 name = "hyper-util"
-version = "0.0.0"
-source = "git+https://github.com/hyperium/hyper-util?rev=ced9f812460420017705fa7cae4dca7be9e23f4a#ced9f812460420017705fa7cae4dca7be9e23f4a"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "61cec7646c446f27ed929e7bf1feace8c7d5e248109ba7fc716d846b27081fac"
 dependencies = [
  "bytes",
  "futures-channel",
@@ -361,7 +353,6 @@ dependencies = [
  "http",
  "http-body",
  "hyper",
- "once_cell",
  "pin-project-lite",
  "socket2",
  "tokio",
