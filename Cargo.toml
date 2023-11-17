@@ -31,7 +31,7 @@ tracing-subscriber = { version = "0.3.18", features = [
 http-body-util = "0.1.0"
 hyper = { version = "1.0.1", default-features = false }
 
-hyper-util = { version = "0.1.0", default-features = false, features = [
+hyper-util = { version = "0.1.1", default-features = false, features = [
     "client-legacy",
     "http1",
     "tokio",
