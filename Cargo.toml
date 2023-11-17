@@ -37,10 +37,10 @@ hyper-util = { version = "0.1.0", default-features = false, features = [
     "tokio",
 ] }
 
-hyper-tls = { git = "https://github.com/kristof-mattei/hyper-tls", rev = "46fa8672d75ec022e369cdf71804157c62006321", features = [
+hyper-tls = { git = "https://github.com/kristof-mattei/hyper-tls", rev = "b29b0e99511d9745ff07e5922a0a66e3cb087567", features = [
     "vendored",
 ] }
-hyper-unix-socket = { git = "https://github.com/kristof-mattei/hyper-unix-socket", rev = "67f7304890ab898bf05782ad7a44eb61deec1091" }
+hyper-unix-socket = { git = "https://github.com/kristof-mattei/hyper-unix-socket", rev = "ee69fc40116235c754d2f8d3bd1ceaf4a2890fd9" }
 
 libc = "0.2.150"
 percent-encoding = "2.3.0"
