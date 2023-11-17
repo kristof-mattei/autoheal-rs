@@ -316,7 +316,7 @@ dependencies = [
 [[package]]
 name = "hyper-tls"
 version = "0.5.0"
-source = "git+https://github.com/kristof-mattei/hyper-tls?rev=46fa8672d75ec022e369cdf71804157c62006321#46fa8672d75ec022e369cdf71804157c62006321"
+source = "git+https://github.com/kristof-mattei/hyper-tls?rev=b29b0e99511d9745ff07e5922a0a66e3cb087567#b29b0e99511d9745ff07e5922a0a66e3cb087567"
 dependencies = [
  "bytes",
  "http-body-util",
@@ -331,7 +331,7 @@ dependencies = [
 [[package]]
 name = "hyper-unix-socket"
 version = "0.0.0-development"
-source = "git+https://github.com/kristof-mattei/hyper-unix-socket?rev=67f7304890ab898bf05782ad7a44eb61deec1091#67f7304890ab898bf05782ad7a44eb61deec1091"
+source = "git+https://github.com/kristof-mattei/hyper-unix-socket?rev=ee69fc40116235c754d2f8d3bd1ceaf4a2890fd9#ee69fc40116235c754d2f8d3bd1ceaf4a2890fd9"
 dependencies = [
  "bytes",
  "hyper",
