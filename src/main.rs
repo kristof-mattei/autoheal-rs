@@ -1,12 +1,3 @@
-#![deny(clippy::all)]
-#![deny(clippy::pedantic)]
-#![deny(clippy::cargo)]
-#![deny(warnings)]
-// exceptions
-#![deny(let_underscore_drop)]
-#![deny(non_ascii_idents)]
-#![allow(clippy::uninlined_format_args)]
-
 use std::convert::Infallible;
 use std::time::Duration;
 
@@ -16,7 +7,7 @@ use docker_config::DockerConfig;
 use handlers::set_up_handlers;
 use tokio::time::sleep;
 use tracing::metadata::LevelFilter;
-use tracing::{info, Level};
+use tracing::{event, Level};
 use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::EnvFilter;
 
@@ -57,7 +48,7 @@ async fn healer() -> Result<Infallible, color_eyre::Report> {
     let name = env!("CARGO_PKG_NAME");
     let version = env!("CARGO_PKG_VERSION");
 
-    info!("{} v{}", name, version);
+    event!(Level::INFO, "{} v{}", name, version);
 
     let app_config = AppConfig::build()?;
 
@@ -70,7 +61,8 @@ async fn healer() -> Result<Infallible, color_eyre::Report> {
     // Do we fail? Do we retry?
 
     if app_config.autoheal_start_period > 0 {
-        info!(
+        event!(
+            Level::INFO,
             "Monitoring containers for unhealthy status in {} second(s)",
             app_config.autoheal_start_period
         );
