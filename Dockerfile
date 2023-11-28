@@ -41,9 +41,10 @@ FROM scratch
 
 ARG APPLICATION_NAME
 
-COPY --from=builder /tmp/passwd /etc/passwd
 # We're explicitely wanting to be root, because most consumers will just
 # run the container expecting it to work. Since Docker runs as root, we match
+# We fetch the passwrd file from the builder as we don't have sh here to create the file
+COPY --from=builder /tmp/passwd /etc/passwd
 USER root
 
 WORKDIR /app
