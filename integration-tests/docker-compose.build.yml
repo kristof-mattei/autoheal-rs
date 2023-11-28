@@ -4,3 +4,5 @@ services:
   autoheal:
     build:
       context: ../
+      args:
+        APPLICATION_NAME: "autoheal-rs"
