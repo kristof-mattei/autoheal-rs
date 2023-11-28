@@ -1,3 +1,5 @@
+use tracing::{event, Level};
+
 fn try_parse_env_variable<T>(env_variable_name: &str) -> Result<Option<T>, color_eyre::Report>
 where
     T: std::str::FromStr,
@@ -36,11 +38,11 @@ where
 {
     match try_parse_env_variable(env_variable_name) {
         Ok(Some(ct)) => {
-            tracing::info!("{} set to {:?}", env_variable_name, ct);
+            event!(Level::INFO, "{} set to {:?}", env_variable_name, ct);
             Ok(Some(ct))
         },
         Ok(None) => {
-            tracing::info!("{} not set", env_variable_name);
+            event!(Level::INFO, "{} not set", env_variable_name);
             Ok(None)
         },
         Err(e) => Err(e),
@@ -61,12 +63,17 @@ where
 {
     match try_parse_env_variable(env_variable_name) {
         Ok(Some(ct)) => {
-            tracing::info!("{} set to {:?}", env_variable_name, ct);
+            event!(Level::INFO, "{} set to {:?}", env_variable_name, ct);
             Ok(ct)
         },
 
         Ok(None) => {
-            tracing::info!("{} not set, defaulting to {:?}", env_variable_name, default);
+            event!(
+                Level::INFO,
+                "{} not set, defaulting to {:?}",
+                env_variable_name,
+                default
+            );
             Ok(default)
         },
         Err(e) => Err(e),

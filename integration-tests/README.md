@@ -9,14 +9,14 @@ Currently setup to a very basic exit 1 on invalid restart and exit 0 on valid re
 ## Run tests
 
 ```
-cd tests
+cd integration-tests
 ./tests.sh
 ```
 
 ## Run tests in CI
 
 ```
-cd tests
+cd integration-tests
 export "AUTOHEAL_CONTAINER_LABEL=autoheal-123456"
 ./tests.sh "MY_UNIQUE_BUILD_NUMBER_123456"
 ```

@@ -8,6 +8,7 @@ use hyper::{Method, Response, StatusCode};
 use hyper_tls::HttpsConnector;
 use hyper_unix_socket::UnixSocketConnector;
 use tokio::time::timeout;
+use tracing::{event, Level};
 
 use crate::app_config::AppConfig;
 use crate::container::Container;
@@ -102,11 +103,12 @@ impl Docker {
 
         match &container_info.names[..] {
             [] => {
-                tracing::error!("Container name of {} is null, which implies container does not exist - don't restart.", container_short_id);
+                event!(Level::ERROR, "Container name of {} is null, which implies container does not exist - don't restart.", container_short_id);
             },
             container_names => {
                 if container_info.state == "restarting" {
-                    tracing::info!(
+                    event!(
+                        Level::INFO,
                         "Container {} ({}) found to be restarting - don't restart.",
                         container_names.join(", "),
                         container_short_id
@@ -116,7 +118,7 @@ impl Docker {
                         .timeout
                         .unwrap_or(app_config.autoheal_default_stop_timeout);
 
-                    tracing::info!(
+                    event!(Level::INFO,
                         "Container {} ({}) found to be unhealthy - Restarting container now with {}s timeout.",
                         container_names.join(", "),
                         container_short_id, timeout
@@ -131,7 +133,7 @@ impl Docker {
                             );
                         },
                         Err(e) => {
-                            tracing::info!(
+                            event!(Level::INFO,
                                 error = ?e,
                                 "Restarting container {} ({}) failed.",
                                 container_names.join(", "),
@@ -140,9 +142,9 @@ impl Docker {
 
                             notify_webhook_failure(
                                 app_config,
-                                &container_names.join(", "),
-                                container_short_id,
-                                &e,
+                                container_names.join(", "),
+                                container_short_id.to_owned(),
+                                e,
                             );
                         },
                     }

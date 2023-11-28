@@ -9,11 +9,7 @@ use crate::wrap_and_report;
 
 #[no_mangle]
 pub extern "C" fn sig_handler(signal: i32) {
-    event!(
-        Level::INFO,
-        message = "Stopping the engine",
-        raw_signal = signal
-    );
+    event!(Level::INFO, raw_signal = signal, "Stopping the engine");
     // std::process::exit(128 + signal);
     std::process::exit(0);
     // RUNNING.store(false, Ordering::SeqCst);
