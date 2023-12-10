@@ -50,7 +50,7 @@ hyper-tls = { git = "https://github.com/kristof-mattei/hyper-tls", rev = "b29b0e
 ] }
 hyper-unix-socket = "0.0.0-development"
 
-libc = "0.2.150"
+libc = "0.2.151"
 percent-encoding = "2.3.1"
 serde = { version = "1.0.193", features = ["derive"] }
 serde_json = "1.0.108"
