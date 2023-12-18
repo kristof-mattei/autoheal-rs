@@ -32,24 +32,21 @@ opt-level = 3
 coverage = []
 
 [dependencies]
+backtrace = "0.3.69"
 color-eyre = "0.6.2"
 hex = "0.4.3"
-tracing = "0.1.40"
-tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+http = "1.0.0"
 http-body-util = "0.1.0"
 hyper = { version = "1.1.0", default-features = false }
-
+hyper-tls = { version = "0.6.0", default-features = false, features = [
+    "vendored",
+] }
+hyper-unix-socket = "0.0.0-development"
 hyper-util = { version = "0.1.1", default-features = false, features = [
     "client-legacy",
     "http1",
     "tokio",
 ] }
-
-hyper-tls = { git = "https://github.com/kristof-mattei/hyper-tls", rev = "b29b0e99511d9745ff07e5922a0a66e3cb087567", features = [
-    "vendored",
-] }
-hyper-unix-socket = "0.0.0-development"
-
 libc = "0.2.151"
 percent-encoding = "2.3.1"
 serde = { version = "1.0.193", features = ["derive"] }
@@ -61,5 +58,6 @@ tokio = { version = "1.35.0", features = [
     "signal",
     "net",
 ] }
-http = "1.0.0"
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 url = { version = "2.5.0", features = ["expose_internals"] }

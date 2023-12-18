@@ -30,6 +30,7 @@ dependencies = [
 name = "autoheal-rs"
 version = "0.0.0-development"
 dependencies = [
+ "backtrace",
  "color-eyre",
  "hex",
  "http",
@@ -306,8 +307,9 @@ dependencies = [
 
 [[package]]
 name = "hyper-tls"
-version = "0.5.0"
-source = "git+https://github.com/kristof-mattei/hyper-tls?rev=b29b0e99511d9745ff07e5922a0a66e3cb087567#b29b0e99511d9745ff07e5922a0a66e3cb087567"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "70206fc6890eaca9fde8a0bf71caa2ddfc9fe045ac9e5c70df101a7dbde866e0"
 dependencies = [
  "bytes",
  "http-body-util",
