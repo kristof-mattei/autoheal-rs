@@ -19,9 +19,9 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "debug,autoheal-rs=trace"
+                "RUST_LOG": "DEBUG,autoheal_rs=TRACE"
             },
-            "terminal": "console"
+            "terminal": "integrated"
         },
         {
             "type": "lldb",
@@ -43,9 +43,9 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "debug,autoheal-rs=trace"
+                "RUST_LOG": "DEBUG,autoheal_rs=TRACE"
             },
-            "terminal": "console"
+            "terminal": "integrated"
         },
         {
             "type": "lldb",
@@ -67,9 +67,9 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "debug,autoheal-rs=trace"
+                "RUST_LOG": "DEBUG,autoheal_rs=TRACE"
             },
-            "terminal": "console"
+            "terminal": "integrated"
         }
     ]
 }
