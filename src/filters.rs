@@ -60,4 +60,34 @@ mod tests {
             json!({ "health": ["unhealthy"], "label": ["custom=true"] })
         );
     }
+
+    #[test]
+    fn test_build_filters_custom_and_value_1() {
+        let custom_and_unhealthy = build(Some("custom=true"));
+
+        assert_eq!(
+            custom_and_unhealthy,
+            json!({ "health": ["unhealthy"], "label": ["custom=true"] })
+        );
+    }
+
+    #[test]
+    fn test_build_filters_custom_and_value_2() {
+        let custom_and_unhealthy = build(Some("custom=false"));
+
+        assert_eq!(
+            custom_and_unhealthy,
+            json!({ "health": ["unhealthy"], "label": ["custom=false"] })
+        );
+    }
+
+    #[test]
+    fn test_build_filters_custom_and_value_3() {
+        let custom_and_unhealthy = build(Some("custom=foobar"));
+
+        assert_eq!(
+            custom_and_unhealthy,
+            json!({ "health": ["unhealthy"], "label": ["custom=foobar"] })
+        );
+    }
 }
