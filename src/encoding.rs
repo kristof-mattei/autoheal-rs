@@ -13,19 +13,19 @@ mod tests {
 
     #[test]
     fn test_build_decode_all() {
-        let all_unhealthy = build("all");
+        let all_unhealthy = build(Some("all"));
 
         let all_unhealthy_encoded = url_encode(&all_unhealthy);
 
         assert_eq!(
             all_unhealthy_encoded,
-            "%7B%22health%22%3A%5B%22unhealthy%22%5D%7D"
+            "%7B%22health%22%3A%5B%22unhealthy%22%5D%2C%22label%22%3A%5B%5D%7D"
         );
     }
 
     #[test]
     fn test_build_decode_autoheal() {
-        let autoheal_and_unhealthy = build("autoheal");
+        let autoheal_and_unhealthy = build(Some("autoheal"));
 
         let autoheal_and_unhealthy_encoded = url_encode(&autoheal_and_unhealthy);
 
@@ -34,7 +34,7 @@ mod tests {
 
     #[test]
     fn test_build_decode_custom() {
-        let custom_and_unhealthy = build("custom");
+        let custom_and_unhealthy = build(Some("custom"));
 
         let custom_and_unhealthy_encoded = url_encode(&custom_and_unhealthy);
 
