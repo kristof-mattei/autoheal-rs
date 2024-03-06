@@ -44,12 +44,29 @@ services:
       start_period: 5s
     command: tail -f /dev/null
 
+  ignore:
+    # this container shouldn't be restarted because it is ignored by name
+    # even though technically it is included based on the label
+    image: alpine@sha256:c5b1261d6d3e43071626931fc004f70149baeba2c8ec672bd4f27761f8e1ad6b
+    network_mode: none
+    restart: "no"
+    labels:
+      - "$AUTOHEAL_CONTAINER_LABEL=true"
+    healthcheck:
+      test: exit 0
+      interval: 2s
+      timeout: 1s
+      retries: 1
+      start_period: 1s
+    command: tail -f /dev/null
+
   autoheal:
     restart: unless-stopped
     user: root
     environment:
       AUTOHEAL_CONTAINER_LABEL: "${AUTOHEAL_CONTAINER_LABEL:-all}"
       AUTOHEAL_INTERVAL: "10"
+      AUTOHEAL_CONTAINER_IGNORE: ignore
       # WEBHOOK_URL: https://ntfy.sh/...
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
