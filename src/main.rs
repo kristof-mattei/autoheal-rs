@@ -54,7 +54,7 @@ async fn healer() -> Result<Infallible, color_eyre::Report> {
 
     let docker = Docker::new(
         DockerConfig::build()?,
-        &filters::build(&app_config.autoheal_container_label),
+        &filters::build(app_config.autoheal_container_label.as_deref()),
     );
 
     // TODO define failure mode
