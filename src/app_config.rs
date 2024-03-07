@@ -21,13 +21,15 @@ impl AppConfig {
                 10,
             )?,
             autoheal_interval: try_parse_env_variable_with_default("AUTOHEAL_INTERVAL", 5)?,
-            autoheal_exclude_containers: try_parse_optional_env_variable::<String>("??")?
-                .map(|s| {
-                    s.split(',')
-                        .map(|s| s.trim().to_owned())
-                        .collect::<Vec<_>>()
-                })
-                .unwrap_or_default(),
+            autoheal_exclude_containers: try_parse_optional_env_variable::<String>(
+                "AUTOHEAL_EXCLUDE_CONTAINERS",
+            )?
+            .map(|s| {
+                s.split(',')
+                    .map(|s| s.trim().to_owned())
+                    .collect::<Vec<_>>()
+            })
+            .unwrap_or_default(),
             autoheal_start_period: try_parse_env_variable_with_default("AUTOHEAL_START_PERIOD", 0)?,
         })
     }
