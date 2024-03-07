@@ -72,7 +72,11 @@ async fn healer() -> Result<Infallible, color_eyre::Report> {
     loop {
         match docker.get_containers().await {
             Ok(container_infos) => {
-                for c_i in container_infos {
+                for c_i in container_infos.into_iter().filter(|c| {
+                    !c.names
+                        .iter()
+                        .any(|n| app_config.autoheal_exclude_containers.contains(n))
+                }) {
                     docker.check_container_health(&app_config, c_i).await;
                 }
             },
