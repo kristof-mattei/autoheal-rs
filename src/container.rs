@@ -96,6 +96,8 @@ pub struct Container {
 
 #[cfg(test)]
 mod tests {
+    use serde_json::error::Category;
+
     use crate::container::Container;
 
     #[test]
@@ -110,13 +112,13 @@ mod tests {
             &[
                 Container {
                     id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                    names: vec!["/photoprism".into()],
+                    names: vec!["photoprism".into()],
                     state: "running".into(),
                     timeout: None,
                 },
                 Container {
                     id: "281ea0c72e2e4a41fd2f81df945da9dfbfbc7ea0fe5e59c3d2a8234552e367cf".into(),
-                    names: vec!["/whoogle-search".into()],
+                    names: vec!["whoogle-search".into()],
                     state: "running".into(),
                     timeout: None,
                 }
@@ -136,7 +138,7 @@ mod tests {
         assert_eq!(
             &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                names: vec!["/photoprism-1".into(), "/photoprism-2".into()],
+                names: vec!["photoprism-1".into(), "photoprism-2".into()],
                 state: "running".into(),
                 timeout: None,
             }][..],
@@ -155,7 +157,7 @@ mod tests {
         assert_eq!(
             &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                names: vec!["/photoprism".into()],
+                names: vec!["photoprism".into()],
                 state: "running".into(),
                 timeout: Some(12),
             }][..],
@@ -174,7 +176,7 @@ mod tests {
         assert_eq!(
             &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                names: vec!["/photoprism".into()],
+                names: vec!["photoprism".into()],
                 state: "running".into(),
                 timeout: None,
             }][..],
@@ -193,7 +195,7 @@ mod tests {
         assert_eq!(
             &[Container {
                 id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
-                names: vec!["/photoprism".into()],
+                names: vec!["photoprism".into()],
                 state: "running".into(),
                 timeout: None,
             }][..],
@@ -237,5 +239,35 @@ mod tests {
             }][..],
             deserialized.unwrap()
         );
+    }
+
+    #[test]
+    fn test_deserialize_multiple_names_with_and_without_slash() {
+        let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism-1","photoprism-2"],"State":"running"}]"#;
+
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
+
+        assert!(deserialized.is_ok());
+
+        assert_eq!(
+            &[Container {
+                id: "582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae".into(),
+                names: vec!["photoprism-1".into(), "photoprism-2".into()],
+                state: "running".into(),
+                timeout: None,
+            }][..],
+            deserialized.unwrap()
+        );
+    }
+
+    #[test]
+    fn test_deserialize_invalid_labels() {
+        let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/foo"],"State":"running","Labels": "I am not a map, but a string"}]"#;
+
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
+
+        assert!(deserialized.is_err());
+
+        assert_eq!(deserialized.unwrap_err().to_string(), "invalid type: string \"I am not a map, but a string\", expected a nonempty sequence of items at line 1 column 149");
     }
 }
