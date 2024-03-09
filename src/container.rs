@@ -96,8 +96,6 @@ pub struct Container {
 
 #[cfg(test)]
 mod tests {
-    use serde_json::error::Category;
-
     use crate::container::Container;
 
     #[test]
