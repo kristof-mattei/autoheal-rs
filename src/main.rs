@@ -71,23 +71,24 @@ async fn healer() -> Result<Infallible, color_eyre::Report> {
 
     loop {
         match docker.get_containers().await {
-            Ok(container_infos) => {
-                for c_i in container_infos {
-                    if c_i
+            Ok(containers) => {
+                for container in containers {
+                    if container
                         .names
                         .iter()
                         .any(|n| app_config.autoheal_exclude_containers.contains(n))
                     {
                         event!(
                             Level::INFO,
-                            "Container {:?} is unhealthy, but it is excluded",
-                            c_i.names
+                            "Container {} ({}) is unhealthy, but it is excluded",
+                            container.names.join(", "),
+                            &container.id[0..12],
                         );
 
                         continue;
                     }
 
-                    docker.check_container_health(&app_config, c_i).await;
+                    docker.check_container_health(&app_config, container).await;
                 }
             },
             Err(e) => {

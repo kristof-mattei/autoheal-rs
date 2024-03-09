@@ -1,7 +1,7 @@
-use std::collections::HashMap;
 use std::convert::Into;
 use std::str::FromStr;
 
+use hashbrown::HashMap;
 use http_body_util::Empty;
 use hyper::body::{Body, Bytes};
 use hyper::header::{HeaderName, IntoHeaderName};

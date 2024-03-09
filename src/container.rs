@@ -2,8 +2,46 @@ use std::fmt;
 use std::marker::PhantomData;
 use std::str::FromStr;
 
-use serde::de::{MapAccess, Visitor};
+use serde::de::{MapAccess, SeqAccess, Visitor};
 use serde::{Deserialize, Deserializer, Serialize};
+
+fn deserialize_names<'de, D>(deserializer: D) -> Result<Vec<String>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    struct SeqVisitor();
+
+    impl<'de> Visitor<'de> for SeqVisitor {
+        type Value = Vec<String>;
+
+        fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+            formatter.write_str("a nonempty sequence of items")
+        }
+
+        fn visit_seq<M>(self, mut access: M) -> Result<Self::Value, M::Error>
+        where
+            M: SeqAccess<'de>,
+        {
+            let mut buffer = access.size_hint().map_or_else(Vec::new, Vec::with_capacity);
+
+            while let Some(mut value) = access.next_element::<String>()? {
+                // Docker container name starts with a '/'. I don't know why. But it's useless.
+                if value.starts_with('/') {
+                    let split = value.split_off(1);
+
+                    buffer.push(split);
+                } else {
+                    buffer.push(value);
+                }
+            }
+
+            Ok(buffer)
+        }
+    }
+
+    let visitor = SeqVisitor();
+    deserializer.deserialize_seq(visitor)
+}
 
 fn deserialize_timeout<'de, T, D>(deserializer: D) -> Result<Option<T>, D::Error>
 where
@@ -47,6 +85,7 @@ where
 #[serde(rename_all = "PascalCase")]
 pub struct Container {
     pub id: String,
+    #[serde(deserialize_with = "deserialize_names")]
     #[serde(rename(deserialize = "Names"), default)]
     pub names: Vec<String>,
     pub state: String,
@@ -100,7 +139,7 @@ mod tests {
                 names: vec!["/photoprism-1".into(), "/photoprism-2".into()],
                 state: "running".into(),
                 timeout: None,
-            }] as &[Container],
+            }][..],
             deserialized.unwrap()
         );
     }
@@ -119,7 +158,7 @@ mod tests {
                 names: vec!["/photoprism".into()],
                 state: "running".into(),
                 timeout: Some(12),
-            }] as &[Container],
+            }][..],
             deserialized.unwrap()
         );
     }
@@ -138,7 +177,7 @@ mod tests {
                 names: vec!["/photoprism".into()],
                 state: "running".into(),
                 timeout: None,
-            }] as &[Container],
+            }][..],
             deserialized.unwrap()
         );
     }
@@ -157,7 +196,7 @@ mod tests {
                 names: vec!["/photoprism".into()],
                 state: "running".into(),
                 timeout: None,
-            }] as &[Container],
+            }][..],
             deserialized.unwrap()
         );
     }
@@ -176,7 +215,7 @@ mod tests {
                 names: vec![],
                 state: "running".into(),
                 timeout: None,
-            }] as &[Container],
+            }][..],
             deserialized.unwrap()
         );
     }
@@ -195,7 +234,7 @@ mod tests {
                 names: vec![],
                 state: "running".into(),
                 timeout: None,
-            }] as &[Container],
+            }][..],
             deserialized.unwrap()
         );
     }
