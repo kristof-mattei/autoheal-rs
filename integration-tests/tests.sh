@@ -34,6 +34,7 @@ docker-compose up --no-start --quiet-pull --force-recreate
 docker-compose start should-keep-restarting
 docker-compose start shouldnt-restart-healthy
 docker-compose start shouldnt-restart-no-label
+docker-compose start ignore
 docker-compose start autoheal
 
 docker-compose up --abort-on-container-exit --exit-code-from watch-autoheal watch-autoheal
