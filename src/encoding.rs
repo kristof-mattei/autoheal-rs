@@ -9,7 +9,7 @@ pub fn url_encode(filter: &serde_json::Value) -> String {
 #[cfg(test)]
 mod tests {
     use crate::encoding::url_encode;
-    use crate::filters::build;
+    use crate::unhealthy_filters::build;
 
     #[test]
     fn test_build_decode_all() {
