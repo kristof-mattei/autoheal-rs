@@ -5,6 +5,7 @@ use app_config::AppConfig;
 use docker::Docker;
 use docker_config::DockerConfig;
 use handlers::set_up_handlers;
+use hashbrown::HashMap;
 use tokio::time::sleep;
 use tracing::metadata::LevelFilter;
 use tracing::{event, Level};
@@ -17,10 +18,10 @@ mod docker;
 mod docker_config;
 mod encoding;
 mod env;
-mod filters;
 mod handlers;
 mod helpers;
 mod http_client;
+mod unhealthy_filters;
 mod webhook;
 
 fn main() -> Result<Infallible, color_eyre::Report> {
@@ -54,7 +55,7 @@ async fn healer() -> Result<Infallible, color_eyre::Report> {
 
     let docker = Docker::new(
         DockerConfig::build()?,
-        &filters::build(app_config.autoheal_container_label.as_deref()),
+        &unhealthy_filters::build(app_config.autoheal_container_label.as_deref()),
     );
 
     // TODO define failure mode
@@ -69,9 +70,16 @@ async fn healer() -> Result<Infallible, color_eyre::Report> {
         sleep(Duration::from_secs(app_config.autoheal_start_period)).await;
     }
 
+    let mut history_unhealthy = HashMap::<String, (Option<String>, usize)>::new();
+
     loop {
         match docker.get_containers().await {
             Ok(containers) => {
+                let mut current_unhealthy: HashMap<String, Option<String>> = containers
+                    .iter()
+                    .map(|x| (x.id.to_string(), x.get_name()))
+                    .collect::<HashMap<_, _>>();
+
                 for container in containers {
                     if container
                         .names
@@ -81,22 +89,49 @@ async fn healer() -> Result<Infallible, color_eyre::Report> {
                         event!(
                             Level::INFO,
                             "Container {} ({}) is unhealthy, but it is excluded",
-                            container.names.join(", "),
+                            container
+                                .get_name()
+                                .as_deref()
+                                .unwrap_or("<UNNAMED CONTAINER>"),
                             &container.id[0..12],
                         );
 
                         continue;
                     }
 
-                    docker.check_container_health(&app_config, container).await;
+                    docker
+                        .check_container_health(
+                            &app_config,
+                            &container,
+                            history_unhealthy
+                                .get(&container.id)
+                                .map_or(1, |(_, t)| *t + 1),
+                        )
+                        .await;
                 }
+
+                history_unhealthy = history_unhealthy
+                    .into_iter()
+                    .filter_map(|(key, (names, times))| {
+                        if let Some(new_name) = current_unhealthy.remove(&key) {
+                            // still unhealthy
+                            // take the new name
+                            Some((key, (new_name, times + 1)))
+                        } else {
+                            // healthy
+                            event!(
+                                Level::INFO,
+                                "Container {} ({}) returned to healthy state.",
+                                names.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
+                                key
+                            );
+                            None
+                        }
+                    })
+                    .collect();
             },
-            Err(e) => {
-                return Err(wrap_and_report!(
-                    Level::ERROR,
-                    e,
-                    "Failed to fetch container info"
-                ));
+            Err(err) => {
+                event!(Level::ERROR, ?err, "Failed to fetch container info");
             },
         }
 

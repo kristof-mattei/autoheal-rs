@@ -98,19 +98,24 @@ impl Docker {
         }
     }
 
-    pub async fn check_container_health(&self, app_config: &AppConfig, container_info: Container) {
+    pub async fn check_container_health(
+        &self,
+        app_config: &AppConfig,
+        container_info: &Container,
+        times: usize,
+    ) {
         let container_short_id = &container_info.id[0..12];
 
-        match &container_info.names[..] {
-            [] => {
+        match container_info.get_name() {
+            None => {
                 event!(Level::ERROR, "Container name of {} is null, which implies container does not exist - don't restart.", container_short_id);
             },
-            container_names => {
+            Some(container_names) => {
                 if container_info.state == "restarting" {
                     event!(
                         Level::INFO,
                         "Container {} ({}) found to be restarting - don't restart.",
-                        container_names.join(", "),
+                        container_names,
                         container_short_id
                     );
                 } else {
@@ -119,9 +124,11 @@ impl Docker {
                         .unwrap_or(app_config.autoheal_default_stop_timeout);
 
                     event!(Level::INFO,
-                        "Container {} ({}) found to be unhealthy - Restarting container now with {}s timeout.",
-                        container_names.join(", "),
-                        container_short_id, timeout
+                        "Container {} ({}) found to be unhealthy {} times. Restarting container now with {}s timeout.",
+                        container_names,
+                        container_short_id,
+                        times,
+                        timeout
                     );
 
                     match self.restart_container(container_short_id, timeout).await {
@@ -129,20 +136,20 @@ impl Docker {
                             notify_webhook_success(
                                 app_config,
                                 container_short_id,
-                                &container_names.join(", "),
+                                &container_names,
                             );
                         },
                         Err(e) => {
                             event!(Level::INFO,
                                 error = ?e,
                                 "Restarting container {} ({}) failed.",
-                                container_names.join(", "),
+                                container_names,
                                 container_short_id
                             );
 
                             notify_webhook_failure(
                                 app_config,
-                                container_names.join(", "),
+                                container_names,
                                 container_short_id.to_owned(),
                                 e,
                             );

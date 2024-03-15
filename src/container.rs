@@ -94,6 +94,15 @@ pub struct Container {
     pub timeout: Option<u32>,
 }
 
+impl Container {
+    pub fn get_name(&self) -> Option<String> {
+        self.names.iter().cloned().reduce(|mut p, n| {
+            p.push_str(&n);
+            p
+        })
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use crate::container::Container;
