@@ -511,6 +511,8 @@ jobs:
     needs:
       - changes
       - docker-build
+    env:
+      TAG: PLACEHOLDER # overridden in step 'Build tag name', this is merely to satisfy the linter
     if: |
       (needs.changes.outputs.code == 'true')
     steps:
@@ -528,17 +530,22 @@ jobs:
           name: containers-linux-amd64-x86_64-unknown-linux-musl
           path: /tmp/containers
 
+      - name: Build tag name
+        shell: bash
+        run: |
+          echo "TAG=pr-${{ github.event.pull_request.base.sha }}-${{ github.event.pull_request.head.sha }}-linux-amd64-x86_64-unknown-linux-musl" >> ${GITHUB_ENV}
+
       - name: Load image from artifact
         shell: bash
         run: |
-          docker load --input /tmp/containers/containers-linux-amd64-x86_64-unknown-linux-musl.tar
+          docker load --input /tmp/containers/${{ env.TAG }}.tar
 
       - name: Run integration tests
         shell: bash
         env:
           DOCKER_BUILDKIT: "1" # https://github.com/moby/buildkit/issues/1945#issuecomment-763705334
         run: |
-          IMAGE_ID_WITH_SHA256=$(docker image inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:pr-${{ github.event.pull_request.base.sha }}-${{ github.event.pull_request.head.sha }}-linux-amd64-x86_64-unknown-linux-musl --format '{{.Id}}')
+          IMAGE_ID_WITH_SHA256=$(docker image inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }} --format '{{.Id}}')
           # IMAGE_ID_WITH_SHA256 looks like sha256:0ae0dc0eb5fbada1c6083b078a168422b4d67227bb762340857c095008c3cbb3
           # we only need the second part so we're splitting it at the :
           export IMAGE_ID=${IMAGE_ID_WITH_SHA256#*:}
@@ -654,3 +661,4 @@ jobs:
         shell: bash
         run: |
           echo "Great success!"
+
