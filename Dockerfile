@@ -16,7 +16,7 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
     build-essential \
     musl-dev \
     musl-tools \
-    gcc-aarch64-linux-gnu
+    gcc-multilib
 
 # The following block
 # creates an empty app, and we copy in Cargo.toml and Cargo.lock as they represent our dependencies
