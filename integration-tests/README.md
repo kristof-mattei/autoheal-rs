@@ -1,5 +1,9 @@
 # Docker Autoheal Tests
 
+Docker autoheal monitor written in Rust, inspired by [docker-autoheal](https://github.com/willfarrell/docker-autoheal).
+
+Code currently uses hand-written Docker API calls, [hyper-unix-socket](https://github.com/kristof-mattei/hyper-unix-socket) to talk to Docker over a Unix socket and Tokio to be the glue.
+
 Docker Compose is used to build and deploy test environment.
 
 test.sh waits on watch-autoheal exit code.
