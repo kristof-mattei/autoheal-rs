@@ -34,7 +34,7 @@ coverage = []
 [dependencies]
 backtrace = "0.3.70"
 color-eyre = "0.6.3"
-hashbrown = "0.14.3"
+hashbrown = "0.14.5"
 hex = "0.4.3"
 http = "1.1.0"
 http-body-util = "0.1.1"
