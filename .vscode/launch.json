@@ -9,11 +9,7 @@
             "request": "launch",
             "name": "Debug executable 'autoheal-rs'",
             "cargo": {
-                "args": [
-                    "build",
-                    "--bin=autoheal-rs",
-                    "--package=autoheal-rs"
-                ],
+                "args": ["build", "--bin=autoheal-rs", "--package=autoheal-rs"],
                 "filter": {
                     "name": "autoheal-rs",
                     "kind": "bin"
