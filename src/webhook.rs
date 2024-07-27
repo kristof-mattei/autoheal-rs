@@ -46,10 +46,10 @@ enum State {
     Failure(Report),
 }
 
-pub fn notify_webhook_success(
+pub fn notify_webhook_success<S1: Into<String>, S2: Into<String>>(
     app_config: &AppConfig,
-    container_short_id: &str,
-    container_name: &str,
+    container_short_id: S1,
+    container_name: S2,
 ) {
     let Some(webhook_url) = app_config.webhook_url.clone() else {
         return;
@@ -57,8 +57,8 @@ pub fn notify_webhook_success(
 
     let invocation = WebHookInvocation {
         url: webhook_url,
-        container_name: container_name.to_owned(),
-        container_short_id: container_short_id.to_owned(),
+        container_name: container_name.into(),
+        container_short_id: container_short_id.into(),
         state: State::Success,
     };
 
@@ -67,10 +67,10 @@ pub fn notify_webhook_success(
     });
 }
 
-pub fn notify_webhook_failure(
+pub fn notify_webhook_failure<S1: Into<String>, S2: Into<String>>(
     app_config: &AppConfig,
-    container_name: String,
-    container_short_id: String,
+    container_name: S1,
+    container_short_id: S2,
     error: color_eyre::Report,
 ) {
     let Some(webhook_url) = app_config.webhook_url.clone() else {
@@ -79,8 +79,8 @@ pub fn notify_webhook_failure(
 
     let webhook_config = WebHookInvocation {
         url: webhook_url,
-        container_name,
-        container_short_id,
+        container_name: container_name.into(),
+        container_short_id: container_short_id.into(),
         state: State::Failure(error),
     };
 

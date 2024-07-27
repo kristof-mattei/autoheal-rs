@@ -1,4 +1,4 @@
-use std::time::Duration;
+use std::{rc::Rc, time::Duration};
 
 use color_eyre::eyre::bail;
 use http::Uri;
@@ -18,7 +18,7 @@ use crate::webhook::{notify_webhook_failure, notify_webhook_success};
 
 pub struct Docker {
     config: DockerConfig,
-    encoded_filters: String,
+    encoded_filters: Rc<str>,
 }
 
 impl Docker {
@@ -27,7 +27,7 @@ impl Docker {
 
         Self {
             config,
-            encoded_filters,
+            encoded_filters: Rc::from(encoded_filters),
         }
     }
 
@@ -111,7 +111,7 @@ impl Docker {
                 event!(Level::ERROR, "Container name of {} is null, which implies container does not exist - don't restart.", container_short_id);
             },
             Some(container_names) => {
-                if container_info.state == "restarting" {
+                if &*container_info.state == "restarting" {
                     event!(
                         Level::INFO,
                         "Container {} ({}) found to be restarting - don't restart.",
@@ -133,11 +133,7 @@ impl Docker {
 
                     match self.restart_container(container_short_id, timeout).await {
                         Ok(()) => {
-                            notify_webhook_success(
-                                app_config,
-                                container_short_id,
-                                &container_names,
-                            );
+                            notify_webhook_success(app_config, container_short_id, container_names);
                         },
                         Err(e) => {
                             event!(Level::INFO,
@@ -150,7 +146,7 @@ impl Docker {
                             notify_webhook_failure(
                                 app_config,
                                 container_names,
-                                container_short_id.to_owned(),
+                                container_short_id,
                                 e,
                             );
                         },
