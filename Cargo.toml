@@ -3,7 +3,7 @@ name = "autoheal-rs"
 # don't change this, it's updated before an actual build by update-version.sh
 version = "0.0.0-development"
 edition = "2021"
-rust-version = "1.79.0"
+rust-version = "1.80.0"
 authors = ["Kristof Mattei"]
 description = "Monitoring application for docker containers"
 license-file = "LICENSE"
@@ -45,16 +45,16 @@ hyper-tls = { version = "0.6.0", default-features = false, features = [
     "vendored",
 ] }
 hyper-unix-socket = "0.0.0-development"
-hyper-util = { version = "0.1.6", default-features = false, features = [
+hyper-util = { version = "0.1.7", default-features = false, features = [
     "client-legacy",
     "http1",
     "tokio",
 ] }
 libc = "0.2.154"
 percent-encoding = "2.3.1"
-serde = { version = "1.0.204", features = ["derive", "rc"] }
-serde_json = "1.0.120"
-tokio = { version = "1.38.1", features = [
+serde = { version = "1.0.207", features = ["derive", "rc"] }
+serde_json = "1.0.124"
+tokio = { version = "1.39.2", features = [
     "rt-multi-thread",
     "macros",
     "time",
