@@ -1,5 +1,5 @@
-use std::convert::Infallible;
 use std::time::Duration;
+use std::{convert::Infallible, rc::Rc};
 
 use app_config::AppConfig;
 use docker::Docker;
@@ -70,14 +70,14 @@ async fn healer() -> Result<Infallible, color_eyre::Report> {
         sleep(Duration::from_secs(app_config.autoheal_start_period)).await;
     }
 
-    let mut history_unhealthy = HashMap::<String, (Option<String>, usize)>::new();
+    let mut history_unhealthy = HashMap::<Rc<str>, (Option<Rc<str>>, usize)>::new();
 
     loop {
         match docker.get_containers().await {
             Ok(containers) => {
-                let mut current_unhealthy: HashMap<String, Option<String>> = containers
+                let mut current_unhealthy: HashMap<Rc<str>, Option<Rc<str>>> = containers
                     .iter()
-                    .map(|x| (x.id.to_string(), x.get_name()))
+                    .map(|c| (c.id.clone(), c.get_name().map(Into::into)))
                     .collect::<HashMap<_, _>>();
 
                 for container in containers {
