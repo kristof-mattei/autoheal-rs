@@ -84,9 +84,18 @@ dependencies = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "bitflags"
 version = "2.6.0"
+||||||| ce6b548
+name = "cc"
+version = "1.0.103"
+=======
+name = "cc"
+version = "1.1.10"
+>>>>>>> upstream/main
 source = "registry+https://github.com/rust-lang/crates.io-index"
+<<<<<<< HEAD
 checksum = "b048fb63fd8b5923fc5aa7b340d8e156aec7ec02f0c78fa8a6ddc2613f6f71de"
 
 [[package]]
@@ -99,6 +108,10 @@ checksum = "8318a53db07bb3f8dca91a600466bdb3f2eaadeedfdbcf02e1accbad9271ba50"
 name = "cc"
 version = "1.1.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+||||||| ce6b548
+checksum = "2755ff20a1d93490d26ba33a6f092a38a508398a5320df5d4b3014fcccce9410"
+=======
+>>>>>>> upstream/main
 checksum = "e9e8aabfac534be767c909e0690571677d49f41bd8465ae876fe043d52ba5292"
 
 [[package]]
