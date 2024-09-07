@@ -3,7 +3,7 @@ version: "3.7"
 services:
   should-keep-restarting:
     # this container should be restarted by autoheal because its unhealthy and has the autoheal label
-    image: alpine@sha256:0a4eaa0eecf5f8c050e5bba433f58c052be7587ee8af3e8b3910ef9ab5fbe9f5
+    image: alpine@sha256:beefdbd8a1da6d2915566fde36db9db0b524eb737fc57cd1367effd16dc0d06d
     network_mode: none
     restart: "no"
     labels:
@@ -18,7 +18,7 @@ services:
 
   shouldnt-restart-healthy:
     # this container shouldn't be restarted by autoheal because its healthy
-    image: alpine@sha256:0a4eaa0eecf5f8c050e5bba433f58c052be7587ee8af3e8b3910ef9ab5fbe9f5
+    image: alpine@sha256:beefdbd8a1da6d2915566fde36db9db0b524eb737fc57cd1367effd16dc0d06d
     network_mode: none
     restart: "no"
     labels:
@@ -33,7 +33,7 @@ services:
 
   shouldnt-restart-no-label:
     # this container shouldn't be restarted by autoheal because its missing the autoheal label
-    image: alpine@sha256:0a4eaa0eecf5f8c050e5bba433f58c052be7587ee8af3e8b3910ef9ab5fbe9f5
+    image: alpine@sha256:beefdbd8a1da6d2915566fde36db9db0b524eb737fc57cd1367effd16dc0d06d
     network_mode: none
     restart: "no"
     healthcheck:
@@ -47,7 +47,7 @@ services:
   ignore:
     # this container shouldn't be restarted because it is ignored by name
     # even though technically it is included based on the label
-    image: alpine@sha256:0a4eaa0eecf5f8c050e5bba433f58c052be7587ee8af3e8b3910ef9ab5fbe9f5
+    image: alpine@sha256:beefdbd8a1da6d2915566fde36db9db0b524eb737fc57cd1367effd16dc0d06d
     network_mode: none
     restart: "no"
     labels:
