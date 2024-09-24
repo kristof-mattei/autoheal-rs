@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   should-keep-restarting:
     # this container should be restarted by autoheal because its unhealthy and has the autoheal label
