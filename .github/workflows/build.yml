@@ -519,8 +519,6 @@ jobs:
       - docker-build
     env:
       TAG: PLACEHOLDER # overridden in step 'Build tag name', this is merely to satisfy the linter
-    if: |
-      (needs.changes.outputs.code == 'true')
     steps:
       - name: Checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -654,6 +652,7 @@ jobs:
       - cargo-test-and-report
       - docker-build
       - docker-publish
+      - docker-integration-test
     if: |
       always()
     steps:
