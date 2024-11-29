@@ -1,4 +1,4 @@
-use tracing::{event, Level};
+use tracing::{Level, event};
 
 fn try_parse_env_variable<T>(env_variable_name: &str) -> Result<Option<T>, color_eyre::Report>
 where

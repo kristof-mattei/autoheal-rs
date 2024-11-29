@@ -1,6 +1,7 @@
+use std::fmt;
 use std::marker::PhantomData;
+use std::rc::Rc;
 use std::str::FromStr;
-use std::{fmt, rc::Rc};
 
 use serde::de::{MapAccess, SeqAccess, Visitor};
 use serde::{Deserialize, Deserializer, Serialize};
@@ -255,6 +256,9 @@ mod tests {
 
         assert!(deserialized.is_err());
 
-        assert_eq!(deserialized.unwrap_err().to_string(), "invalid type: string \"I am not a map, but a string\", expected a nonempty sequence of items at line 1 column 149");
+        assert_eq!(
+            deserialized.unwrap_err().to_string(),
+            "invalid type: string \"I am not a map, but a string\", expected a nonempty sequence of items at line 1 column 149"
+        );
     }
 }

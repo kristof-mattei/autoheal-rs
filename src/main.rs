@@ -1,5 +1,6 @@
+use std::convert::Infallible;
+use std::rc::Rc;
 use std::time::Duration;
-use std::{convert::Infallible, rc::Rc};
 
 use app_config::AppConfig;
 use docker::Docker;
@@ -8,9 +9,9 @@ use handlers::set_up_handlers;
 use hashbrown::HashMap;
 use tokio::time::sleep;
 use tracing::metadata::LevelFilter;
-use tracing::{event, Level};
-use tracing_subscriber::util::SubscriberInitExt;
+use tracing::{Level, event};
 use tracing_subscriber::EnvFilter;
+use tracing_subscriber::util::SubscriberInitExt;
 
 mod app_config;
 mod container;

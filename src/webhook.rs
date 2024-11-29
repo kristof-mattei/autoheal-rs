@@ -5,7 +5,7 @@ use hyper::body::Bytes;
 use hyper::http::HeaderValue;
 use hyper::{Method, Uri};
 use hyper_tls::HttpsConnector;
-use tracing::{event, Level};
+use tracing::{Level, event};
 
 use crate::app_config::AppConfig;
 use crate::http_client::execute_request;
