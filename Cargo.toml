@@ -40,7 +40,7 @@ hashbrown = "0.15.2"
 hex = "0.4.3"
 http = "1.2.0"
 http-body-util = "0.1.2"
-hyper = { version = "1.5.1", default-features = false }
+hyper = { version = "1.5.2", default-features = false }
 hyper-tls = { version = "0.6.0", default-features = false, features = [
     "vendored",
 ] }
