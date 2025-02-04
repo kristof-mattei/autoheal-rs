@@ -2,6 +2,7 @@ allowed-duplicate-crates = [
     "bitflags",
     "regex-automata",
     "regex-syntax",
+    "wasi",
     "windows-sys",
     "windows_aarch64_gnullvm",
     "windows_aarch64_msvc",
