@@ -556,6 +556,13 @@ jobs:
 
       - name: Set up Docker
         uses: docker/setup-docker-action@v4
+        with:
+          daemon-config: |
+            {
+              "features": {
+                "containerd-snapshotter": true
+              }
+            }
 
       - name: Set Docker tag
         shell: bash
@@ -573,8 +580,6 @@ jobs:
       - name: Load image from artifact
         shell: bash
         run: |
-          docker info
-          sha256sum /tmp/containers/${{ env.UNIQUE_TAG }}.tar
           docker load --input /tmp/containers/${{ env.UNIQUE_TAG }}.tar
 
       - name: Run integration tests
