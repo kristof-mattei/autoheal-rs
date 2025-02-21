@@ -52,6 +52,7 @@ dependencies = [
  "hyper-unix-socket",
  "hyper-util",
  "libc",
+ "openssl",
  "percent-encoding",
  "serde",
  "serde_json",

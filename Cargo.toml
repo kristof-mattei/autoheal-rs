@@ -62,3 +62,6 @@ tokio = { version = "1.43.0", features = [
 tracing = "0.1.41"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
 url = { version = "2.5.3", features = ["expose_internals"] }
+
+[target.'cfg(all(any(target_arch="x86_64", target_arch="aarch64"), target_os="linux", target_env="musl"))'.dependencies]
+openssl = { version = "0.10.71", features = ["vendored"] }
