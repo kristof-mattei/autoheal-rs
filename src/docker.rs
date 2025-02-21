@@ -1,4 +1,5 @@
-use std::{rc::Rc, time::Duration};
+use std::rc::Rc;
+use std::time::Duration;
 
 use color_eyre::eyre::bail;
 use http::Uri;
@@ -8,7 +9,7 @@ use hyper::{Method, Response, StatusCode};
 use hyper_tls::HttpsConnector;
 use hyper_unix_socket::UnixSocketConnector;
 use tokio::time::timeout;
-use tracing::{event, Level};
+use tracing::{Level, event};
 
 use crate::app_config::AppConfig;
 use crate::container::Container;
@@ -91,9 +92,7 @@ impl Docker {
                 let request =
                     build_request(Uri::from_static("http://localhost"), path_and_query, method)?;
 
-                execute_request(connector, request)
-                    .await
-                    .map_err(Into::into)
+                execute_request(connector, request).await
             },
         }
     }
@@ -108,7 +107,11 @@ impl Docker {
 
         match container_info.get_name() {
             None => {
-                event!(Level::ERROR, "Container name of {} is null, which implies container does not exist - don't restart.", container_short_id);
+                event!(
+                    Level::ERROR,
+                    "Container name of {} is null, which implies container does not exist - don't restart.",
+                    container_short_id
+                );
             },
             Some(container_names) => {
                 if &*container_info.state == "restarting" {
@@ -123,7 +126,8 @@ impl Docker {
                         .timeout
                         .unwrap_or(app_config.autoheal_default_stop_timeout);
 
-                    event!(Level::INFO,
+                    event!(
+                        Level::INFO,
                         "Container {} ({}) found to be unhealthy {} times. Restarting container now with {}s timeout.",
                         container_names,
                         container_short_id,
