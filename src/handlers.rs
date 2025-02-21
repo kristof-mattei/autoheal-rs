@@ -2,12 +2,12 @@ use std::io::Error;
 use std::mem::MaybeUninit;
 use std::ptr::null_mut;
 
-use libc::{c_int, sigaction, sigset_t, SIGINT, SIGPIPE, SIGTERM, SIG_IGN};
-use tracing::{event, Level};
+use libc::{SIG_IGN, SIGINT, SIGPIPE, SIGTERM, c_int, sigaction, sigset_t};
+use tracing::{Level, event};
 
 use crate::wrap_and_report;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn sig_handler(signal: i32) {
     event!(Level::INFO, raw_signal = signal, "Stopping the engine");
     // std::process::exit(128 + signal);
