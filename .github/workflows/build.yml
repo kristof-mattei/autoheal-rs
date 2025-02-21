@@ -573,7 +573,7 @@ jobs:
       - name: Load image from artifact
         shell: bash
         run: |
-          docker --version
+          docker info
           sha256sum /tmp/containers/${{ env.UNIQUE_TAG }}.tar
           docker load --input /tmp/containers/${{ env.UNIQUE_TAG }}.tar
 
