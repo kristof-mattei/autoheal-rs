@@ -1,23 +1,36 @@
-FROM --platform=$BUILDPLATFORM rust:1.85.0@sha256:b34389eb072b83bdc55c1edc56331292c7dd4bdb08e2357f4f765aeb386aca45 AS builder
+FROM --platform=${BUILDPLATFORM} rust:1.85.0@sha256:b34389eb072b83bdc55c1edc56331292c7dd4bdb08e2357f4f765aeb386aca45 AS rust-base
 
-ARG TARGET=x86_64-unknown-linux-musl
 ARG APPLICATION_NAME
 
-RUN rustup target add ${TARGET}
-
-RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
+RUN rm -f /etc/apt/apt.conf.d/docker-clean \
+    && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
 
 # borrowed (Ba Dum Tss!) from
 # https://github.com/pablodeymo/rust-musl-builder/blob/7a7ea3e909b1ef00c177d9eeac32d8c9d7d6a08c/Dockerfile#L48-L49
-RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
-    dpkg --add-architecture arm64 && \
-    apt-get update && \
-    apt-get --no-install-recommends install -y \
-    build-essential \
-    musl-dev \
-    musl-tools \
-    libc6-dev-arm64-cross \
-    gcc-aarch64-linux-gnu
+RUN --mount=type=cache,id=apt-cache-amd64,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,id=apt-lib-amd64,target=/var/lib/apt,sharing=locked \
+    apt-get update \
+    && apt-get --no-install-recommends install --yes \
+        build-essential \
+        musl-dev \
+        musl-tools
+
+FROM rust-base AS rust-linux-amd64
+ARG TARGET=x86_64-unknown-linux-musl
+
+FROM rust-base AS rust-linux-arm64
+ARG TARGET=aarch64-unknown-linux-musl
+RUN --mount=type=cache,id=apt-cache-arm64,from=rust-base,source=/var/cache/apt,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,id=apt-lib-arm64,from=rust-base,source=/var/lib/apt,target=/var/lib/apt,sharing=locked \
+    dpkg --add-architecture arm64 \
+    && apt-get update \
+    && apt-get --no-install-recommends install --yes \
+        libc6-dev-arm64-cross \
+        gcc-aarch64-linux-gnu
+
+FROM rust-${TARGETPLATFORM//\//-} AS rust-cargo-build
+
+RUN rustup target add ${TARGET} && rustup component add clippy rustfmt
 
 # The following block
 # creates an empty app, and we copy in Cargo.toml and Cargo.lock as they represent our dependencies
@@ -28,32 +41,49 @@ RUN cargo new ${APPLICATION_NAME}
 WORKDIR /build/${APPLICATION_NAME}
 COPY .cargo ./.cargo
 COPY Cargo.toml Cargo.lock ./
-RUN --mount=type=cache,id=cargo-dependencies,target=/build/${APPLICATION_NAME}/target \
+
+RUN --mount=type=cache,target=/build/${APPLICATION_NAME}/target \
+    --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db,sharing=locked \
+    --mount=type=cache,id=cargo-registery,target=/usr/local/cargo/registry/,sharing=locked \
     cargo build --release --target ${TARGET}
+
+FROM rust-cargo-build AS rust-build
+
+WORKDIR /build/${APPLICATION_NAME}
 
 # now we copy in the source which is more prone to changes and build it
 COPY src ./src
 
+# ensure cargo picks up on the change
+RUN touch ./src/main.rs
+
 # --release not needed, it is implied with install
-RUN --mount=type=cache,id=full-build,target=/build/${APPLICATION_NAME}/target \
+RUN --mount=type=cache,target=/build/${APPLICATION_NAME}/target \
+    --mount=type=cache,id=cargo-git,target=/usr/local/cargo/git/db,sharing=locked \
+    --mount=type=cache,id=cargo-registery,target=/usr/local/cargo/registry/,sharing=locked \
     cargo install --path . --target ${TARGET} --root /output
 
-# Create a separate file because we don't want to copy over the
-# whole one to our scratch container
-RUN echo "root:x:0:0:root:/dev/null:/sbin/nologin" > /tmp/passwd
+FROM alpine:3.21.3@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c AS passwd-build
+
+# setting `--system` prevents prompting for a password
+RUN addgroup --gid 900 appgroup \
+    && adduser --ingroup appgroup --uid 900 --system --shell /bin/false root
+
+RUN cat /etc/group | grep root > /tmp/group_root
+RUN cat /etc/passwd | grep root > /tmp/passwd_root
 
 FROM scratch
 
 ARG APPLICATION_NAME
 
-# We're explicitely wanting to be root, because most consumers will just
-# run the container expecting it to work. Since Docker runs as root, we match
-# We fetch the passwrd file from the builder as we don't have sh here to create the file
-COPY --from=builder /tmp/passwd /etc/passwd
+COPY --from=passwd-build /tmp/group_root /etc/group
+COPY --from=passwd-build /tmp/passwd_root /etc/passwd
+
 USER root
 
 WORKDIR /app
-COPY --from=builder /output/bin/${APPLICATION_NAME} /app/entrypoint
+
+COPY --from=rust-build /output/bin/${APPLICATION_NAME} /app/entrypoint
 
 ENV RUST_BACKTRACE=full
 ENTRYPOINT ["/app/entrypoint"]
