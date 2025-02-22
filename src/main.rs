@@ -3,6 +3,7 @@ use std::rc::Rc;
 use std::time::Duration;
 
 use app_config::AppConfig;
+use color_eyre::eyre;
 use docker::Docker;
 use docker_config::DockerConfig;
 use handlers::set_up_handlers;
@@ -25,7 +26,7 @@ mod http_client;
 mod unhealthy_filters;
 mod webhook;
 
-fn main() -> Result<Infallible, color_eyre::Report> {
+fn main() -> Result<Infallible, eyre::Report> {
     color_eyre::install()?;
 
     tracing_subscriber::fmt::Subscriber::builder()
@@ -46,7 +47,7 @@ fn main() -> Result<Infallible, color_eyre::Report> {
     rt.block_on(healer())
 }
 
-async fn healer() -> Result<Infallible, color_eyre::Report> {
+async fn healer() -> Result<Infallible, eyre::Report> {
     let name = env!("CARGO_PKG_NAME");
     let version = env!("CARGO_PKG_VERSION");
 
