@@ -1,3 +1,4 @@
+use color_eyre::eyre;
 use hyper::Uri;
 
 use crate::env::{try_parse_env_variable_with_default, try_parse_optional_env_variable};
@@ -12,7 +13,7 @@ pub struct AppConfig {
 }
 
 impl AppConfig {
-    pub fn build() -> Result<AppConfig, color_eyre::Report> {
+    pub fn build() -> Result<AppConfig, eyre::Report> {
         Ok(AppConfig {
             webhook_url: try_parse_optional_env_variable("WEBHOOK_URL")?,
             autoheal_container_label: try_parse_optional_env_variable("AUTOHEAL_CONTAINER_LABEL")?,

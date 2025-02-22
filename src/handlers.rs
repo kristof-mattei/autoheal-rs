@@ -2,6 +2,7 @@ use std::io::Error;
 use std::mem::MaybeUninit;
 use std::ptr::null_mut;
 
+use color_eyre::eyre;
 use libc::{SIG_IGN, SIGINT, SIGPIPE, SIGTERM, c_int, sigaction, sigset_t};
 use tracing::{Level, event};
 
@@ -15,7 +16,7 @@ pub extern "C" fn sig_handler(signal: i32) {
     // RUNNING.store(false, Ordering::SeqCst);
 }
 
-fn set_up_handler(signum: c_int, handler: usize) -> Result<(), color_eyre::Report> {
+fn set_up_handler(signum: c_int, handler: usize) -> Result<(), eyre::Report> {
     let sa = sigaction {
         sa_sigaction: handler,
         sa_flags: 0,
@@ -35,7 +36,7 @@ fn set_up_handler(signum: c_int, handler: usize) -> Result<(), color_eyre::Repor
     Ok(())
 }
 
-pub(crate) fn set_up_handlers() -> Result<(), color_eyre::Report> {
+pub(crate) fn set_up_handlers() -> Result<(), eyre::Report> {
     set_up_handler(SIGPIPE, SIG_IGN)?;
     set_up_handler(SIGTERM, sig_handler as usize)?;
     set_up_handler(SIGINT, sig_handler as usize)?;

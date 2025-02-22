@@ -1,6 +1,7 @@
+use color_eyre::eyre;
 use tracing::{Level, event};
 
-fn try_parse_env_variable<T>(env_variable_name: &str) -> Result<Option<T>, color_eyre::Report>
+fn try_parse_env_variable<T>(env_variable_name: &str) -> Result<Option<T>, eyre::Report>
 where
     T: std::str::FromStr,
     <T as std::str::FromStr>::Err: std::error::Error,
@@ -11,14 +12,14 @@ where
     match std::env::var(env_variable_name).map(|s| str::parse::<T>(&s)) {
         Ok(Ok(ct)) => Ok(Some(ct)),
         Err(std::env::VarError::NotPresent) => Ok(None),
-        Ok(Err(err)) => Err(color_eyre::Report::wrap_err(
+        Ok(Err(err)) => Err(eyre::Report::wrap_err(
             err.into(),
             format!(
                 "Env variable {:?} could not be cast to requested type",
                 env_variable_name
             ),
         )),
-        Err(std::env::VarError::NotUnicode(err)) => Err(color_eyre::Report::msg(format!(
+        Err(std::env::VarError::NotUnicode(err)) => Err(eyre::Report::msg(format!(
             "Env variable {:?} could not be cast to String. Orignal value is {:?}",
             env_variable_name, err
         ))),
@@ -27,7 +28,7 @@ where
 
 pub fn try_parse_optional_env_variable<T>(
     env_variable_name: &str,
-) -> Result<Option<T>, color_eyre::Report>
+) -> Result<Option<T>, eyre::Report>
 where
     T: std::fmt::Debug,
     T: std::str::FromStr,
@@ -52,7 +53,7 @@ where
 pub fn try_parse_env_variable_with_default<T>(
     env_variable_name: &str,
     default: T,
-) -> Result<T, color_eyre::Report>
+) -> Result<T, eyre::Report>
 where
     T: std::fmt::Debug,
     T: std::str::FromStr,
