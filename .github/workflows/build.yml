@@ -593,8 +593,6 @@ jobs:
 
       - name: Run integration tests
         shell: bash
-        env:
-          DOCKER_BUILDKIT: "1" # https://github.com/moby/buildkit/issues/1945#issuecomment-763705334
         run: |
           IMAGE_ID_WITH_SHA256=$(docker image inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.UNIQUE_TAG }} --format '{{.Id}}')
           # IMAGE_ID_WITH_SHA256 looks like sha256:0ae0dc0eb5fbada1c6083b078a168422b4d67227bb762340857c095008c3cbb3
