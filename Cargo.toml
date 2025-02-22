@@ -36,6 +36,7 @@ backtrace = "0.3.74"
 color-eyre = { git = "https://github.com/eyre-rs/eyre", rev = "2dc0688d33a487009e8bc3222cbab135261383b0", features = [
     "track-caller",
 ] }
+console-subscriber = "0.4.1"
 hashbrown = "0.15.2"
 hex = "0.4.3"
 http = "1.2.0"
