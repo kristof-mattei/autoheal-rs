@@ -595,12 +595,19 @@ jobs:
       - name: Run integration tests
         shell: bash
         run: |
-          IMAGE_ID_WITH_SHA256=$(docker image inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.UNIQUE_TAG }} --format '{{.Id}}')
           # IMAGE_ID_WITH_SHA256 looks like sha256:0ae0dc0eb5fbada1c6083b078a168422b4d67227bb762340857c095008c3cbb3
+          IMAGE_ID_WITH_SHA256=$(docker image inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.UNIQUE_TAG }} --format '{{.Id}}')
+
           # we only need the second part so we're splitting it at the :
           export IMAGE_ID=${IMAGE_ID_WITH_SHA256#*:}
-          export DOCKER_SOCKET=${{ steps.docker-setup.outputs.sock }}
+
+          DOCKER_SOCKET=${{ steps.docker-setup.outputs.sock }}
+
+          # export with unix:// prefix stripped
+          export DOCKER_SOCKET=${DOCKER_SOCKET#"unix://"}
+
           cd integration-tests
+
           ./tests.sh
 
   docker-publish:
