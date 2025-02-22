@@ -1,5 +1,4 @@
 use color_eyre::eyre;
-use color_eyre::eyre::Report;
 use http::Request;
 use http_body_util::Full;
 use hyper::body::Bytes;
@@ -44,7 +43,7 @@ impl WebHookInvocation {
 #[derive(Debug)]
 enum State {
     Success,
-    Failure(Report),
+    Failure(eyre::Report),
 }
 
 pub fn notify_webhook_success<S1: Into<String>, S2: Into<String>>(
