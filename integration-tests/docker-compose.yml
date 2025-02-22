@@ -68,5 +68,5 @@ services:
       RUST_LOG: trace
       # WEBHOOK_URL: https://ntfy.sh/...
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "${DOCKER_SOCKET:-/var/run/docker.sock}:/var/run/docker.sock"
     network_mode: host

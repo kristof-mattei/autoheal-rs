@@ -556,6 +556,7 @@ jobs:
 
       - name: Set up Docker
         uses: docker/setup-docker-action@v4
+        id: docker-setup
         with:
           daemon-config: |
             {
@@ -598,6 +599,7 @@ jobs:
           # IMAGE_ID_WITH_SHA256 looks like sha256:0ae0dc0eb5fbada1c6083b078a168422b4d67227bb762340857c095008c3cbb3
           # we only need the second part so we're splitting it at the :
           export IMAGE_ID=${IMAGE_ID_WITH_SHA256#*:}
+          export DOCKER_SOCKET=${{ steps.docker-setup.outputs.sock }}
           cd integration-tests
           ./tests.sh
 
