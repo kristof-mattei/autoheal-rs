@@ -3,15 +3,16 @@ use std::rc::Rc;
 use std::time::Duration;
 
 use app_config::AppConfig;
+use color_eyre::eyre;
 use docker::Docker;
 use docker_config::DockerConfig;
 use handlers::set_up_handlers;
 use hashbrown::HashMap;
 use tokio::time::sleep;
-use tracing::metadata::LevelFilter;
 use tracing::{Level, event};
-use tracing_subscriber::EnvFilter;
+use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
+use tracing_subscriber::{EnvFilter, Layer};
 
 mod app_config;
 mod container;
@@ -25,17 +26,40 @@ mod http_client;
 mod unhealthy_filters;
 mod webhook;
 
-fn main() -> Result<Infallible, color_eyre::Report> {
-    color_eyre::install()?;
+fn init_tracing(console_subscriber: bool) -> Result<(), eyre::Report> {
+    let main_filter = EnvFilter::builder()
+        .parse(std::env::var(EnvFilter::DEFAULT_ENV).unwrap_or_else(|_| {
+            format!("INFO,{}=TRACE", env!("CARGO_PKG_NAME").replace('-', "_"))
+        }))?;
 
-    tracing_subscriber::fmt::Subscriber::builder()
-        .with_env_filter(
-            EnvFilter::builder()
-                .with_default_directive(LevelFilter::INFO.into())
-                .from_env_lossy(),
-        )
-        .finish()
-        .init();
+    let mut layers = vec![];
+
+    if console_subscriber {
+        layers.push(
+            console_subscriber::ConsoleLayer::builder()
+                .with_default_env()
+                .spawn()
+                .boxed(),
+        );
+    }
+
+    layers.push(
+        tracing_subscriber::fmt::layer()
+            .with_filter(main_filter)
+            .boxed(),
+    );
+    layers.push(tracing_error::ErrorLayer::default().boxed());
+
+    Ok(tracing_subscriber::registry().with(layers).try_init()?)
+}
+
+fn main() -> Result<Infallible, eyre::Report> {
+    color_eyre::config::HookBuilder::default()
+        .capture_span_trace_by_default(false)
+        .install()?;
+
+    // TODO this param should come from env / config,
+    init_tracing(true)?;
 
     set_up_handlers()?;
 
@@ -46,7 +70,7 @@ fn main() -> Result<Infallible, color_eyre::Report> {
     rt.block_on(healer())
 }
 
-async fn healer() -> Result<Infallible, color_eyre::Report> {
+async fn healer() -> Result<Infallible, eyre::Report> {
     let name = env!("CARGO_PKG_NAME");
     let version = env!("CARGO_PKG_VERSION");
 

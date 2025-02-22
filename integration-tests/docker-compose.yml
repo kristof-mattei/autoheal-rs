@@ -65,6 +65,7 @@ services:
       AUTOHEAL_CONTAINER_LABEL: "${AUTOHEAL_CONTAINER_LABEL:-all}"
       AUTOHEAL_INTERVAL: "10"
       AUTOHEAL_EXCLUDE_CONTAINERS: autoheal-test-ignore-1
+      RUST_LOG: trace
       # WEBHOOK_URL: https://ntfy.sh/...
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"

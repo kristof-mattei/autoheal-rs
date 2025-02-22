@@ -1,7 +1,7 @@
 use std::rc::Rc;
 use std::time::Duration;
 
-use color_eyre::eyre::bail;
+use color_eyre::eyre::{self, bail};
 use http::Uri;
 use http_body_util::BodyExt;
 use hyper::body::{Buf, Incoming};
@@ -32,7 +32,7 @@ impl Docker {
         }
     }
 
-    pub async fn get_containers(&self) -> Result<Vec<Container>, color_eyre::Report> {
+    pub async fn get_containers(&self) -> Result<Vec<Container>, eyre::Report> {
         let path_and_query = format!("/containers/json?filters={}", self.encoded_filters);
 
         let response = self.send_request(&path_and_query, Method::GET).await?;
@@ -48,7 +48,7 @@ impl Docker {
         &self,
         container_id: &str,
         timeout: u32,
-    ) -> Result<(), color_eyre::Report> {
+    ) -> Result<(), eyre::Report> {
         let path_and_query = format!("/containers/{}/restart?t={}", container_id, timeout);
 
         let response = self.send_request(&path_and_query, Method::POST).await?;
@@ -69,7 +69,7 @@ impl Docker {
         &self,
         path_and_query: &str,
         method: Method,
-    ) -> Result<Response<Incoming>, color_eyre::Report> {
+    ) -> Result<Response<Incoming>, eyre::Report> {
         match &self.config.endpoint {
             Endpoint::Direct {
                 url,

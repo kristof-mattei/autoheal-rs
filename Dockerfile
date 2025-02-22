@@ -63,7 +63,7 @@ RUN --mount=type=cache,target=/build/${APPLICATION_NAME}/target \
     --mount=type=cache,id=cargo-registery,target=/usr/local/cargo/registry/,sharing=locked \
     cargo install --path . --target ${TARGET} --root /output
 
-FROM scratch AS passwd-build
+FROM alpine:3.21.3@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c AS passwd-build
 
 # Create a separate file because we don't want to copy over the
 # whole one to our scratch container
@@ -76,7 +76,7 @@ ARG APPLICATION_NAME
 # We're explicitely wanting to be root, because most consumers will just
 # run the container expecting it to work. Since Docker runs as root, we match
 # We fetch the passwrd file from the builder as we don't have sh here to create the file
-COPY --from=builder /tmp/passwd /etc/passwd
+COPY --from=passwd-build /tmp/passwd /etc/passwd
 
 USER root
 

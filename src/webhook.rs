@@ -1,4 +1,4 @@
-use color_eyre::eyre::Report;
+use color_eyre::eyre;
 use http::Request;
 use http_body_util::Full;
 use hyper::body::Bytes;
@@ -43,7 +43,7 @@ impl WebHookInvocation {
 #[derive(Debug)]
 enum State {
     Success,
-    Failure(Report),
+    Failure(eyre::Report),
 }
 
 pub fn notify_webhook_success<S1: Into<String>, S2: Into<String>>(
@@ -71,7 +71,7 @@ pub fn notify_webhook_failure<S1: Into<String>, S2: Into<String>>(
     app_config: &AppConfig,
     container_name: S1,
     container_short_id: S2,
-    error: color_eyre::Report,
+    error: eyre::Report,
 ) {
     let Some(webhook_url) = app_config.webhook_url.clone() else {
         return;
@@ -96,7 +96,7 @@ async fn notify_webhook_and_log(invocation: WebHookInvocation) {
     };
 }
 
-async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), color_eyre::Report> {
+async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Report> {
     let connector = HttpsConnector::new();
 
     let message = match &invocation.state {

@@ -1,6 +1,7 @@
 use std::convert::Into;
 use std::str::FromStr;
 
+use color_eyre::eyre;
 use hashbrown::HashMap;
 use http_body_util::Empty;
 use hyper::body::{Body, Bytes};
@@ -16,7 +17,7 @@ pub fn build_request(
     base: Uri,
     path_and_query: &str,
     method: Method,
-) -> Result<Request<Empty<Bytes>>, color_eyre::Report> {
+) -> Result<Request<Empty<Bytes>>, eyre::Report> {
     build_request_with_headers_and_body::<_, HeaderName>(
         base,
         path_and_query,
@@ -32,7 +33,7 @@ pub fn build_request_with_body<B>(
     path_and_query: &str,
     method: Method,
     body: B,
-) -> Result<Request<B>, color_eyre::Report>
+) -> Result<Request<B>, eyre::Report>
 where
     B: Body + Send + 'static,
     B::Data: Send,
@@ -53,7 +54,7 @@ pub fn build_request_with_headers<K>(
     path_and_query: &str,
     headers: HashMap<K, HeaderValue>,
     method: Method,
-) -> Result<Request<Empty<Bytes>>, color_eyre::Report>
+) -> Result<Request<Empty<Bytes>>, eyre::Report>
 where
     K: IntoHeaderName,
 {
@@ -72,7 +73,7 @@ pub fn build_request_with_headers_and_body<B, K>(
     headers: HashMap<K, HeaderValue>,
     method: Method,
     body: B,
-) -> Result<Request<B>, color_eyre::Report>
+) -> Result<Request<B>, eyre::Report>
 where
     B: Body + Send + 'static,
     B::Data: Send,
@@ -98,7 +99,7 @@ where
 pub async fn execute_request<C, B>(
     connector: C,
     request: Request<B>,
-) -> Result<Response<hyper::body::Incoming>, color_eyre::Report>
+) -> Result<Response<hyper::body::Incoming>, eyre::Report>
 where
     C: Connect + Clone + Send + Sync + 'static,
     B: Body + Send + 'static + Unpin,
@@ -112,7 +113,7 @@ where
     Ok(response)
 }
 
-pub fn build_uri(base_url: Uri, path_and_query: &str) -> Result<Uri, color_eyre::Report> {
+pub fn build_uri(base_url: Uri, path_and_query: &str) -> Result<Uri, eyre::Report> {
     let mut parts = base_url.into_parts();
 
     parts.path_and_query = Some(PathAndQuery::from_str(path_and_query)?);
