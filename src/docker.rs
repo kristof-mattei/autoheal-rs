@@ -2,7 +2,6 @@ use std::rc::Rc;
 use std::time::Duration;
 
 use color_eyre::eyre;
-use color_eyre::eyre::bail;
 use http::Uri;
 use http_body_util::BodyExt;
 use hyper::body::{Buf, Incoming};
@@ -59,10 +58,10 @@ impl Docker {
         if StatusCode::is_success(&status_code) {
             Ok(())
         } else {
-            bail!(format!(
+            Err(eyre::Report::msg(format!(
                 "Tried to refresh container but it failed with {:?}",
                 status_code
-            ));
+            )))
         }
     }
 
