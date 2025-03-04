@@ -108,13 +108,15 @@ jobs:
           rm ${HOME}/.cargo/bin/rustfmt
 
           rustup update
+          rustup show active-toolchain || rustup toolchain install
+          rustup show
 
           cargo --version
 
       - name: Get binstall
         shell: bash
+        working-directory: /tmp
         run: |
-          cd /tmp
           archive="cargo-binstall-x86_64-unknown-linux-musl.tgz"
           wget "https://github.com/cargo-bins/cargo-binstall/releases/latest/download/${archive}"
 
@@ -187,6 +189,8 @@ jobs:
           rm ${HOME}/.cargo/bin/rustfmt
 
           rustup update
+          rustup show active-toolchain || rustup toolchain install
+          rustup show
 
           cargo --version
 
@@ -233,8 +237,15 @@ jobs:
           rm ${HOME}/.cargo/bin/rustfmt
 
           rustup update
+          rustup show active-toolchain || rustup toolchain install
+          rustup show
 
           cargo --version
+
+      - name: Install rustfmt
+        shell: bash
+        run: |
+          rustup component add rustfmt
 
       - name: Check formatting
         shell: bash
@@ -274,6 +285,8 @@ jobs:
           rm ${HOME}/.cargo/bin/rustfmt
 
           rustup update
+          rustup show active-toolchain || rustup toolchain install
+          rustup show
 
           cargo --version
 
@@ -400,6 +413,8 @@ jobs:
           rm ${HOME}/.cargo/bin/rustfmt
 
           rustup update
+          rustup show active-toolchain || rustup toolchain install
+          rustup show
 
           cargo --version
 
@@ -449,6 +464,8 @@ jobs:
           rm ${HOME}/.cargo/bin/rustfmt
 
           rustup update
+          rustup show active-toolchain || rustup toolchain install
+          rustup show
 
           cargo --version
 
