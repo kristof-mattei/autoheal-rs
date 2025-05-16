@@ -15,13 +15,14 @@ where
         Ok(Err(err)) => Err(eyre::Report::wrap_err(
             err.into(),
             format!(
-                "Env variable `{:?}` could not be cast to requested type",
+                "Env variable `{}` could not be parsed to requested type",
                 env_variable_name
             ),
         )),
         Err(std::env::VarError::NotUnicode(not_unicode)) => Err(eyre::Report::msg(format!(
-            "Env variable `{}` could not be cast to String. Original value is \"{}\"",
-            env_variable_name, not_unicode.display()
+            "Env variable `{}` could not be parsed to String. Original value is \"{}\"",
+            env_variable_name,
+            not_unicode.display()
         ))),
     }
 }
