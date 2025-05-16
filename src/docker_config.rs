@@ -26,7 +26,12 @@ impl DockerConfig {
                 || Ok(String::from("/var/run/docker.sock")),
                 OsString::into_string,
             )
-            .map_err(|err| eyre::Report::msg(format!("Could not convert {:?} to String", err)))?;
+            .map_err(|docker_sock_value| {
+                eyre::Report::msg(format!(
+                    "Could not convert \"{}\" to String",
+                    docker_sock_value.display()
+                ))
+            })?;
 
         let timeout_milliseconds = try_parse_env_variable_with_default("CURL_TIMEOUT", 30)?;
 
