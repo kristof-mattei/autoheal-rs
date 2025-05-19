@@ -70,7 +70,7 @@ tokio = { version = "1.45.0", features = [
 tracing = "0.1.41"
 tracing-error = "0.2.1"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
-url = { version = "2.5.3", features = ["expose_internals"] }
+url = { version = "2.5.4", features = ["expose_internals"] }
 
 # OpenSSL for musl
 [target.'cfg(all(any(target_arch="x86_64", target_arch="aarch64"), target_os="linux", target_env="musl"))'.dependencies]
