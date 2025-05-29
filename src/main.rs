@@ -27,10 +27,10 @@ mod unhealthy_filters;
 mod webhook;
 
 fn init_tracing(console_subscriber: bool) -> Result<(), eyre::Report> {
-    let main_filter = EnvFilter::builder()
-        .parse(std::env::var(EnvFilter::DEFAULT_ENV).unwrap_or_else(|_| {
-            format!("INFO,{}=TRACE", env!("CARGO_PKG_NAME").replace('-', "_"))
-        }))?;
+    let main_filter = EnvFilter::builder().parse(
+        std::env::var(EnvFilter::DEFAULT_ENV)
+            .unwrap_or_else(|_| format!("INFO,{}=TRACE", env!("CARGO_CRATE_NAME"))),
+    )?;
 
     let mut layers = vec![];
 
