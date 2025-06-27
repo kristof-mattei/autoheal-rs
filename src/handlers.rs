@@ -25,7 +25,7 @@ fn set_up_handler(signum: c_int, handler: usize) -> Result<(), eyre::Report> {
         sa_restorer: None,
     };
 
-    if unsafe { sigaction(signum, &sa, null_mut()) } == -1 {
+    if unsafe { sigaction(signum, &raw const sa, null_mut()) } == -1 {
         return Err(wrap_and_report!(
             Level::ERROR,
             Error::last_os_error(),
