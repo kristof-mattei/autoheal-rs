@@ -102,7 +102,7 @@ async fn healer() -> Result<Infallible, eyre::Report> {
             Ok(containers) => {
                 let mut current_unhealthy: HashMap<Rc<str>, Option<Rc<str>>> = containers
                     .iter()
-                    .map(|c| (c.id.clone(), c.get_name().map(Into::into)))
+                    .map(|c| (Rc::clone(&c.id), c.get_name().map(Into::into)))
                     .collect::<HashMap<_, _>>();
 
                 for container in containers {
