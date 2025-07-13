@@ -1,3 +1,9 @@
 # Autoheal-rs
 
-Heals your Docker container
+Heals your Docker containers
+
+## License
+
+MIT, see [LICENSE](./LICENSE)
+
+`SPDX-License-Identifier: MIT`
