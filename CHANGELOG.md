@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v1.6.1](https://github.com/kristof-mattei/autoheal-rs/compare/adf0cd7117034c106eac21c2384bfa282d4271b8..v1.6.1) - 2025-07-14
+#### Bug Fixes
+- set correct guard name - ([3131d66](https://github.com/kristof-mattei/autoheal-rs/commit/3131d663eac696ac0d1ed2aa522051f1218e8067)) - [@kristof-mattei](https://github.com/kristof-mattei)
+- remove unused env that comes in via variables - ([adf0cd7](https://github.com/kristof-mattei/autoheal-rs/commit/adf0cd7117034c106eac21c2384bfa282d4271b8)) - [@kristof-mattei](https://github.com/kristof-mattei)
+
+- - -
+
 ## [v1.6.0](https://github.com/kristof-mattei/autoheal-rs/compare/8b1e9f8aa2e6a37c268dd7587d0912d251afdea4..v1.6.0) - 2025-07-13
 #### Bug Fixes
 - **(deps)** update rust crate hyper-util to 0.1.15 - ([0986d07](https://github.com/kristof-mattei/autoheal-rs/commit/0986d076cfb47b7cda8728e288f7ea7086293fd2)) - renovate[bot]
