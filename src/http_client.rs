@@ -1,5 +1,5 @@
 use std::convert::Into;
-use std::str::FromStr;
+use std::str::FromStr as _;
 
 use color_eyre::eyre;
 use hashbrown::HashMap;

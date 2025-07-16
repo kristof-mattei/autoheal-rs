@@ -12,7 +12,7 @@ mod tests {
     use crate::unhealthy_filters::build;
 
     #[test]
-    fn test_build_decode_all() {
+    fn build_decode_all() {
         let all_unhealthy = build(Some("all"));
 
         let all_unhealthy_encoded = url_encode(&all_unhealthy);
@@ -24,7 +24,7 @@ mod tests {
     }
 
     #[test]
-    fn test_build_decode_autoheal() {
+    fn build_decode_autoheal() {
         let autoheal_and_unhealthy = build(Some("autoheal"));
 
         let autoheal_and_unhealthy_encoded = url_encode(&autoheal_and_unhealthy);
@@ -36,7 +36,7 @@ mod tests {
     }
 
     #[test]
-    fn test_build_decode_custom() {
+    fn build_decode_custom() {
         let custom_and_unhealthy = build(Some("custom"));
 
         let custom_and_unhealthy_encoded = url_encode(&custom_and_unhealthy);

@@ -19,13 +19,13 @@ where
             formatter.write_str("a nonempty sequence of items")
         }
 
-        fn visit_seq<M>(self, mut access: M) -> Result<Self::Value, M::Error>
+        fn visit_seq<M>(self, mut seq: M) -> Result<Self::Value, M::Error>
         where
             M: SeqAccess<'de>,
         {
-            let mut buffer = access.size_hint().map_or_else(Vec::new, Vec::with_capacity);
+            let mut buffer = seq.size_hint().map_or_else(Vec::new, Vec::with_capacity);
 
-            while let Some(mut value) = access.next_element::<String>()? {
+            while let Some(mut value) = seq.next_element::<String>()? {
                 // Docker container name starts with a '/'. I don't know why. But it's useless.
                 if value.starts_with('/') {
                     let split = value.split_off(1);
@@ -63,11 +63,11 @@ where
             formatter.write_str("a nonempty sequence of items")
         }
 
-        fn visit_map<M>(self, mut access: M) -> Result<Self::Value, M::Error>
+        fn visit_map<M>(self, mut map: M) -> Result<Self::Value, M::Error>
         where
             M: MapAccess<'de>,
         {
-            while let Some((key, value)) = access.next_entry::<String, String>()? {
+            while let Some((key, value)) = map.next_entry::<String, String>()? {
                 if key == "autoheal.stop.timeout" {
                     let v = Some(value.parse::<V>().unwrap());
                     return Ok(v);
@@ -109,7 +109,7 @@ mod tests {
     use crate::container::Container;
 
     #[test]
-    fn test_deserialize() {
+    fn deserialize() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"Labels":{},"State":"running"},{"Id":"281ea0c72e2e4a41fd2f81df945da9dfbfbc7ea0fe5e59c3d2a8234552e367cf","Names":["/whoogle-search"],"Labels":{},"State":"running"}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
@@ -136,7 +136,7 @@ mod tests {
     }
 
     #[test]
-    fn test_deserialize_multiple_names() {
+    fn deserialize_multiple_names() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism-1","/photoprism-2"],"Labels":{}, "State":"running"}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
@@ -155,7 +155,7 @@ mod tests {
     }
 
     #[test]
-    fn test_deserialize_timeout() {
+    fn deserialize_timeout() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"State":"running","Labels":{"autoheal.stop.timeout":"12"}}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
@@ -174,16 +174,16 @@ mod tests {
     }
 
     #[test]
-    fn test_deserialize_no_labels() {
+    fn deserialize_no_labels() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"State":"running"}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
 
-        assert!(deserialized.is_err());
+        deserialized.unwrap_err();
     }
 
     #[test]
-    fn test_deserialize_missing_timeout() {
+    fn deserialize_missing_timeout() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
@@ -202,16 +202,16 @@ mod tests {
     }
 
     #[test]
-    fn test_deserialize_with_no_names_array() {
+    fn deserialize_with_no_names_array() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
 
-        assert!(deserialized.is_err());
+        deserialized.unwrap_err();
     }
 
     #[test]
-    fn test_deserialize_names_empty_names_array() {
+    fn deserialize_names_empty_names_array() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":[],"State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
@@ -230,7 +230,7 @@ mod tests {
     }
 
     #[test]
-    fn test_deserialize_multiple_names_with_and_without_slash() {
+    fn deserialize_multiple_names_with_and_without_slash() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism-1","photoprism-2"],"Labels": {}, "State":"running"}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
@@ -249,7 +249,7 @@ mod tests {
     }
 
     #[test]
-    fn test_deserialize_invalid_labels() {
+    fn deserialize_invalid_labels() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/foo"],"State":"running","Labels": "I am not a map, but a string"}]"#;
 
         let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());

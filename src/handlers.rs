@@ -38,8 +38,14 @@ fn set_up_handler(signum: c_int, handler: usize) -> Result<(), eyre::Report> {
 
 pub(crate) fn set_up_handlers() -> Result<(), eyre::Report> {
     set_up_handler(SIGPIPE, SIG_IGN)?;
-    set_up_handler(SIGTERM, sig_handler as usize)?;
-    set_up_handler(SIGINT, sig_handler as usize)?;
+    #[expect(
+        clippy::fn_to_numeric_cast_any,
+        reason = "We actually need the function as a pointer"
+    )]
+    let sig_handler_ptr = sig_handler as usize;
+
+    set_up_handler(SIGTERM, sig_handler_ptr)?;
+    set_up_handler(SIGINT, sig_handler_ptr)?;
 
     Ok(())
 }

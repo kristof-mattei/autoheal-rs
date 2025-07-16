@@ -3,8 +3,8 @@ use std::time::Duration;
 
 use color_eyre::eyre;
 use http::Uri;
-use http_body_util::BodyExt;
-use hyper::body::{Buf, Incoming};
+use http_body_util::BodyExt as _;
+use hyper::body::{Buf as _, Incoming};
 use hyper::{Method, Response, StatusCode};
 use hyper_tls::HttpsConnector;
 use hyper_unix_socket::UnixSocketConnector;
