@@ -129,8 +129,8 @@ mod tests {
                     names: ["whoogle-search".into()].into(),
                     state: "running".into(),
                     timeout: None,
-                }
-            ] as &[Container],
+                },
+            ][..],
             deserialized.unwrap()
         );
     }

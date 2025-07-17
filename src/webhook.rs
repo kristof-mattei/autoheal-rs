@@ -19,7 +19,7 @@ struct WebHookInvocation {
 }
 impl WebHookInvocation {
     fn to_title(&self) -> &str {
-        match &self.state {
+        match self.state {
             State::Success => "Container successfully restarted",
             State::Failure(_) => "Container failed to restart",
         }
@@ -99,12 +99,12 @@ async fn notify_webhook_and_log(invocation: WebHookInvocation) {
 async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Report> {
     let connector = HttpsConnector::new();
 
-    let message = match &invocation.state {
+    let message = match invocation.state {
         State::Success => format!(
             "Container \"{}\" ({}) was unhealthy, but was successfully restarted.",
             invocation.container_name, invocation.container_short_id
         ),
-        State::Failure(error) => format!(
+        State::Failure(ref error) => format!(
             "Container \"{}\" ({}) was unhealthy and we failed to restarted it. Please check the logs for more info. \nError: {}",
             invocation.container_name, invocation.container_short_id, error
         ),

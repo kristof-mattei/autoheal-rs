@@ -6,7 +6,7 @@ use crate::env::try_parse_env_variable_with_default;
 
 pub struct DockerConfig {
     pub endpoint: Endpoint,
-    #[expect(dead_code)]
+    #[expect(dead_code, reason = "Not implemented yet")]
     pub options: Vec<String>,
 }
 

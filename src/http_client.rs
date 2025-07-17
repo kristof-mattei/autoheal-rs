@@ -27,7 +27,7 @@ pub fn build_request(
     )
 }
 
-#[expect(unused)]
+#[expect(unused, reason = "Shared code")]
 pub fn build_request_with_body<B>(
     base: Uri,
     path_and_query: &str,
@@ -48,7 +48,7 @@ where
     )
 }
 
-#[expect(unused)]
+#[expect(unused, reason = "Shared code")]
 pub fn build_request_with_headers<K>(
     base: Uri,
     path_and_query: &str,
