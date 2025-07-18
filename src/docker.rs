@@ -3,8 +3,8 @@ use std::time::Duration;
 
 use color_eyre::eyre;
 use http::Uri;
-use http_body_util::BodyExt;
-use hyper::body::{Buf, Incoming};
+use http_body_util::BodyExt as _;
+use hyper::body::{Buf as _, Incoming};
 use hyper::{Method, Response, StatusCode};
 use hyper_tls::HttpsConnector;
 use hyper_unix_socket::UnixSocketConnector;
@@ -14,6 +14,7 @@ use tracing::{Level, event};
 use crate::app_config::AppConfig;
 use crate::container::Container;
 use crate::docker_config::{DockerConfig, Endpoint};
+use crate::encoding::url_encode;
 use crate::http_client::{build_request, execute_request};
 use crate::webhook::{notify_webhook_failure, notify_webhook_success};
 
@@ -24,7 +25,7 @@ pub struct Docker {
 
 impl Docker {
     pub fn new(config: DockerConfig, filters: &serde_json::Value) -> Self {
-        let encoded_filters = crate::encoding::url_encode(filters);
+        let encoded_filters = url_encode(filters);
 
         Self {
             config,
@@ -70,9 +71,9 @@ impl Docker {
         path_and_query: &str,
         method: Method,
     ) -> Result<Response<Incoming>, eyre::Report> {
-        match &self.config.endpoint {
+        match self.config.endpoint {
             Endpoint::Direct {
-                url,
+                ref url,
                 timeout_milliseconds,
             } => {
                 let connector = HttpsConnector::new();
@@ -80,13 +81,13 @@ impl Docker {
 
                 let response = execute_request(connector, request);
 
-                match timeout(Duration::from_millis(*timeout_milliseconds), response).await {
+                match timeout(Duration::from_millis(timeout_milliseconds), response).await {
                     Ok(Ok(o)) => Ok(o),
                     Ok(Err(e)) => Err(e),
                     Err(e) => Err(e.into()),
                 }
             },
-            Endpoint::Socket(socket) => {
+            Endpoint::Socket(ref socket) => {
                 let connector = UnixSocketConnector::new(socket.clone());
 
                 let request =

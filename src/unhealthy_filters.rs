@@ -32,7 +32,7 @@ mod tests {
     use crate::unhealthy_filters::build;
 
     #[test]
-    fn test_build_filters_all() {
+    fn build_filters_all() {
         let all_unhealthy = build(Some("all"));
 
         assert_eq!(
@@ -42,7 +42,7 @@ mod tests {
     }
 
     #[test]
-    fn test_build_filters_autoheal() {
+    fn build_filters_autoheal() {
         let autoheal_and_unhealthy = build(Some("autoheal"));
 
         assert_eq!(
@@ -52,7 +52,7 @@ mod tests {
     }
 
     #[test]
-    fn test_build_filters_custom() {
+    fn build_filters_custom() {
         let custom_and_unhealthy = build(Some("custom"));
 
         assert_eq!(
@@ -62,7 +62,7 @@ mod tests {
     }
 
     #[test]
-    fn test_build_filters_custom_and_value_1() {
+    fn build_filters_custom_and_value_1() {
         let custom_and_unhealthy = build(Some("custom=true"));
 
         assert_eq!(
@@ -72,7 +72,7 @@ mod tests {
     }
 
     #[test]
-    fn test_build_filters_custom_and_value_2() {
+    fn build_filters_custom_and_value_2() {
         let custom_and_unhealthy = build(Some("custom=false"));
 
         assert_eq!(
@@ -82,7 +82,7 @@ mod tests {
     }
 
     #[test]
-    fn test_build_filters_custom_and_value_3() {
+    fn build_filters_custom_and_value_3() {
         let custom_and_unhealthy = build(Some("custom=foobar"));
 
         assert_eq!(

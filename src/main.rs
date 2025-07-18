@@ -6,13 +6,13 @@ use app_config::AppConfig;
 use color_eyre::eyre;
 use docker::Docker;
 use docker_config::DockerConfig;
-use handlers::set_up_handlers;
+use ffi_handlers::set_up_handlers;
 use hashbrown::HashMap;
 use tokio::time::sleep;
 use tracing::{Level, event};
-use tracing_subscriber::layer::SubscriberExt;
-use tracing_subscriber::util::SubscriberInitExt;
-use tracing_subscriber::{EnvFilter, Layer};
+use tracing_subscriber::layer::SubscriberExt as _;
+use tracing_subscriber::util::SubscriberInitExt as _;
+use tracing_subscriber::{EnvFilter, Layer as _};
 
 mod app_config;
 mod container;
@@ -20,7 +20,7 @@ mod docker;
 mod docker_config;
 mod encoding;
 mod env;
-mod handlers;
+mod ffi_handlers;
 mod helpers;
 mod http_client;
 mod unhealthy_filters;
@@ -97,6 +97,7 @@ async fn healer() -> Result<Infallible, eyre::Report> {
 
     let mut history_unhealthy = HashMap::<Rc<str>, (Option<Rc<str>>, usize)>::new();
 
+    #[expect(clippy::infinite_loop, reason = "Endless task")]
     loop {
         match docker.get_containers().await {
             Ok(containers) => {
@@ -130,7 +131,7 @@ async fn healer() -> Result<Infallible, eyre::Report> {
                             &container,
                             history_unhealthy
                                 .get(&container.id)
-                                .map_or(1, |(_, t)| *t + 1),
+                                .map_or(1, |&(_, t)| t + 1),
                         )
                         .await;
                 }
