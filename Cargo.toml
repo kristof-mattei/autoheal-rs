@@ -39,8 +39,7 @@ allow_attributes = { level = "deny", priority = 127 }
 allow_attributes_without_reason = { level = "deny", priority = 127 }
 # Debatable
 # arithmetic_side_effects = { level = "deny", priority = 127 }
-# Debatable
-# as_conversions = { level = "deny", priority = 127 }
+as_conversions = { level = "deny", priority = 127 }
 as_pointer_underscore = { level = "deny", priority = 127 }
 as_underscore = { level = "deny", priority = 127 }
 assertions_on_result_states = { level = "deny", priority = 127 }
@@ -106,8 +105,6 @@ panic_in_result_fn = { level = "deny", priority = 127 }
 # Debatable
 # partial_pub_fields = { level = "deny", priority = 127 }
 pattern_type_mismatch = { level = "deny", priority = 127 }
-# Doesn't work at the moment
-# pointer_format = { level = "deny", priority = 127 }
 precedence_bits = { level = "deny", priority = 127 }
 # Debatable
 # print_stderr = { level = "deny", priority = 127 }
