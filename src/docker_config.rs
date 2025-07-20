@@ -33,7 +33,7 @@ impl DockerConfig {
                 ))
             })?;
 
-        let timeout_milliseconds = try_parse_env_variable_with_default("CURL_TIMEOUT", 30)?;
+        let timeout_milliseconds = try_parse_env_variable_with_default("CURL_TIMEOUT", 30000)?;
 
         let endpoint = if docker_socket_or_uri.starts_with(TCP_START) {
             docker_socket_or_uri.replace_range(..TCP_START.len(), "https://");
