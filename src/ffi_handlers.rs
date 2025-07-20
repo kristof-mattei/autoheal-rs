@@ -49,7 +49,6 @@ pub(crate) fn set_up_handlers() -> Result<(), eyre::Report> {
     set_up_handler(SIGPIPE, SIG_IGN)?;
 
     #[expect(
-        clippy::as_conversions,
         clippy::fn_to_numeric_cast_any,
         reason = "We actually need the function as a pointer, and this is well-defined"
     )]
