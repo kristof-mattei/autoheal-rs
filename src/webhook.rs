@@ -4,7 +4,7 @@ use http_body_util::Full;
 use hyper::body::Bytes;
 use hyper::http::HeaderValue;
 use hyper::{Method, Uri};
-use hyper_tls::HttpsConnector;
+use hyper_rustls::HttpsConnectorBuilder;
 use tracing::{Level, event};
 
 use crate::app_config::AppConfig;
@@ -97,7 +97,11 @@ async fn notify_webhook_and_log(invocation: WebHookInvocation) {
 }
 
 async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Report> {
-    let connector = HttpsConnector::new();
+    let connector = HttpsConnectorBuilder::new()
+        .with_native_roots()?
+        .https_or_http()
+        .enable_http1()
+        .build();
 
     let message = match invocation.state {
         State::Success => format!(
