@@ -6,7 +6,7 @@ use http::Uri;
 use http_body_util::BodyExt as _;
 use hyper::body::{Buf as _, Incoming};
 use hyper::{Method, Response, StatusCode};
-use hyper_tls::HttpsConnector;
+use hyper_rustls::HttpsConnectorBuilder;
 use hyper_unix_socket::UnixSocketConnector;
 use tokio::time::timeout;
 use tracing::{Level, event};
@@ -76,7 +76,12 @@ impl Docker {
                 ref url,
                 timeout_milliseconds,
             } => {
-                let connector = HttpsConnector::new();
+                let connector = HttpsConnectorBuilder::new()
+                    .with_native_roots()?
+                    .https_or_http()
+                    .enable_http1()
+                    .build();
+
                 let request = build_request(url.clone(), path_and_query, method)?;
 
                 let response = execute_request(connector, request);
