@@ -1,17 +1,13 @@
 use std::convert::Infallible;
 use std::env;
 use std::env::VarError;
-use std::rc::Rc;
-use std::time::Duration;
 
-use app_config::RawConfig;
+use app_config::AppConfig;
 use color_eyre::config::HookBuilder;
 use color_eyre::eyre;
-use docker_connection::DockerConnection;
+use docker_connection::DockerConfig;
 use docker_healer::DockerHealer;
 use ffi_handlers::set_up_handlers;
-use hashbrown::HashMap;
-use tokio::time::sleep;
 use tracing::{Level, event};
 use tracing_subscriber::layer::SubscriberExt as _;
 use tracing_subscriber::util::SubscriberInitExt as _;
@@ -84,97 +80,25 @@ async fn healer() -> Result<Infallible, eyre::Report> {
 
     event!(Level::INFO, "{} v{}", name, version);
 
-    let (docker_startup_config, runtime_config, webhook_url) = RawConfig::build()?;
+    let AppConfig {
+        docker_startup_config,
+        healer_config,
+        container_label,
+        webhook_url,
+    } = AppConfig::build()?;
 
-    // let timeout_milliseconds = try_parse_env_variable_with_default("CURL_TIMEOUT", 30000)?;
+    let filters = unhealthy_filters::build(container_label.as_deref());
 
     let docker = DockerHealer::new(
-        DockerConnection::build(docker_startup_config)?,
-        &unhealthy_filters::build(runtime_config.container_label.as_deref()),
+        DockerConfig::build(docker_startup_config)?,
+        healer_config,
+        &filters,
         webhook_url,
     )?;
 
     // TODO define failure mode
     // Do we fail? Do we retry?
-
-    if runtime_config.start_period > 0 {
-        event!(
-            Level::INFO,
-            "Monitoring containers for unhealthy status in {} second(s)",
-            runtime_config.start_period
-        );
-
-        sleep(Duration::from_secs(runtime_config.start_period)).await;
-    }
-
-    let mut history_unhealthy = HashMap::<Rc<str>, (Option<Rc<str>>, usize)>::new();
-
-    #[expect(clippy::infinite_loop, reason = "Endless task")]
-    loop {
-        match docker.get_containers().await {
-            Ok(containers) => {
-                let mut current_unhealthy: HashMap<Rc<str>, Option<Rc<str>>> = containers
-                    .iter()
-                    .map(|c| (Rc::clone(&c.id), c.get_name().map(Into::into)))
-                    .collect::<HashMap<_, _>>();
-
-                for container in containers {
-                    if container
-                        .names
-                        .iter()
-                        .any(|n| runtime_config.exclude_containers.contains(n))
-                    {
-                        event!(
-                            Level::INFO,
-                            "Container {} ({}) is unhealthy, but it is excluded",
-                            container
-                                .get_name()
-                                .as_deref()
-                                .unwrap_or("<UNNAMED CONTAINER>"),
-                            &container.id[0..12],
-                        );
-
-                        continue;
-                    }
-
-                    docker
-                        .check_container_health(
-                            &runtime_config,
-                            &container,
-                            history_unhealthy
-                                .get(&container.id)
-                                .map_or(1, |&(_, t)| t + 1),
-                        )
-                        .await;
-                }
-
-                history_unhealthy = history_unhealthy
-                    .into_iter()
-                    .filter_map(|(key, (names, times))| {
-                        if let Some(new_name) = current_unhealthy.remove(&key) {
-                            // still unhealthy
-                            // take the new name
-                            Some((key, (new_name, times + 1)))
-                        } else {
-                            // healthy
-                            event!(
-                                Level::INFO,
-                                "Container {} ({}) returned to healthy state.",
-                                names.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
-                                key
-                            );
-                            None
-                        }
-                    })
-                    .collect();
-            },
-            Err(err) => {
-                event!(Level::ERROR, ?err, "Failed to fetch container info");
-            },
-        }
-
-        sleep(Duration::from_secs(runtime_config.interval)).await;
-    }
+    docker.monitor_containers().await;
 }
 
 #[cfg(test)]

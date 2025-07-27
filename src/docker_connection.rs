@@ -6,9 +6,8 @@ use rustls::pki_types::{CertificateDer, PrivateKeyDer};
 
 use crate::app_config::DockerStartupConfig;
 
-pub struct DockerConnection {
+pub struct DockerConfig {
     pub endpoint: DockerEndpointConfig,
-    pub timeout_milliseconds: u64,
     pub uri: http::Uri,
 }
 
@@ -25,16 +24,15 @@ pub struct ClientCredentials {
     pub key: PrivateKeyDer<'static>,
 }
 
-impl DockerConnection {
+impl DockerConfig {
     pub fn build(
         DockerStartupConfig {
             docker_sock: docker_socket_or_uri,
-            curl_timeout: timeout_milliseconds,
             cacert,
             client_key,
             client_cert,
         }: DockerStartupConfig,
-    ) -> Result<DockerConnection, eyre::Report> {
+    ) -> Result<DockerConfig, eyre::Report> {
         const TCP_START: &str = "tcp://";
 
         let endpoint = if docker_socket_or_uri.starts_with(TCP_START) {
@@ -55,19 +53,17 @@ impl DockerConnection {
                 None
             };
 
-            DockerConnection {
+            DockerConfig {
                 endpoint: DockerEndpointConfig::Direct {
                     client_credentials,
                     cacert,
                 },
-                timeout_milliseconds,
                 uri: docker_socket_or_uri.parse()?,
             }
         } else {
             // we're connecting over a socket, so the url is localhost
-            DockerConnection {
+            DockerConfig {
                 endpoint: DockerEndpointConfig::Socket(PathBuf::from(docker_socket_or_uri)),
-                timeout_milliseconds,
                 uri: http::Uri::from_static("http://localhost"),
             }
         };

@@ -3,6 +3,7 @@ use std::rc::Rc;
 use std::time::Duration;
 
 use color_eyre::eyre;
+use hashbrown::HashMap;
 use http::Uri;
 use http_body_util::{BodyExt as _, Full};
 use hyper::body::{Buf as _, Bytes, Incoming};
@@ -13,14 +14,15 @@ use hyper_util::client::legacy::Client;
 use hyper_util::client::legacy::connect::HttpConnector;
 use rustls::client::ClientConfig;
 use rustls::{DEFAULT_VERSIONS, RootCertStore};
-use tokio::time::timeout;
+use tokio::time::{sleep, timeout};
 use tracing::{Level, event};
 
+use crate::app_config::HealerConfig;
 use crate::container::Container;
-use crate::docker_connection::{DockerConnection, DockerEndpointConfig};
+use crate::docker_connection::{DockerConfig, DockerEndpointConfig};
 use crate::encoding::url_encode;
 use crate::http_client::{build_client, build_request, execute_request};
-use crate::{app_config::RuntimeConfig, webhook::WebHookNotifier};
+use crate::webhook::WebHookNotifier;
 
 enum DockerEndpoint {
     Socket(Client<UnixSocketConnector<PathBuf>, Full<Bytes>>),
@@ -32,7 +34,7 @@ enum DockerEndpoint {
 pub struct DockerHealer {
     endpoint: DockerEndpoint,
     encoded_filters: Rc<str>,
-    timeout_milliseconds: u64,
+    healer_config: HealerConfig,
     uri: http::Uri,
     notifier: WebHookNotifier,
 }
@@ -95,7 +97,8 @@ fn build_docker_client(endpoint: DockerEndpointConfig) -> Result<DockerEndpoint,
 
 impl DockerHealer {
     pub fn new(
-        config: DockerConnection,
+        config: DockerConfig,
+        healer_config: HealerConfig,
         filters: &serde_json::Value,
         webhook_uri: Option<Uri>,
     ) -> Result<Self, eyre::Report> {
@@ -106,8 +109,8 @@ impl DockerHealer {
         Ok(Self {
             endpoint: client,
             encoded_filters: Rc::from(encoded_filters),
+            healer_config,
             notifier: WebHookNotifier { uri: webhook_uri },
-            timeout_milliseconds: config.timeout_milliseconds,
             uri: config.uri,
         })
     }
@@ -156,7 +159,12 @@ impl DockerHealer {
             DockerEndpoint::Tls { ref client } => {
                 let response = execute_request(client, request);
 
-                match timeout(Duration::from_millis(self.timeout_milliseconds), response).await {
+                match timeout(
+                    Duration::from_millis(self.healer_config.timeout_milliseconds),
+                    response,
+                )
+                .await
+                {
                     Ok(Ok(o)) => Ok(o),
                     Ok(Err(e)) => Err(e),
                     Err(e) => Err(e.into()),
@@ -165,7 +173,12 @@ impl DockerHealer {
             DockerEndpoint::Socket(ref client) => {
                 let response = execute_request(client, request);
 
-                match timeout(Duration::from_millis(self.timeout_milliseconds), response).await {
+                match timeout(
+                    Duration::from_millis(self.healer_config.timeout_milliseconds),
+                    response,
+                )
+                .await
+                {
                     Ok(Ok(o)) => Ok(o),
                     Ok(Err(e)) => Err(e),
                     Err(e) => Err(e.into()),
@@ -174,12 +187,7 @@ impl DockerHealer {
         }
     }
 
-    pub async fn check_container_health(
-        &self,
-        runtime_config: &RuntimeConfig,
-        container_info: &Container,
-        times: usize,
-    ) {
+    pub async fn check_container_health(&self, container_info: &Container, times: usize) {
         let container_short_id = &container_info.id[0..12];
 
         match container_info.get_name() {
@@ -201,7 +209,7 @@ impl DockerHealer {
                 } else {
                     let timeout = container_info
                         .timeout
-                        .unwrap_or(runtime_config.default_stop_timeout);
+                        .unwrap_or((self.healer_config).default_stop_timeout);
 
                     event!(
                         Level::INFO,
@@ -234,6 +242,84 @@ impl DockerHealer {
                     }
                 }
             },
+        }
+    }
+
+    pub async fn monitor_containers(&self) -> ! {
+        if self.healer_config.start_period > 0 {
+            event!(
+                Level::INFO,
+                "Monitoring containers for unhealthy status in {} second(s)",
+                self.healer_config.start_period
+            );
+
+            sleep(Duration::from_secs(self.healer_config.start_period)).await;
+        }
+
+        let mut history_unhealthy = HashMap::<Rc<str>, (Option<Rc<str>>, usize)>::new();
+
+        loop {
+            match self.get_containers().await {
+                Ok(containers) => {
+                    let mut current_unhealthy: HashMap<Rc<str>, Option<Rc<str>>> = containers
+                        .iter()
+                        .map(|c| (Rc::clone(&c.id), c.get_name().map(Into::into)))
+                        .collect::<HashMap<_, _>>();
+
+                    for container in containers {
+                        if container
+                            .names
+                            .iter()
+                            .any(|n| self.healer_config.exclude_containers.contains(n))
+                        {
+                            event!(
+                                Level::INFO,
+                                "Container {} ({}) is unhealthy, but it is excluded",
+                                container
+                                    .get_name()
+                                    .as_deref()
+                                    .unwrap_or("<UNNAMED CONTAINER>"),
+                                &container.id[0..12],
+                            );
+
+                            continue;
+                        }
+
+                        self.check_container_health(
+                            &container,
+                            history_unhealthy
+                                .get(&container.id)
+                                .map_or(1, |&(_, t)| t + 1),
+                        )
+                        .await;
+                    }
+
+                    history_unhealthy = history_unhealthy
+                        .into_iter()
+                        .filter_map(|(key, (names, times))| {
+                            if let Some(new_name) = current_unhealthy.remove(&key) {
+                                // still unhealthy
+                                // take the new name
+                                Some((key, (new_name, times + 1)))
+                            } else {
+                                // healthy
+                                event!(
+                                    Level::INFO,
+                                    "Container {} ({}) returned to healthy state.",
+                                    names.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
+                                    key
+                                );
+                                None
+                            }
+                        })
+                        .collect();
+                },
+                Err(err) => {
+                    event!(Level::ERROR, ?err, "Failed to fetch container info");
+                },
+            }
+
+            tokio::time::sleep(Duration::from_secs(self.healer_config.interval)).await;
         }
     }
 }
