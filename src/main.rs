@@ -5,7 +5,6 @@ use std::env::VarError;
 use app_config::AppConfig;
 use color_eyre::config::HookBuilder;
 use color_eyre::eyre;
-use docker_connection::DockerConfig;
 use docker_healer::DockerHealer;
 use ffi_handlers::set_up_handlers;
 use tracing::{Level, event};
@@ -89,12 +88,7 @@ async fn healer() -> Result<Infallible, eyre::Report> {
 
     let filters = unhealthy_filters::build(container_label.as_deref());
 
-    let docker = DockerHealer::new(
-        DockerConfig::build(docker_startup_config)?,
-        healer_config,
-        &filters,
-        webhook_url,
-    )?;
+    let docker = DockerHealer::new(docker_startup_config, healer_config, &filters, webhook_url)?;
 
     // TODO define failure mode
     // Do we fail? Do we retry?
