@@ -8,13 +8,13 @@ use hyper::Uri;
 pub struct RawConfig {
     #[clap(long, env)]
     pub autoheal_container_label: Option<String>,
-    #[clap(long, env)]
+    #[clap(long, env, default_value_t = 10)]
     pub autoheal_default_stop_timeout: u32,
-    #[clap(long, env)]
+    #[clap(long, env, default_value_t = 5)]
     pub autoheal_interval: u64,
     #[clap(long, env)]
     pub autoheal_exclude_containers: Vec<String>,
-    #[clap(long, env)]
+    #[clap(long, env, default_value_t = 0)]
     pub autoheal_start_period: u64,
     #[clap(long, env = "CA")]
     pub cacert: Option<PathBuf>,
