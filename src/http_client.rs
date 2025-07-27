@@ -13,17 +13,22 @@ use hyper_util::client::legacy::Client;
 use hyper_util::client::legacy::connect::Connect;
 use hyper_util::rt::TokioExecutor;
 
-pub fn build_request(
+pub fn build_request<B>(
     base: Uri,
     path_and_query: &str,
     method: Method,
-) -> Result<Request<Empty<Bytes>>, eyre::Report> {
+) -> Result<Request<B>, eyre::Report>
+where
+    B: Body + Send + 'static + Default,
+    B::Data: Send,
+    B::Error: Into<Box<dyn std::error::Error + Send + Sync>>,
+{
     build_request_with_headers_and_body::<_, HeaderName>(
         base,
         path_and_query,
         HashMap::default(),
         method,
-        Empty::<Bytes>::new(),
+        B::default(),
     )
 }
 
@@ -96,8 +101,17 @@ where
     Ok(request)
 }
 
+pub fn build_client<C, B>(connector: C) -> Client<C, B>
+where
+    C: Connect + Clone + Send + Sync + 'static,
+    B: Body + Send,
+    B::Data: Send,
+{
+    Client::builder(TokioExecutor::new()).build::<_, B>(connector)
+}
+
 pub async fn execute_request<C, B>(
-    connector: C,
+    client: &Client<C, B>,
     request: Request<B>,
 ) -> Result<Response<hyper::body::Incoming>, eyre::Report>
 where
@@ -106,8 +120,6 @@ where
     B::Data: Send,
     B::Error: Into<Box<dyn std::error::Error + Send + Sync>>,
 {
-    let client = Client::builder(TokioExecutor::new()).build::<_, B>(connector);
-
     let response = client.request(request).await?;
 
     Ok(response)

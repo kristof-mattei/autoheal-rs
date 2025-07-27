@@ -7,7 +7,7 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'autoheal-rs'",
+            "name": "Debug executable 'autoheal-rs' with socket",
             "cargo": {
                 "args": ["build", "--bin=autoheal-rs", "--package=autoheal-rs"],
                 "filter": {
@@ -19,6 +19,27 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
+                "RUST_LOG": "DEBUG,autoheal_rs=TRACE"
+            },
+            "internalConsoleOptions": "neverOpen",
+            "terminal": "integrated"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'autoheal-rs' over http",
+            "cargo": {
+                "args": ["build", "--bin=autoheal-rs", "--package=autoheal-rs"],
+                "filter": {
+                    "name": "autoheal-rs",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "RUST_BACKTRACE": "1",
+                "DOCKER_SOCK": "tcp://localhost:2376",
                 "RUST_LOG": "DEBUG,autoheal_rs=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
