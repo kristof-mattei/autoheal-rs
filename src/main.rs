@@ -1,11 +1,14 @@
 use std::convert::Infallible;
+use std::env;
+use std::env::VarError;
 use std::rc::Rc;
 use std::time::Duration;
 
-use app_config::AppConfig;
+use app_config::RawConfig;
+use color_eyre::config::HookBuilder;
 use color_eyre::eyre;
-use docker::Docker;
-use docker_config::DockerConfig;
+use docker_connection::DockerConnection;
+use docker_healer::DockerHealer;
 use ffi_handlers::set_up_handlers;
 use hashbrown::HashMap;
 use tokio::time::sleep;
@@ -16,50 +19,53 @@ use tracing_subscriber::{EnvFilter, Layer as _};
 
 mod app_config;
 mod container;
-mod docker;
-mod docker_config;
+mod docker_connection;
+mod docker_healer;
 mod encoding;
-mod env;
 mod ffi_handlers;
 mod helpers;
 mod http_client;
 mod unhealthy_filters;
 mod webhook;
 
-fn init_tracing(console_subscriber: bool) -> Result<(), eyre::Report> {
-    let main_filter = EnvFilter::builder().parse(
-        std::env::var(EnvFilter::DEFAULT_ENV)
-            .unwrap_or_else(|_| format!("INFO,{}=TRACE", env!("CARGO_CRATE_NAME"))),
-    )?;
-
-    let mut layers = vec![];
-
-    if console_subscriber {
-        layers.push(
-            console_subscriber::ConsoleLayer::builder()
-                .with_default_env()
-                .spawn()
-                .boxed(),
-        );
-    }
-
-    layers.push(
-        tracing_subscriber::fmt::layer()
-            .with_filter(main_filter)
-            .boxed(),
-    );
-    layers.push(tracing_error::ErrorLayer::default().boxed());
-
-    Ok(tracing_subscriber::registry().with(layers).try_init()?)
+fn build_default_filter() -> EnvFilter {
+    EnvFilter::builder()
+        .parse(format!("INFO,{}=TRACE", env!("CARGO_CRATE_NAME")))
+        .expect("Default filter should always work")
 }
 
-fn main() -> Result<Infallible, eyre::Report> {
-    color_eyre::config::HookBuilder::default()
-        .capture_span_trace_by_default(false)
+fn init_tracing() -> Result<(), eyre::Report> {
+    let (filter, filter_parsing_error) = match env::var(EnvFilter::DEFAULT_ENV) {
+        Ok(user_directive) => match EnvFilter::builder().parse(user_directive) {
+            Ok(filter) => (filter, None),
+            Err(error) => (build_default_filter(), Some(eyre::Report::new(error))),
+        },
+        Err(VarError::NotPresent) => (build_default_filter(), None),
+        Err(error @ VarError::NotUnicode(_)) => {
+            (build_default_filter(), Some(eyre::Report::new(error)))
+        },
+    };
+
+    let registry = tracing_subscriber::registry();
+
+    #[cfg(feature = "tokio-console")]
+    let registry = registry.with(console_subscriber::ConsoleLayer::builder().spawn());
+
+    registry
+        .with(tracing_subscriber::fmt::layer().with_filter(filter))
+        .with(tracing_error::ErrorLayer::default())
+        .try_init()?;
+
+    filter_parsing_error.map_or(Ok(()), Err)
+}
+
+fn main() -> Result<(), eyre::Report> {
+    HookBuilder::default()
+        .capture_span_trace_by_default(true)
+        .display_env_section(false)
         .install()?;
 
-    // TODO this param should come from env / config,
-    init_tracing(true)?;
+    init_tracing()?;
 
     set_up_handlers()?;
 
@@ -67,7 +73,9 @@ fn main() -> Result<Infallible, eyre::Report> {
     let rt = tokio::runtime::Runtime::new().unwrap();
 
     // start service
-    rt.block_on(healer())
+    rt.block_on(healer())?;
+
+    Ok(())
 }
 
 async fn healer() -> Result<Infallible, eyre::Report> {
@@ -76,23 +84,27 @@ async fn healer() -> Result<Infallible, eyre::Report> {
 
     event!(Level::INFO, "{} v{}", name, version);
 
-    let app_config = AppConfig::build()?;
+    let (docker_startup_config, runtime_config, webhook_url) = RawConfig::build()?;
 
-    let docker = Docker::new(
-        DockerConfig::build()?,
-        &unhealthy_filters::build(app_config.autoheal_container_label.as_deref()),
-    );
+    // let timeout_milliseconds = try_parse_env_variable_with_default("CURL_TIMEOUT", 30000)?;
+
+    let docker = DockerHealer::new(
+        DockerConnection::build(docker_startup_config)?,
+        &unhealthy_filters::build(runtime_config.container_label.as_deref()),
+        webhook_url,
+    )?;
 
     // TODO define failure mode
     // Do we fail? Do we retry?
 
-    if app_config.autoheal_start_period > 0 {
+    if runtime_config.start_period > 0 {
         event!(
             Level::INFO,
             "Monitoring containers for unhealthy status in {} second(s)",
-            app_config.autoheal_start_period
+            runtime_config.start_period
         );
-        sleep(Duration::from_secs(app_config.autoheal_start_period)).await;
+
+        sleep(Duration::from_secs(runtime_config.start_period)).await;
     }
 
     let mut history_unhealthy = HashMap::<Rc<str>, (Option<Rc<str>>, usize)>::new();
@@ -110,7 +122,7 @@ async fn healer() -> Result<Infallible, eyre::Report> {
                     if container
                         .names
                         .iter()
-                        .any(|n| app_config.autoheal_exclude_containers.contains(n))
+                        .any(|n| runtime_config.exclude_containers.contains(n))
                     {
                         event!(
                             Level::INFO,
@@ -127,7 +139,7 @@ async fn healer() -> Result<Infallible, eyre::Report> {
 
                     docker
                         .check_container_health(
-                            &app_config,
+                            &runtime_config,
                             &container,
                             history_unhealthy
                                 .get(&container.id)
@@ -161,7 +173,7 @@ async fn healer() -> Result<Infallible, eyre::Report> {
             },
         }
 
-        sleep(Duration::from_secs(app_config.autoheal_interval)).await;
+        sleep(Duration::from_secs(runtime_config.interval)).await;
     }
 }
 

@@ -5,18 +5,20 @@ use hyper::body::Bytes;
 use hyper::http::HeaderValue;
 use hyper::{Method, Uri};
 use hyper_rustls::HttpsConnectorBuilder;
+use hyper_util::client::legacy::Client;
+use hyper_util::rt::TokioExecutor;
 use tracing::{Level, event};
 
-use crate::app_config::AppConfig;
 use crate::http_client::execute_request;
 
 #[derive(Debug)]
 struct WebHookInvocation {
-    url: Uri,
+    uri: Uri,
     container_name: String,
     container_short_id: String,
     state: State,
 }
+
 impl WebHookInvocation {
     fn to_title(&self) -> &str {
         match self.state {
@@ -46,53 +48,59 @@ enum State {
     Failure(eyre::Report),
 }
 
-pub fn notify_webhook_success<S1: Into<String>, S2: Into<String>>(
-    app_config: &AppConfig,
-    container_short_id: S1,
-    container_name: S2,
-) {
-    let Some(webhook_url) = app_config.webhook_url.clone() else {
-        return;
-    };
-
-    let invocation = WebHookInvocation {
-        url: webhook_url,
-        container_name: container_name.into(),
-        container_short_id: container_short_id.into(),
-        state: State::Success,
-    };
-
-    tokio::task::spawn(async move {
-        notify_webhook_and_log(invocation).await;
-    });
+pub struct WebHookNotifier {
+    pub uri: Option<Uri>,
 }
 
-pub fn notify_webhook_failure<S1: Into<String>, S2: Into<String>>(
-    app_config: &AppConfig,
-    container_name: S1,
-    container_short_id: S2,
-    error: eyre::Report,
-) {
-    let Some(webhook_url) = app_config.webhook_url.clone() else {
-        return;
-    };
+impl WebHookNotifier {
+    pub fn notify_webhook_success<S1: Into<String>, S2: Into<String>>(
+        &self,
+        container_short_id: S1,
+        container_name: S2,
+    ) {
+        let Some(uri) = self.uri.clone() else {
+            return;
+        };
 
-    let webhook_config = WebHookInvocation {
-        url: webhook_url,
-        container_name: container_name.into(),
-        container_short_id: container_short_id.into(),
-        state: State::Failure(error),
-    };
+        let invocation = WebHookInvocation {
+            uri,
+            container_name: container_name.into(),
+            container_short_id: container_short_id.into(),
+            state: State::Success,
+        };
 
-    tokio::task::spawn(async move {
-        notify_webhook_and_log(webhook_config).await;
-    });
+        tokio::task::spawn(async move {
+            notify_webhook_and_log(invocation).await;
+        });
+    }
+
+    pub fn notify_webhook_failure<S1: Into<String>, S2: Into<String>>(
+        &self,
+        container_name: S1,
+        container_short_id: S2,
+        error: eyre::Report,
+    ) {
+        let Some(uri) = self.uri.clone() else {
+            return;
+        };
+
+        let invocation = WebHookInvocation {
+            uri,
+            container_name: container_name.into(),
+            container_short_id: container_short_id.into(),
+            state: State::Failure(error),
+        };
+
+        tokio::task::spawn(async move {
+            notify_webhook_and_log(invocation).await;
+        });
+    }
 }
 
 async fn notify_webhook_and_log(invocation: WebHookInvocation) {
     match notify_webhook(&invocation).await {
         Ok(()) => event!(Level::TRACE, ?invocation, "Successfully notified webhook"),
-        Err(e) => event!(Level::TRACE, ?invocation, ?e, "Failure sending webhook"),
+        Err(err) => event!(Level::TRACE, ?err, ?invocation, "Failure sending webhook"),
     }
 }
 
@@ -100,8 +108,10 @@ async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Repo
     let connector = HttpsConnectorBuilder::new()
         .with_native_roots()?
         .https_or_http()
-        .enable_http1()
+        .enable_all_versions()
         .build();
+
+    let client = Client::builder(TokioExecutor::new()).build(connector);
 
     let message = match invocation.state {
         State::Success => format!(
@@ -115,7 +125,7 @@ async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Repo
     };
 
     let request = Request::builder()
-        .uri(invocation.url.clone())
+        .uri(invocation.uri.clone())
         .method(Method::POST)
         .header(
             hyper::header::CONTENT_TYPE,
@@ -126,5 +136,5 @@ async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Repo
         .header("X-Tags", invocation.to_tags())
         .body(Full::new(Bytes::from(message)))?;
 
-    execute_request(connector, request).await.map(|_| ())
+    execute_request(&client, request).await.map(|_| ())
 }
