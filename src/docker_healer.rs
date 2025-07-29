@@ -10,9 +10,8 @@ use hyper::{Method, Response, StatusCode};
 use tokio::time::{sleep, timeout};
 use tracing::{Level, event};
 
-use crate::app_config::{DockerStartupConfig, HealerConfig};
+use crate::app_config::HealerConfig;
 use crate::container::Container;
-use crate::docker_connection;
 use crate::docker_connection::{DockerClient, DockerEndpoint};
 use crate::encoding::url_encode;
 use crate::http_client::{build_request, execute_request};
@@ -27,21 +26,19 @@ pub struct DockerHealer {
 
 impl DockerHealer {
     pub fn new(
-        config: DockerStartupConfig,
+        client: DockerClient,
         healer_config: HealerConfig,
         filters: &serde_json::Value,
         webhook_uri: Option<Uri>,
-    ) -> Result<Self, eyre::Report> {
+    ) -> Self {
         let encoded_filters = url_encode(filters);
 
-        let client = docker_connection::DockerClient::build(config)?;
-
-        Ok(Self {
+        Self {
             client,
             encoded_filters: Rc::from(encoded_filters),
             healer_config,
             notifier: WebHookNotifier { uri: webhook_uri },
-        })
+        }
     }
 
     pub async fn get_containers(&self) -> Result<Vec<Container>, eyre::Report> {
@@ -85,7 +82,7 @@ impl DockerHealer {
         let request = build_request(self.client.uri.clone(), path_and_query, method)?;
 
         match self.client.endpoint {
-            DockerEndpoint::Tls { ref client } => {
+            DockerEndpoint::Tls(ref client) => {
                 let response = execute_request(client, request);
 
                 match timeout(

@@ -12,6 +12,8 @@ use tracing_subscriber::layer::SubscriberExt as _;
 use tracing_subscriber::util::SubscriberInitExt as _;
 use tracing_subscriber::{EnvFilter, Layer as _};
 
+use crate::docker_connection::DockerClient;
+
 mod app_config;
 mod container;
 mod docker_connection;
@@ -88,11 +90,13 @@ async fn healer() -> Result<Infallible, eyre::Report> {
 
     let filters = unhealthy_filters::build(container_label.as_deref());
 
-    let docker = DockerHealer::new(docker_startup_config, healer_config, &filters, webhook_url)?;
+    let docker_client = DockerClient::build(docker_startup_config)?;
+
+    let docker_healer = DockerHealer::new(docker_client, healer_config, &filters, webhook_url);
 
     // TODO define failure mode
     // Do we fail? Do we retry?
-    docker.monitor_containers().await;
+    docker_healer.monitor_containers().await;
 }
 
 #[cfg(test)]

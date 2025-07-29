@@ -13,19 +13,17 @@ use rustls::pki_types::{CertificateDer, PrivateKeyDer};
 use rustls::{DEFAULT_VERSIONS, RootCertStore};
 use tracing::{Level, event};
 
-use crate::app_config::DockerStartupConfig;
+use crate::app_config::DockerConfig;
 use crate::http_client;
+
+pub enum DockerEndpoint {
+    Socket(Client<UnixSocketConnector<PathBuf>, Full<Bytes>>),
+    Tls(Client<HttpsConnector<HttpConnector>, Full<Bytes>>),
+}
 
 pub struct DockerClient {
     pub endpoint: DockerEndpoint,
     pub uri: http::Uri,
-}
-
-pub enum DockerEndpoint {
-    Socket(Client<UnixSocketConnector<PathBuf>, Full<Bytes>>),
-    Tls {
-        client: Client<HttpsConnector<HttpConnector>, Full<Bytes>>,
-    },
 }
 
 struct ClientCredentials {
@@ -35,12 +33,12 @@ struct ClientCredentials {
 
 impl DockerClient {
     pub fn build(
-        DockerStartupConfig {
+        DockerConfig {
             docker_sock: docker_socket_or_uri,
             cacert,
             client_key,
             client_cert,
-        }: DockerStartupConfig,
+        }: DockerConfig,
     ) -> Result<DockerClient, eyre::Report> {
         const TCP_START: &str = "tcp://";
 
@@ -101,9 +99,7 @@ impl DockerClient {
                 .build();
 
             DockerClient {
-                endpoint: DockerEndpoint::Tls {
-                    client: http_client::build_client(connector),
-                },
+                endpoint: DockerEndpoint::Tls(http_client::build_client(connector)),
 
                 uri: docker_socket_or_uri.parse()?,
             }
