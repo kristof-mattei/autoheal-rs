@@ -30,7 +30,7 @@ struct RawConfig {
     pub webhook_url: Option<Uri>,
 }
 
-pub struct DockerStartupConfig {
+pub struct DockerConfig {
     pub docker_sock: String,
     pub cacert: Option<PathBuf>,
     pub client_key: Option<PathBuf>,
@@ -47,7 +47,7 @@ pub struct HealerConfig {
 
 pub struct AppConfig {
     pub container_label: Option<String>,
-    pub docker_startup_config: DockerStartupConfig,
+    pub docker_startup_config: DockerConfig,
     pub healer_config: HealerConfig,
     pub webhook_url: Option<Uri>,
 }
@@ -56,7 +56,7 @@ impl AppConfig {
     pub fn build() -> Result<AppConfig, eyre::Report> {
         let raw_config = RawConfig::try_parse()?;
 
-        let docker_startup_config = DockerStartupConfig {
+        let docker_startup_config = DockerConfig {
             docker_sock: raw_config.docker_sock,
             cacert: raw_config.cacert,
             client_key: raw_config.client_key,

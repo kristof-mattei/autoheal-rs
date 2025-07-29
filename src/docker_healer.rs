@@ -1,118 +1,45 @@
-use std::path::PathBuf;
 use std::rc::Rc;
 use std::time::Duration;
 
 use color_eyre::eyre;
 use hashbrown::HashMap;
 use http::Uri;
-use http_body_util::{BodyExt as _, Full};
-use hyper::body::{Buf as _, Bytes, Incoming};
+use http_body_util::BodyExt as _;
+use hyper::body::{Buf as _, Incoming};
 use hyper::{Method, Response, StatusCode};
-use hyper_rustls::{FixedServerNameResolver, HttpsConnector, HttpsConnectorBuilder};
-use hyper_unix_socket::UnixSocketConnector;
-use hyper_util::client::legacy::Client;
-use hyper_util::client::legacy::connect::HttpConnector;
-use rustls::client::ClientConfig;
-use rustls::{DEFAULT_VERSIONS, RootCertStore};
 use tokio::time::{sleep, timeout};
 use tracing::{Level, event};
 
-use crate::app_config::HealerConfig;
-use crate::container::Container;
-use crate::docker_connection::{DockerConfig, DockerEndpointConfig};
-use crate::encoding::url_encode;
-use crate::http_client::{build_client, build_request, execute_request};
 use crate::webhook::WebHookNotifier;
-
-enum DockerEndpoint {
-    Socket(Client<UnixSocketConnector<PathBuf>, Full<Bytes>>),
-    Tls {
-        client: Client<HttpsConnector<HttpConnector>, Full<Bytes>>,
-    },
-}
+use crate::{app_config::HealerConfig, docker::client::DockerClient};
+use crate::{
+    docker::client::DockerEndpoint,
+    http_client::{build_request, execute_request},
+};
+use crate::{docker::container::Container, encoding::url_encode};
 
 pub struct DockerHealer {
-    endpoint: DockerEndpoint,
+    client: DockerClient,
     encoded_filters: Rc<str>,
     healer_config: HealerConfig,
-    uri: http::Uri,
     notifier: WebHookNotifier,
-}
-
-fn build_docker_client(endpoint: DockerEndpointConfig) -> Result<DockerEndpoint, eyre::Report> {
-    match endpoint {
-        DockerEndpointConfig::Direct {
-            cacert,
-            client_credentials,
-        } => {
-            let root_store = {
-                let mut store = RootCertStore::empty();
-
-                if let Some(cacert) = cacert {
-                    store.add(cacert)?;
-                } else {
-                    let native_certs = rustls_native_certs::load_native_certs();
-                    for error in native_certs.errors {
-                        event!(Level::ERROR, ?error, "Failed to load certificate");
-                    }
-
-                    for cert in native_certs.certs {
-                        store.add(cert).unwrap();
-                    }
-                }
-
-                store
-            };
-
-            let client_config = ClientConfig::builder_with_protocol_versions(DEFAULT_VERSIONS)
-                .with_root_certificates(root_store);
-
-            let client_config = if let Some(client_credentials) = client_credentials {
-                client_config
-                    .with_client_auth_cert(client_credentials.cert_chain, client_credentials.key)?
-            } else {
-                client_config.with_no_client_auth()
-            };
-
-            let connector = HttpsConnectorBuilder::new()
-                .with_tls_config(client_config)
-                .https_or_http()
-                .with_server_name_resolver(FixedServerNameResolver::new(
-                    "docker.localhost".try_into().unwrap(),
-                ))
-                .enable_http1()
-                .build();
-
-            Ok(DockerEndpoint::Tls {
-                client: build_client(connector),
-            })
-        },
-        DockerEndpointConfig::Socket(socket) => {
-            let connector: UnixSocketConnector<PathBuf> = UnixSocketConnector::new(socket);
-
-            Ok(DockerEndpoint::Socket(build_client(connector)))
-        },
-    }
 }
 
 impl DockerHealer {
     pub fn new(
-        config: DockerConfig,
+        client: DockerClient,
         healer_config: HealerConfig,
         filters: &serde_json::Value,
         webhook_uri: Option<Uri>,
-    ) -> Result<Self, eyre::Report> {
+    ) -> Self {
         let encoded_filters = url_encode(filters);
 
-        let client = build_docker_client(config.endpoint)?;
-
-        Ok(Self {
-            endpoint: client,
+        Self {
+            client,
             encoded_filters: Rc::from(encoded_filters),
             healer_config,
             notifier: WebHookNotifier { uri: webhook_uri },
-            uri: config.uri,
-        })
+        }
     }
 
     pub async fn get_containers(&self) -> Result<Vec<Container>, eyre::Report> {
@@ -153,10 +80,10 @@ impl DockerHealer {
         path_and_query: &str,
         method: Method,
     ) -> Result<Response<Incoming>, eyre::Report> {
-        let request = build_request(self.uri.clone(), path_and_query, method)?;
+        let request = build_request(self.client.uri.clone(), path_and_query, method)?;
 
-        match self.endpoint {
-            DockerEndpoint::Tls { ref client } => {
+        match self.client.endpoint {
+            DockerEndpoint::Tls(ref client) => {
                 let response = execute_request(client, request);
 
                 match timeout(
