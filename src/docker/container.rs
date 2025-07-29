@@ -106,7 +106,7 @@ impl Container {
 
 #[cfg(test)]
 mod tests {
-    use crate::container::Container;
+    use crate::docker::container::Container;
 
     #[test]
     fn deserialize() {

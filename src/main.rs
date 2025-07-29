@@ -12,11 +12,10 @@ use tracing_subscriber::layer::SubscriberExt as _;
 use tracing_subscriber::util::SubscriberInitExt as _;
 use tracing_subscriber::{EnvFilter, Layer as _};
 
-use crate::docker_connection::DockerClient;
+use crate::docker::client::DockerClient;
 
 mod app_config;
-mod container;
-mod docker_connection;
+mod docker;
 mod docker_healer;
 mod encoding;
 mod ffi_handlers;
