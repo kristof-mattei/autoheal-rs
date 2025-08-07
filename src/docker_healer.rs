@@ -10,13 +10,12 @@ use hyper::{Method, Response, StatusCode};
 use tokio::time::{sleep, timeout};
 use tracing::{Level, event};
 
+use crate::app_config::HealerConfig;
+use crate::docker::client::{DockerClient, DockerEndpoint};
+use crate::docker::container::Container;
+use crate::encoding::url_encode;
+use crate::http_client::{build_request, execute_request};
 use crate::webhook::WebHookNotifier;
-use crate::{app_config::HealerConfig, docker::client::DockerClient};
-use crate::{
-    docker::client::DockerEndpoint,
-    http_client::{build_request, execute_request},
-};
-use crate::{docker::container::Container, encoding::url_encode};
 
 pub struct DockerHealer {
     client: DockerClient,
