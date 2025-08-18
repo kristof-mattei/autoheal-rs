@@ -519,10 +519,7 @@ jobs:
       APPLICATION_NAME: PLACEHOLDER # overridden in step 'Set application name', this is merely to satisfy the linter
       UNIQUE_TAG: PLACEHOLDER # overridden in step 'Build tag name', this is merely to satisfy the linter
     steps:
-      - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-        with:
-          show-progress: false
+      - *checkout
 
       - name: Set up Docker
         uses: docker/setup-docker-action@b60f85385d03ac8acfca6d9996982511d8620a19 # v4.3.0
