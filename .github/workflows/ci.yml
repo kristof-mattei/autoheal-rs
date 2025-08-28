@@ -554,19 +554,19 @@ jobs:
         id: artifact
         with:
           path: /tmp/container/
-          name: container-${{ needs.docker-build.outputs.application_name }}-amd64
+          name: container-${{ needs.docker-build.outputs.application_name }}
 
       - name: Load image from artifact
         shell: bash
         working-directory: ${{ steps.artifact.outputs.download-path }}
         run: |
-          docker load --input ./${{ needs.docker-build.outputs.unique_tag }}-amd64.tar
+          docker load --input ./${{ needs.docker-build.outputs.unique_tag }}.tar
 
       - name: Run integration tests
         shell: bash
         run: |
           # IMAGE_ID_WITH_SHA256 looks like sha256:0ae0dc0eb5fbada1c6083b078a168422b4d67227bb762340857c095008c3cbb3
-          IMAGE_ID_WITH_SHA256=$(docker image inspect ${{ needs.docker-build.outputs.full_image_name_local_registry }}:${{ needs.docker-build.outputs.unique_tag }}-amd64 --format '{{.Id}}')
+          IMAGE_ID_WITH_SHA256=$(docker image inspect ${{ needs.docker-build.outputs.full_image_name_local_registry }}:${{ needs.docker-build.outputs.unique_tag }} --format '{{.Id}}')
 
           # we only need the second part so we're splitting it at the :
           export IMAGE_ID=${IMAGE_ID_WITH_SHA256#*:}
