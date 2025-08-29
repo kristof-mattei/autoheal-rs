@@ -1,7 +1,9 @@
-target
-.github
-.git
-.vscode
-Dockerfile
-.gitignore
-.dockerignore
+# Ignore all
+*
+
+# And explicitly include...
+!/.cargo
+!/build-scripts
+!/Cargo.lock
+!/Cargo.toml
+!/src
