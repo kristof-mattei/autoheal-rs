@@ -1,1460 +1,1081 @@
-# Changelog
-All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
+<!-- header goes here -->
+## [unreleased]
 
-- - -
-## [v1.6.1](https://github.com/kristof-mattei/autoheal-rs/compare/adf0cd7117034c106eac21c2384bfa282d4271b8..v1.6.1) - 2025-07-14
-#### Bug Fixes
-- set correct guard name - ([3131d66](https://github.com/kristof-mattei/autoheal-rs/commit/3131d663eac696ac0d1ed2aa522051f1218e8067)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove unused env that comes in via variables - ([adf0cd7](https://github.com/kristof-mattei/autoheal-rs/commit/adf0cd7117034c106eac21c2384bfa282d4271b8)) - [@kristof-mattei](https://github.com/kristof-mattei)
+### 🚀 Features
 
-- - -
+- Restrict ALL - ([4dbfae3](https://github.com/kristof-mattei/autoheal-rs/commit/4dbfae3b6f9aeda309bd3c788d1f2c18317d1da8))
+- Restrict ALL - ([77113a9](https://github.com/kristof-mattei/autoheal-rs/commit/77113a9eb79c398ab5b71fea9ad97ff6b913d955))
+- Restrict ALL - ([28544d3](https://github.com/kristof-mattei/autoheal-rs/commit/28544d39a362f8b2e9066f1a4ba89e8f9a6e3941))
+- Implemented tls connection - ([a3ec7d9](https://github.com/kristof-mattei/autoheal-rs/commit/a3ec7d982371ba9f6941fb821673e2b2557fdc33))
+- I rule(set) - ([37253e2](https://github.com/kristof-mattei/autoheal-rs/commit/37253e288eefd5b1e8f7c40184fcf7b9acd90ec4))
+- Use anchors to dedup build - ([f6cafa4](https://github.com/kristof-mattei/autoheal-rs/commit/f6cafa45b7e0bfd4c29dc2f7f0e57ba258a96922))
+- Pin to trixie, use gcc-14 from trixie - ([e0ea2a2](https://github.com/kristof-mattei/autoheal-rs/commit/e0ea2a212118b3a24d52bb86ae8bb5ed8e6582bd))
+- Separate cache based on target to allow for more efficient caching - ([89bcb9b](https://github.com/kristof-mattei/autoheal-rs/commit/89bcb9be9680fa5d0df610d93fb9b978a3362202))
+- Write output to per-target folder, otherwise caches overwrite each other causing recompilation in the install step - ([aabbed1](https://github.com/kristof-mattei/autoheal-rs/commit/aabbed1fd86be610b46a911d2d1cf7231b0ec5ac))
 
-## [v1.6.0](https://github.com/kristof-mattei/autoheal-rs/compare/8b1e9f8aa2e6a37c268dd7587d0912d251afdea4..v1.6.0) - 2025-07-13
-#### Bug Fixes
-- **(deps)** update rust crate hyper-util to 0.1.15 - ([0986d07](https://github.com/kristof-mattei/autoheal-rs/commit/0986d076cfb47b7cda8728e288f7ea7086293fd2)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.46.1 - ([da95a8f](https://github.com/kristof-mattei/autoheal-rs/commit/da95a8f1b874a5a8e55e6b596d9d984a18510794)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.46.0 - ([5cb1036](https://github.com/kristof-mattei/autoheal-rs/commit/5cb103614a93e5896cb3ab384c06db277041546a)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.174 - ([b94400c](https://github.com/kristof-mattei/autoheal-rs/commit/b94400c6e1061fbefce7ab2df7bfbdc2f412b3f7)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.173 - ([f4e0de0](https://github.com/kristof-mattei/autoheal-rs/commit/f4e0de00e28fce8ca29a5af1c88ef72561c9e6e6)) - renovate[bot]
-- **(deps)** update rust crate hashbrown to 0.15.4 - ([5d3c383](https://github.com/kristof-mattei/autoheal-rs/commit/5d3c3836aec7a7bb70f41750f8158d1181f93393)) - renovate[bot]
-- **(deps)** update rust crate hyper-util to 0.1.14 - ([6301706](https://github.com/kristof-mattei/autoheal-rs/commit/6301706468b7b69e18e90958958eb5fb20bade30)) - renovate[bot]
-- **(deps)** update rust crate color-eyre to 0.6.5 - ([882364e](https://github.com/kristof-mattei/autoheal-rs/commit/882364e4f3c5b59736446df3c22c60cefaec6b82)) - renovate[bot]
-- **(deps)** update rust crate color-eyre to 0.6.5 - ([6cbb98d](https://github.com/kristof-mattei/autoheal-rs/commit/6cbb98dc877f5d2785ceb938f3fca30172c21bbe)) - renovate[bot]
-- **(deps)** update rust crate openssl to 0.10.73 - ([818d5d7](https://github.com/kristof-mattei/autoheal-rs/commit/818d5d763e04fc8e3f0638a9264e9c8f1aecc4cb)) - renovate[bot]
-- **(deps)** update rust crate openssl to 0.10.73 - ([cd9ec5a](https://github.com/kristof-mattei/autoheal-rs/commit/cd9ec5af07de8c6dd502278fc70ee56df7f0d091)) - renovate[bot]
-- **(deps)** update rust crate hyper-util to 0.1.13 - ([aff8c53](https://github.com/kristof-mattei/autoheal-rs/commit/aff8c53895c249ff5adb1ee5091e9bedf014cc63)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.45.1 - ([9be75cd](https://github.com/kristof-mattei/autoheal-rs/commit/9be75cd51593ee4d09a835e61f5aa1497c63df8d)) - renovate[bot]
-- **(deps)** update rust crate hyper-util to 0.1.12 - ([2510f55](https://github.com/kristof-mattei/autoheal-rs/commit/2510f5562fa1c0cf46fca70438d607caaad8f661)) - renovate[bot]
-- **(deps)** update rust crate url to 2.5.4 - ([867a4a4](https://github.com/kristof-mattei/autoheal-rs/commit/867a4a4b804372df3c5145b9755bb5271ec1ec7a)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.45.0 - ([b49fbc4](https://github.com/kristof-mattei/autoheal-rs/commit/b49fbc4ef87b8671a8e7663895f9f94cdcb94dd1)) - renovate[bot]
-- **(deps)** update rust crate hashbrown to 0.15.3 - ([abdbafd](https://github.com/kristof-mattei/autoheal-rs/commit/abdbafd72072221915005e95d0b0834b69331d7d)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.172 - ([66f6546](https://github.com/kristof-mattei/autoheal-rs/commit/66f654657bab86491a2d578adc0dd57a9a021a14)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.44.2 - ([2c556ca](https://github.com/kristof-mattei/autoheal-rs/commit/2c556cac8c24c60ca29c4db9679316ac92997c96)) - renovate[bot]
-- **(deps)** update rust crate hyper-util to 0.1.11 - ([6e187ca](https://github.com/kristof-mattei/autoheal-rs/commit/6e187ca5e582e13aa29affc9532270bc838c4621)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.44.1 - ([3e12af7](https://github.com/kristof-mattei/autoheal-rs/commit/3e12af72da7b00a17f9a43a627ca1c7db22f7e20)) - renovate[bot]
-- **(deps)** update rust crate http to 1.3.1 - ([fbfb24e](https://github.com/kristof-mattei/autoheal-rs/commit/fbfb24e3d0df0ecb0f1dd43e409b51b50896d14b)) - renovate[bot]
-- **(deps)** update rust crate http-body-util to 0.1.3 - ([3f23c15](https://github.com/kristof-mattei/autoheal-rs/commit/3f23c15a6a5226c7839c5b517294f7b3ee94f375)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.171 - ([f01522c](https://github.com/kristof-mattei/autoheal-rs/commit/f01522c0b871af19d4cef4abf2022f2f0634f145)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.219 - ([fa4afa3](https://github.com/kristof-mattei/autoheal-rs/commit/fa4afa34da6ab966c03e7c8e636a2ba0eb18e2c5)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.44.0 - ([6a367c8](https://github.com/kristof-mattei/autoheal-rs/commit/6a367c8b1840442a25b3f54c2bbac0d914727c75)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.140 - ([b409630](https://github.com/kristof-mattei/autoheal-rs/commit/b4096309843eaabd874436b3fd2a74a508b0a033)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.170 - ([a36a27f](https://github.com/kristof-mattei/autoheal-rs/commit/a36a27f5b32fd682ffb111e9342679f7fa12b692)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.218 - ([2c2ffee](https://github.com/kristof-mattei/autoheal-rs/commit/2c2ffeea0b9078097981e3877d74a8bf0b312c5b)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.139 - ([6031c86](https://github.com/kristof-mattei/autoheal-rs/commit/6031c865033bcf931c5dcbfc5c561b754a4a3129)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.138 - ([ce702b7](https://github.com/kristof-mattei/autoheal-rs/commit/ce702b72891334a79cd2b13d8064027a2f2913f7)) - renovate[bot]
-- **(deps)** update rust crate hyper to 1.6.0 - ([be42873](https://github.com/kristof-mattei/autoheal-rs/commit/be42873859d153c97833e9c9f23eb7d35504921f)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.137 - ([d3c31e0](https://github.com/kristof-mattei/autoheal-rs/commit/d3c31e043d053cb9636306a728bdbba298b0faad)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.136 - ([ee77fd2](https://github.com/kristof-mattei/autoheal-rs/commit/ee77fd2db809753b3d2f6298fd2792175ae358fa)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.43.0 - ([c1c1198](https://github.com/kristof-mattei/autoheal-rs/commit/c1c119815e10bb083dcce3b2919d33e0073fb234)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.135 - ([5b16dd3](https://github.com/kristof-mattei/autoheal-rs/commit/5b16dd30793dd19f94bfa0ee6adac15c01a779d5)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.217 - ([5b80d8f](https://github.com/kristof-mattei/autoheal-rs/commit/5b80d8ff56b472eaf3a2705ccc893bc545fafc5f)) - renovate[bot]
-- **(deps)** update rust crate hyper-unix-socket to 0.3.0 - ([d3ac57a](https://github.com/kristof-mattei/autoheal-rs/commit/d3ac57a85dda87e169ca85a0a52ba7ebd40f164c)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.134 - ([2b3894d](https://github.com/kristof-mattei/autoheal-rs/commit/2b3894d6ad96aba0969d6832a10d03d80595189f)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.169 - ([f0b1a52](https://github.com/kristof-mattei/autoheal-rs/commit/f0b1a521d11276d09d8e626999fd4e57871fa9e5)) - renovate[bot]
-- **(deps)** update rust crate hyper to 1.5.2 - ([542321c](https://github.com/kristof-mattei/autoheal-rs/commit/542321c04006f8dce046ef34422accf0726c2ff8)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.216 - ([41897d2](https://github.com/kristof-mattei/autoheal-rs/commit/41897d274f075aae51b7ad0f500b35057642ab64)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.168 - ([cb78bc5](https://github.com/kristof-mattei/autoheal-rs/commit/cb78bc58170266378a19ea10fabbfc482a077652)) - renovate[bot]
-- **(deps)** update rust crate http to 1.2.0 - ([537c5d7](https://github.com/kristof-mattei/autoheal-rs/commit/537c5d7f154f4c292f30916669429975beeaea94)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.42.0 - ([2dde957](https://github.com/kristof-mattei/autoheal-rs/commit/2dde9571f0e3616298e57b1054aa3e8e62f39c01)) - renovate[bot]
-- **(deps)** update rust crate tracing-subscriber to 0.3.19 - ([2101c76](https://github.com/kristof-mattei/autoheal-rs/commit/2101c766173596988113f9ceb9be48f1c1553484)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.167 - ([c030a24](https://github.com/kristof-mattei/autoheal-rs/commit/c030a241eee19ff647cc49c514900ac644b2e148)) - renovate[bot]
-- **(deps)** update rust crate tracing to 0.1.41 - ([8b8de58](https://github.com/kristof-mattei/autoheal-rs/commit/8b8de58e6eef5736f66af1f90de6b0a0be745327)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.165 - ([9590be3](https://github.com/kristof-mattei/autoheal-rs/commit/9590be32ba5d7dacd29e7465b6c6ede1c8accaaa)) - renovate[bot]
-- **(deps)** update rust crate hashbrown to 0.15.2 - ([883837f](https://github.com/kristof-mattei/autoheal-rs/commit/883837f35fbdf072b32998d52b817bd5ab651e8e)) - renovate[bot]
-- **(deps)** update rust crate hyper to 1.5.1 - ([57d6dc8](https://github.com/kristof-mattei/autoheal-rs/commit/57d6dc856be68f4d1f627a91dbb41395c40cbd12)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.133 - ([cb4d9bf](https://github.com/kristof-mattei/autoheal-rs/commit/cb4d9bf1086ab1f7650178b9f0b8c269cb546883)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.164 - ([ea82922](https://github.com/kristof-mattei/autoheal-rs/commit/ea82922a681aec35c5b45ae20cadb0a64ea1eb9a)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.215 - ([300f5cd](https://github.com/kristof-mattei/autoheal-rs/commit/300f5cdac75b1578360e8c9a87d849da6f5eb225)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.41.1 - ([a5c936e](https://github.com/kristof-mattei/autoheal-rs/commit/a5c936eff85358379df6efdb097f2c4f3c78417e)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.162 - ([a59be67](https://github.com/kristof-mattei/autoheal-rs/commit/a59be670eafe402acc666a545bcc0b0881fefd8b)) - renovate[bot]
-- **(deps)** update rust crate hashbrown to 0.15.1 - ([7bfb390](https://github.com/kristof-mattei/autoheal-rs/commit/7bfb39054e10437e9ec38b7559379b16c28d92cf)) - renovate[bot]
-- **(deps)** update rust crate url to 2.5.3 - ([f50bb3b](https://github.com/kristof-mattei/autoheal-rs/commit/f50bb3b33daf6d8540913c8b4ba8b21b0b2f3a4d)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.214 - ([e054151](https://github.com/kristof-mattei/autoheal-rs/commit/e054151e1080c4c1432a0cb12a828a65263c97d2)) - renovate[bot]
-- **(deps)** update rust crate hyper-util to 0.1.10 - ([d12722a](https://github.com/kristof-mattei/autoheal-rs/commit/d12722a04b03a5423f7221a2b125dc53505bf1b9)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.213 - ([7995d7f](https://github.com/kristof-mattei/autoheal-rs/commit/7995d7fb8664b541945b05799cf6cdd28bac9401)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.41.0 - ([890a30c](https://github.com/kristof-mattei/autoheal-rs/commit/890a30c9aad59ac90e6e8027e5bd8666c25a1008)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.211 - ([59fa2d6](https://github.com/kristof-mattei/autoheal-rs/commit/59fa2d6dc80494a256ff7ad7a01773ea37325475)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.132 - ([1961845](https://github.com/kristof-mattei/autoheal-rs/commit/19618457fb1acf7dede2722b744fd945dffa9319)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.131 - ([593f125](https://github.com/kristof-mattei/autoheal-rs/commit/593f12582a8fbe044b6c4902c2b6df7a1f71f46f)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.130 - ([813fb6d](https://github.com/kristof-mattei/autoheal-rs/commit/813fb6dad0ef1144671a91c080accc89bbb635df)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.161 - ([3daa46f](https://github.com/kristof-mattei/autoheal-rs/commit/3daa46fbe2eccba8e74fba620618c8cdcf5eca20)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.129 - ([7e45068](https://github.com/kristof-mattei/autoheal-rs/commit/7e45068f25d762dac60a56535526e9930090b80d)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.160 - ([074a271](https://github.com/kristof-mattei/autoheal-rs/commit/074a2717d42e8ed324abc5ca710e3f75092222a0)) - renovate[bot]
-- **(deps)** update rust crate hyper to 1.5.0 - ([efb5d16](https://github.com/kristof-mattei/autoheal-rs/commit/efb5d165e45b542e6d83ac92d8d9951ee1049a7f)) - renovate[bot]
-- **(deps)** update rust crate hashbrown to 0.15.0 - ([7346aaf](https://github.com/kristof-mattei/autoheal-rs/commit/7346aaf222c3679808f6273c14084bf1f7a41016)) - renovate[bot]
-- **(deps)** update rust crate hyper-util to 0.1.9 - ([da4f38c](https://github.com/kristof-mattei/autoheal-rs/commit/da4f38c2fbf664bd3c590e66cee9e3e8509e06ab)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.159 - ([e48ac54](https://github.com/kristof-mattei/autoheal-rs/commit/e48ac54f9f960ae15d37a0f8c1d0bed3310c7d42)) - renovate[bot]
-- **(deps)** update rust crate hyper-util to 0.1.8 - ([e64a9d9](https://github.com/kristof-mattei/autoheal-rs/commit/e64a9d98334f14486365fa134ed82fb8e5836603)) - renovate[bot]
-- **(deps)** update rust crate backtrace to 0.3.74 - ([88601cf](https://github.com/kristof-mattei/autoheal-rs/commit/88601cf14dbea3feeda3b81e7e4d6c8eb754dfca)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.210 - ([3048f80](https://github.com/kristof-mattei/autoheal-rs/commit/3048f8007b2179cb97223ac315d8678e41af056d)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.128 - ([2eb80b9](https://github.com/kristof-mattei/autoheal-rs/commit/2eb80b9f988e5ed3f0f5545cd58cd2f184573c31)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.40.0 - ([4155717](https://github.com/kristof-mattei/autoheal-rs/commit/4155717366d64e85c3f850de2fc106d86e8fb990)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.209 - ([e82fb41](https://github.com/kristof-mattei/autoheal-rs/commit/e82fb41c4bda525cf6ea0ad233f1ce9a66af6242)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.127 - ([1832ce9](https://github.com/kristof-mattei/autoheal-rs/commit/1832ce95d0e18dc031f4f25effe64f288ddaf5ad)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.158 - ([baf169a](https://github.com/kristof-mattei/autoheal-rs/commit/baf169a817391a02b6511fbf6a77a093b5fe00c7)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.157 - ([0517eed](https://github.com/kristof-mattei/autoheal-rs/commit/0517eed8d25a67ea3b4fdfe97809b935e45d5694)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.39.3 - ([43e705a](https://github.com/kristof-mattei/autoheal-rs/commit/43e705adf8e299383ef0ad8798a246c2610b95dc)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.156 - ([aed0b05](https://github.com/kristof-mattei/autoheal-rs/commit/aed0b056447994568999a3f9fb37fef000b9c9e3)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.208 - ([06f5cc3](https://github.com/kristof-mattei/autoheal-rs/commit/06f5cc31799564ecf190cbdb2cb1f845495d0e00)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.125 - ([27ff524](https://github.com/kristof-mattei/autoheal-rs/commit/27ff5242a055d53e29f7e09d9c0d9e31165b6c16)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.207 - ([5848c58](https://github.com/kristof-mattei/autoheal-rs/commit/5848c58a295d4025865260b7d4161bbb440dcb3f)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.124 - ([cd38558](https://github.com/kristof-mattei/autoheal-rs/commit/cd38558ec0dc040dccfbb0df31e626340311209f)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.123 - ([0f875c5](https://github.com/kristof-mattei/autoheal-rs/commit/0f875c5fda421c1485abe79407dbf67e0a52cc8c)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.206 - ([e212f27](https://github.com/kristof-mattei/autoheal-rs/commit/e212f2799584a665422a5adaac48b5294bf4fc43)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.205 - ([bbdb3d7](https://github.com/kristof-mattei/autoheal-rs/commit/bbdb3d72b9178b41db4fac3b2787023334a0abfd)) - renovate[bot]
-- **(deps)** update rust crate hyper-util to 0.1.7 - ([de56f26](https://github.com/kristof-mattei/autoheal-rs/commit/de56f268db17c5e9f467c7c0d336abfa84c1a975)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.122 - ([878b712](https://github.com/kristof-mattei/autoheal-rs/commit/878b71299a598811455d252d5970f51cbee45c65)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.121 - ([6d1de65](https://github.com/kristof-mattei/autoheal-rs/commit/6d1de6516534482dcc6b53d75a3f3e4b021f56e6)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.39.2 - ([e67cad1](https://github.com/kristof-mattei/autoheal-rs/commit/e67cad15002a9357f207b858d2d85ecb18e3491c)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.39.1 - ([d89a2f5](https://github.com/kristof-mattei/autoheal-rs/commit/d89a2f5a1f4bbbee24589657cbed0b090b4b582c)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.38.1 - ([c29b3e8](https://github.com/kristof-mattei/autoheal-rs/commit/c29b3e8c1dc5ad6020f59979ea68ef27f92ee668)) - renovate[bot]
-- **(deps)** update rust crate hyper to 1.4.1 - ([ed1ee7d](https://github.com/kristof-mattei/autoheal-rs/commit/ed1ee7d7adbbf996d16defd3f728c1806d02dbca)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.204 - ([22cfc8e](https://github.com/kristof-mattei/autoheal-rs/commit/22cfc8ecb2c284c6b90130d1c6339a4ef8909a86)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.120 - ([9278aac](https://github.com/kristof-mattei/autoheal-rs/commit/9278aacb4ba78269600a4e578e08f747cb273ab6)) - renovate[bot]
-- **(deps)** update rust crate hyper to 1.4.0 - ([dc1bbbd](https://github.com/kristof-mattei/autoheal-rs/commit/dc1bbbd40ac37afc978bb4837eb4bb70c2e2347c)) - renovate[bot]
-- **(deps)** update rust crate hyper-util to 0.1.6 - ([7b18a3a](https://github.com/kristof-mattei/autoheal-rs/commit/7b18a3add0e2d627955084b84a8045dd0fc0c2e6)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.119 - ([1725dde](https://github.com/kristof-mattei/autoheal-rs/commit/1725ddeea4bf18c0ce81d720465122f936762738)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.118 - ([dbf1cf0](https://github.com/kristof-mattei/autoheal-rs/commit/dbf1cf07267e702e7d1ce0728f37f9e9c191052d)) - renovate[bot]
-- **(deps)** update rust crate url to 2.5.2 - ([c30ba13](https://github.com/kristof-mattei/autoheal-rs/commit/c30ba13498deee4c4c98d005137fae65eca23113)) - renovate[bot]
-- **(deps)** update rust crate backtrace to 0.3.73 - ([00558d4](https://github.com/kristof-mattei/autoheal-rs/commit/00558d40e73aff56d6dca58ce439ecb7b1fb7c76)) - renovate[bot]
-- **(deps)** update rust crate http-body-util to 0.1.2 - ([7c5babd](https://github.com/kristof-mattei/autoheal-rs/commit/7c5babd99ce860bffae501cc87397814ef96a56c)) - renovate[bot]
-- **(deps)** update rust crate url to 2.5.1 - ([03a1673](https://github.com/kristof-mattei/autoheal-rs/commit/03a16735746ad200b1f15996186595714739b670)) - renovate[bot]
-- **(deps)** update rust crate backtrace to 0.3.72 - ([6f7d814](https://github.com/kristof-mattei/autoheal-rs/commit/6f7d8143e954ef6883aae2126ccdaf82249db920)) - renovate[bot]
-- **(deps)** update rust crate tokio to 1.38.0 - ([9433da2](https://github.com/kristof-mattei/autoheal-rs/commit/9433da2d6b8fa5a5cae73a507520dbca49f44f73)) - renovate[bot]
-- **(deps)** update rust crate hyper-util to 0.1.5 - ([26558f9](https://github.com/kristof-mattei/autoheal-rs/commit/26558f944f3a2dfee07eeee6439ed40916dae3d7)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.203 - ([dfbdda6](https://github.com/kristof-mattei/autoheal-rs/commit/dfbdda6e1226015bd6b474e00b399b5fab667d78)) - renovate[bot]
-- **(deps)** update rust crate hyper-util to 0.1.4 - ([58df9d0](https://github.com/kristof-mattei/autoheal-rs/commit/58df9d0d24d2ae792b81a2ecda36135ebe062c64)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.202 - ([2d479d6](https://github.com/kristof-mattei/autoheal-rs/commit/2d479d6da73af81733f57aa936aab416472fd645)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.117 - ([1f42d58](https://github.com/kristof-mattei/autoheal-rs/commit/1f42d58b4722c2568ad3b011763eb906ca1044b1)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.201 - ([54f9413](https://github.com/kristof-mattei/autoheal-rs/commit/54f94132f18c3680cfb37d5e7f109d7bca329481)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.200 - ([55ad82b](https://github.com/kristof-mattei/autoheal-rs/commit/55ad82b10edd1a7498ec426d897679d21f2cc414)) - renovate[bot]
-- **(deps)** update rust crate libc to 0.2.154 - ([e65350a](https://github.com/kristof-mattei/autoheal-rs/commit/e65350a7590bbf825b46f97d955d4c966c4f621d)) - renovate[bot]
-- **(deps)** update rust crate hashbrown to 0.14.5 - ([37b585a](https://github.com/kristof-mattei/autoheal-rs/commit/37b585a35b7b423a6bb3860dcc35b275d3b01415)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.199 - ([abff3a8](https://github.com/kristof-mattei/autoheal-rs/commit/abff3a83db36a16e93b9e29594179ee21b9a814a)) - renovate[bot]
-- **(deps)** update rust crate serde to 1.0.198 - ([4b9dd7d](https://github.com/kristof-mattei/autoheal-rs/commit/4b9dd7ddeac67561c9d839b242c6292d4534637a)) - renovate[bot]
-- **(deps)** update rust crate hyper to 1.3.1 - ([a5b00a5](https://github.com/kristof-mattei/autoheal-rs/commit/a5b00a56e4dd20c1f876f07b9a210ee62e7de338)) - renovate[bot]
-- **(deps)** update rust crate serde_json to 1.0.116 - ([858006e](https://github.com/kristof-mattei/autoheal-rs/commit/858006e01e0802fd0cd3e46a871f84d854987c0d)) - renovate[bot]
-- **(deps)** update rust crate hyper to 1.3.0 - ([ee9f142](https://github.com/kristof-mattei/autoheal-rs/commit/ee9f142656e66a87adfc8ce2fcd0cb2c238e283f)) - renovate[bot]
-- update integration test to use local registry - ([d28ae41](https://github.com/kristof-mattei/autoheal-rs/commit/d28ae41481fa36e82d0c85b867d1170e70a564a1)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- reorder - ([d0080cd](https://github.com/kristof-mattei/autoheal-rs/commit/d0080cde013c86eab0087d897024be4ab18df1ae)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- restore package.json 2 tab width - ([f8851e3](https://github.com/kristof-mattei/autoheal-rs/commit/f8851e36b4f0f8795b4a945211e673f3aa8dcb55)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- ignore Cargo.lock from being formatted - ([e721512](https://github.com/kristof-mattei/autoheal-rs/commit/e72151217ff0eb6b92d4a15dfd11aeba8ee2687d)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- validate toml & sh & ... formatting as part of PR process - ([69f84c6](https://github.com/kristof-mattei/autoheal-rs/commit/69f84c6436c864b272611f8629b1dbda46560e45)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- simplify license, use MIT license instead of BSD, simplify package.json - ([da64573](https://github.com/kristof-mattei/autoheal-rs/commit/da64573e286744b1e812856b7d8cb8e27d600447)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- also ignore samply output - ([87357c9](https://github.com/kristof-mattei/autoheal-rs/commit/87357c9d0439fd731cb818c830898947a3735025)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- schema - ([df22c46](https://github.com/kristof-mattei/autoheal-rs/commit/df22c4616102dd6af00cd2f8993cf6d955467c99)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- infer edition from Cargo.toml - ([f1d0742](https://github.com/kristof-mattei/autoheal-rs/commit/f1d0742fa46c850b4c983d5c6e378108bd22e942)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- also set style_edition - ([172d6ab](https://github.com/kristof-mattei/autoheal-rs/commit/172d6ab04a50b2f19415ec0b64726b6d6d773db5)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove unused script - ([f8aa057](https://github.com/kristof-mattei/autoheal-rs/commit/f8aa05727ba3a31d557bb9287eccf147edc8827d)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- ensure cargo.lock is up to date - ([75f241b](https://github.com/kristof-mattei/autoheal-rs/commit/75f241bf01868d419fa383572650b891c06cacc6)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- ignore pnpm-lock.yaml format - ([34ee806](https://github.com/kristof-mattei/autoheal-rs/commit/34ee80670cf28b511be17ca61fdb52d0eb463ce4)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- pnpm - ([229ffad](https://github.com/kristof-mattei/autoheal-rs/commit/229ffad2a4bb0deb7f0c2d4fa954c84691262494)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- build-mode `manual` is not supported for Rust - ([7659499](https://github.com/kristof-mattei/autoheal-rs/commit/76594994e616ebef734f5a7c275c5a19249d5d52)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- manually build Rust for codeql as per our standard build - ([af9390e](https://github.com/kristof-mattei/autoheal-rs/commit/af9390ee873ba6968417c2749569cc630214ca7e)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- reduce permissions - ([54b4398](https://github.com/kristof-mattei/autoheal-rs/commit/54b4398e66ee00c3e8f2254b9479d7ff79b29026)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove no-deps - ([80518c0](https://github.com/kristof-mattei/autoheal-rs/commit/80518c0b1875c34158846e16e7de58d7b422b6e9)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- grab pointer without intermediate reference - ([e52bbbd](https://github.com/kristof-mattei/autoheal-rs/commit/e52bbbd7ecc504d953bdd7b6b7157640022f9368)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- test against amd64 - ([a6da33f](https://github.com/kristof-mattei/autoheal-rs/commit/a6da33f82bedfc04d9ad5cdc1b09d0ee375975f2)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- uppercase - ([e70a0ca](https://github.com/kristof-mattei/autoheal-rs/commit/e70a0ca8dda3bc0126f539a945a0477ab6c8c875)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- line continuation - ([8239c41](https://github.com/kristof-mattei/autoheal-rs/commit/8239c4108c487acea05461ebe09f69887a3bd597)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- dir, path, I don't know anymore - ([4bfa22d](https://github.com/kristof-mattei/autoheal-rs/commit/4bfa22d121e114bb8fbb8435ec90735f4f30466c)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- cache per arch, as these overwrite each other - ([90bb69a](https://github.com/kristof-mattei/autoheal-rs/commit/90bb69af3c0d082b4cea18a161b99e34d61cd5fc)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- install with locked to prevent cargo from updating deps during cargo install - ([bdb7e91](https://github.com/kristof-mattei/autoheal-rs/commit/bdb7e91b3054f6ef902f1c87870118ff035638e3)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- correct dpkg-architecture architecture check - ([83055c9](https://github.com/kristof-mattei/autoheal-rs/commit/83055c9bba144255202d4d12658323903be69d53)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- switch to prettier's mjs setup, widen limit for non-json files - ([15954b2](https://github.com/kristof-mattei/autoheal-rs/commit/15954b23a004049eb88cbce34cc69bd231dce81e)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove incorrec exit - ([3791382](https://github.com/kristof-mattei/autoheal-rs/commit/379138240224b860cf69d1249f93cacc8c847b6e)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- ensure we enable tokio_unstable in the container as well - ([d87f4d5](https://github.com/kristof-mattei/autoheal-rs/commit/d87f4d5ae3279f35abaaaf257c53741d751564c5)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- don't install binstall, cargo-edit doesn't have a package anyway - ([377a21e](https://github.com/kristof-mattei/autoheal-rs/commit/377a21ec73fd822d22099945fb196dcb89b75cc4)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- set correct cache key for the docker step - ([bb875b8](https://github.com/kristof-mattei/autoheal-rs/commit/bb875b8d038162d657082014a7070edb573cae92)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- add runner.arch to the cache keys - ([64b63e2](https://github.com/kristof-mattei/autoheal-rs/commit/64b63e2f99501f0208e54f3d1d35e19990751cec)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- disable clippy 1.87.0 let_and_return - ([9246d86](https://github.com/kristof-mattei/autoheal-rs/commit/9246d861995c87085c04618a8619320afdbd771d)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- rust 1.87.0, use .display() - ([041042b](https://github.com/kristof-mattei/autoheal-rs/commit/041042b6ea3f7b110ec39f35584b9c2ff657f0c7)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- start tracking lldb debug helper - ([b662ffa](https://github.com/kristof-mattei/autoheal-rs/commit/b662ffa8c38b08c5f3d276e6e58646013a051efd)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove @actions/tool-cache - ([3889143](https://github.com/kristof-mattei/autoheal-rs/commit/3889143b5e053e5d63835407138decb395314a13)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- build container from scratch - ([250217a](https://github.com/kristof-mattei/autoheal-rs/commit/250217a80fa10d152f21f31c6031ce45039b32ce)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- restore needed workflows - ([72180e8](https://github.com/kristof-mattei/autoheal-rs/commit/72180e8239e1a85a892f7713d8986bb9ad34f55c)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- prettier 3.41.0 - ([64aa76c](https://github.com/kristof-mattei/autoheal-rs/commit/64aa76cc522d7ee28a38bfffee53dc789abe4c12)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- docker compose uses '-' instead of '_' - ([f463dba](https://github.com/kristof-mattei/autoheal-rs/commit/f463dba3a3e495881d2a1654f136871784a85c63)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove obsolete props - ([9e14174](https://github.com/kristof-mattei/autoheal-rs/commit/9e14174ff0c98f57d27fe539a887225b9203eda9)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- ensure docker_integration_test needs to pass - ([ab3b2d7](https://github.com/kristof-mattei/autoheal-rs/commit/ab3b2d7bdcdbd8964142bb37346aeb88e0863044)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- always run integration tests - ([db8728b](https://github.com/kristof-mattei/autoheal-rs/commit/db8728b9c3c02cf96b8ce6235546a07d6df70726)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- docker-compose has been deprecated for docker compose - ([164dd98](https://github.com/kristof-mattei/autoheal-rs/commit/164dd986987a326254cbbd0170903da31cb689fb)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- report tests to codecov for tracking - ([cc1ccdd](https://github.com/kristof-mattei/autoheal-rs/commit/cc1ccdd729170ab4f8fddc1660911caf587fc3ad)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- temp use custom version of eyre that depends on an updated of backtrace so we can update backtrace itself to its latest version - ([899f442](https://github.com/kristof-mattei/autoheal-rs/commit/899f44227e870e8706e94ab813d3e839b8813428)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- try something else - ([0efe974](https://github.com/kristof-mattei/autoheal-rs/commit/0efe9741d77cf9f7ca93f38255aa91e7dcf670af)) - [@kristof-mattei](https://github.com/kristof-mattei)
-#### Features
-- attest individual and multiplatform images - ([b2393c1](https://github.com/kristof-mattei/autoheal-rs/commit/b2393c1478174e162e13e33ac06c4d3ccf028e84)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- ensure formatting works - ([a7ae4c6](https://github.com/kristof-mattei/autoheal-rs/commit/a7ae4c6870fcd124a76741003d4dce3773f7a056)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- update publish defaults - ([406e06c](https://github.com/kristof-mattei/autoheal-rs/commit/406e06cae013094a6e2995e2c49158b1677b814e)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- enable codeql - ([9d22fa5](https://github.com/kristof-mattei/autoheal-rs/commit/9d22fa5261061d03a3c63a9fa5f5599e374b36ed)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- multiplatform with caching - ([6c5188b](https://github.com/kristof-mattei/autoheal-rs/commit/6c5188b32d43e0f8ae0bd1d9082871b23e244116)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- add cross building - ([46dedc2](https://github.com/kristof-mattei/autoheal-rs/commit/46dedc27e9c8fc8af3110a95ac803c08f6a82aa8)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- get rid of semantic release, use cocogitto - ([a4b5e8c](https://github.com/kristof-mattei/autoheal-rs/commit/a4b5e8cf58786d438cccee5678dcad0bc1fdcdb2)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- support for releasing crates - ([6da4854](https://github.com/kristof-mattei/autoheal-rs/commit/6da485494a7d16767c01b0255eae49fff6cb6dcf)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- docker multiplatform - ([c1f9221](https://github.com/kristof-mattei/autoheal-rs/commit/c1f922116dd2e78d149247667a514f3bb4724aa1)) - [@kristof-mattei](https://github.com/kristof-mattei)
-#### Miscellaneous Chores
-- **(deps)** pin registry docker tag to 1fc7de6 - ([28a7ca3](https://github.com/kristof-mattei/autoheal-rs/commit/28a7ca36050985f986a00045706c72ad8bdc3b81)) - renovate[bot]
-- **(deps)** update actions/attest-build-provenance action to v2.4.0 - ([32a7582](https://github.com/kristof-mattei/autoheal-rs/commit/32a758264a1831e6c81e9be9ba91ac31699ed4a9)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 6817e2f - ([5241d2a](https://github.com/kristof-mattei/autoheal-rs/commit/5241d2a7919a658266a0bf2560a8ae8882ebd887)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 6817e2f - ([ab61eb3](https://github.com/kristof-mattei/autoheal-rs/commit/ab61eb38932d0178a68b01283bf88cbefb50abaa)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.128.1 - ([fb1f0fd](https://github.com/kristof-mattei/autoheal-rs/commit/fb1f0fd7f258586e641f6ae3c2683c4810fee1af)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.128.1 - ([9cdcee8](https://github.com/kristof-mattei/autoheal-rs/commit/9cdcee88a2192857beb919ccff04e1064dcd78b1)) - renovate[bot]
-- **(deps)** update pnpm to v10 - ([d784411](https://github.com/kristof-mattei/autoheal-rs/commit/d784411ec0904aeace8a3a66fbbad1f3f7e3e084)) - renovate[bot]
-- **(deps)** lock file maintenance - ([8e87de7](https://github.com/kristof-mattei/autoheal-rs/commit/8e87de763308e640511409f19b8dc0bc3687cced)) - renovate[bot]
-- **(deps)** lock file maintenance - ([78e8cf5](https://github.com/kristof-mattei/autoheal-rs/commit/78e8cf5c6fb7b3cd40f804ef1ce93d89648fa6c3)) - renovate[bot]
-- **(deps)** update pnpm to v9.15.9 - ([cd30c4d](https://github.com/kristof-mattei/autoheal-rs/commit/cd30c4d33a93ea2d2c8428c7cd12bfc89acb95a3)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.128.0 - ([c5a7e9d](https://github.com/kristof-mattei/autoheal-rs/commit/c5a7e9df937b3c054950dc3d018d3dad1e15a4bf)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.128.0 - ([4409604](https://github.com/kristof-mattei/autoheal-rs/commit/4409604272053d745720a4248ab5fa8a2f5d72fd)) - renovate[bot]
-- **(deps)** update rust:1.88.0 docker digest to 5771a3c - ([ced3387](https://github.com/kristof-mattei/autoheal-rs/commit/ced33870648a758e433abce42d2882501a1e601c)) - renovate[bot]
-- **(deps)** update rust:1.88.0 docker digest to 5771a3c - ([b2e0a38](https://github.com/kristof-mattei/autoheal-rs/commit/b2e0a380ecc7c6c8490c3c265b9b52c4bab8a9b9)) - renovate[bot]
-- **(deps)** update rust:1.88.0 docker digest to 6b96412 - ([76f9d5f](https://github.com/kristof-mattei/autoheal-rs/commit/76f9d5f23052f97fb13f4111a083755242f40e45)) - renovate[bot]
-- **(deps)** update rust:1.88.0 docker digest to 526343c - ([b3da51a](https://github.com/kristof-mattei/autoheal-rs/commit/b3da51a1fe879dbdbb2d125027eab182b7e003cf)) - renovate[bot]
-- **(deps)** update rust:1.88.0 docker digest to 526343c - ([390b2bd](https://github.com/kristof-mattei/autoheal-rs/commit/390b2bd55b29e46a846ef5c3ff40cbe1e6b46436)) - renovate[bot]
-- **(deps)** lock file maintenance - ([a2e4b78](https://github.com/kristof-mattei/autoheal-rs/commit/a2e4b78ccf14d54f37ce19b0f226cb6fbcbe6fea)) - renovate[bot]
-- **(deps)** update rust:1.88.0 docker digest to fb1b9e6 - ([b450d8a](https://github.com/kristof-mattei/autoheal-rs/commit/b450d8a1ddb75da5234bf7fe1529f12c1f8bbfb6)) - renovate[bot]
-- **(deps)** update rust:1.88.0 docker digest to fb1b9e6 - ([e861d53](https://github.com/kristof-mattei/autoheal-rs/commit/e861d535552f1e15676d4b44803e4a7a0123b342)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.2.2 - ([fe83511](https://github.com/kristof-mattei/autoheal-rs/commit/fe835117ebb2323ccd401bac3e89594c028d7db1)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.2.2 - ([f449064](https://github.com/kristof-mattei/autoheal-rs/commit/f449064e7567fb1fdd3e30142cda56e017d3d5cf)) - renovate[bot]
-- **(deps)** pin actions/checkout action to 11bd719 - ([d16c477](https://github.com/kristof-mattei/autoheal-rs/commit/d16c4772e72bcb101715c2f0b78df61cb1be49a9)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.29.2 - ([c421102](https://github.com/kristof-mattei/autoheal-rs/commit/c4211027af898dff71a24191ad9cd7a2b1ac2f05)) - renovate[bot]
-- **(deps)** update rust:1.88.0 docker digest to 749d5f1 - ([ffd59f1](https://github.com/kristof-mattei/autoheal-rs/commit/ffd59f1ae9585493048e4d79dbba9f8d434f0a32)) - renovate[bot]
-- **(deps)** update rust:1.88.0 docker digest to 749d5f1 - ([1e0094e](https://github.com/kristof-mattei/autoheal-rs/commit/1e0094e361e030404a85e85a809251a1dbca2fb3)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.29.2 - ([4db9dc8](https://github.com/kristof-mattei/autoheal-rs/commit/4db9dc83559d73f30b347b49f1186e47a6a28719)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.29.2 - ([be83446](https://github.com/kristof-mattei/autoheal-rs/commit/be83446af8372f13ee8abb6f60925b4ca8526f21)) - renovate[bot]
-- **(deps)** lock file maintenance - ([7c8e53a](https://github.com/kristof-mattei/autoheal-rs/commit/7c8e53aa61a6db0f6ecbf4646cbae8f64f8b354e)) - renovate[bot]
-- **(deps)** update actions-rs-plus/clippy-check action to v2.3.0 - ([5a71cf7](https://github.com/kristof-mattei/autoheal-rs/commit/5a71cf7645c70a87b9a198aa5140e50bf92b3ef2)) - renovate[bot]
-- **(deps)** update actions-rs-plus/clippy-check action to v2.3.0 - ([7a5ef56](https://github.com/kristof-mattei/autoheal-rs/commit/7a5ef56d5a0019b4082e3f2dea40792d1691d23b)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.29.1 - ([a6e8b8f](https://github.com/kristof-mattei/autoheal-rs/commit/a6e8b8f8d9082d353302a9047459c46c675b278e)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.29.1 - ([4ccebfb](https://github.com/kristof-mattei/autoheal-rs/commit/4ccebfbbe98265d072a17ba9f15b19a61d74e121)) - renovate[bot]
-- **(deps)** update prettier (npm) to v3.6.2 - ([9d436e4](https://github.com/kristof-mattei/autoheal-rs/commit/9d436e4594b4de30c431ec8a531ec8b9d5b4417a)) - renovate[bot]
-- **(deps)** update prettier (npm) to v3.6.2 - ([bda650d](https://github.com/kristof-mattei/autoheal-rs/commit/bda650dac8e37cd813a1c6834e155d2b7bfb5c37)) - renovate[bot]
-- **(deps)** update rust to v1.88.0 - ([dff0ce5](https://github.com/kristof-mattei/autoheal-rs/commit/dff0ce5469e3a057adbf38163cc0c72a1e6d3aa3)) - renovate[bot]
-- **(deps)** update rust to v1.88.0 - ([da980d7](https://github.com/kristof-mattei/autoheal-rs/commit/da980d771f2c510d70042fa4ee4ace07411195d0)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.88.0 - ([7a12be9](https://github.com/kristof-mattei/autoheal-rs/commit/7a12be96246637f0273890c431ec943e3cf795d0)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.88.0 - ([1c033b1](https://github.com/kristof-mattei/autoheal-rs/commit/1c033b16c8487788b8cc541902141d24aa2a5913)) - renovate[bot]
-- **(deps)** update prettier-plugin-sh (npm) to v0.18.0 - ([ce576af](https://github.com/kristof-mattei/autoheal-rs/commit/ce576afc182527afd0ab23d1ec3bd3e4401a17ef)) - renovate[bot]
-- **(deps)** update prettier-plugin-sh (npm) to v0.18.0 - ([173429f](https://github.com/kristof-mattei/autoheal-rs/commit/173429f3199503a774b8c3b5ba0fa35ebbdf5411)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.127.1 - ([42e12f3](https://github.com/kristof-mattei/autoheal-rs/commit/42e12f36e8a90f7bbd92fa27b925f13e09a5a855)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.127.1 - ([78e8d7e](https://github.com/kristof-mattei/autoheal-rs/commit/78e8d7e0084d9d4f830a2a0af2c7a40e0aabdc80)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.6.1 - ([bf37c94](https://github.com/kristof-mattei/autoheal-rs/commit/bf37c9481fca076f048b3f6536b256dafc0cbd6b)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.6.1 - ([3ccd380](https://github.com/kristof-mattei/autoheal-rs/commit/3ccd3803d752c6b75e7e83a00eb76d6a8e4925b3)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.127.0 - ([ccbf8d3](https://github.com/kristof-mattei/autoheal-rs/commit/ccbf8d3f05ef47b537128b3ce2ad08efabc11ca8)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.127.0 - ([715d29e](https://github.com/kristof-mattei/autoheal-rs/commit/715d29ec0941bb3e9acecf1df59e4bc51d25bfb2)) - renovate[bot]
-- **(deps)** update node.js to v22.17.0 - ([d03539c](https://github.com/kristof-mattei/autoheal-rs/commit/d03539cb18dbb5916b7ce8599a5a57f578303b5f)) - renovate[bot]
-- **(deps)** update node.js to v22.17.0 - ([da7d8cb](https://github.com/kristof-mattei/autoheal-rs/commit/da7d8cba503e6b2131d584ac221d92a2397fcfc1)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.6.0 - ([ffde7c2](https://github.com/kristof-mattei/autoheal-rs/commit/ffde7c2187832c6bac66bee602441cffad653857)) - renovate[bot]
-- **(deps)** lock file maintenance - ([ed1dab2](https://github.com/kristof-mattei/autoheal-rs/commit/ed1dab242b06c593fef00317e5ed2e69bf1ac38f)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.6.0 - ([8d1cb1b](https://github.com/kristof-mattei/autoheal-rs/commit/8d1cb1bc2a337c36c905388c310402e7406545f7)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.126.0 - ([1a822aa](https://github.com/kristof-mattei/autoheal-rs/commit/1a822aadd312b5ab411a337390fc3e39021b242c)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.126.0 - ([e29d24a](https://github.com/kristof-mattei/autoheal-rs/commit/e29d24ab8edb5afc47996be9c2e0ed53ca576ba8)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.11.1 - ([5f5df4b](https://github.com/kristof-mattei/autoheal-rs/commit/5f5df4b114907c166a42263866eaccfc4bbabd9e)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.11.1 - ([1d13636](https://github.com/kristof-mattei/autoheal-rs/commit/1d136360b115a7fea99f001029954cecceca28d5)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 85c79d0 - ([73a8896](https://github.com/kristof-mattei/autoheal-rs/commit/73a88968c8b4ca50c33c8b77839a984338f817ca)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 85c79d0 - ([fa40e2b](https://github.com/kristof-mattei/autoheal-rs/commit/fa40e2b95810b093bbf0e4e461918b651819bf97)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.11.0 - ([bcc7376](https://github.com/kristof-mattei/autoheal-rs/commit/bcc7376405a971394f739576390fe1b07cbf69f2)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.11.0 - ([754aa07](https://github.com/kristof-mattei/autoheal-rs/commit/754aa0721f8c04c6051b24f2a36ef282e1611024)) - renovate[bot]
-- **(deps)** lock file maintenance - ([46636cb](https://github.com/kristof-mattei/autoheal-rs/commit/46636cbab34303ecdd9c0d6399e9f50ce1e10c4f)) - renovate[bot]
-- **(deps)** lock file maintenance - ([a7bbd1e](https://github.com/kristof-mattei/autoheal-rs/commit/a7bbd1e52cfc230084e4c069b2f5e0b1209e926a)) - renovate[bot]
-- **(deps)** update docker/setup-qemu-action action to v3.6.0 - ([995fe5c](https://github.com/kristof-mattei/autoheal-rs/commit/995fe5c9a7251670113b400478cd153fe44ec3c2)) - renovate[bot]
-- **(deps)** update coverallsapp/github-action action to v2.3.6 - ([8952261](https://github.com/kristof-mattei/autoheal-rs/commit/89522616988b5999583702dc6f47c57b66c9bb86)) - renovate[bot]
-- **(deps)** update npm to >=11.4.2 - ([2118ec2](https://github.com/kristof-mattei/autoheal-rs/commit/2118ec22b11fc212a7ccb7b11afd0d840c0d9713)) - renovate[bot]
-- **(deps)** update npm to >=11.4.2 - ([6e48d1c](https://github.com/kristof-mattei/autoheal-rs/commit/6e48d1c53775d10fc7ee864ee5b5d8fafe8e1265)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to 251cec8 - ([82687c3](https://github.com/kristof-mattei/autoheal-rs/commit/82687c38c8961515b440f35310912a8691a3d6bd)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to 251cec8 - ([a9c9fc0](https://github.com/kristof-mattei/autoheal-rs/commit/a9c9fc03e743db37d326b7eb6835672ad0bd77a6)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to d0f16cc - ([d6ccdc0](https://github.com/kristof-mattei/autoheal-rs/commit/d6ccdc09f36c32260dd89408babace74b2f10491)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to d0f16cc - ([3c97b38](https://github.com/kristof-mattei/autoheal-rs/commit/3c97b389847e3c3ff8ad059c50831ece3e6dd10f)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.125.0 - ([f33ffd2](https://github.com/kristof-mattei/autoheal-rs/commit/f33ffd267abce1d98fb9ba1304fc6770d5433991)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.125.0 - ([b394c22](https://github.com/kristof-mattei/autoheal-rs/commit/b394c22271e84362e74acf7e73fc540594abcbaf)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to d592668 - ([24ad077](https://github.com/kristof-mattei/autoheal-rs/commit/24ad077b5c8f8b5bdd2653eb1bddca8175013969)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to d592668 - ([14b5002](https://github.com/kristof-mattei/autoheal-rs/commit/14b50023a09b3447186fbbcc07116765f88a7c6a)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.29.0 - ([c5fbb1f](https://github.com/kristof-mattei/autoheal-rs/commit/c5fbb1f724ec8a5af0d1bdad4448d3a49cfd8cd1)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.29.0 - ([173e0a9](https://github.com/kristof-mattei/autoheal-rs/commit/173e0a9c09d43005e28736f9b573f8a5c397d22c)) - renovate[bot]
-- **(deps)** lock file maintenance - ([3626e3b](https://github.com/kristof-mattei/autoheal-rs/commit/3626e3bd776f25a88ebe7bff9efeb2896ba1c8d2)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to b571d7b - ([6c25c52](https://github.com/kristof-mattei/autoheal-rs/commit/6c25c528776a0634e98d74e9e4aa58b374c6fd09)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to b571d7b - ([7a40b24](https://github.com/kristof-mattei/autoheal-rs/commit/7a40b244da926f53263ec6ce96b075a85b27d2f7)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.124.1 - ([3447faf](https://github.com/kristof-mattei/autoheal-rs/commit/3447faf4128bdfb4c5e22f0b861d387541a6f5f9)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.124.1 - ([ea87f97](https://github.com/kristof-mattei/autoheal-rs/commit/ea87f979f0ae25a0da9fa8bb6ee82877add14ee5)) - renovate[bot]
-- **(deps)** update softprops/action-gh-release action to v2.3.2 - ([3487f3c](https://github.com/kristof-mattei/autoheal-rs/commit/3487f3c17043944c86c1cfc56747b59889d7c601)) - renovate[bot]
-- **(deps)** update softprops/action-gh-release action to v2.3.2 - ([a0c78a1](https://github.com/kristof-mattei/autoheal-rs/commit/a0c78a1cdd6c97f98c2a479e9f88397ea16e00aa)) - renovate[bot]
-- **(deps)** update softprops/action-gh-release action to v2.3.0 - ([5bf3aa9](https://github.com/kristof-mattei/autoheal-rs/commit/5bf3aa9b1b8a96743b824680b173b7957b8ed539)) - renovate[bot]
-- **(deps)** update softprops/action-gh-release action to v2.3.0 - ([ba29d45](https://github.com/kristof-mattei/autoheal-rs/commit/ba29d457c67527d252d3d0bd4cfbce441234b34a)) - renovate[bot]
-- **(deps)** lock file maintenance - ([46e38c9](https://github.com/kristof-mattei/autoheal-rs/commit/46e38c9b7779c4072e015f872047551322ea788a)) - renovate[bot]
-- **(deps)** lock file maintenance - ([c07f273](https://github.com/kristof-mattei/autoheal-rs/commit/c07f2731fcf87a04c5a964e0ab23bbe51e3e67a8)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.124.0 - ([d4e2cba](https://github.com/kristof-mattei/autoheal-rs/commit/d4e2cbadcf9a4345a11be45511a05d9505c0ea6d)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.124.0 - ([b629d05](https://github.com/kristof-mattei/autoheal-rs/commit/b629d0528840a46ee00df9fa419a002574285887)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.19 - ([d477335](https://github.com/kristof-mattei/autoheal-rs/commit/d477335f393220f1fb304e9bfc8ecc59ee609146)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.19 - ([c9c8cf6](https://github.com/kristof-mattei/autoheal-rs/commit/c9c8cf64d14af01364c559bf27513893dbaae552)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to b395809 - ([eb801d5](https://github.com/kristof-mattei/autoheal-rs/commit/eb801d5c6b40e16466facbcceb6dd3c52fa05f4c)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to b395809 - ([35f6eaa](https://github.com/kristof-mattei/autoheal-rs/commit/35f6eaaaac08840a010fad19978fafd968600104)) - renovate[bot]
-- **(deps)** lock file maintenance - ([865fd05](https://github.com/kristof-mattei/autoheal-rs/commit/865fd054c555c7c8445b4c0b58088dc9ab2eafd9)) - renovate[bot]
-- **(deps)** lock file maintenance - ([5bf1e80](https://github.com/kristof-mattei/autoheal-rs/commit/5bf1e80e45c04d59e38962d367f70ef5bf89cb6d)) - renovate[bot]
-- **(deps)** update alpine docker tag to v3.22.0 - ([4ed3dde](https://github.com/kristof-mattei/autoheal-rs/commit/4ed3dde201a719e9c19c0e7bcebc30aed1ca2055)) - renovate[bot]
-- **(deps)** update alpine docker digest to 8a1f59f - ([b4d4c7c](https://github.com/kristof-mattei/autoheal-rs/commit/b4d4c7cf84c65fcacd4df0a3178c808cdfbee49c)) - renovate[bot]
-- **(deps)** update alpine docker tag to v3.22.0 - ([47ac94e](https://github.com/kristof-mattei/autoheal-rs/commit/47ac94ec7fe4957ed1a32c42a9982c5178c66bbc)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to 8a1f59f - ([58797e2](https://github.com/kristof-mattei/autoheal-rs/commit/58797e25103c5d54a2f43a4ebd16e771d398adac)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 6a2d391 - ([62e394c](https://github.com/kristof-mattei/autoheal-rs/commit/62e394c2a1d3c951a843ddd5264ff4e52790e71f)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 6a2d391 - ([fc2e722](https://github.com/kristof-mattei/autoheal-rs/commit/fc2e722c865f6b4522ecc5748afb2349845d2137)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.123.0 - ([a4c494e](https://github.com/kristof-mattei/autoheal-rs/commit/a4c494ef2eb949d04249804e826a6d7a7209b499)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.123.0 - ([efa7aea](https://github.com/kristof-mattei/autoheal-rs/commit/efa7aea81eef2c2f9902c3890f099ef58606d50d)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.18.0 - ([8bc4987](https://github.com/kristof-mattei/autoheal-rs/commit/8bc4987cc09418366dfc59a9941890d9b1cf1294)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.18.0 - ([2da7fca](https://github.com/kristof-mattei/autoheal-rs/commit/2da7fcad71e7e752030048c95a97ac669de4db9d)) - renovate[bot]
-- **(deps)** update enricomi/publish-unit-test-result-action action to v2.20.0 - ([74b475b](https://github.com/kristof-mattei/autoheal-rs/commit/74b475b4ea0237ce2a8f8c71d2628d0af62d10d6)) - renovate[bot]
-- **(deps)** update enricomi/publish-unit-test-result-action action to v2.20.0 - ([10febc4](https://github.com/kristof-mattei/autoheal-rs/commit/10febc40d3a3bb072b8364877d7d385f0f74417a)) - renovate[bot]
-- **(deps)** lock file maintenance - ([3f12767](https://github.com/kristof-mattei/autoheal-rs/commit/3f1276741f4b8d6c5bc952b02babb5ac6e991792)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to 25038aa - ([33d242e](https://github.com/kristof-mattei/autoheal-rs/commit/33d242ee1c5c0b641a622dd98d698934a73f07a8)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to 25038aa - ([bcf8124](https://github.com/kristof-mattei/autoheal-rs/commit/bcf81249ee202dae71da195a3a7f0780bf6c8143)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to 171cfe2 - ([0d32259](https://github.com/kristof-mattei/autoheal-rs/commit/0d32259c59ba22067d1c62e3c4b238a81f0e0793)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to cfd9d33 - ([e8cfd8d](https://github.com/kristof-mattei/autoheal-rs/commit/e8cfd8d061f0282a444e32c0cef4b018d0040c2f)) - renovate[bot]
-- **(deps)** update codecov/test-results-action action to v1.1.1 - ([94f04e2](https://github.com/kristof-mattei/autoheal-rs/commit/94f04e29ca113371f17aa266fbafe16f56ec53c2)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to 893a03d - ([3f932a5](https://github.com/kristof-mattei/autoheal-rs/commit/3f932a5c423d5a30957c4e6d198a101d6996c693)) - renovate[bot]
-- **(deps)** update npm to >=11.4.1 - ([0b3a436](https://github.com/kristof-mattei/autoheal-rs/commit/0b3a436c41aae20ffd1db0a064ae37a4ce4a3c2e)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to 893a03d - ([2d7448c](https://github.com/kristof-mattei/autoheal-rs/commit/2d7448cfe13f9a4721043df79878a2b55f04007c)) - renovate[bot]
-- **(deps)** update npm to >=11.4.1 - ([f6e2ad9](https://github.com/kristof-mattei/autoheal-rs/commit/f6e2ad9ef43c26ca22674cf31580bae7e84322f1)) - renovate[bot]
-- **(deps)** lock file maintenance - ([ec6075e](https://github.com/kristof-mattei/autoheal-rs/commit/ec6075edb53838bfde94e8ec73ac3bec85368356)) - renovate[bot]
-- **(deps)** update node.js to v22.16.0 - ([04850db](https://github.com/kristof-mattei/autoheal-rs/commit/04850db6c4b94fa96580828d396b466bff98632a)) - renovate[bot]
-- **(deps)** update node.js to v22.16.0 - ([d6fd065](https://github.com/kristof-mattei/autoheal-rs/commit/d6fd065b3c31e5afe5d183b6084286aca97e31f3)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 67424c1 - ([bfb5834](https://github.com/kristof-mattei/autoheal-rs/commit/bfb5834fbbb181efe4365bad61087abccce3066e)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 67424c1 - ([c9718f0](https://github.com/kristof-mattei/autoheal-rs/commit/c9718f0e1b23872844ef6dae15ded10581e8f84b)) - renovate[bot]
-- **(deps)** update rust to v1.87.0 - ([2d4a0c3](https://github.com/kristof-mattei/autoheal-rs/commit/2d4a0c3522c433ddf66fb4aa42aec4d8b1745d0d)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.18 - ([ed2a1ea](https://github.com/kristof-mattei/autoheal-rs/commit/ed2a1eadf83a6064e3d8459f5bb1d7bb9f17aae1)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.18 - ([7c4c20f](https://github.com/kristof-mattei/autoheal-rs/commit/7c4c20f9f2c97c58a7a152909cb76ee2610e95ec)) - renovate[bot]
-- **(deps)** update npm to >=11.4.0 - ([30b4473](https://github.com/kristof-mattei/autoheal-rs/commit/30b44738d7b39e7a1bee5f9fecb7500a27e67104)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.87.0 - ([70ad11b](https://github.com/kristof-mattei/autoheal-rs/commit/70ad11b5721259e4a77ddd3a670d15bb882630cb)) - renovate[bot]
-- **(deps)** update rust:1.87.0 docker digest to 5e33ae7 - ([27dbb0d](https://github.com/kristof-mattei/autoheal-rs/commit/27dbb0d16192d8f17ee619b66ad832ee82ee8895)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.4.3 - ([2951141](https://github.com/kristof-mattei/autoheal-rs/commit/2951141908bf6a318a72a8650249c544f64a48f1)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.4.3 - ([99bc7bb](https://github.com/kristof-mattei/autoheal-rs/commit/99bc7bb14c40760473efefaabeccc46d1cdd1853)) - renovate[bot]
-- **(deps)** update rust to v1.87.0 - ([0e5e6dc](https://github.com/kristof-mattei/autoheal-rs/commit/0e5e6dc7c17105e0cbb70438cc274ed3bfb671a1)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.87.0 - ([010c85b](https://github.com/kristof-mattei/autoheal-rs/commit/010c85bb29144e6d6ba4bc74ceaaff28e282ad07)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.17.0 - ([c7740dd](https://github.com/kristof-mattei/autoheal-rs/commit/c7740dd54cf7afc9252897c0b3518f10f2646e8c)) - renovate[bot]
-- **(deps)** update npm to >=11.4.0 - ([3374dd8](https://github.com/kristof-mattei/autoheal-rs/commit/3374dd851bcfc8dcce7bdd1002bcc6aaf7da0768)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.17.0 - ([c90f2b9](https://github.com/kristof-mattei/autoheal-rs/commit/c90f2b9eecf37a0c8a4f8320fbf69fac19dea68c)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.122.0 - ([232eeaa](https://github.com/kristof-mattei/autoheal-rs/commit/232eeaa65ea5134d03c9b9533427888ea5f7a40b)) - renovate[bot]
-- **(deps)** update node.js to v22.15.1 - ([81b4e81](https://github.com/kristof-mattei/autoheal-rs/commit/81b4e814cef3fb55355e605d932191db0fbd2b79)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.122.0 - ([e3590e5](https://github.com/kristof-mattei/autoheal-rs/commit/e3590e5f49771f0070dbe848f4f6651c56dfe518)) - renovate[bot]
-- **(deps)** update node.js to v22.15.1 - ([cdb1b18](https://github.com/kristof-mattei/autoheal-rs/commit/cdb1b18dc67a2f8b1f52185d7cae0a210d11c1c9)) - renovate[bot]
-- **(deps)** lock file maintenance - ([984e403](https://github.com/kristof-mattei/autoheal-rs/commit/984e4036d978ff26a851b1dfb4066455ca7d7760)) - renovate[bot]
-- **(deps)** lock file maintenance - ([82deeef](https://github.com/kristof-mattei/autoheal-rs/commit/82deeefe37f7b15aeefa0087d590ccb25927171a)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.17.4 - ([e4be0f3](https://github.com/kristof-mattei/autoheal-rs/commit/e4be0f3444971a2bdfbfcc543b07c66ade7ed4e0)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.17.4 - ([fa6f89d](https://github.com/kristof-mattei/autoheal-rs/commit/fa6f89db2dc77e161cdbf14bd06500632162098b)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.17.3 - ([c4016e0](https://github.com/kristof-mattei/autoheal-rs/commit/c4016e0a83691072f1bff1843872de162aa98214)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.17.3 - ([24b897c](https://github.com/kristof-mattei/autoheal-rs/commit/24b897cdfe7fb29a06e51106e5838f2c7b44ecdf)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.121.0 - ([774ab99](https://github.com/kristof-mattei/autoheal-rs/commit/774ab99365ccd355fe54f1810a9fd9c38106cbdf)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.121.0 - ([ccd0f3a](https://github.com/kristof-mattei/autoheal-rs/commit/ccd0f3acdcc6ea27f16a7c2a0f7492fb7cbfddce)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to d9c118e - ([4eae187](https://github.com/kristof-mattei/autoheal-rs/commit/4eae1879af2ba94e510d0dd9f13867d731fedaec)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to d9c118e - ([214f751](https://github.com/kristof-mattei/autoheal-rs/commit/214f75123ebf87329a23b5b9205aeaba70ac4ac2)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 300ec56 - ([0f83fb2](https://github.com/kristof-mattei/autoheal-rs/commit/0f83fb2785ec6933b227dd95db9dfb8178277a8a)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 300ec56 - ([6dd596d](https://github.com/kristof-mattei/autoheal-rs/commit/6dd596db4ce2b9fef41f45f014a5d115cb51fbd1)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to a2ccb7c - ([9fc6078](https://github.com/kristof-mattei/autoheal-rs/commit/9fc6078c271d938419d95ebfa90ccbbb0ca2d92d)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to a2ccb7c - ([7f2b601](https://github.com/kristof-mattei/autoheal-rs/commit/7f2b6016b806d42914d91a03636935a2568e94b3)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to c42032c - ([b57aae4](https://github.com/kristof-mattei/autoheal-rs/commit/b57aae475cfb35caa3e03614b1a3ec0240af1923)) - renovate[bot]
-- **(deps)** bump color eyre - ([9fce677](https://github.com/kristof-mattei/autoheal-rs/commit/9fce677fbd4925a440836a719347d6cfc634b4ce)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- **(deps)** update github/codeql-action action to v3.28.17 - ([9db9e56](https://github.com/kristof-mattei/autoheal-rs/commit/9db9e569e4dafb5fc17e495643ea3b77001baddf)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.17 - ([17f73f2](https://github.com/kristof-mattei/autoheal-rs/commit/17f73f25aa6904a9e1d0aea6283c4780d13ab64e)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 640960f - ([fb5862c](https://github.com/kristof-mattei/autoheal-rs/commit/fb5862c21ab4dd15aa657ee1940ec8c3b1e9a97a)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 640960f - ([3adf2d8](https://github.com/kristof-mattei/autoheal-rs/commit/3adf2d8c336527a61b7700692083fb4e5f2bb6a0)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to f2b92e8 - ([f83fd1a](https://github.com/kristof-mattei/autoheal-rs/commit/f83fd1a1acc41be1d420f559b7995f1165985730)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to f2b92e8 - ([f5853e2](https://github.com/kristof-mattei/autoheal-rs/commit/f5853e2020546c7e0ce5482a22b8a8638738b447)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 173b003 - ([089a1e7](https://github.com/kristof-mattei/autoheal-rs/commit/089a1e74e8f490c94a7718f360ad0b17af449d3e)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 173b003 - ([1b21c43](https://github.com/kristof-mattei/autoheal-rs/commit/1b21c431fd2f874a41ec2d8463d83db12558a945)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 13e8910 - ([3564034](https://github.com/kristof-mattei/autoheal-rs/commit/35640344087de4543b57740c204fd09ed20e6101)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 13e8910 - ([34299a1](https://github.com/kristof-mattei/autoheal-rs/commit/34299a120094e943f73b313e98cc6c40bbe19f52)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to ff735b1 - ([008c3ad](https://github.com/kristof-mattei/autoheal-rs/commit/008c3ad57a170dfca7017e84c7d6a13c33437e48)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to ff735b1 - ([de510a9](https://github.com/kristof-mattei/autoheal-rs/commit/de510a913a1d46c76c315695e4233d09dbaba87e)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.120.1 - ([bff5381](https://github.com/kristof-mattei/autoheal-rs/commit/bff5381109689fc58e9c79dc870e0235bc33a107)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.120.1 - ([889de18](https://github.com/kristof-mattei/autoheal-rs/commit/889de1870b5c1f1a7dd8b3166b125c8acc4ff176)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.3.0 - ([28e1e96](https://github.com/kristof-mattei/autoheal-rs/commit/28e1e96a7d6e52c2cb5bcb901ba908d2b37313c1)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.3.0 - ([35e8915](https://github.com/kristof-mattei/autoheal-rs/commit/35e891518e8d1fd96d4ac12bdf211c4f58dfb0dc)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.16.0 - ([82dae1b](https://github.com/kristof-mattei/autoheal-rs/commit/82dae1bcd49f043a43798d4bcb04fe0dda108977)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.16.0 - ([d525f26](https://github.com/kristof-mattei/autoheal-rs/commit/d525f26a1d4ad122f365559faf5d086639dbbe51)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.16 - ([20afd0a](https://github.com/kristof-mattei/autoheal-rs/commit/20afd0aaca4556c8c56572d70a9754c388986451)) - renovate[bot]
-- **(deps)** update node.js to v22.15.0 - ([427aaea](https://github.com/kristof-mattei/autoheal-rs/commit/427aaea83c5cbd31779c05e732ea6c6aa7f94850)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.16 - ([e7d1ad6](https://github.com/kristof-mattei/autoheal-rs/commit/e7d1ad623f8e91c6ac55bcdb176d0a70cddec5bc)) - renovate[bot]
-- **(deps)** update node.js to v22.15.0 - ([7b36af5](https://github.com/kristof-mattei/autoheal-rs/commit/7b36af5d678749092066d3e301060e44d0dc12ee)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.120.0 - ([004ee40](https://github.com/kristof-mattei/autoheal-rs/commit/004ee40e7fe2e7a6be4f53d95df48b8f32f27a88)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.120.0 - ([9062fd6](https://github.com/kristof-mattei/autoheal-rs/commit/9062fd65b3f0d9c5197fefa0698ec50f099a4417)) - renovate[bot]
-- **(deps)** lock file maintenance - ([fea67cb](https://github.com/kristof-mattei/autoheal-rs/commit/fea67cba596f73a4687db71d4d4d29e5c5ec3afa)) - renovate[bot]
-- **(deps)** lock file maintenance - ([cd387e9](https://github.com/kristof-mattei/autoheal-rs/commit/cd387e96f62640e8cd56e4a7528a39de3828e162)) - renovate[bot]
-- **(deps)** update softprops/action-gh-release action to v2.2.2 - ([4341abb](https://github.com/kristof-mattei/autoheal-rs/commit/4341abb7d72dbe2f20a98b06d8a2e03edfa2a9fa)) - renovate[bot]
-- **(deps)** update softprops/action-gh-release action to v2.2.2 - ([d3d8ca6](https://github.com/kristof-mattei/autoheal-rs/commit/d3d8ca606dd0340fe00657aa0be6a2dc25d08b6a)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.119.0 - ([37f9b65](https://github.com/kristof-mattei/autoheal-rs/commit/37f9b65a1dfbc9e7b6d45f5ba90aa98f55d1f2d4)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.119.0 - ([76f4397](https://github.com/kristof-mattei/autoheal-rs/commit/76f43979e2e11a36730f2874f50d7480a2f6ed72)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.4.2 - ([a3220e6](https://github.com/kristof-mattei/autoheal-rs/commit/a3220e662e15f6ab323b94e84174426597930a6b)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.4.2 - ([80378ea](https://github.com/kristof-mattei/autoheal-rs/commit/80378ea87ad2939a81492647938a5d97d96dde7f)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.4.0 - ([d0f9280](https://github.com/kristof-mattei/autoheal-rs/commit/d0f9280fde760b6847e7ee4230b8193fda8c5520)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.4.0 - ([2ef356b](https://github.com/kristof-mattei/autoheal-rs/commit/2ef356bebcb2108238a9dcce50c7b11d5bf4a39b)) - renovate[bot]
-- **(deps)** lock file maintenance - ([d032fa5](https://github.com/kristof-mattei/autoheal-rs/commit/d032fa5e6d1d5c62252e127afed69a9eefab5e61)) - renovate[bot]
-- **(deps)** lock file maintenance - ([780c5c7](https://github.com/kristof-mattei/autoheal-rs/commit/780c5c76e8fa3f51991d163caa8ee13b9eb287b8)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to a87c2e8 - ([5047965](https://github.com/kristof-mattei/autoheal-rs/commit/5047965a00d736bd6e9407386cefb56d5478d4f6)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to a87c2e8 - ([0fcab78](https://github.com/kristof-mattei/autoheal-rs/commit/0fcab78974cdb91b27c5958f3eaf0b6037aeb11f)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.17.2 - ([9474605](https://github.com/kristof-mattei/autoheal-rs/commit/94746053dbc5658ead0b9a30ce3ce9fda577bcc6)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.17.2 - ([2457e0d](https://github.com/kristof-mattei/autoheal-rs/commit/2457e0d02e3ced7a0e2d6ffd602da668d2ffc440)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.17.1 - ([11f3ff4](https://github.com/kristof-mattei/autoheal-rs/commit/11f3ff408b35974e10cbac99e5db7ef69459bf09)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 7b65306 - ([55cb711](https://github.com/kristof-mattei/autoheal-rs/commit/55cb7110ff87a86eabc4838685260163e34390a4)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.118.0 - ([b3f6b3d](https://github.com/kristof-mattei/autoheal-rs/commit/b3f6b3d1f9de4aae48f727a3cb40f0ff2c2c4f63)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 7b65306 - ([fa0aa05](https://github.com/kristof-mattei/autoheal-rs/commit/fa0aa05c4235cb3d2b610a92b87fd69ffcd7e721)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.118.0 - ([7446606](https://github.com/kristof-mattei/autoheal-rs/commit/7446606e8e880f7f0854c5d2fabf7cd976485bb2)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.17.1 - ([bfec768](https://github.com/kristof-mattei/autoheal-rs/commit/bfec7683ed649160b5d7d4842a4184ef399ec2dd)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 947c462 - ([fa4cdf5](https://github.com/kristof-mattei/autoheal-rs/commit/fa4cdf5a0350a316d74a1c8bfd1a4bd3f233827f)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 9fdf93f - ([3717899](https://github.com/kristof-mattei/autoheal-rs/commit/3717899c649e98ab1b02dac8e89928562cfd4341)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 9fdf93f - ([823eb11](https://github.com/kristof-mattei/autoheal-rs/commit/823eb1150015e4774e9fe1809640276fd4ddd027)) - renovate[bot]
-- **(deps)** update npm to >=11.3.0 - ([772d43b](https://github.com/kristof-mattei/autoheal-rs/commit/772d43bc2e18106537b70c2820bf187fb364048a)) - renovate[bot]
-- **(deps)** update npm to >=11.3.0 - ([7c299a9](https://github.com/kristof-mattei/autoheal-rs/commit/7c299a9adb1b6831aca7d3cbcda6aca6aea4865d)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.17.0 - ([d3c9452](https://github.com/kristof-mattei/autoheal-rs/commit/d3c9452f9c17410ed59ef496cf31ce41baa20739)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 6a6dda6 - ([24fc47e](https://github.com/kristof-mattei/autoheal-rs/commit/24fc47e6a47ec19446e2231dc4531a648c59b649)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 6a6dda6 - ([c66b89b](https://github.com/kristof-mattei/autoheal-rs/commit/c66b89bd22f0a91c06597fb006d4bbf75a0ae4c6)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.17.0 - ([8cb1a53](https://github.com/kristof-mattei/autoheal-rs/commit/8cb1a53f5fb240b402d782dd1c4ed434cf73a082)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 2494472 - ([855617d](https://github.com/kristof-mattei/autoheal-rs/commit/855617da59ac2931019010fa805d4ebfc6ce8e1f)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.15 - ([ea70d0c](https://github.com/kristof-mattei/autoheal-rs/commit/ea70d0cea4f3298b198fd5297c7b0b50b88fddf8)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.15 - ([55e14b0](https://github.com/kristof-mattei/autoheal-rs/commit/55e14b07984bea60af2428a481c426df90fdb3d7)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.14 - ([eee23f6](https://github.com/kristof-mattei/autoheal-rs/commit/eee23f6aca0741d324baf2f259fb49be4c64e2f2)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.14 - ([7268816](https://github.com/kristof-mattei/autoheal-rs/commit/72688166a7806f722bdf6fdd76c2ca0761e4cac7)) - renovate[bot]
-- **(deps)** lock file maintenance - ([93999da](https://github.com/kristof-mattei/autoheal-rs/commit/93999da1be588ed2fb2c20299a60a5ae50ab03a4)) - renovate[bot]
-- **(deps)** lock file maintenance - ([3ce1fd8](https://github.com/kristof-mattei/autoheal-rs/commit/3ce1fd8eca48150839d60ab5f032240c444c146f)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.16.1 - ([0f86b2b](https://github.com/kristof-mattei/autoheal-rs/commit/0f86b2b9ab7f610cdd4c6c451ab7b6c499aaafd2)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.16.1 - ([1f66e3a](https://github.com/kristof-mattei/autoheal-rs/commit/1f66e3ac0ac127bbc67a7ede19c3beab9d28efe3)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 563b33d - ([c4040b1](https://github.com/kristof-mattei/autoheal-rs/commit/c4040b186d5304c74093cd814495b89c8d8bbe94)) - renovate[bot]
-- **(deps)** update rust:1.86.0 docker digest to 563b33d - ([6412c53](https://github.com/kristof-mattei/autoheal-rs/commit/6412c534686cb7eb86125f5ef26d40fb6a714396)) - renovate[bot]
-- **(deps)** update rust to v1.86.0 - ([85c086f](https://github.com/kristof-mattei/autoheal-rs/commit/85c086f38524553924947d4eeaa9825410ddf23c)) - renovate[bot]
-- **(deps)** update rust to v1.86.0 - ([6816afe](https://github.com/kristof-mattei/autoheal-rs/commit/6816afe5bf9430358a6217f8ecd6f104957dbe8d)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.86.0 - ([c458741](https://github.com/kristof-mattei/autoheal-rs/commit/c458741aba8adde8f8eec0c6715ba950cd2a816a)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.86.0 - ([271c342](https://github.com/kristof-mattei/autoheal-rs/commit/271c34269f650cd506324976c3000e692e8476f7)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.117.0 - ([e192034](https://github.com/kristof-mattei/autoheal-rs/commit/e1920345940651ee7b2d6c6459981dcd8747197a)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.117.0 - ([b86c7ed](https://github.com/kristof-mattei/autoheal-rs/commit/b86c7ed3b047639888672660d2e56bb1c074b771)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to e16410e - ([a9b03c8](https://github.com/kristof-mattei/autoheal-rs/commit/a9b03c800b619654ad8253516263859d462d0c34)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to e16410e - ([26b7631](https://github.com/kristof-mattei/autoheal-rs/commit/26b763109b8613191602236e50681299393e32f4)) - renovate[bot]
-- **(deps)** update enricomi/publish-unit-test-result-action action to v2.19.0 - ([f6e0130](https://github.com/kristof-mattei/autoheal-rs/commit/f6e013075e6fb7328df8f13d98a2f666cc087c07)) - renovate[bot]
-- **(deps)** update enricomi/publish-unit-test-result-action action to v2.19.0 - ([fa670b6](https://github.com/kristof-mattei/autoheal-rs/commit/fa670b6647f184a03ba5356ae2972ff88acebc4f)) - renovate[bot]
-- **(deps)** lock file maintenance - ([8cfb720](https://github.com/kristof-mattei/autoheal-rs/commit/8cfb720e436133390ae8c8a47df3f244974df786)) - renovate[bot]
-- **(deps)** lock file maintenance - ([244e700](https://github.com/kristof-mattei/autoheal-rs/commit/244e7000c11a7f2af739eeaceeb68875c51b994f)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.16.0 - ([d8eea8f](https://github.com/kristof-mattei/autoheal-rs/commit/d8eea8fa400e764095cc14bb355467debe933529)) - renovate[bot]
-- **(deps)** update dependency prettier-plugin-sh to v0.16.0 - ([b198475](https://github.com/kristof-mattei/autoheal-rs/commit/b198475e1dd50f80b60e0f3086083266a95de0ed)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.116.0 - ([79e5f1f](https://github.com/kristof-mattei/autoheal-rs/commit/79e5f1f4e6590e9adfc5f50f4ddbe7f6bbbc9b0b)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.116.0 - ([fe11f77](https://github.com/kristof-mattei/autoheal-rs/commit/fe11f77063df2a5e67ca041c980234d6443f14ad)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.13 - ([93ebf7f](https://github.com/kristof-mattei/autoheal-rs/commit/93ebf7f03ec642d7e82b6a14b76312ac00e7bf9d)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.13 - ([0e62ca6](https://github.com/kristof-mattei/autoheal-rs/commit/0e62ca6722c891b8bbf0022e27315265100d0205)) - renovate[bot]
-- **(deps)** lock file maintenance - ([c0d4c3d](https://github.com/kristof-mattei/autoheal-rs/commit/c0d4c3d43fc71ee7b0d53ebe0ef031ac64e2451d)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.114.0 - ([7e0242d](https://github.com/kristof-mattei/autoheal-rs/commit/7e0242d0f34254b91db48b96cea3bc71d8cc8fb6)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.114.0 - ([dbba2e8](https://github.com/kristof-mattei/autoheal-rs/commit/dbba2e8abe2d31bde7f5fc8203b5a440ef0df3fa)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.12 - ([5f10cdd](https://github.com/kristof-mattei/autoheal-rs/commit/5f10cddac40dbd974b5acc52523c40ac7ac563c1)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.6.2 - ([ae040fa](https://github.com/kristof-mattei/autoheal-rs/commit/ae040fabe3c6dd394df4754be8cdbd8ae0cca510)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.2.1 - ([bb0de9d](https://github.com/kristof-mattei/autoheal-rs/commit/bb0de9d085e91b5fa5c5e6cd2d369b239007c428)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.6.2 - ([ce5a9e8](https://github.com/kristof-mattei/autoheal-rs/commit/ce5a9e8b849fc4ab7094207b9c2ca9f8e91bf07c)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.2.3 - ([9d2d061](https://github.com/kristof-mattei/autoheal-rs/commit/9d2d06120fc03ae5dc4044f2eb319849c6c4b97b)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.2.3 - ([106a07a](https://github.com/kristof-mattei/autoheal-rs/commit/106a07a76b200fc3b0f1fdc32586f9a7f8075ca8)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.2.1 - ([64f949b](https://github.com/kristof-mattei/autoheal-rs/commit/64f949b548fc4100edbb6454d8cb467cff7667b0)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.12 - ([6956928](https://github.com/kristof-mattei/autoheal-rs/commit/6956928c282a14398956aae7635bb66ddc1a0405)) - renovate[bot]
-- **(deps)** update rust:1.85.1 docker digest to e51d026 - ([c72d3ed](https://github.com/kristof-mattei/autoheal-rs/commit/c72d3ed996722343760f3d31ef92ee6a5be89de8)) - renovate[bot]
-- **(deps)** update rust:1.85.1 docker digest to e51d026 - ([4f3f247](https://github.com/kristof-mattei/autoheal-rs/commit/4f3f247b6f970691ea657a55a4e7ec3dc3f4bdf6)) - renovate[bot]
-- **(deps)** update rust to v1.85.1 - ([df72a40](https://github.com/kristof-mattei/autoheal-rs/commit/df72a406513ce1c5c668de90423dfd50b6ca27dd)) - renovate[bot]
-- **(deps)** update rust:1.85.1 docker digest to 12ed23b - ([a224773](https://github.com/kristof-mattei/autoheal-rs/commit/a224773adfd260433287d61225a227f1edafb7f3)) - renovate[bot]
-- **(deps)** update rust:1.85.1 docker digest to 12ed23b - ([a79f77a](https://github.com/kristof-mattei/autoheal-rs/commit/a79f77ad40872dc773016dd884005e7afb8d15df)) - renovate[bot]
-- **(deps)** update rust to v1.85.1 - ([5a0c4e1](https://github.com/kristof-mattei/autoheal-rs/commit/5a0c4e1d9365faae9edbb324c324adbfc9df4aa6)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.85.1 - ([6ee4807](https://github.com/kristof-mattei/autoheal-rs/commit/6ee4807204df50f175b6805266f7b2f765d9951a)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.85.1 - ([8092ab2](https://github.com/kristof-mattei/autoheal-rs/commit/8092ab2470f34688f891bdffa3cc5853f33cc512)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to 0ff31c9 - ([f5b6a04](https://github.com/kristof-mattei/autoheal-rs/commit/f5b6a046b8395ae833fdd4b09297232406d0e4e8)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to 0ff31c9 - ([49a885d](https://github.com/kristof-mattei/autoheal-rs/commit/49a885d940c7d92ddaa5142330d4329701468a5a)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.2.0 - ([bad75d6](https://github.com/kristof-mattei/autoheal-rs/commit/bad75d6d45a13be23d9e942ab3358c9e40993e0b)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to e91bad1 - ([6336f75](https://github.com/kristof-mattei/autoheal-rs/commit/6336f7537393ee42eb1b3311bbd5a4cda351cecd)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.2.0 - ([14f85fb](https://github.com/kristof-mattei/autoheal-rs/commit/14f85fbed68581b819fba279eeb6fa8108cd07dd)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to 4522a7e - ([4b54402](https://github.com/kristof-mattei/autoheal-rs/commit/4b54402feba0a2f2ca649b080472ce41d301a047)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to 4522a7e - ([286452e](https://github.com/kristof-mattei/autoheal-rs/commit/286452e21a78c030a5ef26f111d766dc6494896f)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.113.0 - ([bf6b968](https://github.com/kristof-mattei/autoheal-rs/commit/bf6b96832e846edb13ca60c81a97205927e46753)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.113.0 - ([62c60d1](https://github.com/kristof-mattei/autoheal-rs/commit/62c60d12470b8802522ba46e131618b70eb97d49)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to e43bb4c - ([6623290](https://github.com/kristof-mattei/autoheal-rs/commit/66232900b6c3b13c1fc35717d6fbda7a8668865e)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to e43bb4c - ([6b57da3](https://github.com/kristof-mattei/autoheal-rs/commit/6b57da3b93681278075eddf0683914e5483be7e9)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.3.0 - ([09f5aad](https://github.com/kristof-mattei/autoheal-rs/commit/09f5aad68ce5e97d17d8f2535a14ab4529c62fa0)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.3.0 - ([5857283](https://github.com/kristof-mattei/autoheal-rs/commit/5857283f210011e1602fe1d686d1fae00adec199)) - renovate[bot]
-- **(deps)** lock file maintenance - ([adb33b9](https://github.com/kristof-mattei/autoheal-rs/commit/adb33b9237e7ccb18d4951d88b1e020c6e998de1)) - renovate[bot]
-- **(deps)** lock file maintenance - ([408fa3b](https://github.com/kristof-mattei/autoheal-rs/commit/408fa3b4351b03b5f402afcebf162ba3af4dcce7)) - renovate[bot]
-- **(deps)** update docker/login-action action to v3.4.0 - ([da5b4ef](https://github.com/kristof-mattei/autoheal-rs/commit/da5b4ef051f4eeb371a8b40e85367b188a953eff)) - renovate[bot]
-- **(deps)** update docker/login-action action to v3.4.0 - ([68dab01](https://github.com/kristof-mattei/autoheal-rs/commit/68dab018c257d04c32cb13d88da3b96bbd5f990c)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.112.0 - ([6109ff4](https://github.com/kristof-mattei/autoheal-rs/commit/6109ff49bf5529c110b53bea599f5d658f024ab5)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.112.0 - ([1e41a8f](https://github.com/kristof-mattei/autoheal-rs/commit/1e41a8fba704cb48d509b2ad0afbd9e0ea134034)) - renovate[bot]
-- **(deps)** update docker/setup-docker-action action to v4.3.0 - ([dc71303](https://github.com/kristof-mattei/autoheal-rs/commit/dc71303c8a73972eeb69c00a8f50392bcc570c60)) - renovate[bot]
-- **(deps)** update docker/setup-docker-action action to v4.3.0 - ([ad2d61d](https://github.com/kristof-mattei/autoheal-rs/commit/ad2d61d4be70fdbd2c696443b053d29249b008da)) - renovate[bot]
-- **(deps)** update codecov/test-results-action action to v1.1.0 - ([65bbd25](https://github.com/kristof-mattei/autoheal-rs/commit/65bbd2556bb31a44be784a3d473a61ff9084ab02)) - renovate[bot]
-- **(deps)** update codecov/test-results-action action to v1.1.0 - ([424b37c](https://github.com/kristof-mattei/autoheal-rs/commit/424b37c272294f55c0eb3431d5b14235ff3af0d3)) - renovate[bot]
-- **(deps)** lock file maintenance - ([b18e15e](https://github.com/kristof-mattei/autoheal-rs/commit/b18e15eb1604c03bc0b8ebaeace4da49f2737d6e)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.11 - ([c286e14](https://github.com/kristof-mattei/autoheal-rs/commit/c286e1437b7a92f1a7dc13465fdbcff41b072104)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.11 - ([3d8dee6](https://github.com/kristof-mattei/autoheal-rs/commit/3d8dee6f0df6905e934707b3d6cc39d90268f00a)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to 80ccfb5 - ([9daf8a9](https://github.com/kristof-mattei/autoheal-rs/commit/9daf8a9191a5664342eec4dbd1b679db97f5a383)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to 80ccfb5 - ([6d0ee14](https://github.com/kristof-mattei/autoheal-rs/commit/6d0ee1414d56e73c6c3b623d5a7eab5a77866ef7)) - renovate[bot]
-- **(deps)** update npm to >=11.2.0 - ([6a6e424](https://github.com/kristof-mattei/autoheal-rs/commit/6a6e424bdd84de53c6ac33908ea6a02b2ef84de1)) - renovate[bot]
-- **(deps)** update npm to >=11.2.0 - ([1711c75](https://github.com/kristof-mattei/autoheal-rs/commit/1711c756be6883c67c98485c8466549465eb3a06)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.111.0 - ([397efd3](https://github.com/kristof-mattei/autoheal-rs/commit/397efd354f11ecb213610cca7a8bef6a808583ca)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.111.0 - ([6c4068f](https://github.com/kristof-mattei/autoheal-rs/commit/6c4068f0f9a02f2ec314bcdb88de1e5379e5cd1c)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to e15c642 - ([afd1d21](https://github.com/kristof-mattei/autoheal-rs/commit/afd1d2125e9ec539515a590581f1e0fdc7759bd9)) - renovate[bot]
-- **(deps)** lock file maintenance - ([5911e1a](https://github.com/kristof-mattei/autoheal-rs/commit/5911e1afda375c6867f89c9a6b98cef6d21d99d3)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.5.3 - ([b110fcb](https://github.com/kristof-mattei/autoheal-rs/commit/b110fcbe7d4efb4b5928c5cb3f53e389be35198c)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.5.3 - ([6ed0271](https://github.com/kristof-mattei/autoheal-rs/commit/6ed027132e79495429459a8e85c1508e958c0efa)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.2.2 - ([a93865f](https://github.com/kristof-mattei/autoheal-rs/commit/a93865fa5943b8a3ea96ccbfd33f271d4fb7a30c)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.110.0 - ([05bc35d](https://github.com/kristof-mattei/autoheal-rs/commit/05bc35ddc3b7b4642f77d59adeb0de9a33530399)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.2.2 - ([9aa32ee](https://github.com/kristof-mattei/autoheal-rs/commit/9aa32ee34debd6a1b30e6cda3a8968aec783cdbc)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.110.0 - ([808f3e5](https://github.com/kristof-mattei/autoheal-rs/commit/808f3e57db1caef4c1a00061987b0a83df6d1305)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.4.0 - ([d796b43](https://github.com/kristof-mattei/autoheal-rs/commit/d796b434df022bcbfe35f6eebd5ba21084ca2298)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.15.0 - ([7f2a2c8](https://github.com/kristof-mattei/autoheal-rs/commit/7f2a2c81071ad92314e50ca516116c9524b2de77)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.4.0 - ([4c3619c](https://github.com/kristof-mattei/autoheal-rs/commit/4c3619cd850968c277ced67bdfb5362fb55cbdb2)) - renovate[bot]
-- **(deps)** update docker/setup-docker-action action to v4.2.0 - ([3bcb115](https://github.com/kristof-mattei/autoheal-rs/commit/3bcb115491ab6f7d26883f65e8a0efb2084d4935)) - renovate[bot]
-- **(deps)** update docker/setup-docker-action action to v4.2.0 - ([60872ba](https://github.com/kristof-mattei/autoheal-rs/commit/60872ba0c520f22f3633298fbb38855c03173d20)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.10.0 - ([68fc2b9](https://github.com/kristof-mattei/autoheal-rs/commit/68fc2b929c26c4683307d40f24464ad3c0924e56)) - renovate[bot]
-- **(deps)** update docker/metadata-action action to v5.7.0 - ([4daf62a](https://github.com/kristof-mattei/autoheal-rs/commit/4daf62a5b6a49b5e5827aa77dda57dded4170b5f)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.10.0 - ([d094e6f](https://github.com/kristof-mattei/autoheal-rs/commit/d094e6ffc030fd509e361f9219c18fafcad86b3e)) - renovate[bot]
-- **(deps)** update docker/metadata-action action to v5.7.0 - ([586449e](https://github.com/kristof-mattei/autoheal-rs/commit/586449e80624da03cea3048a1249e11e91402278)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.15.0 - ([2692602](https://github.com/kristof-mattei/autoheal-rs/commit/26926029ae43697f59b897f8e162513b77ec4d70)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to caa4a0e - ([b2e09bf](https://github.com/kristof-mattei/autoheal-rs/commit/b2e09bf15a9b9d88c6bc23aadd85ea053055e043)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to caa4a0e - ([d32dc00](https://github.com/kristof-mattei/autoheal-rs/commit/d32dc00ec16fbee9383d3ae47c965c0172eb25a0)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to f495f32 - ([3a904c5](https://github.com/kristof-mattei/autoheal-rs/commit/3a904c51a2c5354832502f21c9eca5b009b90a4b)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to f495f32 - ([83ddaf7](https://github.com/kristof-mattei/autoheal-rs/commit/83ddaf74f6611dd7aef5ddccef7d7b34bc3a5ec4)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.1.9 - ([63b7f96](https://github.com/kristof-mattei/autoheal-rs/commit/63b7f967e1ccfc41d2dbd689e6d0f8ed048d425b)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.1.9 - ([7594885](https://github.com/kristof-mattei/autoheal-rs/commit/7594885459689cea99e2031f9cab18774dd15c7a)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to 9285bed - ([b975289](https://github.com/kristof-mattei/autoheal-rs/commit/b975289910d67c4a2ecadd18aeadb6851a6965dc)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to 9285bed - ([70c627e](https://github.com/kristof-mattei/autoheal-rs/commit/70c627e6ae2d32b5a22ac7f026e451aaae7dc6ed)) - renovate[bot]
-- **(deps)** lock file maintenance - ([6ef3d0b](https://github.com/kristof-mattei/autoheal-rs/commit/6ef3d0b89f51b3c61a8746991dcbfcf401141e15)) - renovate[bot]
-- **(deps)** lock file maintenance - ([1d0aa18](https://github.com/kristof-mattei/autoheal-rs/commit/1d0aa183be97a42a9951977946fc3cdab544bf32)) - renovate[bot]
-- **(deps)** update docker/setup-docker-action action to v4.1.0 - ([f3a22f0](https://github.com/kristof-mattei/autoheal-rs/commit/f3a22f03ed5cb09facda0699b41d86b53a75baab)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.5.2 - ([c7465dd](https://github.com/kristof-mattei/autoheal-rs/commit/c7465dd854008b04b40ec682cd008c32b37bbab9)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.5.2 - ([6db2f43](https://github.com/kristof-mattei/autoheal-rs/commit/6db2f43ec12e3fed5f9ce2a7288258feb5a29c24)) - renovate[bot]
-- **(deps)** update docker/setup-docker-action action to v4.1.0 - ([43708f7](https://github.com/kristof-mattei/autoheal-rs/commit/43708f71d1af8e5356dda4fb402e29b7510c22ab)) - renovate[bot]
-- **(deps)** pin docker/setup-docker-action action to 370a7da - ([980c947](https://github.com/kristof-mattei/autoheal-rs/commit/980c9470d6a5c69d3165e764a9455e5a81067b61)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.6.1 - ([1180955](https://github.com/kristof-mattei/autoheal-rs/commit/1180955ad21d209975aad7c17a5bb99c856e6bb0)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.10 - ([ee2951f](https://github.com/kristof-mattei/autoheal-rs/commit/ee2951fa0e837adca5772932f223b7b82ad7e339)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.6.1 - ([c622131](https://github.com/kristof-mattei/autoheal-rs/commit/c622131fc40dd2ca19c6c71161b615554142920a)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.10 - ([0789e67](https://github.com/kristof-mattei/autoheal-rs/commit/0789e673ced2a860cb0a7054303094a41b9120b9)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to ad7e5fd - ([d02e202](https://github.com/kristof-mattei/autoheal-rs/commit/d02e202a2ce265049ef0c6baa1c1a035cef72a51)) - renovate[bot]
-- **(deps)** update rust:1.85.0 docker digest to ad7e5fd - ([7f9e4b9](https://github.com/kristof-mattei/autoheal-rs/commit/7f9e4b99d12225f36775d7a12b530d3e06d992dc)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.85.0 - ([bac69cc](https://github.com/kristof-mattei/autoheal-rs/commit/bac69cc48ef6c1eee2d1c374f202b27bd0a58519)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.85.0 - ([d65e4a4](https://github.com/kristof-mattei/autoheal-rs/commit/d65e4a4b6961598dc8778a8064a1a3b0b37eedd3)) - renovate[bot]
-- **(deps)** update rust to v1.85.0 - ([a5925f8](https://github.com/kristof-mattei/autoheal-rs/commit/a5925f8cd2dbcb39a8217cbbba3c0fccb8d1fd55)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.109.0 - ([ad5bdab](https://github.com/kristof-mattei/autoheal-rs/commit/ad5bdab5e6bf015a1dc42bfd4799731d53a15b0d)) - renovate[bot]
-- **(deps)** update actions-rs-plus/clippy-check action to v2.2.1 - ([57b2b34](https://github.com/kristof-mattei/autoheal-rs/commit/57b2b34081664e4d4e873f7beb06c9a675d81b8b)) - renovate[bot]
-- **(deps)** update actions-rs-plus/clippy-check action to v2.2.1 - ([2c7f299](https://github.com/kristof-mattei/autoheal-rs/commit/2c7f2998dd28f5d10d0ad6a61c8bf0aaa0083571)) - renovate[bot]
-- **(deps)** update codecov/test-results-action action to v1.0.4 - ([fe9c606](https://github.com/kristof-mattei/autoheal-rs/commit/fe9c606ad25a156ee8a4d8ca31a47116d2e1156e)) - renovate[bot]
-- **(deps)** update codecov/test-results-action action to v1.0.4 - ([28ddebc](https://github.com/kristof-mattei/autoheal-rs/commit/28ddebc820a85f01ac38e52f079744d684341d62)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.109.0 - ([f033d41](https://github.com/kristof-mattei/autoheal-rs/commit/f033d41c2fba53590be52e1e21fcfa779920521b)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.14.0 - ([e07a0a4](https://github.com/kristof-mattei/autoheal-rs/commit/e07a0a45cedf71177d7eaf6c9991e27fa38ea9bf)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.14.0 - ([79788c5](https://github.com/kristof-mattei/autoheal-rs/commit/79788c5e78a69fa9ad97fbb6f6b3705ea5ab7ef8)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.2.1 - ([719e136](https://github.com/kristof-mattei/autoheal-rs/commit/719e13684f8b56afc6ecaa1518ad9fa6bde6c9d2)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.2.1 - ([323f2a2](https://github.com/kristof-mattei/autoheal-rs/commit/323f2a21cb6682348753bb7d4fda4b3c4d25b693)) - renovate[bot]
-- **(deps)** lock file maintenance - ([a8ca71d](https://github.com/kristof-mattei/autoheal-rs/commit/a8ca71d7d058a1159342ed760b79f3911988344b)) - renovate[bot]
-- **(deps)** lock file maintenance - ([919fd1b](https://github.com/kristof-mattei/autoheal-rs/commit/919fd1bdef9ee1a1e14016bde9cc46a7364805af)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.2.3 - ([b4697ba](https://github.com/kristof-mattei/autoheal-rs/commit/b4697ba57d9634d2451d278b81fcaa8c4cd2ba84)) - renovate[bot]
-- **(deps)** update alpine docker digest to a8560b3 - ([efa6795](https://github.com/kristof-mattei/autoheal-rs/commit/efa67957cd44aebd446938d6d6dd944c4f13dc35)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to a8560b3 - ([cf2ce8f](https://github.com/kristof-mattei/autoheal-rs/commit/cf2ce8f139ea9ad6c54d81df8df08c4d5045adcc)) - renovate[bot]
-- **(deps)** update alpine docker tag to v3.21.3 - ([081c9df](https://github.com/kristof-mattei/autoheal-rs/commit/081c9df05aa0229b1094af58b187417f4aa19801)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.5.1 - ([1bbe976](https://github.com/kristof-mattei/autoheal-rs/commit/1bbe976c16c2862b2841021fb385adde06e28e98)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.5.1 - ([1197c91](https://github.com/kristof-mattei/autoheal-rs/commit/1197c91e588ddbb5865348b0d653f151f64c6ec0)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.108.0 - ([da846a3](https://github.com/kristof-mattei/autoheal-rs/commit/da846a37d8761f0b50425cfcc727d08fb3140a8b)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.108.0 - ([fde30a3](https://github.com/kristof-mattei/autoheal-rs/commit/fde30a36e9eca39b0a638c19d310c6a877b3dcc7)) - renovate[bot]
-- **(deps)** update node.js to v22.14.0 - ([a70ac30](https://github.com/kristof-mattei/autoheal-rs/commit/a70ac30751ae9e1383e551427fe5263d32741760)) - renovate[bot]
-- **(deps)** update node.js to v22.14.0 - ([5db6a51](https://github.com/kristof-mattei/autoheal-rs/commit/5db6a510487ee78c6139991e40c3bb68e7c5ac09)) - renovate[bot]
-- **(deps)** lock file maintenance - ([6c2fd22](https://github.com/kristof-mattei/autoheal-rs/commit/6c2fd226bbe427354bb88f0bc243107315382734)) - renovate[bot]
-- **(deps)** lock file maintenance - ([c68f5a7](https://github.com/kristof-mattei/autoheal-rs/commit/c68f5a70f2c6a7d9d6743ccdc57810ab0a226e93)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.5.0 - ([5921bec](https://github.com/kristof-mattei/autoheal-rs/commit/5921becfb23c5d2ce705cb8e45998b005d1db5e9)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.2.2 - ([0f577a5](https://github.com/kristof-mattei/autoheal-rs/commit/0f577a52c57207a54cf56afa9a83ae414b6e5824)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.5.0 - ([318f8a1](https://github.com/kristof-mattei/autoheal-rs/commit/318f8a132b4814358388e88b7912bace5ea409e1)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.9 - ([c40c95f](https://github.com/kristof-mattei/autoheal-rs/commit/c40c95ffd9b82bf5f9fa90618a1f896cb34b3433)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.9 - ([aa0ddcf](https://github.com/kristof-mattei/autoheal-rs/commit/aa0ddcfc12edc463b33cafca1005573604b9bf50)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.9.0 - ([d92a0b4](https://github.com/kristof-mattei/autoheal-rs/commit/d92a0b4d0b1572f5888ddca8afe3a2d416e5fb79)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.9.0 - ([4168c3b](https://github.com/kristof-mattei/autoheal-rs/commit/4168c3b3b0af96efbd803febd3d5e1ae0ad704ef)) - renovate[bot]
-- **(deps)** update rust:1.84.1 docker digest to 738ae99 - ([6dfdf4b](https://github.com/kristof-mattei/autoheal-rs/commit/6dfdf4b0da0dfff6368991dc2de60b791a42700b)) - renovate[bot]
-- **(deps)** update rust:1.84.1 docker digest to 738ae99 - ([4933f2d](https://github.com/kristof-mattei/autoheal-rs/commit/4933f2d2358b0e9351e3c82301b7ca36a00e1f1e)) - renovate[bot]
-- **(deps)** update rust:1.84.1 docker digest to 2c5f4e6 - ([23d9448](https://github.com/kristof-mattei/autoheal-rs/commit/23d94483a00443a4faa9d8fc1614d35e1bb2008a)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.107.0 - ([43daada](https://github.com/kristof-mattei/autoheal-rs/commit/43daada46195808ce94777c6d0f3c25038efa315)) - renovate[bot]
-- **(deps)** update rust:1.84.1 docker digest to 8e112a6 - ([7c6c20d](https://github.com/kristof-mattei/autoheal-rs/commit/7c6c20de8a986da33b2e7bda96fb1f0e6d38ddad)) - renovate[bot]
-- **(deps)** update rust:1.84.1 docker digest to 8e112a6 - ([34af522](https://github.com/kristof-mattei/autoheal-rs/commit/34af5224365d8030e0608e0c832782fd420128b6)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.107.0 - ([fa97032](https://github.com/kristof-mattei/autoheal-rs/commit/fa97032cf42390922bbe1fa3447f48f1035a18be)) - renovate[bot]
-- **(deps)** update codecov/test-results-action action to v1.0.3 - ([55c549a](https://github.com/kristof-mattei/autoheal-rs/commit/55c549ae90003a6368d85688fdfa7be4e489d7ba)) - renovate[bot]
-- **(deps)** update codecov/test-results-action action to v1.0.3 - ([5edd804](https://github.com/kristof-mattei/autoheal-rs/commit/5edd804e3ca66dd1445742e0d34cd463ca39177f)) - renovate[bot]
-- **(deps)** lock file maintenance - ([5c0a5d7](https://github.com/kristof-mattei/autoheal-rs/commit/5c0a5d76264538a1f9a37fc1f1c1251c3513af03)) - renovate[bot]
-- **(deps)** update rust:1.84.1 docker digest to 4ac764e - ([c36afcf](https://github.com/kristof-mattei/autoheal-rs/commit/c36afcf508f9d05394365f8ca7c821c431af12f9)) - renovate[bot]
-- **(deps)** update rust:1.84.1 docker digest to 4ac764e - ([825b405](https://github.com/kristof-mattei/autoheal-rs/commit/825b405307321dbd360247aad85bf0514e387ec0)) - renovate[bot]
-- **(deps)** lock file maintenance - ([8b55944](https://github.com/kristof-mattei/autoheal-rs/commit/8b55944435ac3002f2af07a9ccca8c448828d112)) - renovate[bot]
-- **(deps)** update rust to v1.84.1 - ([eacc9ea](https://github.com/kristof-mattei/autoheal-rs/commit/eacc9ea0c9b610774bad951e82d1fd12b45b127f)) - renovate[bot]
-- **(deps)** update rust to v1.84.1 - ([8153292](https://github.com/kristof-mattei/autoheal-rs/commit/81532922aa03f79791dd6c12ede5d394c0a22ad7)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.84.1 - ([f9a04d1](https://github.com/kristof-mattei/autoheal-rs/commit/f9a04d160ba15838da8eb7a07c5a9d37e3caec00)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.84.1 - ([e11f2b6](https://github.com/kristof-mattei/autoheal-rs/commit/e11f2b6e9a05712ed2abdea8a5b954ca7ffad7c6)) - renovate[bot]
-- **(deps)** update npm to >=11.1.0 - ([60447cf](https://github.com/kristof-mattei/autoheal-rs/commit/60447cfbb3048c47a03ca4cf8601505bd32a62b4)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.106.0 - ([3d4f2d9](https://github.com/kristof-mattei/autoheal-rs/commit/3d4f2d9af770cf66e596ff58fcc2150bea320839)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.106.0 - ([fa96d96](https://github.com/kristof-mattei/autoheal-rs/commit/fa96d9681123a0670ada398a35ca67e0d6d3fa64)) - renovate[bot]
-- **(deps)** update npm to v11 - ([424f36e](https://github.com/kristof-mattei/autoheal-rs/commit/424f36eb57928029a5e8aef907b9f9a7e996bffa)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.8 - ([37148f1](https://github.com/kristof-mattei/autoheal-rs/commit/37148f1701897e7a09c2015b62055ed9eb193a2e)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.8 - ([2d0cbc6](https://github.com/kristof-mattei/autoheal-rs/commit/2d0cbc619a040ee2335f09ae51ee958f28fef117)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.7 - ([e4fcd5a](https://github.com/kristof-mattei/autoheal-rs/commit/e4fcd5aaea817103426f3e899a8aa730abc8aaae)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.7 - ([7ca3b3b](https://github.com/kristof-mattei/autoheal-rs/commit/7ca3b3b5ad608e1ed7c40884a00f531a739c06cf)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.6 - ([28178f6](https://github.com/kristof-mattei/autoheal-rs/commit/28178f640f8f2725c2965a113f730ee1e2b173a9)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.6 - ([6350c21](https://github.com/kristof-mattei/autoheal-rs/commit/6350c214aa0c3e6e8ab498e50d53a0d4733f405e)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.2.0 - ([41b890b](https://github.com/kristof-mattei/autoheal-rs/commit/41b890bb4e03c156c3050f7ca424c6e4762845d8)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.2.0 - ([cf3e152](https://github.com/kristof-mattei/autoheal-rs/commit/cf3e15290f0272ce43aeb190242b0a7f309aea6c)) - renovate[bot]
-- **(deps)** lock file maintenance - ([5cdbafb](https://github.com/kristof-mattei/autoheal-rs/commit/5cdbafb40da6f9d11e74901ea21ab5f80d20afa6)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.3.1 - ([43ce21b](https://github.com/kristof-mattei/autoheal-rs/commit/43ce21be7044259d022c1cf0522492cf2589c261)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.3.1 - ([2eb2986](https://github.com/kristof-mattei/autoheal-rs/commit/2eb298682e1d546bfb346dbdae6e4084e1ba5422)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.5 - ([d1169e6](https://github.com/kristof-mattei/autoheal-rs/commit/d1169e6144d7bb6d73d42b5d0408cbb8f15e6049)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.5 - ([18dcbc3](https://github.com/kristof-mattei/autoheal-rs/commit/18dcbc366726f7119928e0a7330a832754806339)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.13.0 - ([667b59c](https://github.com/kristof-mattei/autoheal-rs/commit/667b59ceda734f3534d3e06d1308c55c4145aa64)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.13.0 - ([e5eb0a0](https://github.com/kristof-mattei/autoheal-rs/commit/e5eb0a001244304bd1b9682d528e0cfe98450381)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.3.0 - ([5743524](https://github.com/kristof-mattei/autoheal-rs/commit/57435242bb34d491cfec92ceae3298ef85145775)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.3.0 - ([0ef3720](https://github.com/kristof-mattei/autoheal-rs/commit/0ef3720436f9673c84dd44c940d621f3d557cbdc)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.4 - ([cb05260](https://github.com/kristof-mattei/autoheal-rs/commit/cb05260a8d5fd7d8b9f6ec5d8880b6cf0845e0f2)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.4 - ([9e72a37](https://github.com/kristof-mattei/autoheal-rs/commit/9e72a37a3fe8bddf293d105155c71c88d131b37e)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.3 - ([e5af3aa](https://github.com/kristof-mattei/autoheal-rs/commit/e5af3aa9e0bd5bc742fd5cf4133cbf0196e36924)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.104.0 - ([fca869a](https://github.com/kristof-mattei/autoheal-rs/commit/fca869a1483630675dc483e2b010fd3e50b6c7f1)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.3 - ([ffc7676](https://github.com/kristof-mattei/autoheal-rs/commit/ffc7676835621c5e33c008e9b7977fbda1546aac)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.104.0 - ([02dd265](https://github.com/kristof-mattei/autoheal-rs/commit/02dd2653fb45c5314375cd37c3b7529d2a4c7e47)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.2.0 - ([915770d](https://github.com/kristof-mattei/autoheal-rs/commit/915770d5cf36d37c456fe3f5a52d744d0c941c97)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.2.0 - ([e7e41a8](https://github.com/kristof-mattei/autoheal-rs/commit/e7e41a8802fa7338473034605596ad75b6776a4d)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.2 - ([b0623b2](https://github.com/kristof-mattei/autoheal-rs/commit/b0623b2610ec7cee789cc9b6f6ee739e18de4f20)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.2 - ([32c1d33](https://github.com/kristof-mattei/autoheal-rs/commit/32c1d33a2623b0054b7e30e7b81023d3518cae4c)) - renovate[bot]
-- **(deps)** update node.js to v22.13.1 - ([a3bd6ed](https://github.com/kristof-mattei/autoheal-rs/commit/a3bd6ed260729e6c7a20cf61499610ef8c09e089)) - renovate[bot]
-- **(deps)** update node.js to v22.13.1 - ([0bbf9b5](https://github.com/kristof-mattei/autoheal-rs/commit/0bbf9b5b7550d08a830db4b9ef55b2cd5ec61511)) - renovate[bot]
-- **(deps)** update oras-project/setup-oras action to v1.2.2 - ([2867742](https://github.com/kristof-mattei/autoheal-rs/commit/28677428b5fde8bf2352ed94f9a1e16c97a30990)) - renovate[bot]
-- **(deps)** lock file maintenance - ([8368774](https://github.com/kristof-mattei/autoheal-rs/commit/8368774d9eb9d1a273a0aaee8e1e1a75c2d8a3c3)) - renovate[bot]
-- **(deps)** lock file maintenance - ([2ad5d25](https://github.com/kristof-mattei/autoheal-rs/commit/2ad5d258ac8fa8bce71c4f19e56824cb3f4468a7)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to f80524c - ([2d1893b](https://github.com/kristof-mattei/autoheal-rs/commit/2d1893b0469a1321666f7fe867b0e8af3a51b00b)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to f80524c - ([fd7b085](https://github.com/kristof-mattei/autoheal-rs/commit/fd7b085f1973b8fd006e4b4c384700a32b1ff463)) - renovate[bot]
-- **(deps)** update dependency @actions/tool-cache to v2.0.2 - ([0402903](https://github.com/kristof-mattei/autoheal-rs/commit/040290372dcec52cd777bdf84c00045739a74984)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.103.0 - ([de9a860](https://github.com/kristof-mattei/autoheal-rs/commit/de9a8607c3d3d6dba66e019d49387fa1cf5ca502)) - renovate[bot]
-- **(deps)** update dependency @actions/tool-cache to v2.0.2 - ([9e9ead0](https://github.com/kristof-mattei/autoheal-rs/commit/9e9ead0e29f8a19e6bd86b14bf4ed62b4323eef8)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.103.0 - ([e0528b7](https://github.com/kristof-mattei/autoheal-rs/commit/e0528b7f7546a7f69d799f6bef142bccad44b7cc)) - renovate[bot]
-- **(deps)** update rust:1.84.0 docker digest to e6e40c0 - ([a43ccbf](https://github.com/kristof-mattei/autoheal-rs/commit/a43ccbf3d313f9f9cfcde1d15adef2e9d81ee0ff)) - renovate[bot]
-- **(deps)** update rust:1.84.0 docker digest to e6e40c0 - ([4a2ecd7](https://github.com/kristof-mattei/autoheal-rs/commit/4a2ecd7a70d493019e85546296e3c63da75c7baa)) - renovate[bot]
-- **(deps)** update rust:1.84.0 docker digest to 1857878 - ([1cc436a](https://github.com/kristof-mattei/autoheal-rs/commit/1cc436aa153203dd2ec827118c1054bb706847d1)) - renovate[bot]
-- **(deps)** update rust:1.84.0 docker digest to 1857878 - ([e32f31e](https://github.com/kristof-mattei/autoheal-rs/commit/e32f31e15468457595e98c3a64d7959e101d28ad)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.12.0 - ([a10ed88](https://github.com/kristof-mattei/autoheal-rs/commit/a10ed88167e5e704e68d603b92a064b0b99f165f)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.12.0 - ([8d7dff1](https://github.com/kristof-mattei/autoheal-rs/commit/8d7dff13374ebc2f4f3f1ee2e4fe91f0e1f84cbe)) - renovate[bot]
-- **(deps)** update rust:1.84.0 docker digest to ec7dae3 - ([d4d3ad5](https://github.com/kristof-mattei/autoheal-rs/commit/d4d3ad50f2b01dfbbc0af4b78b54f059b32b8074)) - renovate[bot]
-- **(deps)** update rust:1.84.0 docker digest to ec7dae3 - ([e3cb496](https://github.com/kristof-mattei/autoheal-rs/commit/e3cb496b00d5adae8c7aa2c95750854188deb2fa)) - renovate[bot]
-- **(deps)** update rust:1.84.0 docker digest to f9ca146 - ([7ae2bcb](https://github.com/kristof-mattei/autoheal-rs/commit/7ae2bcbcf7beaf096889a95882f6138e5925402c)) - renovate[bot]
-- **(deps)** update rust:1.84.0 docker digest to f9ca146 - ([506ea5b](https://github.com/kristof-mattei/autoheal-rs/commit/506ea5b4b99ed68e472ffb50c800ad6788f0683a)) - renovate[bot]
-- **(deps)** lock file maintenance - ([1d56bad](https://github.com/kristof-mattei/autoheal-rs/commit/1d56bad5ae2967529dc9c6ff20980eb45b454e5c)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.1 - ([d12ca6b](https://github.com/kristof-mattei/autoheal-rs/commit/d12ca6bb20ca06bc99bcfcc0487b76f39bbb9c4d)) - renovate[bot]
-- **(deps)** update oras-project/setup-oras action to v1.2.1 - ([f35624c](https://github.com/kristof-mattei/autoheal-rs/commit/f35624cf62a923dee76a6e2ddf343fceede5d486)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.1 - ([b2e85c3](https://github.com/kristof-mattei/autoheal-rs/commit/b2e85c305cf7c135249e785ec68aac5e2ef27d9c)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.6.0 - ([20de0ea](https://github.com/kristof-mattei/autoheal-rs/commit/20de0ea08b3dfa8616310a7449a401cc45925d94)) - renovate[bot]
-- **(deps)** pin oras-project/setup-oras action to 9c92598 - ([81550f3](https://github.com/kristof-mattei/autoheal-rs/commit/81550f3d6c6fefb8a3789b4aec0299295b6a0738)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.6.0 - ([12a69ea](https://github.com/kristof-mattei/autoheal-rs/commit/12a69ea215d53da53ac582b0b0415d557123fd5f)) - renovate[bot]
-- **(deps)** update rust to v1.84.0 - ([adcb913](https://github.com/kristof-mattei/autoheal-rs/commit/adcb91339f2adc7971d8287ed39b420a5fc7e451)) - renovate[bot]
-- **(deps)** update rust to v1.84.0 - ([64254b9](https://github.com/kristof-mattei/autoheal-rs/commit/64254b96bd49956343ed708e6861998f18f4fccc)) - renovate[bot]
-- **(deps)** update rust:1.84.0 docker digest to f7cbb35 - ([121b5cb](https://github.com/kristof-mattei/autoheal-rs/commit/121b5cbdb6405b79ed7d31ab8f79f2ffa9143261)) - renovate[bot]
-- **(deps)** update rust:1.84.0 docker digest to f7cbb35 - ([7e95832](https://github.com/kristof-mattei/autoheal-rs/commit/7e95832f3fedcffc914750e3a33a74c2bab28e71)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.84.0 - ([63fc136](https://github.com/kristof-mattei/autoheal-rs/commit/63fc13672d85a0511b5e3cfeaeccd7e72b8f8171)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.84.0 - ([254427f](https://github.com/kristof-mattei/autoheal-rs/commit/254427f47ef09006aabebb4b1a28b4c7eec81702)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.102.0 - ([dfa394e](https://github.com/kristof-mattei/autoheal-rs/commit/dfa394e12345bbed7bf6f3f2115c066fbb1c83a8)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.102.0 - ([406d12d](https://github.com/kristof-mattei/autoheal-rs/commit/406d12d0b01cbc773ae6cd1472df3797dd90fa50)) - renovate[bot]
-- **(deps)** update node.js to v22.13.0 - ([65b3450](https://github.com/kristof-mattei/autoheal-rs/commit/65b34505186320e1fc4fd7ca14ad8f797d776136)) - renovate[bot]
-- **(deps)** update node.js to v22.13.0 - ([d30814e](https://github.com/kristof-mattei/autoheal-rs/commit/d30814e5ebf3c292751d84dd792d04cd960e7555)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.11.0 - ([8ec6ab3](https://github.com/kristof-mattei/autoheal-rs/commit/8ec6ab3ceca021d61d6766bd65a7f13a4a46db4a)) - renovate[bot]
-- **(deps)** update codecov/test-results-action action to v1.0.2 - ([0151120](https://github.com/kristof-mattei/autoheal-rs/commit/015112075ae76a07d8a0d165baa17e8228445750)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to 56fa17d - ([46c14aa](https://github.com/kristof-mattei/autoheal-rs/commit/46c14aa19cf13284f84a77043c386c0b17c0b618)) - renovate[bot]
-- **(deps)** update alpine docker tag to v3.21.2 - ([04c8a72](https://github.com/kristof-mattei/autoheal-rs/commit/04c8a72c481f549908fdfb0268a15123b0fd0fe6)) - renovate[bot]
-- **(deps)** update alpine docker digest to 56fa17d - ([b198356](https://github.com/kristof-mattei/autoheal-rs/commit/b1983565e1d78b928ead9a64437631af8dbf2727)) - renovate[bot]
-- **(deps)** update codecov/test-results-action action to v1.0.2 - ([a1a2f44](https://github.com/kristof-mattei/autoheal-rs/commit/a1a2f44e47b54fe73bd04cfafad047761a9008f0)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.11.0 - ([cdb846e](https://github.com/kristof-mattei/autoheal-rs/commit/cdb846e8ad0cb03de608c015d14abec96a496c9d)) - renovate[bot]
-- **(deps)** update softprops/action-gh-release action to v2.2.1 - ([07ec91f](https://github.com/kristof-mattei/autoheal-rs/commit/07ec91f1f818d4d67134643fbfdf84eddc1097e4)) - renovate[bot]
-- **(deps)** update alpine docker digest to b97e2a8 - ([58daf89](https://github.com/kristof-mattei/autoheal-rs/commit/58daf89cb3b2bf8ffe7308b7ed6b51449533d201)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to b97e2a8 - ([12ed3bc](https://github.com/kristof-mattei/autoheal-rs/commit/12ed3bccad7c2f8fa735154021623291b21547ef)) - renovate[bot]
-- **(deps)** lock file maintenance - ([093b0bf](https://github.com/kristof-mattei/autoheal-rs/commit/093b0bfb28eac1ac5a2010257b994473f8bed8bb)) - renovate[bot]
-- **(deps)** lock file maintenance - ([404003b](https://github.com/kristof-mattei/autoheal-rs/commit/404003b7b1fce54402528482bbda5e1ccdd8e56e)) - renovate[bot]
-- **(deps)** update semantic-release monorepo - ([9247f25](https://github.com/kristof-mattei/autoheal-rs/commit/9247f25c46682754840c15b820b2e8a7ac01478e)) - renovate[bot]
-- **(deps)** update semantic-release monorepo - ([7a786bb](https://github.com/kristof-mattei/autoheal-rs/commit/7a786bbd21cd442cfaed4b5885956de331e1c76c)) - renovate[bot]
-- **(deps)** lock file maintenance - ([0791375](https://github.com/kristof-mattei/autoheal-rs/commit/07913751d36a15dccf8835c9fc2082fff653cfa1)) - renovate[bot]
-- **(deps)** lock file maintenance - ([1b4523d](https://github.com/kristof-mattei/autoheal-rs/commit/1b4523d134ae73cce2eb9520539213ff535c6f50)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to a45bf1f - ([69af315](https://github.com/kristof-mattei/autoheal-rs/commit/69af31573813ccbfad6d68c517ffc75f61465453)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to a45bf1f - ([c27064f](https://github.com/kristof-mattei/autoheal-rs/commit/c27064f22da89138669468061a90a083d7545e21)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to 79f9509 - ([ffcfec8](https://github.com/kristof-mattei/autoheal-rs/commit/ffcfec86c5452662dbad53f2fd22bde528b077bd)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to 79f9509 - ([f4fe76d](https://github.com/kristof-mattei/autoheal-rs/commit/f4fe76d9e258d836e4e7baf4d81d73a39fb7edec)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to a13c9a2 - ([12adfa7](https://github.com/kristof-mattei/autoheal-rs/commit/12adfa7cb818f422e89885832a0123abb3774656)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to a13c9a2 - ([d10fc5e](https://github.com/kristof-mattei/autoheal-rs/commit/d10fc5e7a6c19f5d9120b4ca242ed5bbfc64dc0e)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to df1ab82 - ([b399760](https://github.com/kristof-mattei/autoheal-rs/commit/b399760b73efb85e78dd15654d4bdaf5820d2133)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to df1ab82 - ([f65ddab](https://github.com/kristof-mattei/autoheal-rs/commit/f65ddab03465ad790a65d85fae659a6fe088fa40)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to d420d09 - ([bc87296](https://github.com/kristof-mattei/autoheal-rs/commit/bc872969178fc71673b409ca8e4c1ce11a0b905c)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to d420d09 - ([8d5711d](https://github.com/kristof-mattei/autoheal-rs/commit/8d5711de61ceda7054c5647a80f9e5bf64878168)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 8ec40be - ([3209175](https://github.com/kristof-mattei/autoheal-rs/commit/32091753dea066651bc09104acca5c1b991eb11c)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 8ec40be - ([4a1e1cf](https://github.com/kristof-mattei/autoheal-rs/commit/4a1e1cfcb09add8bd8d83ea72f8274744d443d7c)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to 39a3134 - ([2ac1898](https://github.com/kristof-mattei/autoheal-rs/commit/2ac1898bb7ce17d781d73db19f3b2791e5c1dcf1)) - renovate[bot]
-- **(deps)** lock file maintenance - ([35b2867](https://github.com/kristof-mattei/autoheal-rs/commit/35b2867cda1f3656fb739fd69ccf4a94a555c286)) - renovate[bot]
-- **(deps)** lock file maintenance - ([baf17a1](https://github.com/kristof-mattei/autoheal-rs/commit/baf17a1e58009284d1e376d85512852cbef37580)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.0 - ([66f5b4f](https://github.com/kristof-mattei/autoheal-rs/commit/66f5b4fd14105e8f86d6c9776819a288c679ff03)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.28.0 - ([7a5a05e](https://github.com/kristof-mattei/autoheal-rs/commit/7a5a05ed6351614c10b541f43ddd115466e7e044)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.1.2 - ([5071ed6](https://github.com/kristof-mattei/autoheal-rs/commit/5071ed6caf9225d1b8eac57ee3c6ee8958fae435)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.1.2 - ([142712e](https://github.com/kristof-mattei/autoheal-rs/commit/142712efae37ddf098d9eaf7c7802cc140598025)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.101.0 - ([e9b52b1](https://github.com/kristof-mattei/autoheal-rs/commit/e9b52b152d98de1ed430ccce344019e4daa92ccc)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.101.0 - ([eb9d07f](https://github.com/kristof-mattei/autoheal-rs/commit/eb9d07f816ebc59d46b596664a72c8bf0a93f56e)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.5.0 - ([69b2338](https://github.com/kristof-mattei/autoheal-rs/commit/69b233861e62419f37416a2069412afe6baea91a)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.5.0 - ([dabd906](https://github.com/kristof-mattei/autoheal-rs/commit/dabd90664c0a877339c2593e4ae82746cd9c4cd9)) - renovate[bot]
-- **(deps)** update npm to v11 - ([d14a4c1](https://github.com/kristof-mattei/autoheal-rs/commit/d14a4c1e79d02e2e8768b26912c5ed8d684a970f)) - renovate[bot]
-- **(deps)** update npm to v11 - ([5502456](https://github.com/kristof-mattei/autoheal-rs/commit/5502456829296156d782977541cebf396d434824)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/release-notes-generator to v14.0.2 - ([628570a](https://github.com/kristof-mattei/autoheal-rs/commit/628570a0b68e94f117ce7ddd059cc2d4814aaa40)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/release-notes-generator to v14.0.2 - ([1f7c11f](https://github.com/kristof-mattei/autoheal-rs/commit/1f7c11f2ec6906625471d084f67df967336db82f)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.8.0 - ([2f0c2b8](https://github.com/kristof-mattei/autoheal-rs/commit/2f0c2b86686052d6803dea1b541b808b11f7a96b)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.8.0 - ([d4971ad](https://github.com/kristof-mattei/autoheal-rs/commit/d4971ada243408dd7b5c285ea73320d463bf1d04)) - renovate[bot]
-- **(deps)** lock file maintenance - ([db4c705](https://github.com/kristof-mattei/autoheal-rs/commit/db4c70593d2c1bcd5a88a6fd5e15a088172530f5)) - renovate[bot]
-- **(deps)** lock file maintenance - ([0300d00](https://github.com/kristof-mattei/autoheal-rs/commit/0300d00f187a326ee3d24d42b800bd251b8e1fac)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to bac87d5 - ([a02f419](https://github.com/kristof-mattei/autoheal-rs/commit/a02f419d94d09f2ab176726cbf4c7cc4e4a7e038)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to bac87d5 - ([f774638](https://github.com/kristof-mattei/autoheal-rs/commit/f774638e360aed42963230132ccc316bc6fa35f7)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.100.0 - ([2fb91d5](https://github.com/kristof-mattei/autoheal-rs/commit/2fb91d5d4fe635a057cc3cc7bfbb3c7a9ece97b2)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.100.0 - ([889ce53](https://github.com/kristof-mattei/autoheal-rs/commit/889ce53ec2525636bb553d9cc2afb14dc53ad87e)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.9 - ([bb7fbcb](https://github.com/kristof-mattei/autoheal-rs/commit/bb7fbcb854d1716adc9f8c3c1146e4b69a938629)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to d30cd14 - ([1f8f251](https://github.com/kristof-mattei/autoheal-rs/commit/1f8f251fa0d67ebfd8c8bb5f8ce169ef431085a4)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.9 - ([698a45a](https://github.com/kristof-mattei/autoheal-rs/commit/698a45a6e72bcb41b6e67bdec6ede1f71f8a2075)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to d30cd14 - ([0d2e6a3](https://github.com/kristof-mattei/autoheal-rs/commit/0d2e6a3ce0aee274560cc811fa5a49cadcc321eb)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.8 - ([f7ab882](https://github.com/kristof-mattei/autoheal-rs/commit/f7ab882645c2d2fdbf837217c3a0daa29c5c62a3)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.7 - ([80d7d91](https://github.com/kristof-mattei/autoheal-rs/commit/80d7d914f01eee6c66ed5a42fce0e61fc7ddc5ee)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.7 - ([fd2545f](https://github.com/kristof-mattei/autoheal-rs/commit/fd2545f8bd15396cf7efff647e040a8d68c57c78)) - renovate[bot]
-- **(deps)** lock file maintenance - ([7ea4660](https://github.com/kristof-mattei/autoheal-rs/commit/7ea4660a229f75a311aae1829ce6e00786a46dcd)) - renovate[bot]
-- **(deps)** lock file maintenance - ([5162bad](https://github.com/kristof-mattei/autoheal-rs/commit/5162bad4cacdb18f77b613ab7aae28058a2ff538)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.99.0 - ([6b0cde6](https://github.com/kristof-mattei/autoheal-rs/commit/6b0cde6f871ff90dac615c997b34e5de6482cbe3)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to 21dc606 - ([c9bf325](https://github.com/kristof-mattei/autoheal-rs/commit/c9bf3259864f278741e5084ca4a389684f199572)) - renovate[bot]
-- **(deps)** update alpine docker digest to 21dc606 - ([c566410](https://github.com/kristof-mattei/autoheal-rs/commit/c566410bd334baab7ff2459dc57c4d0cb7ccdb2f)) - renovate[bot]
-- **(deps)** update alpine docker tag to v3.21.0 - ([1c28a14](https://github.com/kristof-mattei/autoheal-rs/commit/1c28a14d5b9e1332e626d0875171b052daea39aa)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.99.0 - ([5fa1a9f](https://github.com/kristof-mattei/autoheal-rs/commit/5fa1a9fc15d314e5d2117c44c4f323fd6cf8eead)) - renovate[bot]
-- **(deps)** update alpine docker digest to 5cc1526 - ([bc77541](https://github.com/kristof-mattei/autoheal-rs/commit/bc77541276dab5f449846bdb36a91dafb5925048)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.1.1 - ([cbe740c](https://github.com/kristof-mattei/autoheal-rs/commit/cbe740c0d78b7f65e29fa0a367501c8e4561980e)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.1.1 - ([72562c9](https://github.com/kristof-mattei/autoheal-rs/commit/72562c93c50e8e526b1578a3dc1b3a9d5c9301ca)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.1.0 - ([2ff31ba](https://github.com/kristof-mattei/autoheal-rs/commit/2ff31baca084a818a9a04977f5220f538f919fb2)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.1.0 - ([6a033e1](https://github.com/kristof-mattei/autoheal-rs/commit/6a033e1d9a6afb30ec4e91b99743e686e988c27e)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.2.0 - ([6f15d78](https://github.com/kristof-mattei/autoheal-rs/commit/6f15d78428207db424dc99a46956fb7494bafaa7)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.2.0 - ([409c13e](https://github.com/kristof-mattei/autoheal-rs/commit/409c13ecaf6cfc06a30a783552c744c7179f235c)) - renovate[bot]
-- **(deps)** update npm to >=10.9.2 - ([66cd638](https://github.com/kristof-mattei/autoheal-rs/commit/66cd638effdaa54ad02f8ae70c6161608bc2d339)) - renovate[bot]
-- **(deps)** update npm to >=10.9.2 - ([a7bbad9](https://github.com/kristof-mattei/autoheal-rs/commit/a7bbad98dd1e90d75c7200eb9e1391ca9c2ea982)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.4.2 - ([e6f4c34](https://github.com/kristof-mattei/autoheal-rs/commit/e6f4c348a36b93d44fb40508d05c350d25550b1e)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to 39a3134 - ([cf29849](https://github.com/kristof-mattei/autoheal-rs/commit/cf2984939ef13d1e56c5724b3da17861d66e4b94)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to 39a3134 - ([883e291](https://github.com/kristof-mattei/autoheal-rs/commit/883e29118359ad413b298ef8f1687f3a62c285e3)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.4.2 - ([f2cf499](https://github.com/kristof-mattei/autoheal-rs/commit/f2cf499d47563c0975f77838f5ed5f96d29c2173)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to 161969f - ([42d209a](https://github.com/kristof-mattei/autoheal-rs/commit/42d209a8f5470792c77b370008c927b9e7974c26)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to 161969f - ([0ef2dad](https://github.com/kristof-mattei/autoheal-rs/commit/0ef2dad32e05c2db80e8264965e85990ed35173a)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to 08154fb - ([12bdd70](https://github.com/kristof-mattei/autoheal-rs/commit/12bdd70a7cfe5734db35eb367877e0a540ae69a7)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to 08154fb - ([264889a](https://github.com/kristof-mattei/autoheal-rs/commit/264889a2b7731b4abcf9dc59ff36ff82351bcaa2)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to b1dfd21 - ([29b23c6](https://github.com/kristof-mattei/autoheal-rs/commit/29b23c6ae365735dfeae453fc13e2c30cc01619f)) - renovate[bot]
-- **(deps)** update node.js to v22.12.0 - ([ddc0a9f](https://github.com/kristof-mattei/autoheal-rs/commit/ddc0a9f9b749c1c0d918f8c20860834d4358699d)) - renovate[bot]
-- **(deps)** update node.js to v22.12.0 - ([20ee194](https://github.com/kristof-mattei/autoheal-rs/commit/20ee1941020022fc80742d6c8908b082e6d75344)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.6 - ([7be6a7e](https://github.com/kristof-mattei/autoheal-rs/commit/7be6a7ed106d93799e62768573edc83d99acbd29)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.6 - ([b1d1775](https://github.com/kristof-mattei/autoheal-rs/commit/b1d1775a2d366991b9f48ebdc2a829ba9a98bb31)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to f5375f8 - ([254f688](https://github.com/kristof-mattei/autoheal-rs/commit/254f688af4ae2c873eec2de955e06b66d7d1f3ef)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to f5375f8 - ([77b49f1](https://github.com/kristof-mattei/autoheal-rs/commit/77b49f1e1157efdadf0ae011607403949b05e2c5)) - renovate[bot]
-- **(deps)** update rust to v1.83.0 - ([455932c](https://github.com/kristof-mattei/autoheal-rs/commit/455932c339d87491a200d77ad1655261dd9c9bd1)) - renovate[bot]
-- **(deps)** update rust:1.83.0 docker digest to d242a48 - ([26466d3](https://github.com/kristof-mattei/autoheal-rs/commit/26466d38ba2721b6f97afddb28c22371298cb842)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.83.0 - ([2f8b821](https://github.com/kristof-mattei/autoheal-rs/commit/2f8b82182cb5f22c164c8dded54d021200bb3b69)) - renovate[bot]
-- **(deps)** update rust to v1.83.0 - ([b9e26a1](https://github.com/kristof-mattei/autoheal-rs/commit/b9e26a1356e217c4566147d997f81eaa60faf68a)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.83.0 - ([2e458d2](https://github.com/kristof-mattei/autoheal-rs/commit/2e458d287cc1e0072097e0dc0b437ae935785de5)) - renovate[bot]
-- **(deps)** lock file maintenance - ([ea99485](https://github.com/kristof-mattei/autoheal-rs/commit/ea99485e8f05c77ab2619518e9c3df32b30ef382)) - renovate[bot]
-- **(deps)** lock file maintenance - ([baba7d4](https://github.com/kristof-mattei/autoheal-rs/commit/baba7d491c500e4b4e9b0fece7ac82c451b1ad1f)) - renovate[bot]
-- **(deps)** update rust to v1.83.0 - ([b73ce5f](https://github.com/kristof-mattei/autoheal-rs/commit/b73ce5f77579e0ba9d099eca6fcc1ba5e5fd1402)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.4.1 - ([41667ec](https://github.com/kristof-mattei/autoheal-rs/commit/41667ec73889cfaa65e710e82577dda746d39dca)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.4.1 - ([b234a0c](https://github.com/kristof-mattei/autoheal-rs/commit/b234a0cdb62cec6541c1bdb2261bdc7aa586c1d4)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.10.0 - ([a86bc80](https://github.com/kristof-mattei/autoheal-rs/commit/a86bc800ad76448238803abdb03090bf48652da4)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.10.0 - ([4173f7f](https://github.com/kristof-mattei/autoheal-rs/commit/4173f7fe259cc588d0c513afd7aefb3a556197e9)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.4.0 - ([dbbf2d7](https://github.com/kristof-mattei/autoheal-rs/commit/dbbf2d7c00ede66cfc5fa6199287525c80681d8d)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.4.0 - ([cee31d0](https://github.com/kristof-mattei/autoheal-rs/commit/cee31d0996c4d32c3b77f2c746d2222f84eadf63)) - renovate[bot]
-- **(deps)** lock file maintenance - ([5add1ed](https://github.com/kristof-mattei/autoheal-rs/commit/5add1eda77b0cd998825b9404411fbf947dbc211)) - renovate[bot]
-- **(deps)** lock file maintenance - ([e234872](https://github.com/kristof-mattei/autoheal-rs/commit/e2348720e50fd8c3b8be6e0ae6378d27444648e8)) - renovate[bot]
-- **(deps)** update npm to >=10.9.1 - ([11cab95](https://github.com/kristof-mattei/autoheal-rs/commit/11cab95da8fa081a92975f4fa84b9961dc186d1e)) - renovate[bot]
-- **(deps)** update npm to >=10.9.1 - ([86979c5](https://github.com/kristof-mattei/autoheal-rs/commit/86979c5e37a5b6871dfcff83e3c2b1b08248681e)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.0.7 - ([5c0528c](https://github.com/kristof-mattei/autoheal-rs/commit/5c0528c4ed71acafea7930bedf0bed525f3bd4cc)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.0.7 - ([88c246f](https://github.com/kristof-mattei/autoheal-rs/commit/88c246f7b9ece0fb2ca917a7083ecd574b437254)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.0.6 - ([1e1bb48](https://github.com/kristof-mattei/autoheal-rs/commit/1e1bb4899e14d5682e85ce7fcad40e78c9afa37a)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.0.6 - ([700aaba](https://github.com/kristof-mattei/autoheal-rs/commit/700aaba4f47a6d3605f026e33ecfd66b538933f9)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.5 - ([0e2a082](https://github.com/kristof-mattei/autoheal-rs/commit/0e2a0826d08bdd7706a57609b7f8ba8b070ea73e)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.0.5 - ([585e293](https://github.com/kristof-mattei/autoheal-rs/commit/585e2936f52692a7182f02dd3fc2e5793c85e4e1)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.0.5 - ([fb1fd04](https://github.com/kristof-mattei/autoheal-rs/commit/fb1fd04bf39a5caae08b2506c9306c33504737db)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.5 - ([461f274](https://github.com/kristof-mattei/autoheal-rs/commit/461f274d1e4047c0edd8f7a7b1898943dc42522c)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.97.0 - ([27c0cef](https://github.com/kristof-mattei/autoheal-rs/commit/27c0ceff1468e11e1b31916b4930a1c081b7653f)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.97.0 - ([535eb90](https://github.com/kristof-mattei/autoheal-rs/commit/535eb90583fe426e9917647307759040dd777819)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.0.4 - ([6cea9e2](https://github.com/kristof-mattei/autoheal-rs/commit/6cea9e289bcf1d6feb1d875115d261082439efe6)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.0.3 - ([25b1124](https://github.com/kristof-mattei/autoheal-rs/commit/25b11243c4cba98cfc5ef0a4529dad4168788eda)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.0.3 - ([d9b1fa6](https://github.com/kristof-mattei/autoheal-rs/commit/d9b1fa6726f4882bc5248daae77bce1493ae0f34)) - renovate[bot]
-- **(deps)** update docker/metadata-action action to v5.6.1 - ([1d7ab16](https://github.com/kristof-mattei/autoheal-rs/commit/1d7ab16228fdb6766636e1fe9befaf0cb29aff06)) - renovate[bot]
-- **(deps)** update docker/metadata-action action to v5.6.1 - ([4679b5d](https://github.com/kristof-mattei/autoheal-rs/commit/4679b5d97fc925e688dabfc99d25248299bcdef7)) - renovate[bot]
-- **(deps)** update docker/metadata-action action to v5.6.0 - ([d76ecb7](https://github.com/kristof-mattei/autoheal-rs/commit/d76ecb79d7f8f258f50f54c5e2f2ccbe895353dc)) - renovate[bot]
-- **(deps)** lock file maintenance - ([8eb52b6](https://github.com/kristof-mattei/autoheal-rs/commit/8eb52b621a55517773f9a8ae85ff2e285a633657)) - renovate[bot]
-- **(deps)** lock file maintenance - ([117c1bc](https://github.com/kristof-mattei/autoheal-rs/commit/117c1bc71228862d1a0e0bb0e2bc04ac6e3f5c47)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5.0.2 - ([141c37a](https://github.com/kristof-mattei/autoheal-rs/commit/141c37aca37facfc36d3747f533a2d2565f5f343)) - renovate[bot]
-- **(deps)** update codecov/codecov-action digest to 5c47607 - ([a07ef7b](https://github.com/kristof-mattei/autoheal-rs/commit/a07ef7be8149221e386b833e0b7f3f46130fc344)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5 - ([27f1872](https://github.com/kristof-mattei/autoheal-rs/commit/27f1872876ccceea9b90095da90e4ba78f84fc3f)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v5 - ([cb65df5](https://github.com/kristof-mattei/autoheal-rs/commit/cb65df51576c03d58327b4501cc143fa0c4dde37)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.4 - ([e70bf3e](https://github.com/kristof-mattei/autoheal-rs/commit/e70bf3e3b8ca95e5f661b70e8544f6c5bea67e4c)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.4 - ([947ab3c](https://github.com/kristof-mattei/autoheal-rs/commit/947ab3cbd2b6dcfc4e6780d50589a926734421e6)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to d9c3c6f - ([9d7d386](https://github.com/kristof-mattei/autoheal-rs/commit/9d7d386cc2c2b02d8930b2422361fa20339e3392)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to d9c3c6f - ([80c74b7](https://github.com/kristof-mattei/autoheal-rs/commit/80c74b79e3b557efa5e0821cd9acdca2646c1e21)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to f82e0a7 - ([a379375](https://github.com/kristof-mattei/autoheal-rs/commit/a3793756bf4a2fb32f2b24d1feba72c4a3807828)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to f82e0a7 - ([7501cfe](https://github.com/kristof-mattei/autoheal-rs/commit/7501cfe0eabe8c1d30a451aadd6f5e8320b200dc)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to e808fe5 - ([e45a6da](https://github.com/kristof-mattei/autoheal-rs/commit/e45a6da5399a2930228af70fd9814a3a38833c85)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to e808fe5 - ([282fe9e](https://github.com/kristof-mattei/autoheal-rs/commit/282fe9e81d5c0d98fede24ffe48047184e1d4d27)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to 96d0c6f - ([b95d764](https://github.com/kristof-mattei/autoheal-rs/commit/b95d764266acc65ef1f5a955db8e2c5f12c92497)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to 96d0c6f - ([ad3c5e7](https://github.com/kristof-mattei/autoheal-rs/commit/ad3c5e79ce95e3feba616c3f063cd806b85da121)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.3 - ([4d1331d](https://github.com/kristof-mattei/autoheal-rs/commit/4d1331d7926905b16a2a579116d20bf2cf0efc14)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.3 - ([433c552](https://github.com/kristof-mattei/autoheal-rs/commit/433c552065fabea603d0f03ca2f0354251598090)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.2 - ([543c090](https://github.com/kristof-mattei/autoheal-rs/commit/543c090ee72fc3573602224b822da056c69cf7a0)) - renovate[bot]
-- **(deps)** update alpine:3.20.3 docker digest to 1e42bbe - ([335d53e](https://github.com/kristof-mattei/autoheal-rs/commit/335d53e3bc399b44b7bbf45ce37478ba46096e10)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to 3da3853 - ([722cf5d](https://github.com/kristof-mattei/autoheal-rs/commit/722cf5dc6c83894ce4143ff0300d7183089bf8d1)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to 3da3853 - ([b8bcfb3](https://github.com/kristof-mattei/autoheal-rs/commit/b8bcfb3bf8695f11d0fcd1eb45c9eb89abe83a09)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.2 - ([364dcca](https://github.com/kristof-mattei/autoheal-rs/commit/364dccaa161da972ff2526bc6ca501fb7ee8f999)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to 1e42bbe - ([c597243](https://github.com/kristof-mattei/autoheal-rs/commit/c597243a18a5435e7c72f0a3bdf4184509b0b113)) - renovate[bot]
-- **(deps)** update alpine docker digest to 1e42bbe - ([170b6f0](https://github.com/kristof-mattei/autoheal-rs/commit/170b6f0351e9546e0ce8521185c408b135fbe10e)) - renovate[bot]
-- **(deps)** lock file maintenance - ([1694e28](https://github.com/kristof-mattei/autoheal-rs/commit/1694e2864e576bbb1056da9b9e474ecf858a7a0a)) - renovate[bot]
-- **(deps)** lock file maintenance - ([b4176bc](https://github.com/kristof-mattei/autoheal-rs/commit/b4176bcddb8d748c8bf1c5002dffd3adbfa365bd)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.1 - ([d4676b7](https://github.com/kristof-mattei/autoheal-rs/commit/d4676b72906b93dbb7487ed70c829f9e37f42e7f)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.1 - ([ee85379](https://github.com/kristof-mattei/autoheal-rs/commit/ee853792a94f083b696d7f85079d0b6cf92ab692)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.96.0 - ([4ed756c](https://github.com/kristof-mattei/autoheal-rs/commit/4ed756c6690980f8034788ed158568b9719ebea8)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.96.0 - ([9d6a07f](https://github.com/kristof-mattei/autoheal-rs/commit/9d6a07f0bb19a9bf62cfba7abcc26c94bae8e981)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v11.0.1 - ([9597fda](https://github.com/kristof-mattei/autoheal-rs/commit/9597fda98c39c127f60696df8a25e1372532cd7b)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v11.0.1 - ([93a2369](https://github.com/kristof-mattei/autoheal-rs/commit/93a236933526ee6eaba095ba5cd1bbbfc025bf2a)) - renovate[bot]
-- **(deps)** lock file maintenance - ([629f082](https://github.com/kristof-mattei/autoheal-rs/commit/629f0826c2d691fc472bdc74de49abdc29994302)) - renovate[bot]
-- **(deps)** lock file maintenance - ([f32ca4a](https://github.com/kristof-mattei/autoheal-rs/commit/f32ca4a304a2ab2b96b95e0a8f285c01a3590b55)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.95.0 - ([b2ca08a](https://github.com/kristof-mattei/autoheal-rs/commit/b2ca08aed2a34fe0a060e30903d59d5db9367441)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.95.0 - ([40dde3a](https://github.com/kristof-mattei/autoheal-rs/commit/40dde3a2a249e4f9dea043fa1fad1129527dba42)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.94.0 - ([9f2c078](https://github.com/kristof-mattei/autoheal-rs/commit/9f2c07818f6beefbb753dc0abc8e94d2a268d18d)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.94.0 - ([59a5abd](https://github.com/kristof-mattei/autoheal-rs/commit/59a5abdc9ada9f0fd15b4b23da0a3f4768b45562)) - renovate[bot]
-- **(deps)** update dependency node to v22 - ([6975e08](https://github.com/kristof-mattei/autoheal-rs/commit/6975e08a83d5a147168e74506a23d175e1d60ee8)) - renovate[bot]
-- **(deps)** update dependency node to v22 - ([143def2](https://github.com/kristof-mattei/autoheal-rs/commit/143def2e542c59f4cd2260cd72c6631328f2824d)) - renovate[bot]
-- **(deps)** lock file maintenance - ([4820f28](https://github.com/kristof-mattei/autoheal-rs/commit/4820f282506afdd8f66a092c2b870b0b2f5b51ca)) - renovate[bot]
-- **(deps)** lock file maintenance - ([2a5d6fa](https://github.com/kristof-mattei/autoheal-rs/commit/2a5d6fa075e6066b23acbc10f17d0a75b00e3055)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.2.0 - ([dd887a1](https://github.com/kristof-mattei/autoheal-rs/commit/dd887a1bb3d8c8c00bef141a0639e37ef3a0991e)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.2.0 - ([31b05fc](https://github.com/kristof-mattei/autoheal-rs/commit/31b05fcc3519f3d4dd9339f4afbea207c485bf63)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.1.0 - ([7263c4b](https://github.com/kristof-mattei/autoheal-rs/commit/7263c4bdcae01a2a53fd9a38637a6f6822eaa239)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.1.0 - ([79661af](https://github.com/kristof-mattei/autoheal-rs/commit/79661af12225811098758bff3fb73da83c7de5ca)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.93.0 - ([7ce319c](https://github.com/kristof-mattei/autoheal-rs/commit/7ce319ceccf53dccad680bf6eaf02fc8986ead21)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.93.0 - ([54e7f45](https://github.com/kristof-mattei/autoheal-rs/commit/54e7f4517db0957d9e0dcdf4629dca6cf785db6c)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.2.2 - ([d978aa7](https://github.com/kristof-mattei/autoheal-rs/commit/d978aa725cc793eb34c25e976e96b1c84105a250)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.2.2 - ([f339975](https://github.com/kristof-mattei/autoheal-rs/commit/f339975f2106f0617f37c129e15d95488c5204a3)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.0 - ([ab1fb0d](https://github.com/kristof-mattei/autoheal-rs/commit/ab1fb0db2d99c4e2fbf436c0d2c9871fe90732b4)) - renovate[bot]
-- **(deps)** update enricomi/publish-unit-test-result-action action to v2.18.0 - ([11b6c2a](https://github.com/kristof-mattei/autoheal-rs/commit/11b6c2a89017ee11f315b1e0921e7e40c7513cdb)) - renovate[bot]
-- **(deps)** update enricomi/publish-unit-test-result-action action to v2.18.0 - ([12f4271](https://github.com/kristof-mattei/autoheal-rs/commit/12f42713889b1f34fd676d690f3313e69d7a1baf)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.27.0 - ([ded2969](https://github.com/kristof-mattei/autoheal-rs/commit/ded29699c0bee3c91375e3f40592825309513bfc)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.1.2 - ([e303d94](https://github.com/kristof-mattei/autoheal-rs/commit/e303d941d52765b690e6e01c39c0183520fdcddc)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.1.2 - ([f4f15d7](https://github.com/kristof-mattei/autoheal-rs/commit/f4f15d7b77ad5d8088623d199de336f317584f60)) - renovate[bot]
-- **(deps)** lock file maintenance - ([7d711b1](https://github.com/kristof-mattei/autoheal-rs/commit/7d711b12926a236a16db8ea51d13c853ea1d2ac3)) - renovate[bot]
-- **(deps)** lock file maintenance - ([dbd3832](https://github.com/kristof-mattei/autoheal-rs/commit/dbd3832eae30331bec259f4cd881ff147334ffe9)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to 33a0ea4 - ([b5e1607](https://github.com/kristof-mattei/autoheal-rs/commit/b5e1607a67c2dab59eeec56010728cd5326a2435)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to 33a0ea4 - ([3a98f46](https://github.com/kristof-mattei/autoheal-rs/commit/3a98f46f6d7da6a42dfe18eb8610bc2a5fbf7a75)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to 9d3759c - ([2e5f05c](https://github.com/kristof-mattei/autoheal-rs/commit/2e5f05cbef0a7416070a8b54b1afd2fc20f08c08)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to 9d3759c - ([5b6ebfc](https://github.com/kristof-mattei/autoheal-rs/commit/5b6ebfc0fd9f63738088c9d387d6999eb9c974fe)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to b7f46da - ([deb0333](https://github.com/kristof-mattei/autoheal-rs/commit/deb0333b58528cd5c7500b530c1b8c3a2d381887)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to b7f46da - ([4dc6a07](https://github.com/kristof-mattei/autoheal-rs/commit/4dc6a074d835a98700779256bd517fbe0f494085)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to e9fec44 - ([bf1f2b0](https://github.com/kristof-mattei/autoheal-rs/commit/bf1f2b050ba38928c2f0acc96a884644e7adda87)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to e9fec44 - ([fa362ce](https://github.com/kristof-mattei/autoheal-rs/commit/fa362cebf11e55b9d887f04ae6a51b438182f2d4)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.1.3 - ([3de8489](https://github.com/kristof-mattei/autoheal-rs/commit/3de8489ea347187e0a84d501b203cc2a65bd4860)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.1.3 - ([4d6cdbd](https://github.com/kristof-mattei/autoheal-rs/commit/4d6cdbd012843c96e648f499f9540d496dc1a31f)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to 81584ce - ([5c38155](https://github.com/kristof-mattei/autoheal-rs/commit/5c381551e23bc996586de8d1511c960acff34a1f)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to 81584ce - ([b205a4d](https://github.com/kristof-mattei/autoheal-rs/commit/b205a4de96bf15ac9580d14e830652e89dddd848)) - renovate[bot]
-- **(deps)** update rust to v1.82.0 - ([fc30090](https://github.com/kristof-mattei/autoheal-rs/commit/fc30090ac231b6483dfc3a58c34c8500017594f6)) - renovate[bot]
-- **(deps)** update rust to v1.82.0 - ([b6d3fec](https://github.com/kristof-mattei/autoheal-rs/commit/b6d3fec51a65775bac74f8707a8ea4c0d558a8bf)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to a24b6cc - ([84892b5](https://github.com/kristof-mattei/autoheal-rs/commit/84892b5f935ea412c4e572a8cffecfdd8e768a20)) - renovate[bot]
-- **(deps)** update rust:1.82.0 docker digest to a24b6cc - ([a8d15a4](https://github.com/kristof-mattei/autoheal-rs/commit/a8d15a412c49546d4ddc567ef71a3cced096f4c4)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.82.0 - ([747b04c](https://github.com/kristof-mattei/autoheal-rs/commit/747b04cfd8aab52b574c6d5f15a0ec3de7f5af14)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.82.0 - ([680ad9f](https://github.com/kristof-mattei/autoheal-rs/commit/680ad9fe5b7a1b8c23d3f34260a47452c8701da3)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 7b7f7ae - ([6bf7e98](https://github.com/kristof-mattei/autoheal-rs/commit/6bf7e9873a9844984b7cb506165cbd0611a6cd14)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 7b7f7ae - ([b82fc71](https://github.com/kristof-mattei/autoheal-rs/commit/b82fc7138df876533a81386f93ae7170b4369f75)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 4c1240e - ([a3a7273](https://github.com/kristof-mattei/autoheal-rs/commit/a3a7273692f14d0f79c87de9197d117db0c1aaed)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.92.0 - ([6b4e1b4](https://github.com/kristof-mattei/autoheal-rs/commit/6b4e1b4fc6045ff0a6b5e94431a3c9103cca6dae)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.92.0 - ([3043259](https://github.com/kristof-mattei/autoheal-rs/commit/3043259209e61341ac4582132c3152069ec23448)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 0757ed8 - ([9b5f095](https://github.com/kristof-mattei/autoheal-rs/commit/9b5f0957f3e296c8b22fd2a10a85fa193a0d8a2b)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 0757ed8 - ([2865d38](https://github.com/kristof-mattei/autoheal-rs/commit/2865d38886b2a5786ba95f36873d43518ffe6096)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to d09f487 - ([a75c1e8](https://github.com/kristof-mattei/autoheal-rs/commit/a75c1e825c72bf64b2a900c85c227033b899ad99)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to d09f487 - ([0c228b1](https://github.com/kristof-mattei/autoheal-rs/commit/0c228b131e5be4f26a8615c2735ce8c1782f5e6a)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.13 - ([e4a5658](https://github.com/kristof-mattei/autoheal-rs/commit/e4a56588e835e4ee5f786ad01d07d14de86e3085)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.13 - ([a568952](https://github.com/kristof-mattei/autoheal-rs/commit/a568952d1676b44ae582a4f06524075ab9691d6e)) - renovate[bot]
-- **(deps)** lock file maintenance - ([c5418bd](https://github.com/kristof-mattei/autoheal-rs/commit/c5418bde23d66e7c09fe7f2b731492841aef4f3c)) - renovate[bot]
-- **(deps)** lock file maintenance - ([9f6fad8](https://github.com/kristof-mattei/autoheal-rs/commit/9f6fad8619853069f7cb07e5dbc6fb07c4d981b3)) - renovate[bot]
-- **(deps)** update codecov/test-results-action action to v1.0.1 - ([eea257b](https://github.com/kristof-mattei/autoheal-rs/commit/eea257beda16128d23ec85d99f3b96ddd7ac1bcc)) - renovate[bot]
-- **(deps)** update codecov/test-results-action action to v1.0.1 - ([b721c62](https://github.com/kristof-mattei/autoheal-rs/commit/b721c628db22b4cbc5bffb5754462d515baf7516)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.91.0 - ([a240227](https://github.com/kristof-mattei/autoheal-rs/commit/a24022709b95d50aeacaba653dcb583ba461c98c)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.91.0 - ([023fc83](https://github.com/kristof-mattei/autoheal-rs/commit/023fc83c941ac9221023826aa3ffca4f4f06d24f)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.4.3 - ([f2c1a99](https://github.com/kristof-mattei/autoheal-rs/commit/f2c1a994acf6981a29cb9b4a79702a466cbb285a)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.4.3 - ([2e23ae7](https://github.com/kristof-mattei/autoheal-rs/commit/2e23ae705db103c9af714e1ec99f136bce0b69f0)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.4.2 - ([c33822c](https://github.com/kristof-mattei/autoheal-rs/commit/c33822c3de62ece39d7fbd46ad59f196a1ee430b)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.1.1 - ([f02d7b2](https://github.com/kristof-mattei/autoheal-rs/commit/f02d7b26513f2e6e374b831305d2eed092efea20)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.4.2 - ([dd9696c](https://github.com/kristof-mattei/autoheal-rs/commit/dd9696cb6e9f9c778ad9fa891304503a9a69f424)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.1.1 - ([db2fab0](https://github.com/kristof-mattei/autoheal-rs/commit/db2fab0c877d5fcfa2c53facb2fb664b1b46bbe8)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.12 - ([fbcc3c2](https://github.com/kristof-mattei/autoheal-rs/commit/fbcc3c23d7ac3584c08b023b125c0681da352966)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.4.1 - ([3b9e6b1](https://github.com/kristof-mattei/autoheal-rs/commit/3b9e6b1e6f78da8702ab61d594c228fdd882e05b)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.12 - ([465af9d](https://github.com/kristof-mattei/autoheal-rs/commit/465af9d3a65cf3920b128566a28b207b1e559940)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.2.1 - ([177655b](https://github.com/kristof-mattei/autoheal-rs/commit/177655b1f0a18b76cd5b2e8c6bf87097e3f99aeb)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.2.1 - ([2f8552d](https://github.com/kristof-mattei/autoheal-rs/commit/2f8552d5269afccc73af267c7c7711113d3f7e66)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.4.1 - ([071eae1](https://github.com/kristof-mattei/autoheal-rs/commit/071eae1cb9df0fb42f5934b8f2776396d56d2554)) - renovate[bot]
-- **(deps)** lock file maintenance - ([ad3b77c](https://github.com/kristof-mattei/autoheal-rs/commit/ad3b77c858f24af76f9f56e109bc6b020127c1d8)) - renovate[bot]
-- **(deps)** lock file maintenance - ([9324cc8](https://github.com/kristof-mattei/autoheal-rs/commit/9324cc8062453d33eee57fa2108cb99c25dfe0bf)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.1.0 - ([5775f3e](https://github.com/kristof-mattei/autoheal-rs/commit/5775f3e96d84fc7feb77fc4cfb4804ff77893bd2)) - renovate[bot]
-- **(deps)** update actions/cache action to v4.1.0 - ([5d57237](https://github.com/kristof-mattei/autoheal-rs/commit/5d572370113ca89b55c999381b03b0f542522dfe)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to b015f7e - ([c8f8821](https://github.com/kristof-mattei/autoheal-rs/commit/c8f8821cc6fa22e0606703fbd21824b548c4a94e)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.7.1 - ([80a62c5](https://github.com/kristof-mattei/autoheal-rs/commit/80a62c53869b465e971711eb40d56efc0de6f424)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to b015f7e - ([eaf7250](https://github.com/kristof-mattei/autoheal-rs/commit/eaf7250ac4ad3c2337ee37edc3956fc79d7d9808)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.7.1 - ([7df7c5f](https://github.com/kristof-mattei/autoheal-rs/commit/7df7c5ffcfca6a383cb9b99a6f5074d464fe8df1)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.11 - ([ae2d5a9](https://github.com/kristof-mattei/autoheal-rs/commit/ae2d5a9a103704c303911197367a64a393a098db)) - renovate[bot]
-- **(deps)** update npm to >=10.9.0 - ([4df3581](https://github.com/kristof-mattei/autoheal-rs/commit/4df3581717297f319c438aac478c0135718617db)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.11 - ([b06bf8c](https://github.com/kristof-mattei/autoheal-rs/commit/b06bf8cc242bcdf1e6e41bfdf02a6fc6ec646eab)) - renovate[bot]
-- **(deps)** update dependency node to v20.18.0 - ([b9d9ecf](https://github.com/kristof-mattei/autoheal-rs/commit/b9d9ecfa8691708e9b767ec22c783087b99d67ac)) - renovate[bot]
-- **(deps)** update npm to >=10.9.0 - ([2940a44](https://github.com/kristof-mattei/autoheal-rs/commit/2940a44b6955c91aa48b538c77b404ed92cc76d1)) - renovate[bot]
-- **(deps)** update dependency node to v20.18.0 - ([d615619](https://github.com/kristof-mattei/autoheal-rs/commit/d6156198e0ceb703d796b92bf133c67c9c62641e)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.7.0 - ([2126ea6](https://github.com/kristof-mattei/autoheal-rs/commit/2126ea6dd628c1ec481bd4953bc0cb018f98b78b)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.7.0 - ([50ad4d6](https://github.com/kristof-mattei/autoheal-rs/commit/50ad4d6d2d1a956cb40724f6fd45fcefd8efa39d)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to c49f92e - ([d61d1ec](https://github.com/kristof-mattei/autoheal-rs/commit/d61d1ec7c085d0badb7eab07c7fa011e58e8c854)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to c49f92e - ([5d459e0](https://github.com/kristof-mattei/autoheal-rs/commit/5d459e0515ae17b4eb85a25d5616631246d8dd56)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v4.6.0 - ([9666a64](https://github.com/kristof-mattei/autoheal-rs/commit/9666a64233e0c1efdf3b60c8b0b15650ad774d1d)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v4.6.0 - ([47dc318](https://github.com/kristof-mattei/autoheal-rs/commit/47dc3183c32419d600095a0eb8cadaae5f8791ab)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 317f242 - ([e3614e6](https://github.com/kristof-mattei/autoheal-rs/commit/e3614e6dfb73895ca62697e1c4e53dd14faad86e)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 317f242 - ([403af0d](https://github.com/kristof-mattei/autoheal-rs/commit/403af0d6869f9e699a347462a50782f54ca43f64)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.9.0 - ([fe866e8](https://github.com/kristof-mattei/autoheal-rs/commit/fe866e8f3129b1cdf4215db28dd7c34426c6bc90)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.10 - ([965a7b9](https://github.com/kristof-mattei/autoheal-rs/commit/965a7b9f219c6ea440a3df972805e898fe902a49)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.10 - ([62039bd](https://github.com/kristof-mattei/autoheal-rs/commit/62039bdd102e22eccc81accb0a5301d89760e9c7)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.9.0 - ([7f95367](https://github.com/kristof-mattei/autoheal-rs/commit/7f9536733a20df8a64222606c8c596ccb228ddce)) - renovate[bot]
-- **(deps)** lock file maintenance - ([b433375](https://github.com/kristof-mattei/autoheal-rs/commit/b433375046ed9e27277e0e654f35e0e24c5dfe5b)) - renovate[bot]
-- **(deps)** lock file maintenance - ([f1649ab](https://github.com/kristof-mattei/autoheal-rs/commit/f1649abf1e9d3e759caa75e01e22f6260494f233)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to a21d540 - ([61bb556](https://github.com/kristof-mattei/autoheal-rs/commit/61bb556cd3c9226f46bf6b83398a38d22787b581)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to a21d540 - ([5ec3d58](https://github.com/kristof-mattei/autoheal-rs/commit/5ec3d58dbfc72a0476d1a6fbf241718e49b1c2e3)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 62a1b8f - ([35310da](https://github.com/kristof-mattei/autoheal-rs/commit/35310da34956871add845ffc17cff1ffee90b65d)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 62a1b8f - ([09f8d6c](https://github.com/kristof-mattei/autoheal-rs/commit/09f8d6c89c3e5d3be0290d03f106db46017c8bcc)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 3c2e099 - ([8f8232e](https://github.com/kristof-mattei/autoheal-rs/commit/8f8232eb7281ea1347db1018c8eb4ca989ca88b2)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 3c2e099 - ([69561d4](https://github.com/kristof-mattei/autoheal-rs/commit/69561d4f6c2691d65b7b55344a5121b737df10f9)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 86f4731 - ([634759a](https://github.com/kristof-mattei/autoheal-rs/commit/634759ae54baf2a4aabd7f12a7a95bf769c21723)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to de79647 - ([22d62e4](https://github.com/kristof-mattei/autoheal-rs/commit/22d62e4d3175e2b79cd07eca2b4843fb810497c9)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.1.2 - ([e55bb5e](https://github.com/kristof-mattei/autoheal-rs/commit/e55bb5e277e2c4d64563bdd657ad713463407c2a)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.1.2 - ([d635b2f](https://github.com/kristof-mattei/autoheal-rs/commit/d635b2fac2a40a586ba26d58e48be88d44315d3f)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to de79647 - ([7283e3f](https://github.com/kristof-mattei/autoheal-rs/commit/7283e3fc711d21a5831048eac8c78c3b01353de9)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 86629b8 - ([5a29bae](https://github.com/kristof-mattei/autoheal-rs/commit/5a29baeba75022f363eb02958c2af67ac9eeadc4)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.8.0 - ([76cf0c5](https://github.com/kristof-mattei/autoheal-rs/commit/76cf0c5a888d7fae09438056aa33382b86d26c31)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.8.0 - ([3e2896a](https://github.com/kristof-mattei/autoheal-rs/commit/3e2896ac7dae2b17fc54597dc0d144cfbd2103b6)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.90.0 - ([946d7d9](https://github.com/kristof-mattei/autoheal-rs/commit/946d7d97d6eb974d13fc3fbc4c6d8e0b18b9e84d)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.90.0 - ([3508f20](https://github.com/kristof-mattei/autoheal-rs/commit/3508f2074a9989ea26827dcc7de2ecb5a1119bc3)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.2.0 - ([e6fce2a](https://github.com/kristof-mattei/autoheal-rs/commit/e6fce2a48b959252426346cd78b0a9c25568090c)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.2.0 - ([d524ede](https://github.com/kristof-mattei/autoheal-rs/commit/d524edeeead19542122d78cb2a9fe6a1b67991e0)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v11 - ([90fabf2](https://github.com/kristof-mattei/autoheal-rs/commit/90fabf250266497ca6b36ee6fda0e4e6d3c8da31)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v11 - ([af07545](https://github.com/kristof-mattei/autoheal-rs/commit/af07545f09c073584d306fe2cfbc21ef088dc506)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.9 - ([b1c5d4b](https://github.com/kristof-mattei/autoheal-rs/commit/b1c5d4b08361f440e4a9feecbb9072b5500863f6)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.9 - ([c9cabfe](https://github.com/kristof-mattei/autoheal-rs/commit/c9cabfeb35c31eb79ad2d174f2a8ffe2b0ea7ab2)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 4924241 - ([7dc937a](https://github.com/kristof-mattei/autoheal-rs/commit/7dc937ac57cc8d0d6c64d53702b4ba4864b05009)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 4924241 - ([ef1461f](https://github.com/kristof-mattei/autoheal-rs/commit/ef1461fadef9d9ac459e2febe25107b515a32201)) - renovate[bot]
-- **(deps)** lock file maintenance - ([0009899](https://github.com/kristof-mattei/autoheal-rs/commit/0009899602d37baa0b4eb047014ffa69706c22d2)) - renovate[bot]
-- **(deps)** lock file maintenance - ([b8ba529](https://github.com/kristof-mattei/autoheal-rs/commit/b8ba5294b9b38f92ab7454efb1d1f38b42bfd1cc)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.5 - ([5697138](https://github.com/kristof-mattei/autoheal-rs/commit/5697138f9214ef5acea28e6b2bc25adf736cbc39)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.5 - ([f141568](https://github.com/kristof-mattei/autoheal-rs/commit/f1415681ee29a213758b2633d3f48655f67bf34e)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.89.0 - ([e968dce](https://github.com/kristof-mattei/autoheal-rs/commit/e968dceb3f9d806f00b4990eca8ab7aebfa18000)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.89.0 - ([dc53c2f](https://github.com/kristof-mattei/autoheal-rs/commit/dc53c2f01a2dcd79f6f27714149b77b8fd658c66)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.0.4 - ([d14259d](https://github.com/kristof-mattei/autoheal-rs/commit/d14259d473f52032bc236271986074316c7e1a9a)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.0.4 - ([8fe87cc](https://github.com/kristof-mattei/autoheal-rs/commit/8fe87cc271141cae95543ce2dbb45aad0f217da4)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.8 - ([5be5fba](https://github.com/kristof-mattei/autoheal-rs/commit/5be5fba1202ce303bcf1d51bfdb37d25fca12cd3)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.8 - ([8d4ffdb](https://github.com/kristof-mattei/autoheal-rs/commit/8d4ffdb85535054738f78473b6d79511aa4106fd)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.88.0 - ([c71f113](https://github.com/kristof-mattei/autoheal-rs/commit/c71f1137af5be00a8274cc5d209b1b4425100c97)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.88.0 - ([e2a77de](https://github.com/kristof-mattei/autoheal-rs/commit/e2a77ded406a38aa0aeb14388890d09355ae4af2)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to f1d44e2 - ([7bd37a1](https://github.com/kristof-mattei/autoheal-rs/commit/7bd37a1ecfce23ad721a41b849e5dc99d9ffe47a)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to f1d44e2 - ([a8524f5](https://github.com/kristof-mattei/autoheal-rs/commit/a8524f586dc9eca399690bf8c3f88d0289fd63cd)) - renovate[bot]
-- **(deps)** lock file maintenance - ([4d2abc9](https://github.com/kristof-mattei/autoheal-rs/commit/4d2abc98cf1781853a1d8a7fd4fb999b684188b9)) - renovate[bot]
-- **(deps)** lock file maintenance - ([ab433d4](https://github.com/kristof-mattei/autoheal-rs/commit/ab433d4a78b5a4b81ff12388a8fff00fd7492bad)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.4 - ([9c33eb5](https://github.com/kristof-mattei/autoheal-rs/commit/9c33eb5edaac091969b5b67d311aac776ce1b854)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.4 - ([d05a58a](https://github.com/kristof-mattei/autoheal-rs/commit/d05a58a2c9dc68e1b044526cd5bcba77c7a3beb0)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.87.0 - ([82eb303](https://github.com/kristof-mattei/autoheal-rs/commit/82eb303c59f538e901d4e701974ea20d0f824dd4)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.87.0 - ([664da39](https://github.com/kristof-mattei/autoheal-rs/commit/664da39540435659df6165c4e3584e5e622d8603)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.7 - ([2c9671b](https://github.com/kristof-mattei/autoheal-rs/commit/2c9671bb9c3c13e77c8f669bce76d70b182e0f01)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.7 - ([7cfd3eb](https://github.com/kristof-mattei/autoheal-rs/commit/7cfd3eb8d761985588d7011402141150881f52b3)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 61c9591 - ([231d311](https://github.com/kristof-mattei/autoheal-rs/commit/231d3114bb51b00b9f541811d582f4706980e7e3)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 61c9591 - ([5e1b4ea](https://github.com/kristof-mattei/autoheal-rs/commit/5e1b4ea4f84e08cae973be90719f99b2553b54e0)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.1.1 - ([c3e250f](https://github.com/kristof-mattei/autoheal-rs/commit/c3e250f56a278972cd563a9ed6278e1a434dada5)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.1.1 - ([db1d702](https://github.com/kristof-mattei/autoheal-rs/commit/db1d7028d0b90038f05b7e3ec6cd952dcbc41b8e)) - renovate[bot]
-- **(deps)** lock file maintenance - ([28a6938](https://github.com/kristof-mattei/autoheal-rs/commit/28a6938c7e6183677e9b630f3372de3bbef7a606)) - renovate[bot]
-- **(deps)** lock file maintenance - ([7bfe795](https://github.com/kristof-mattei/autoheal-rs/commit/7bfe795f94f2502e724ff54386c4d63a142a5bd4)) - renovate[bot]
-- **(deps)** update alpine docker digest to beefdbd - ([1c5a0c2](https://github.com/kristof-mattei/autoheal-rs/commit/1c5a0c2e63f92a45d7628b04bff500f9e730563a)) - renovate[bot]
-- **(deps)** update alpine docker tag to v3.20.3 - ([bcdc28c](https://github.com/kristof-mattei/autoheal-rs/commit/bcdc28c24a1914ae7e0722dd1f5d00d454f7d8ac)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to beefdbd - ([e166bcb](https://github.com/kristof-mattei/autoheal-rs/commit/e166bcb44ffb49be8bbfd5c1faee5e9b43daa3f6)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to fcd390e - ([88b14d8](https://github.com/kristof-mattei/autoheal-rs/commit/88b14d8eb6ec63c831594ba3ce0a757da48c446a)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to fcd390e - ([4b0f7a7](https://github.com/kristof-mattei/autoheal-rs/commit/4b0f7a70236f28077e999d1d224a5aa5df7fbae8)) - renovate[bot]
-- **(deps)** update rust to v1.81.0 - ([eae5ebf](https://github.com/kristof-mattei/autoheal-rs/commit/eae5ebfaf832bd86ad1e9724afab6aeb7bc08008)) - renovate[bot]
-- **(deps)** update rust to v1.81.0 - ([09b850e](https://github.com/kristof-mattei/autoheal-rs/commit/09b850e949f767822b0ae928933327f8dfa60f1b)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 7fd6c5b - ([1621a18](https://github.com/kristof-mattei/autoheal-rs/commit/1621a189a8654e2e111165c526298cdedd63fbc7)) - renovate[bot]
-- **(deps)** update rust:1.81.0 docker digest to 7fd6c5b - ([f992720](https://github.com/kristof-mattei/autoheal-rs/commit/f992720cedd72e2f6f5ecea92918190eeeee55b1)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.81.0 - ([2def646](https://github.com/kristof-mattei/autoheal-rs/commit/2def646f63f3707f8daef896852e4b486044df49)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.81.0 - ([d7ddbb2](https://github.com/kristof-mattei/autoheal-rs/commit/d7ddbb25ea878ee12d0340f1275062350bc1b7ca)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.3 - ([baaf71b](https://github.com/kristof-mattei/autoheal-rs/commit/baaf71ba4fe09b1644e4e4ee94c18e82427b8428)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.3 - ([c76f5e3](https://github.com/kristof-mattei/autoheal-rs/commit/c76f5e3f6bddf98d80957fbc1b9ce8ac7fd77ff9)) - renovate[bot]
-- **(deps)** update rust:1.80.1 docker digest to d22d893 - ([bd8ec7f](https://github.com/kristof-mattei/autoheal-rs/commit/bd8ec7f0f54399bbfc7a570a882f267feb13ad22)) - renovate[bot]
-- **(deps)** update rust:1.80.1 docker digest to d22d893 - ([7f4cc59](https://github.com/kristof-mattei/autoheal-rs/commit/7f4cc595cadd28234f721c188f4c3e82e5b220bb)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.86.0 - ([1c4c9f6](https://github.com/kristof-mattei/autoheal-rs/commit/1c4c9f64cbfd80ed0a7f50711dbb3af1e1b7fed3)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.86.0 - ([9156b14](https://github.com/kristof-mattei/autoheal-rs/commit/9156b149206e09a790fe4b0e48e64d6df4ab2c63)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.2 - ([2c13a4e](https://github.com/kristof-mattei/autoheal-rs/commit/2c13a4eb8f9af285969be33c60e65b190b20cac6)) - renovate[bot]
-- **(deps)** update enricomi/publish-unit-test-result-action action to v2.17.1 - ([6d9ab21](https://github.com/kristof-mattei/autoheal-rs/commit/6d9ab21e8cfe9ae3dac6a7ee7974b8cb7ebed015)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.2 - ([bc02363](https://github.com/kristof-mattei/autoheal-rs/commit/bc023638ec039794e14a4b76229e162c0c4af233)) - renovate[bot]
-- **(deps)** update enricomi/publish-unit-test-result-action action to v2.17.1 - ([583169c](https://github.com/kristof-mattei/autoheal-rs/commit/583169c0075aeb72ba103a362d913650a889d53e)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.1 - ([46160b9](https://github.com/kristof-mattei/autoheal-rs/commit/46160b9e2fe727d44d25b4af9b13d71aff4bf92f)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.1 - ([6b98024](https://github.com/kristof-mattei/autoheal-rs/commit/6b98024ad488e0592068f8c802a5be226a1f6440)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.0 - ([2941d46](https://github.com/kristof-mattei/autoheal-rs/commit/2941d469c80742a611fcb2792f69615022ad49af)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.3.0 - ([607d36e](https://github.com/kristof-mattei/autoheal-rs/commit/607d36eaeef18363c73e01c1de6f782f4eca7a8a)) - renovate[bot]
-- **(deps)** lock file maintenance - ([0020696](https://github.com/kristof-mattei/autoheal-rs/commit/002069690b0ad86086941f099893dff3c3a0e48a)) - renovate[bot]
-- **(deps)** lock file maintenance - ([def5960](https://github.com/kristof-mattei/autoheal-rs/commit/def5960498843335d7b967ac6cf6925b9e6f1b30)) - renovate[bot]
-- **(deps)** update rust to v1.80.1 - ([1bc9876](https://github.com/kristof-mattei/autoheal-rs/commit/1bc987641d46c788a87508e5270777d08da01ee4)) - renovate[bot]
-- **(deps)** update rust to v1.80.1 - ([771c93d](https://github.com/kristof-mattei/autoheal-rs/commit/771c93d1d2ac55d2f412f9c8f583fb137b0e6ab3)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.4.0 - ([2e90938](https://github.com/kristof-mattei/autoheal-rs/commit/2e90938cd4fbcf3753416a15b886fbbf091be56c)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.4.0 - ([a0e6ada](https://github.com/kristof-mattei/autoheal-rs/commit/a0e6ada69fbc17f8985799849a53f158cd99c085)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.6 - ([8d0ba1b](https://github.com/kristof-mattei/autoheal-rs/commit/8d0ba1b9eb5943cfcc92944acd6ed0510f2f74a4)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.6 - ([339863f](https://github.com/kristof-mattei/autoheal-rs/commit/339863feeb5c1f16899847d4ab7871ff06043998)) - renovate[bot]
-- **(deps)** pin codecov/test-results-action action to 1b5b448 - ([e0a194b](https://github.com/kristof-mattei/autoheal-rs/commit/e0a194bd0d6ad76ab75db2936e4ec3bc7ba53e4f)) - renovate[bot]
-- **(deps)** update npm to >=10.8.3 - ([ba3ae47](https://github.com/kristof-mattei/autoheal-rs/commit/ba3ae47268f6d89c0ea396124738d6acbb6e97aa)) - renovate[bot]
-- **(deps)** update npm to >=10.8.3 - ([5488745](https://github.com/kristof-mattei/autoheal-rs/commit/54887454e786774338606c858e64d3319543eee9)) - renovate[bot]
-- **(deps)** lock file maintenance - ([fce98ca](https://github.com/kristof-mattei/autoheal-rs/commit/fce98ca2670b24f9dc2490f7b41034cc525515e5)) - renovate[bot]
-- **(deps)** lock file maintenance - ([cf13e4f](https://github.com/kristof-mattei/autoheal-rs/commit/cf13e4fb1d35be2f8608bd367f7036bc8142e6d4)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.5 - ([cea5b10](https://github.com/kristof-mattei/autoheal-rs/commit/cea5b10ef70f44f946aac991b99b6fbb2e61c392)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.5 - ([5402bce](https://github.com/kristof-mattei/autoheal-rs/commit/5402bce01c0d664d559377574f139b5349740506)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.4 - ([8401faa](https://github.com/kristof-mattei/autoheal-rs/commit/8401faa8c95a95c6ae24872463ea057e33d6b744)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.4 - ([496c646](https://github.com/kristof-mattei/autoheal-rs/commit/496c6469242aad51b60fd1fde29a809a6c66183e)) - renovate[bot]
-- **(deps)** update dependency node to v20.17.0 - ([514d64c](https://github.com/kristof-mattei/autoheal-rs/commit/514d64c2010e4de1c6e4c5a2984067adaa70ce27)) - renovate[bot]
-- **(deps)** update dependency node to v20.17.0 - ([b75e075](https://github.com/kristof-mattei/autoheal-rs/commit/b75e0753fc9d733275906cb0c56f0d312bf98537)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 3614a93 - ([e7b06f5](https://github.com/kristof-mattei/autoheal-rs/commit/e7b06f5d3989489faf59d6a0ee89f2a582a2500f)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.7 - ([d226b4d](https://github.com/kristof-mattei/autoheal-rs/commit/d226b4d31cf8d5c20987af567d9866cce863ef9c)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 3614a93 - ([f00d23c](https://github.com/kristof-mattei/autoheal-rs/commit/f00d23c09142fa9a978562b585786a32fafea173)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.7 - ([48262fc](https://github.com/kristof-mattei/autoheal-rs/commit/48262fc4829ed7676a0a211a50fff53c6f5c646d)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.3 - ([4b35886](https://github.com/kristof-mattei/autoheal-rs/commit/4b35886fa21b2862d79583eb919c75f075251c87)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.3 - ([e95f7b2](https://github.com/kristof-mattei/autoheal-rs/commit/e95f7b2c0fad1568ec7e245a82a506cac48c3498)) - renovate[bot]
-- **(deps)** lock file maintenance - ([ec6e5a1](https://github.com/kristof-mattei/autoheal-rs/commit/ec6e5a1064e8995e5c915f35d139d0d21d8c7eca)) - renovate[bot]
-- **(deps)** lock file maintenance - ([ebf318b](https://github.com/kristof-mattei/autoheal-rs/commit/ebf318b9c0cc8dbdb85b5a3f44413d7283922fae)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.1.0 - ([b0aaf97](https://github.com/kristof-mattei/autoheal-rs/commit/b0aaf97f7f7fb4ec6ba072c3bf2e44d9e5f8da13)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v24.1.0 - ([dbdee96](https://github.com/kristof-mattei/autoheal-rs/commit/dbdee96cc9a18aa81e4f7ddca08c1fc96e87863d)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 0bf4f07 - ([53670fd](https://github.com/kristof-mattei/autoheal-rs/commit/53670fd0f199c475759d4318677c5c02e12439e1)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 0bf4f07 - ([78247b3](https://github.com/kristof-mattei/autoheal-rs/commit/78247b3fb105e752d261716645301123cc9f0f5b)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.6 - ([3d80a4f](https://github.com/kristof-mattei/autoheal-rs/commit/3d80a4f15ffe84dcaa7b82b7af7dc42023b1e781)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.6 - ([78c7e32](https://github.com/kristof-mattei/autoheal-rs/commit/78c7e323d9733a0be221b6abac76a21e096713ea)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.85.0 - ([7cc905a](https://github.com/kristof-mattei/autoheal-rs/commit/7cc905aa07f4b548c8231599e08b72f438ea6de3)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.85.0 - ([b1b5afc](https://github.com/kristof-mattei/autoheal-rs/commit/b1b5afc7f14ef9001ab34e1a3703844bdb73d940)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.5 - ([f172796](https://github.com/kristof-mattei/autoheal-rs/commit/f17279681a12f02c092d74568f85fe5a7f68e3fd)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.5 - ([a52e867](https://github.com/kristof-mattei/autoheal-rs/commit/a52e867bd6a976b2ddca5d145f631a395913ff74)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.2 - ([240a3dd](https://github.com/kristof-mattei/autoheal-rs/commit/240a3dddcd2c935b38d61dbb9afe40dacba87cea)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.2 - ([040a45f](https://github.com/kristof-mattei/autoheal-rs/commit/040a45f98dff20b9db2e89f5f0cf1e819f7643ff)) - renovate[bot]
-- **(deps)** update rust:1.80.1 docker digest to 29fe437 - ([f7ed5db](https://github.com/kristof-mattei/autoheal-rs/commit/f7ed5db4f0f29b132be4af25eb29b9e6873cc950)) - renovate[bot]
-- **(deps)** update rust:1.80.1 docker digest to 29fe437 - ([1e44de9](https://github.com/kristof-mattei/autoheal-rs/commit/1e44de910c98ddf06d3abc8abbeaaa1187ecddbc)) - renovate[bot]
-- **(deps)** update rust:1.80.1 docker digest to 5890069 - ([0578eab](https://github.com/kristof-mattei/autoheal-rs/commit/0578eab93238a8187cdbec26f78bbf3a23b8159d)) - renovate[bot]
-- **(deps)** update rust:1.80.1 docker digest to 5890069 - ([9f6aeb5](https://github.com/kristof-mattei/autoheal-rs/commit/9f6aeb56a4adf9e400c678fd412b92e6c23bcd65)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.1 - ([e6bbe7a](https://github.com/kristof-mattei/autoheal-rs/commit/e6bbe7aa4f3aa8c80b2c847d34a15f51cf860026)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.1 - ([f3f86c4](https://github.com/kristof-mattei/autoheal-rs/commit/f3f86c4e5cd113ee9e843d65358c8b4b053af0fa)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.7.0 - ([5df612a](https://github.com/kristof-mattei/autoheal-rs/commit/5df612a3e7b39a1dc2bc507c3b1871916cc05946)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.7.0 - ([474dc30](https://github.com/kristof-mattei/autoheal-rs/commit/474dc30d3e81267884da85fd582b908600e0e533)) - renovate[bot]
-- **(deps)** update rust:1.80.1 docker digest to 536c1a4 - ([cd78afa](https://github.com/kristof-mattei/autoheal-rs/commit/cd78afad625b280d3fe11f3718fe1ad36b6be192)) - renovate[bot]
-- **(deps)** update rust:1.80.1 docker digest to 536c1a4 - ([911c716](https://github.com/kristof-mattei/autoheal-rs/commit/911c716e9fc22d13fd4b10f553a1ee0a6ac339f7)) - renovate[bot]
-- **(deps)** lock file maintenance - ([4222b38](https://github.com/kristof-mattei/autoheal-rs/commit/4222b382451980abc96304f992f36e554cec7ad6)) - renovate[bot]
-- **(deps)** lock file maintenance - ([e3469fd](https://github.com/kristof-mattei/autoheal-rs/commit/e3469fd1362b6600f7784bb81bef652f0e878c99)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.4 - ([49dc103](https://github.com/kristof-mattei/autoheal-rs/commit/49dc103fc7f3d403fe2d5ff320a05a94e4e5a23a)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.4 - ([1877195](https://github.com/kristof-mattei/autoheal-rs/commit/1877195840583d10528d1dadb6fd09db82fab773)) - renovate[bot]
-- **(deps)** update rust:1.80.1 docker digest to 606b76f - ([d6c86f3](https://github.com/kristof-mattei/autoheal-rs/commit/d6c86f3854071926820080731061de26a24897f8)) - renovate[bot]
-- **(deps)** update rust:1.80.1 docker digest to 606b76f - ([49a3931](https://github.com/kristof-mattei/autoheal-rs/commit/49a3931499defe9b5e71dc89c61d891dbbd779e8)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.80.1 - ([c8517b9](https://github.com/kristof-mattei/autoheal-rs/commit/c8517b92b38b7820695f77cf1025b56b67d4de93)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.80.1 - ([de15c8f](https://github.com/kristof-mattei/autoheal-rs/commit/de15c8f8ac06605dc52899392b279ac42e4456bf)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 569f65d - ([ebae58f](https://github.com/kristof-mattei/autoheal-rs/commit/ebae58f6f65fdf671fa18bd9ad9b3de907a4a2a7)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 569f65d - ([b49dc5e](https://github.com/kristof-mattei/autoheal-rs/commit/b49dc5e8c704a20a9b5de217fa06cd4118767e04)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.84.1 - ([c4ec057](https://github.com/kristof-mattei/autoheal-rs/commit/c4ec057d0ea6ab4620833cb4bc2288cf0272caae)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.84.1 - ([4590732](https://github.com/kristof-mattei/autoheal-rs/commit/45907329d80f3d476e50f6c3ac2d05b9d07041ae)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.6.1 - ([e387676](https://github.com/kristof-mattei/autoheal-rs/commit/e3876766bb7e3d7245fb599f313cd3d1ad6a0c87)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.6.1 - ([a1d1fc0](https://github.com/kristof-mattei/autoheal-rs/commit/a1d1fc06e8228c2069209a35b98eb37534f87f47)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.6.0 - ([a2f35e3](https://github.com/kristof-mattei/autoheal-rs/commit/a2f35e37809b7881a9bc5ebb37a688a2ae996cef)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.6.0 - ([bb12324](https://github.com/kristof-mattei/autoheal-rs/commit/bb12324073492c9bb2ec1cf49454dfa505da9663)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.84.0 - ([fe06c25](https://github.com/kristof-mattei/autoheal-rs/commit/fe06c259fda44ff97ffd096ee132ca2f9398d86e)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.0 - ([88a39e6](https://github.com/kristof-mattei/autoheal-rs/commit/88a39e6944584cf651dcaf22fac52771abe7931a)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.84.0 - ([550d4f5](https://github.com/kristof-mattei/autoheal-rs/commit/550d4f528c0fb462dc39a5293cc814fe46ff1546)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.26.0 - ([faf8716](https://github.com/kristof-mattei/autoheal-rs/commit/faf871644068e6406696ea4908d2b111294d14e9)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.3.6 - ([1286cbb](https://github.com/kristof-mattei/autoheal-rs/commit/1286cbbc873b21f9cab46d19e92f81787ab1b25d)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.3.6 - ([ba6681e](https://github.com/kristof-mattei/autoheal-rs/commit/ba6681e23ea8e96cc967734cc88b65e5d0c7f4c1)) - renovate[bot]
-- **(deps)** lock file maintenance - ([311cb6e](https://github.com/kristof-mattei/autoheal-rs/commit/311cb6eb6b85b4cd5f16e8dbca91485261134b1d)) - renovate[bot]
-- **(deps)** lock file maintenance - ([3698bcf](https://github.com/kristof-mattei/autoheal-rs/commit/3698bcfc5fca6352e845247dc7d95baa41ffd3d8)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.83.0 - ([c824754](https://github.com/kristof-mattei/autoheal-rs/commit/c8247544a12b7def156bb606fa8eadc098f71e95)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.83.0 - ([ffd8020](https://github.com/kristof-mattei/autoheal-rs/commit/ffd8020700a8397fbab01e4af20d72027ce8c5a1)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.3.5 - ([8dcf254](https://github.com/kristof-mattei/autoheal-rs/commit/8dcf2545e90a1b5ee42855794bec114d8f4eb095)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.3.5 - ([7f2efc5](https://github.com/kristof-mattei/autoheal-rs/commit/7f2efc544bede6684802528587c0adb4491ecdbb)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.82.0 - ([4330129](https://github.com/kristof-mattei/autoheal-rs/commit/4330129c06c9381e8d1dddf640bb3dda0990b6ea)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.82.0 - ([ff03f69](https://github.com/kristof-mattei/autoheal-rs/commit/ff03f694d6cec6ce0622fcf4964d64605871e033)) - renovate[bot]
-- **(deps)** lock file maintenance - ([a10a677](https://github.com/kristof-mattei/autoheal-rs/commit/a10a677f483f8d9d8a7379e3db2d8db2899a1162)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.6.1 - ([559fe7d](https://github.com/kristof-mattei/autoheal-rs/commit/559fe7d64c18a42ace447a779bf938079a91dfaf)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.6.1 - ([31eb13e](https://github.com/kristof-mattei/autoheal-rs/commit/31eb13eafd5cf2c9c56cae0eca3cf4ea8332c9ae)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.6.0 - ([beba140](https://github.com/kristof-mattei/autoheal-rs/commit/beba140eb863553983110267cd307cc89544a09b)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.6.0 - ([d14e3f8](https://github.com/kristof-mattei/autoheal-rs/commit/d14e3f81ca492fbadd8dbccd4286f918e75ea6f6)) - renovate[bot]
-- **(deps)** lock file maintenance - ([fd41dc2](https://github.com/kristof-mattei/autoheal-rs/commit/fd41dc224ce8de391c4ce4197b4fb7ff7ae14b4b)) - renovate[bot]
-- **(deps)** lock file maintenance - ([5569103](https://github.com/kristof-mattei/autoheal-rs/commit/5569103a5b1d2fd8d919440f2d96e5fe0140fad7)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.15 - ([a55d2d8](https://github.com/kristof-mattei/autoheal-rs/commit/a55d2d8deb814626b3c9377c6702dcb93a8274dc)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.15 - ([849f9ab](https://github.com/kristof-mattei/autoheal-rs/commit/849f9ab6da0debe0f5ac498bf4402db90057e771)) - renovate[bot]
-- **(deps)** update rust:1.80.0 docker digest to fcbb950 - ([8dd1f69](https://github.com/kristof-mattei/autoheal-rs/commit/8dd1f69813e557f20a6e5a5b364c5d004235cb23)) - renovate[bot]
-- **(deps)** update rust to v1.80.0 - ([26b109f](https://github.com/kristof-mattei/autoheal-rs/commit/26b109fae6326bf3e024e3f155764150c031f90a)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.3 - ([c732d52](https://github.com/kristof-mattei/autoheal-rs/commit/c732d52fe09644cf5a6c6f6ab532ea2f027f4c3a)) - renovate[bot]
-- **(deps)** update rust to v1.80.0 - ([61cb2b5](https://github.com/kristof-mattei/autoheal-rs/commit/61cb2b54cb05ce6bd94c3b0926e9b26eee61a445)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.3 - ([5aaabe4](https://github.com/kristof-mattei/autoheal-rs/commit/5aaabe481b150fe3138f13a357d4d9cd910efba7)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.2 - ([67ffb48](https://github.com/kristof-mattei/autoheal-rs/commit/67ffb48578914cd0f9cdd546d2d41588a13288c4)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.2 - ([7884b30](https://github.com/kristof-mattei/autoheal-rs/commit/7884b3099d51c3ddd0fa84b21f65067d04742133)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.14 - ([92fb45a](https://github.com/kristof-mattei/autoheal-rs/commit/92fb45a9f15dcde77c165e659934be63ababcddc)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.14 - ([b043ec3](https://github.com/kristof-mattei/autoheal-rs/commit/b043ec3c9fe2d59a53fc533c01470f4952343f69)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.81.0 - ([f0a9379](https://github.com/kristof-mattei/autoheal-rs/commit/f0a9379517db5c6f3eb05ed2da1d75e694c6b1dc)) - renovate[bot]
-- **(deps)** update dependency node to v20.16.0 - ([28c8ab5](https://github.com/kristof-mattei/autoheal-rs/commit/28c8ab57ac6be07a7b297e0e4be4ee8e6a24b988)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 9b2689d - ([eafe1fa](https://github.com/kristof-mattei/autoheal-rs/commit/eafe1fa5a71ef57a22ae95f6da6068b1fb25753d)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 9b2689d - ([97cab00](https://github.com/kristof-mattei/autoheal-rs/commit/97cab00f9ffabd5936a6587f0cb2ab0bc57c95f7)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.81.0 - ([591a0f8](https://github.com/kristof-mattei/autoheal-rs/commit/591a0f8059ac7c1f57dc3058b8bd108b550246fd)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 6ed1f22 - ([868e1bf](https://github.com/kristof-mattei/autoheal-rs/commit/868e1bf5b9a253dabc81e3e46388b78b0f8e1c05)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 6ed1f22 - ([653b2f9](https://github.com/kristof-mattei/autoheal-rs/commit/653b2f9ef2e8f1595d649d8eabb38ee4fc2bfc99)) - renovate[bot]
-- **(deps)** update dependency node to v20.16.0 - ([ae50176](https://github.com/kristof-mattei/autoheal-rs/commit/ae501762754fec672fcd80725621dcb36b12c339)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to eb24e74 - ([add84a7](https://github.com/kristof-mattei/autoheal-rs/commit/add84a7625c191becad1a2de4839421d741fdd2d)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to eb24e74 - ([82ae4d9](https://github.com/kristof-mattei/autoheal-rs/commit/82ae4d92727a8e3be1c6cf5e7f589cbdd6c44815)) - renovate[bot]
-- **(deps)** update alpine:3.20.2 docker digest to 0a4eaa0 - ([09bc483](https://github.com/kristof-mattei/autoheal-rs/commit/09bc4839185362cee2d299c3ac3d07359b74e405)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to 0a4eaa0 - ([0d8d7e0](https://github.com/kristof-mattei/autoheal-rs/commit/0d8d7e04a7c4d1709e957ba68a9ad6fb89a9f1cd)) - renovate[bot]
-- **(deps)** update alpine docker digest to 0a4eaa0 - ([586af2d](https://github.com/kristof-mattei/autoheal-rs/commit/586af2dd5f974c13f4e552cd8e3d5648540c4940)) - renovate[bot]
-- **(deps)** update alpine docker tag to v3.20.2 - ([5508fc9](https://github.com/kristof-mattei/autoheal-rs/commit/5508fc9e56f0c41de91d7c937a37c29a56da5722)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to a59bbcb - ([66f2e07](https://github.com/kristof-mattei/autoheal-rs/commit/66f2e07975960dc34d03bd678b15eb7520fc0fa3)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.5.0 - ([cb6eb83](https://github.com/kristof-mattei/autoheal-rs/commit/cb6eb83ce30726649ee2735307d137490dabb551)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.5.0 - ([57e28ed](https://github.com/kristof-mattei/autoheal-rs/commit/57e28ed4c61a6d1dd19f98ca1a5c16890621a64c)) - renovate[bot]
-- **(deps)** update docker/login-action action to v3.3.0 - ([6d9af79](https://github.com/kristof-mattei/autoheal-rs/commit/6d9af79120c9ab084302c55508302aa2339c0414)) - renovate[bot]
-- **(deps)** update docker/login-action action to v3.3.0 - ([a681131](https://github.com/kristof-mattei/autoheal-rs/commit/a6811310fe825a1eaec8d4ef6126cf2012a9c455)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.5.0 - ([1ff542e](https://github.com/kristof-mattei/autoheal-rs/commit/1ff542e7ade73baee3dcbf9f5374e1a8083c0d98)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.5.0 - ([631c452](https://github.com/kristof-mattei/autoheal-rs/commit/631c452165f80359f9e0d6dde23ad99ed6afc2e7)) - renovate[bot]
-- **(deps)** lock file maintenance - ([ee0202b](https://github.com/kristof-mattei/autoheal-rs/commit/ee0202b62705890bf9dced498d7cb21457e53037)) - renovate[bot]
-- **(deps)** lock file maintenance - ([6372167](https://github.com/kristof-mattei/autoheal-rs/commit/6372167bd8bea8339d40a352db446a0cb8743481)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.1 - ([030591d](https://github.com/kristof-mattei/autoheal-rs/commit/030591d4415de3dd31c337ca0e85d4b6b31068b3)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.1 - ([d336df8](https://github.com/kristof-mattei/autoheal-rs/commit/d336df8a5f513fac2f601fe68e33266677d83cbb)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.13 - ([ca2335e](https://github.com/kristof-mattei/autoheal-rs/commit/ca2335e2e8d9e39a8e6072094d978ff4387a9a1c)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.13 - ([2c304eb](https://github.com/kristof-mattei/autoheal-rs/commit/2c304eb428eceb87932937479ec8f0e96aa579d3)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.80.0 - ([26c2b21](https://github.com/kristof-mattei/autoheal-rs/commit/26c2b2122fdf3db1c0f179eb430013cc441a10f5)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.80.0 - ([78e76fd](https://github.com/kristof-mattei/autoheal-rs/commit/78e76fd1db4cb2072c2a8a7e54601b9a18b36b9f)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.4.1 - ([a3bf1d3](https://github.com/kristof-mattei/autoheal-rs/commit/a3bf1d3f2a850df0346958de5a815fa50d1ab6d9)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.4.1 - ([99f5e13](https://github.com/kristof-mattei/autoheal-rs/commit/99f5e13f78de55f345cfa4b7d918a921e84574c1)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.4.0 - ([940fc4c](https://github.com/kristof-mattei/autoheal-rs/commit/940fc4ce0c633a600a8f19cf67e92baf3f030c1b)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.4.0 - ([5dbc8b8](https://github.com/kristof-mattei/autoheal-rs/commit/5dbc8b8158734cbc3458957d425bb10e008b95a7)) - renovate[bot]
-- **(deps)** lock file maintenance - ([854c89b](https://github.com/kristof-mattei/autoheal-rs/commit/854c89ba289a87cad65727ea39889067f9ebfd7a)) - renovate[bot]
-- **(deps)** lock file maintenance - ([9e39bc8](https://github.com/kristof-mattei/autoheal-rs/commit/9e39bc8d2c1c667cccc4b8873d6f1dff1e104fd9)) - renovate[bot]
-- **(deps)** lock file maintenance - ([77292b0](https://github.com/kristof-mattei/autoheal-rs/commit/77292b0cefe08257e20f412698f98fe7fdafa64a)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.3.3 - ([ff48661](https://github.com/kristof-mattei/autoheal-rs/commit/ff48661f13261cfc3a9234a493db32c6032ce2af)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.3.3 - ([2402533](https://github.com/kristof-mattei/autoheal-rs/commit/2402533eaec19e7e11594a43ddfc7e298a6c6d5f)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.12 - ([16d5b4d](https://github.com/kristof-mattei/autoheal-rs/commit/16d5b4d05dffc3b901788657632ec47d1228479d)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.12 - ([e38f7c8](https://github.com/kristof-mattei/autoheal-rs/commit/e38f7c86feb718ac10dbcb16cd94dc6a8b4de734)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 6a4b1fa - ([6be5a97](https://github.com/kristof-mattei/autoheal-rs/commit/6be5a970ff86f697f4ea89921d446339fb4bbc27)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to 6a4b1fa - ([e395369](https://github.com/kristof-mattei/autoheal-rs/commit/e3953699682ed7c1ec7f77fa41f32da4d0a5030c)) - renovate[bot]
-- **(deps)** update enricomi/publish-unit-test-result-action action to v2.17.0 - ([1cf2516](https://github.com/kristof-mattei/autoheal-rs/commit/1cf25166f9546aa90172daefc490eed34267d0a1)) - renovate[bot]
-- **(deps)** update enricomi/publish-unit-test-result-action action to v2.17.0 - ([fd609e6](https://github.com/kristof-mattei/autoheal-rs/commit/fd609e6ba5bd53498b26cacb32ec49a3e4bd65df)) - renovate[bot]
-- **(deps)** update npm to >=10.8.2 - ([dea5b67](https://github.com/kristof-mattei/autoheal-rs/commit/dea5b67762a541a657918899d2c0f9451b634fbb)) - renovate[bot]
-- **(deps)** update npm to >=10.8.2 - ([fe068da](https://github.com/kristof-mattei/autoheal-rs/commit/fe068dae5f0ad1b9c7f5829106191229de981ff7)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.79.0 - ([b1c2f6c](https://github.com/kristof-mattei/autoheal-rs/commit/b1c2f6c7d6c2c6de08ee8cc77e43e49ef8b8dcb8)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.79.0 - ([6099498](https://github.com/kristof-mattei/autoheal-rs/commit/60994986edc9082158c6712a566877352f72e9ea)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to be2a4d1 - ([af845f2](https://github.com/kristof-mattei/autoheal-rs/commit/af845f24be2473d3dcbb546418fc77569062cda6)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to be2a4d1 - ([0ed8d8b](https://github.com/kristof-mattei/autoheal-rs/commit/0ed8d8bc9c4e6bea31d7cce4a01262ee3538ca4c)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.0.3 - ([ecc10c1](https://github.com/kristof-mattei/autoheal-rs/commit/ecc10c1f11ce179922a1da9f553ca1b10a3cf5f0)) - renovate[bot]
-- **(deps)** update actions/setup-node action to v4.0.3 - ([649a2f0](https://github.com/kristof-mattei/autoheal-rs/commit/649a2f010a5c4cc7fa1e35333314099873f9d0fa)) - renovate[bot]
-- **(deps)** update dependency node to v20.15.1 - ([e7c6c0d](https://github.com/kristof-mattei/autoheal-rs/commit/e7c6c0d551a59ad7d42ef53ae3a3e505bd30c74e)) - renovate[bot]
-- **(deps)** update dependency node to v20.15.1 - ([8a36ad7](https://github.com/kristof-mattei/autoheal-rs/commit/8a36ad785fdce6329222ed8440d00271c47ca2d0)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.0 - ([c922091](https://github.com/kristof-mattei/autoheal-rs/commit/c92209175ba7a54858ceee449b4487a47ec1e46d)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.1.0 - ([cab4b84](https://github.com/kristof-mattei/autoheal-rs/commit/cab4b84f7b2d5cc6830ae03e9de938a63a5ef894)) - renovate[bot]
-- **(deps)** lock file maintenance - ([b7738fa](https://github.com/kristof-mattei/autoheal-rs/commit/b7738fa2c04c5464da4433d974be5bc5c52c8496)) - renovate[bot]
-- **(deps)** lock file maintenance - ([21bede7](https://github.com/kristof-mattei/autoheal-rs/commit/21bede74894ca3ec6505241aa9d0d31f92a7e6db)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 2e332a0 - ([fd29e85](https://github.com/kristof-mattei/autoheal-rs/commit/fd29e85111d6c7d3272ebfaaff184354fd6966b1)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 2e332a0 - ([38216ed](https://github.com/kristof-mattei/autoheal-rs/commit/38216ed4a3960d7e0551211887f69310314aace6)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.3.4 - ([da052a7](https://github.com/kristof-mattei/autoheal-rs/commit/da052a7ae6bbc289f03ade223d901f4ca5ef353e)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.1.8 - ([b1e4917](https://github.com/kristof-mattei/autoheal-rs/commit/b1e4917f04d32be47d3294e3ef0999a7d21f7707)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.3.4 - ([1efeea2](https://github.com/kristof-mattei/autoheal-rs/commit/1efeea2a355b7fa6ce91e5ebbaece2d2080fd2d8)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.1.8 - ([9944f5b](https://github.com/kristof-mattei/autoheal-rs/commit/9944f5bbd95c594fdfe8351621c999ef5e7ef5d1)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.4.0 - ([3b8b296](https://github.com/kristof-mattei/autoheal-rs/commit/3b8b2961bf8ac107a5087386d329a7beef91fa72)) - renovate[bot]
-- **(deps)** update docker/setup-buildx-action action to v3.4.0 - ([a46bee3](https://github.com/kristof-mattei/autoheal-rs/commit/a46bee3b42b916d41fcd3c649661b872bce85d11)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.3.0 - ([1c71b26](https://github.com/kristof-mattei/autoheal-rs/commit/1c71b26dd77f39714883c0c2c6ab4f3d21d22b80)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.3.0 - ([d56cb14](https://github.com/kristof-mattei/autoheal-rs/commit/d56cb14c523c3f5d9d5d9a66647feb0017264781)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 4c45f61 - ([8b09557](https://github.com/kristof-mattei/autoheal-rs/commit/8b09557a9864ee0583e90d6171fe9c8daa6115f9)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 4c45f61 - ([e263850](https://github.com/kristof-mattei/autoheal-rs/commit/e26385089cf84ec4017d4b46492135dab395d618)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 5f4bc5b - ([390a54f](https://github.com/kristof-mattei/autoheal-rs/commit/390a54f1baee188e2b3258050db2ead2c595edb3)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 4c4f16b - ([4c1c78c](https://github.com/kristof-mattei/autoheal-rs/commit/4c1c78c58048d6e5ddf666f10f26ab387883066f)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 4c4f16b - ([a9794eb](https://github.com/kristof-mattei/autoheal-rs/commit/a9794eb1cb058c0dd216240fbf1ce134be0402c1)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.0.7 - ([6bd5b86](https://github.com/kristof-mattei/autoheal-rs/commit/6bd5b86b621798cbba5321b43b72eb4640f5ebbb)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.0.7 - ([3a42b98](https://github.com/kristof-mattei/autoheal-rs/commit/3a42b98ecd7dab9ddde0c4e4c900b42973d43e32)) - renovate[bot]
-- **(deps)** lock file maintenance - ([fa3559e](https://github.com/kristof-mattei/autoheal-rs/commit/fa3559e127bd6b5a9ffce98ac1653364f0632cba)) - renovate[bot]
-- **(deps)** lock file maintenance - ([80d8fb4](https://github.com/kristof-mattei/autoheal-rs/commit/80d8fb4e424f5312331741e08b2417d9c4762d99)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.11 - ([caff9cc](https://github.com/kristof-mattei/autoheal-rs/commit/caff9cc616c0723db10ef42510a786fd0aa0f707)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.11 - ([6244fa9](https://github.com/kristof-mattei/autoheal-rs/commit/6244fa96a1da9a9b1e68a09b601af3ea714784be)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.78.0 - ([f67796d](https://github.com/kristof-mattei/autoheal-rs/commit/f67796dca8178cb9039aded8303d166f3e11ddf9)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.78.0 - ([2c26e87](https://github.com/kristof-mattei/autoheal-rs/commit/2c26e87adf2cd4db97b5e3294d4f96baf83e6b7f)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.2.0 - ([51d0b42](https://github.com/kristof-mattei/autoheal-rs/commit/51d0b42a57f956fd2bb0effd7dfc43c12160657b)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.2.0 - ([5103476](https://github.com/kristof-mattei/autoheal-rs/commit/510347617968ca8fb700c766b7e48e917b1686a5)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.77.0 - ([8ef3b8a](https://github.com/kristof-mattei/autoheal-rs/commit/8ef3b8a78b168ebab984ea2af6e5591c1c9580fd)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.77.0 - ([dde828c](https://github.com/kristof-mattei/autoheal-rs/commit/dde828c3b691bcae985b59c7f0fc49ec0f3c18d7)) - renovate[bot]
-- **(deps)** lock file maintenance - ([318fc50](https://github.com/kristof-mattei/autoheal-rs/commit/318fc50d6776171b8fc05f443eb21a1de71f8410)) - renovate[bot]
-- **(deps)** lock file maintenance - ([5238a92](https://github.com/kristof-mattei/autoheal-rs/commit/5238a92f50bcf357a9e2374f2ce9bded95f35b30)) - renovate[bot]
-- **(deps)** lock file maintenance - ([8298ffe](https://github.com/kristof-mattei/autoheal-rs/commit/8298ffeb7c49d3597889ec40593a0d3a732662c9)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/release-notes-generator to v14.0.1 - ([c97678e](https://github.com/kristof-mattei/autoheal-rs/commit/c97678e83332c8105df28dd3c7cd214bcf28bbb4)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/release-notes-generator to v14.0.1 - ([39ebf5a](https://github.com/kristof-mattei/autoheal-rs/commit/39ebf5a4d5205afca458613d9e396613d1172ff4)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.1.0 - ([01e0413](https://github.com/kristof-mattei/autoheal-rs/commit/01e0413efe4a8c8125e3d6de6d585e97ee675af9)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.1.0 - ([32b525e](https://github.com/kristof-mattei/autoheal-rs/commit/32b525e184f6372f2111e74ff18b8db2c5d72fa5)) - renovate[bot]
-- **(deps)** update dependency node to v20.15.0 - ([faa7a10](https://github.com/kristof-mattei/autoheal-rs/commit/faa7a100eb45acd50646e3d1a296561cb836c708)) - renovate[bot]
-- **(deps)** update alpine docker digest to b89d9c9 - ([a92e2a7](https://github.com/kristof-mattei/autoheal-rs/commit/a92e2a78b21d99264543192e449ebf4112e4064e)) - renovate[bot]
-- **(deps)** update alpine docker tag to v3.20.1 - ([df04afa](https://github.com/kristof-mattei/autoheal-rs/commit/df04afac41235a1b20ba2761cdc03c6a2c28b27e)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to b89d9c9 - ([c8d917a](https://github.com/kristof-mattei/autoheal-rs/commit/c8d917a96aa901e399d5ed03ee34be1c4fb4394a)) - renovate[bot]
-- **(deps)** update dependency node to v20.15.0 - ([f09c61a](https://github.com/kristof-mattei/autoheal-rs/commit/f09c61a6f9b9a98cd892b33afc7b026f31664810)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to b2bf705 - ([3ffc33c](https://github.com/kristof-mattei/autoheal-rs/commit/3ffc33cf25a53971cbf589084cc99a3425684c32)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.0.2 - ([236bdb7](https://github.com/kristof-mattei/autoheal-rs/commit/236bdb7568cfe383289cf705ad9362714a8aef6b)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.0.2 - ([d8d212c](https://github.com/kristof-mattei/autoheal-rs/commit/d8d212cd186a711184c1c9a119925ead2abbcce5)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.0.1 - ([c9c0431](https://github.com/kristof-mattei/autoheal-rs/commit/c9c0431d711887c42062b13c2ad921f3009bcd0b)) - renovate[bot]
-- **(deps)** update docker/build-push-action digest to 94f8f8c - ([50c25f4](https://github.com/kristof-mattei/autoheal-rs/commit/50c25f4815d6f7f854c51850f1b8f2df0ef5cc72)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6.0.1 - ([275bce7](https://github.com/kristof-mattei/autoheal-rs/commit/275bce71b3bc93a9fe112c9eb965b575e7eb8cdb)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6 - ([80fdf99](https://github.com/kristof-mattei/autoheal-rs/commit/80fdf996c857c99c1278b1fa19939ed4e215b76b)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v6 - ([6c3fec6](https://github.com/kristof-mattei/autoheal-rs/commit/6c3fec60b7b606113f455f9d41d3114dff906055)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.76.0 - ([6a294db](https://github.com/kristof-mattei/autoheal-rs/commit/6a294dba26233e2f4c955b2b4076738cc86a0f24)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.76.0 - ([353df23](https://github.com/kristof-mattei/autoheal-rs/commit/353df23ce514f0e20d57360adc97b35df6bb3260)) - renovate[bot]
-- **(deps)** lock file maintenance - ([13bda27](https://github.com/kristof-mattei/autoheal-rs/commit/13bda279c314e77d2df57106c772c8cc0be4caac)) - renovate[bot]
-- **(deps)** lock file maintenance - ([0b7ff33](https://github.com/kristof-mattei/autoheal-rs/commit/0b7ff33edc5c2e73e48a54f3f2699b425af17183)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 65685f4 - ([e28a977](https://github.com/kristof-mattei/autoheal-rs/commit/e28a977e1d3d66bd8f97eb9e6ec8e6b75f112f3b)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 65685f4 - ([15a844f](https://github.com/kristof-mattei/autoheal-rs/commit/15a844f2ac7cf2789bdb08cad1ba49b0d73c9abf)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 2c454db - ([352f724](https://github.com/kristof-mattei/autoheal-rs/commit/352f7243ee1274b5a68bb981a4ca4f53535a65ce)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 2c454db - ([9eefc5d](https://github.com/kristof-mattei/autoheal-rs/commit/9eefc5d6b71d2e3273f99bf89f1ff01c71056595)) - renovate[bot]
-- **(deps)** update rust:1.79.0 docker digest to 5b3e9cc - ([cd8d5bb](https://github.com/kristof-mattei/autoheal-rs/commit/cd8d5bb81b8c9db5471d37aa3ea4c725875e7a36)) - renovate[bot]
-- **(deps)** update rust to v1.79.0 - ([aca01f4](https://github.com/kristof-mattei/autoheal-rs/commit/aca01f4f7f8b114016c9d0bb75e5a932854d0d7f)) - renovate[bot]
-- **(deps)** update rust docker tag to v1.79.0 - ([1d12b61](https://github.com/kristof-mattei/autoheal-rs/commit/1d12b619ec9b847e8c8b18b202712b37f202ada2)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- **(deps)** update github/codeql-action action to v3.25.10 - ([07029dd](https://github.com/kristof-mattei/autoheal-rs/commit/07029ddf010ad4ae5fba188af1e1ef8c4d002d0d)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.10 - ([e20c865](https://github.com/kristof-mattei/autoheal-rs/commit/e20c86557bb87cf660387aa6ae0b0548bbb45117)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v4.5.0 - ([874b4ea](https://github.com/kristof-mattei/autoheal-rs/commit/874b4ea15e36256dadbf1c1c7db9d84787a908f5)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v4.5.0 - ([e579e2a](https://github.com/kristof-mattei/autoheal-rs/commit/e579e2a1a159c4f97cd5e2f36dfd812a6797643c)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.1.7 - ([c72957f](https://github.com/kristof-mattei/autoheal-rs/commit/c72957fddc2a40af3c05ce7eef25cbceaa5c91f3)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.1.7 - ([fcb4620](https://github.com/kristof-mattei/autoheal-rs/commit/fcb462019adefdec0c91c74d3e7d0a1e6dc51b1a)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.9 - ([41db756](https://github.com/kristof-mattei/autoheal-rs/commit/41db756c914f9726df0eab764a822cfd7330bed0)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.9 - ([a64a063](https://github.com/kristof-mattei/autoheal-rs/commit/a64a063b832e9b4e5c1c54e37724714ff67d32a0)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.3.2 - ([4e8653a](https://github.com/kristof-mattei/autoheal-rs/commit/4e8653a91a8905315fd1e89e89c947cc78127fd7)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.3.2 - ([f696a52](https://github.com/kristof-mattei/autoheal-rs/commit/f696a52f5ec5fd7116bdec1f510c43348598c6b6)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v5.4.0 - ([a0e358f](https://github.com/kristof-mattei/autoheal-rs/commit/a0e358f58f6b615d9d50f57dcb803a63b94e5c4d)) - renovate[bot]
-- **(deps)** update docker/build-push-action action to v5.4.0 - ([435e491](https://github.com/kristof-mattei/autoheal-rs/commit/435e491f716cfafad59313d1f33e933716ffb990)) - renovate[bot]
-- **(deps)** lock file maintenance - ([4895e65](https://github.com/kristof-mattei/autoheal-rs/commit/4895e65c981ca540ffc4b1db896a9d0b9dd83505)) - renovate[bot]
-- **(deps)** lock file maintenance - ([57450b8](https://github.com/kristof-mattei/autoheal-rs/commit/57450b8725259b20db391545613a356b83cc4561)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.3.1 - ([d07836d](https://github.com/kristof-mattei/autoheal-rs/commit/d07836d50bdde407386afeffcf76eeff9ba37094)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.3.1 - ([9aa80eb](https://github.com/kristof-mattei/autoheal-rs/commit/9aa80ebc66b824c8ff585054c3abb8c7bae391e1)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.0.6 - ([8de0062](https://github.com/kristof-mattei/autoheal-rs/commit/8de006214432c2445ca47323db678a124a28afdb)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.0.6 - ([57604df](https://github.com/kristof-mattei/autoheal-rs/commit/57604dfdea37968c191ccd2517790833bbf254d6)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.8 - ([17522ac](https://github.com/kristof-mattei/autoheal-rs/commit/17522ac09147d27ab23b51970cc329ec5fb14d41)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.8 - ([c388758](https://github.com/kristof-mattei/autoheal-rs/commit/c388758d685eeaf950f4deda74458ae6d2c719ed)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.75.0 - ([0c5b096](https://github.com/kristof-mattei/autoheal-rs/commit/0c5b09673bfbec9e8ea7b19ea14e5b158c55eea8)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.75.0 - ([758e14e](https://github.com/kristof-mattei/autoheal-rs/commit/758e14e568c92c77774fdde400f7bade0069704f)) - renovate[bot]
-- **(deps)** lock file maintenance - ([67c0f7a](https://github.com/kristof-mattei/autoheal-rs/commit/67c0f7aa077d30c556522858e3e5d527b0c1593a)) - renovate[bot]
-- **(deps)** lock file maintenance - ([015e396](https://github.com/kristof-mattei/autoheal-rs/commit/015e396259057639c5b2196c46ce5aedc61ae73b)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.3.0 - ([3dbf11d](https://github.com/kristof-mattei/autoheal-rs/commit/3dbf11d6973d012d66d3de3e6e24227eaefa9731)) - renovate[bot]
-- **(deps)** update dependency prettier to v3.3.0 - ([f6f2f8f](https://github.com/kristof-mattei/autoheal-rs/commit/f6f2f8fd1ffd3507185eaf0ec7a3afc62c168928)) - renovate[bot]
-- **(deps)** update semantic-release monorepo - ([788eb61](https://github.com/kristof-mattei/autoheal-rs/commit/788eb618eeedf6cd80f364154d7531d18b46b5bf)) - renovate[bot]
-- **(deps)** update semantic-release monorepo - ([29b5173](https://github.com/kristof-mattei/autoheal-rs/commit/29b517311670c18fc101bab5de932798345b67be)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.7 - ([9d41bdd](https://github.com/kristof-mattei/autoheal-rs/commit/9d41bdd3c93499c62bc1fc0c5a130004f76f8aa9)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.7 - ([a3ffd3f](https://github.com/kristof-mattei/autoheal-rs/commit/a3ffd3fb3517ffad696f54816e572e02af1b22a6)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to ddc1ee0 - ([3fb1186](https://github.com/kristof-mattei/autoheal-rs/commit/3fb1186109507af637016c026160fb9581591cf7)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to ddc1ee0 - ([1949121](https://github.com/kristof-mattei/autoheal-rs/commit/19491218b460a753152ab5f21f51209674720faa)) - renovate[bot]
-- **(deps)** update npm to >=10.8.1 - ([33f9ac5](https://github.com/kristof-mattei/autoheal-rs/commit/33f9ac57783f4fc8037a16680a5352dcd0f767ed)) - renovate[bot]
-- **(deps)** update npm to >=10.8.1 - ([d73110e](https://github.com/kristof-mattei/autoheal-rs/commit/d73110ec80076be09cbbd4b28e38b826ebfce027)) - renovate[bot]
-- **(deps)** update dependency node to v20.14.0 - ([599479a](https://github.com/kristof-mattei/autoheal-rs/commit/599479a8b2ee5d5779f6ffa1f133db8e86b32401)) - renovate[bot]
-- **(deps)** update dependency node to v20.14.0 - ([4ab3bd7](https://github.com/kristof-mattei/autoheal-rs/commit/4ab3bd7f22256e86fd33d02dc76d0ed0b4981e09)) - renovate[bot]
-- **(deps)** update docker/login-action action to v3.2.0 - ([72c0c8b](https://github.com/kristof-mattei/autoheal-rs/commit/72c0c8b6fb072dad88fb33c7926321663a73a1b8)) - renovate[bot]
-- **(deps)** update docker/login-action action to v3.2.0 - ([6d47a61](https://github.com/kristof-mattei/autoheal-rs/commit/6d47a610758a7058147e591e5deac561ddf8b401)) - renovate[bot]
-- **(deps)** lock file maintenance - ([2695448](https://github.com/kristof-mattei/autoheal-rs/commit/26954485a98419279a9422ba9a1f5f9311d8d7d9)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.74.0 - ([804262d](https://github.com/kristof-mattei/autoheal-rs/commit/804262dcc274c3d989426515c8a1cc97ed906fe9)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.74.0 - ([1df693d](https://github.com/kristof-mattei/autoheal-rs/commit/1df693d4e55e35ca06622f9f4a2fce1f479111e5)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.0.5 - ([ad4bc44](https://github.com/kristof-mattei/autoheal-rs/commit/ad4bc4426eeb07268036bd6aa1f041e67db20b7b)) - renovate[bot]
-- **(deps)** update alpine:latest docker digest to 77726ef - ([8bcbc5a](https://github.com/kristof-mattei/autoheal-rs/commit/8bcbc5af7ce157def78f4ea41ae743c6cb5eefda)) - renovate[bot]
-- **(deps)** update alpine docker tag to v3.20.0 - ([3abee68](https://github.com/kristof-mattei/autoheal-rs/commit/3abee68167c47d5822400e1a6385c71ec7a5199f)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.0.5 - ([984ff41](https://github.com/kristof-mattei/autoheal-rs/commit/984ff41009bf6f84acf679779ca2e176a79b19f7)) - renovate[bot]
-- **(deps)** update alpine docker digest to 77726ef - ([d5b2aba](https://github.com/kristof-mattei/autoheal-rs/commit/d5b2abaa9faab46beb4763758398829e795eb9bd)) - renovate[bot]
-- **(deps)** update alpine docker digest to 0695fb1 - ([c24fdbd](https://github.com/kristof-mattei/autoheal-rs/commit/c24fdbd7149612bf479c6956518865cc9b3ea34c)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.6 - ([dde81c7](https://github.com/kristof-mattei/autoheal-rs/commit/dde81c7ca106bbc8eb9fcc11384a4f0b9367ca31)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v4.4.1 - ([b008696](https://github.com/kristof-mattei/autoheal-rs/commit/b008696b3c7fd860023a4a05b54ee2c562f32971)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v4.4.1 - ([f71436b](https://github.com/kristof-mattei/autoheal-rs/commit/f71436b8f50ca880196b75828e9bcd0b9df06013)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.6 - ([37c2152](https://github.com/kristof-mattei/autoheal-rs/commit/37c21522e2a37724d9ade57e6f53a1638750e22c)) - renovate[bot]
-- **(deps)** lock file maintenance - ([5a237d5](https://github.com/kristof-mattei/autoheal-rs/commit/5a237d570f06543c58355259acef4eb2f45ad311)) - renovate[bot]
-- **(deps)** lock file maintenance - ([e9cfc3e](https://github.com/kristof-mattei/autoheal-rs/commit/e9cfc3e7057286c17f809653c481cc8e0cac733f)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.1.6 - ([d2d82e2](https://github.com/kristof-mattei/autoheal-rs/commit/d2d82e2f8dec7ea691550f37573904706bf01fc5)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.1.6 - ([73abfa3](https://github.com/kristof-mattei/autoheal-rs/commit/73abfa357d8befb627370e1af4d30d8eb6514340)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.73.0 - ([ce959fd](https://github.com/kristof-mattei/autoheal-rs/commit/ce959fdb712f1e216260922e7d57bd2dbd1bcde8)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.73.0 - ([f365b6e](https://github.com/kristof-mattei/autoheal-rs/commit/f365b6e89487ad99eb3c5f04a9002c41a0e504ea)) - renovate[bot]
-- **(deps)** update npm to >=10.8.0 - ([44a8aa0](https://github.com/kristof-mattei/autoheal-rs/commit/44a8aa04e7a8f416feb34c64f740e8b7b088532e)) - renovate[bot]
-- **(deps)** update npm to >=10.8.0 - ([906b3d4](https://github.com/kristof-mattei/autoheal-rs/commit/906b3d45b66276a0d95f2dd430be8e5d4ae99756)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.0.4 - ([d7b8e01](https://github.com/kristof-mattei/autoheal-rs/commit/d7b8e01442cc7d495503d1c7b1e571f821211ff1)) - renovate[bot]
-- **(deps)** update dependency @semantic-release/github to v10.0.4 - ([ac9f97d](https://github.com/kristof-mattei/autoheal-rs/commit/ac9f97dac8444d743b8ee66224b4eb31ef100df5)) - renovate[bot]
-- **(deps)** update rust:1.78.0 docker digest to 5907e96 - ([1fb33dd](https://github.com/kristof-mattei/autoheal-rs/commit/1fb33dd6f1e88b685d282cd64a258e3b01cf4c17)) - renovate[bot]
-- **(deps)** update rust:1.78.0 docker digest to 5907e96 - ([e60a732](https://github.com/kristof-mattei/autoheal-rs/commit/e60a732748f5ef1fdd3292549df9b45c06a614aa)) - renovate[bot]
-- **(deps)** update rust:1.78.0 docker digest to c296ad0 - ([1535c77](https://github.com/kristof-mattei/autoheal-rs/commit/1535c7791c5a2591558d11cdbfaf8fd7f207ab82)) - renovate[bot]
-- **(deps)** update rust:1.78.0 docker digest to c296ad0 - ([7eaac2d](https://github.com/kristof-mattei/autoheal-rs/commit/7eaac2d6dcfb52122bc2df05f96d2d1e3ef6cedc)) - renovate[bot]
-- **(deps)** update rust:1.78.0 docker digest to a558d49 - ([004a6fc](https://github.com/kristof-mattei/autoheal-rs/commit/004a6fce44e53cf57f6880812d84763a774cb9c5)) - renovate[bot]
-- **(deps)** update rust:1.78.0 docker digest to 0b23e41 - ([025723c](https://github.com/kristof-mattei/autoheal-rs/commit/025723c297ef53b6a0f4e64a56ea77eeb27bef59)) - renovate[bot]
-- **(deps)** update rust:1.78.0 docker digest to 0b23e41 - ([85c5f01](https://github.com/kristof-mattei/autoheal-rs/commit/85c5f01e27ffa2d8687d634462afd80e557a1315)) - renovate[bot]
-- **(deps)** update rust:1.78.0 docker digest to d3d021c - ([eecf216](https://github.com/kristof-mattei/autoheal-rs/commit/eecf216fc9a82636b297db50be86c57738c20609)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v4.4.0 - ([b5f86fa](https://github.com/kristof-mattei/autoheal-rs/commit/b5f86fa3aa542625e754e90b1d21d2c3ec3e858d)) - renovate[bot]
-- **(deps)** update rust:1.78.0 docker digest to d3d021c - ([cd615c9](https://github.com/kristof-mattei/autoheal-rs/commit/cd615c9fc05e86d7c9c6a32d7d73bb8b95e46b27)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v4.4.0 - ([17b53d0](https://github.com/kristof-mattei/autoheal-rs/commit/17b53d0f33b46a65b1ed20c1e43889750b189595)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.5 - ([6a5a8d4](https://github.com/kristof-mattei/autoheal-rs/commit/6a5a8d4a8f59439f3da0fbe369c6ac973ba1c32c)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.5 - ([3fa4121](https://github.com/kristof-mattei/autoheal-rs/commit/3fa412142b7f97e35a1435d42f3f59d23a0d37d9)) - renovate[bot]
-- **(deps)** lock file maintenance - ([88963f7](https://github.com/kristof-mattei/autoheal-rs/commit/88963f77b4b480ad368bd85ddbb0201d702cd39b)) - renovate[bot]
-- **(deps)** lock file maintenance - ([6aa7933](https://github.com/kristof-mattei/autoheal-rs/commit/6aa7933c2f12bc5ea003774bda9d4b5e81c1df4f)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 8de9eea - ([cf5c319](https://github.com/kristof-mattei/autoheal-rs/commit/cf5c31958b86b4ede87ae663fca1d26438826819)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to 8de9eea - ([4fcd364](https://github.com/kristof-mattei/autoheal-rs/commit/4fcd364a611b8518e3884a6ef5e01cc1ca1bdd01)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to eaf386f - ([c2d2958](https://github.com/kristof-mattei/autoheal-rs/commit/c2d29585f6c47164a9f17bb5f64578c5d6a85c4f)) - renovate[bot]
-- **(deps)** update rui314/setup-mold digest to eaf386f - ([0a2f6fb](https://github.com/kristof-mattei/autoheal-rs/commit/0a2f6fb856399e6c1e835dfcfc5c49e3066ae6da)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v23.1.1 - ([6d42d93](https://github.com/kristof-mattei/autoheal-rs/commit/6d42d9380687046ad227c4be0ab89d07472eefe3)) - renovate[bot]
-- **(deps)** update dependency semantic-release to v23.1.1 - ([9642277](https://github.com/kristof-mattei/autoheal-rs/commit/9642277d520defdc287a7a8b1f7ec940fc571e78)) - renovate[bot]
-- **(deps)** update dependency node to v20.13.1 - ([a4c1710](https://github.com/kristof-mattei/autoheal-rs/commit/a4c1710c4184862a9a80b71058b078f5d9c06792)) - renovate[bot]
-- **(deps)** update dependency node to v20.13.1 - ([7f56526](https://github.com/kristof-mattei/autoheal-rs/commit/7f56526e448a5d997ef621ebd4d133f064017fcd)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.72.0 - ([dec42a7](https://github.com/kristof-mattei/autoheal-rs/commit/dec42a7cd1710b51922c159b31d1681fc1685cee)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.1.5 - ([c8afd6d](https://github.com/kristof-mattei/autoheal-rs/commit/c8afd6d70cf114fb03147dbd0fecc4f4e4d042e8)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.72.0 - ([83f191b](https://github.com/kristof-mattei/autoheal-rs/commit/83f191b2f9f31069151bd5d214969f87996c4a3b)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.1.5 - ([3e3a19c](https://github.com/kristof-mattei/autoheal-rs/commit/3e3a19c8309f6e003e622d2f7914bd84ee57084c)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.4 - ([ab3c018](https://github.com/kristof-mattei/autoheal-rs/commit/ab3c018064c756bdcc1a311bfeb3a860a5cc4f26)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.4 - ([6754895](https://github.com/kristof-mattei/autoheal-rs/commit/6754895440a1dee5f1b8867b13133cfb021f164c)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to e6a3886 - ([90c4576](https://github.com/kristof-mattei/autoheal-rs/commit/90c45765fdaaeb229be1ba0db172d5daffc845e1)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to e6a3886 - ([8ca9107](https://github.com/kristof-mattei/autoheal-rs/commit/8ca9107e4da5bfbc75e109515baff990ccdac421)) - renovate[bot]
-- **(deps)** update dependency node to v20.13.0 - ([48f525a](https://github.com/kristof-mattei/autoheal-rs/commit/48f525ad6c512826d5d68d16c642fb81d6e14cf0)) - renovate[bot]
-- **(deps)** update dependency node to v20.13.0 - ([d08db1a](https://github.com/kristof-mattei/autoheal-rs/commit/d08db1a62efa1157acd4cb45367e6277079b0834)) - renovate[bot]
-- **(deps)** lock file maintenance - ([8dd74ed](https://github.com/kristof-mattei/autoheal-rs/commit/8dd74ed714d4d9c67916e9158f4863510e1a6497)) - renovate[bot]
-- **(deps)** lock file maintenance - ([4de3283](https://github.com/kristof-mattei/autoheal-rs/commit/4de328392b7a82444628caa5ebb770ef540b4e6e)) - renovate[bot]
-- **(deps)** update dependency conventional-changelog-conventionalcommits to v8 - ([14ea08d](https://github.com/kristof-mattei/autoheal-rs/commit/14ea08d9be4b97ff278aeac1c31545ae60cd2b29)) - renovate[bot]
-- **(deps)** update dependency conventional-changelog-conventionalcommits to v8 - ([4ca52ed](https://github.com/kristof-mattei/autoheal-rs/commit/4ca52ed3c3d69e5442bc4a0a9c6ace52cefc9353)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.71.0 - ([050af56](https://github.com/kristof-mattei/autoheal-rs/commit/050af56f2ffb7bca68461611fb91570e2000a4f6)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.71.0 - ([bb316d9](https://github.com/kristof-mattei/autoheal-rs/commit/bb316d9865b9f875a84786b82a0ecbcaba499673)) - renovate[bot]
-- **(deps)** update rust:1.78.0 docker digest to 0dd183f - ([785d696](https://github.com/kristof-mattei/autoheal-rs/commit/785d696de9bd7e18d35faec387b3ee34302e5191)) - renovate[bot]
-- **(deps)** update rust:1.78.0 docker digest to 0dd183f - ([4df8155](https://github.com/kristof-mattei/autoheal-rs/commit/4df8155dccf562df986c074af2ef52aa433326ea)) - renovate[bot]
-- **(deps)** update rust to v1.78.0 - ([d069b51](https://github.com/kristof-mattei/autoheal-rs/commit/d069b517986d26b7800fe1a632ef3205137ae6ed)) - renovate[bot]
-- **(deps)** update rust to v1.78.0 - ([53bae15](https://github.com/kristof-mattei/autoheal-rs/commit/53bae15775863ccf0458076ab74695a496268fe9)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v4.3.1 - ([aee3fdc](https://github.com/kristof-mattei/autoheal-rs/commit/aee3fdc4c43430c5e989c3e0bef09ff51b31deef)) - renovate[bot]
-- **(deps)** update codecov/codecov-action action to v4.3.1 - ([9dd026e](https://github.com/kristof-mattei/autoheal-rs/commit/9dd026eff577b5753ba1a575485e0918ca1d1ea3)) - renovate[bot]
-- **(deps)** update npm to >=10.7.0 - ([2c172e5](https://github.com/kristof-mattei/autoheal-rs/commit/2c172e580809f69602571be7bf84ec0b1cffec27)) - renovate[bot]
-- **(deps)** update npm to >=10.7.0 - ([a6d5eec](https://github.com/kristof-mattei/autoheal-rs/commit/a6d5eecd3e678a55479fa4a3adba1fb66ccecb97)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 83101f6 - ([d360e90](https://github.com/kristof-mattei/autoheal-rs/commit/d360e903817420214deb488e0a6a9949d6fa9011)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 83101f6 - ([5a8233f](https://github.com/kristof-mattei/autoheal-rs/commit/5a8233fdd2969658f9c1a55dee26cbd9398e234e)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 371ae51 - ([66cb745](https://github.com/kristof-mattei/autoheal-rs/commit/66cb7457466dabf9875ac8bb0879de6bede45fc3)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 371ae51 - ([d67e2b3](https://github.com/kristof-mattei/autoheal-rs/commit/d67e2b389f1777d4d77aa93f74c07c0606b15529)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 0240e09 - ([13e120b](https://github.com/kristof-mattei/autoheal-rs/commit/13e120b2c7c581d535f7b8c35d3f7bcb60484007)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 0240e09 - ([d16a7a7](https://github.com/kristof-mattei/autoheal-rs/commit/d16a7a7035c359f283c74086d1654ce201e0ca30)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to a429f26 - ([0abfbd8](https://github.com/kristof-mattei/autoheal-rs/commit/0abfbd813286793a80d2247ec01b09c83d03789e)) - renovate[bot]
-- **(deps)** update mcr.microsoft.com/devcontainers/rust:1-1-bullseye docker digest to a429f26 - ([a7198b6](https://github.com/kristof-mattei/autoheal-rs/commit/a7198b6d7db79ba67643cf62e2bd9f3294823d43)) - renovate[bot]
-- **(deps)** lock file maintenance - ([30d2d63](https://github.com/kristof-mattei/autoheal-rs/commit/30d2d63751152bfe8195b296774e3967e4fcfb30)) - renovate[bot]
-- **(deps)** lock file maintenance - ([55f4714](https://github.com/kristof-mattei/autoheal-rs/commit/55f4714e9a13804376b3aaed55351ca86f02d70f)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 8f891e6 - ([6be5cb6](https://github.com/kristof-mattei/autoheal-rs/commit/6be5cb6738811c0a0d2a0640d1587c2b0cc20c20)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 8f891e6 - ([9f339c1](https://github.com/kristof-mattei/autoheal-rs/commit/9f339c15a94c6635dfc4d1f3f466dea1abcdeb4d)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.3 - ([d8844e0](https://github.com/kristof-mattei/autoheal-rs/commit/d8844e0abbc38d9dfed3b1795bcc36673e77d1f4)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.3 - ([6c673dd](https://github.com/kristof-mattei/autoheal-rs/commit/6c673dd260c0ab7b8864f93a10295ec9835f5a60)) - renovate[bot]
-- **(deps)** update npm to >=10.6.0 - ([6334623](https://github.com/kristof-mattei/autoheal-rs/commit/633462372e8044c37a10f34c1c3182d9dfebb5c6)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.1.4 - ([f9f10ff](https://github.com/kristof-mattei/autoheal-rs/commit/f9f10ff4f1d0263fe738bbbc9517a863dd800c8c)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 491c4b7 - ([2660857](https://github.com/kristof-mattei/autoheal-rs/commit/266085702a2417f2c4ee3bd913cd4d3745bf7f4d)) - renovate[bot]
-- **(deps)** update npm to >=10.6.0 - ([b8455a3](https://github.com/kristof-mattei/autoheal-rs/commit/b8455a3b92755e2f82774334661507aadd8c9821)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 491c4b7 - ([4789ccc](https://github.com/kristof-mattei/autoheal-rs/commit/4789ccc2a82f98f12f35487804d1038c063d3dd6)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 8824f00 - ([51162d1](https://github.com/kristof-mattei/autoheal-rs/commit/51162d1e61cfa04f82bd08e3b8a3da490f06a397)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.1.4 - ([72db4de](https://github.com/kristof-mattei/autoheal-rs/commit/72db4de3d85b411186e46b3669d331c19dce5a92)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 8824f00 - ([efd2397](https://github.com/kristof-mattei/autoheal-rs/commit/efd239788289817336ce229453f26921e311259a)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 660454d - ([8c5d392](https://github.com/kristof-mattei/autoheal-rs/commit/8c5d392b1e99b4fb3dcfc8d08676bc87b5be45d0)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 660454d - ([e391c7b](https://github.com/kristof-mattei/autoheal-rs/commit/e391c7b5a5ca3c2bb0acfccbaa4817b6f0b70aa4)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.70.0 - ([cce2d68](https://github.com/kristof-mattei/autoheal-rs/commit/cce2d6892f5e70345c7d9869b603f62aa68fd7e0)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.70.0 - ([b2ed31f](https://github.com/kristof-mattei/autoheal-rs/commit/b2ed31f1e3ee3f0985deff6414f36712b09b8d18)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 76b4fd3 - ([5ebeff2](https://github.com/kristof-mattei/autoheal-rs/commit/5ebeff2cdb4c327cc5f24270e90b1d2ec7b23a31)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 76b4fd3 - ([a7a6a02](https://github.com/kristof-mattei/autoheal-rs/commit/a7a6a023a2ad2a16d82708213fe02fc1ecbb8803)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.1.7 - ([b323811](https://github.com/kristof-mattei/autoheal-rs/commit/b323811b30a4b73acd61e95ecbc9e7baa9b2f87c)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.1.7 - ([685dc13](https://github.com/kristof-mattei/autoheal-rs/commit/685dc13a652cd9d1809b8cc159cd88178e837cae)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.2 - ([e59cdfa](https://github.com/kristof-mattei/autoheal-rs/commit/e59cdfa258117117736e89977ead9cc0423075c2)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.2 - ([90f13b8](https://github.com/kristof-mattei/autoheal-rs/commit/90f13b815d7ff7ca91cfbbecabe1efa94c0e9c49)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.1.6 - ([5653762](https://github.com/kristof-mattei/autoheal-rs/commit/5653762fa0ba7f55913845d1049b2a9c898bec1e)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.1.6 - ([9b3212a](https://github.com/kristof-mattei/autoheal-rs/commit/9b3212aa92e4bf88af476d4accab45df0a0d70f1)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.3.3 - ([18f7d24](https://github.com/kristof-mattei/autoheal-rs/commit/18f7d2419f6f1b7ad7f4fd4962ebbd6010120c76)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.3.3 - ([8d66ef5](https://github.com/kristof-mattei/autoheal-rs/commit/8d66ef5b8f07a8ef1aff7365f17a2fe315bcf588)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.1.3 - ([0d6f579](https://github.com/kristof-mattei/autoheal-rs/commit/0d6f5799fcdb5ed0e957f7fdfef78ddfa6dd005b)) - renovate[bot]
-- **(deps)** update actions/checkout action to v4.1.3 - ([6178420](https://github.com/kristof-mattei/autoheal-rs/commit/61784209b27530a9fce7782178e31d464c135df3)) - renovate[bot]
-- **(deps)** lock file maintenance - ([77877eb](https://github.com/kristof-mattei/autoheal-rs/commit/77877eb0f6292a281b07eb97e9caafe63303588e)) - renovate[bot]
-- **(deps)** lock file maintenance - ([f2a8bdd](https://github.com/kristof-mattei/autoheal-rs/commit/f2a8bdd897fbce22656b54dad6a8f9ccadb06058)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 6052afe - ([f955530](https://github.com/kristof-mattei/autoheal-rs/commit/f9555304a7bd5b71ae40c6ac901c8167f77584b3)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 6052afe - ([f3b0e50](https://github.com/kristof-mattei/autoheal-rs/commit/f3b0e501ea504dd5b1608d11584aa04a38705363)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 5cff578 - ([feebcee](https://github.com/kristof-mattei/autoheal-rs/commit/feebcee78e1947318fd50ab0f0bc92da8f20149d)) - renovate[bot]
-- **(deps)** update rust:1.77.2 docker digest to 5cff578 - ([8ae4953](https://github.com/kristof-mattei/autoheal-rs/commit/8ae4953f912092cd9acceeda1f1a6a00f942098b)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.3.2 - ([a1f8f64](https://github.com/kristof-mattei/autoheal-rs/commit/a1f8f641b6133152423b8ebe7367d9823d39a066)) - renovate[bot]
-- **(deps)** update actions/upload-artifact action to v4.3.2 - ([1124abe](https://github.com/kristof-mattei/autoheal-rs/commit/1124abe785efac8515eaea7dc12d061edcbea2e1)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.1.5 - ([a8072e2](https://github.com/kristof-mattei/autoheal-rs/commit/a8072e20d0ecf685dd34cfb9ffc0834b21c558a0)) - renovate[bot]
-- **(deps)** update actions/download-artifact action to v4.1.5 - ([30312f6](https://github.com/kristof-mattei/autoheal-rs/commit/30312f60e460bf2c2582d759454fbdc9e22f0321)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.1 - ([a7f3fc1](https://github.com/kristof-mattei/autoheal-rs/commit/a7f3fc1972d843f9ba9bf9cc9db4637a65b77bf7)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.1 - ([cb22cec](https://github.com/kristof-mattei/autoheal-rs/commit/cb22cecd380b9e2992f84b934d12f41049ecaf6a)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.69.0 - ([fe7a9f4](https://github.com/kristof-mattei/autoheal-rs/commit/fe7a9f4eed7158ad76b60af2176570167be853e7)) - renovate[bot]
-- **(deps)** update returntocorp/semgrep docker tag to v1.69.0 - ([933f02e](https://github.com/kristof-mattei/autoheal-rs/commit/933f02e502f5e76b3d5d126cbf16d29c74b23a3f)) - renovate[bot]
-- **(deps)** update dependency node to v20.12.2 - ([39abb48](https://github.com/kristof-mattei/autoheal-rs/commit/39abb48aa5f5f0c00490120f8eef0929f1ab7e47)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.0 - ([d3106f8](https://github.com/kristof-mattei/autoheal-rs/commit/d3106f8f93a4cd810f442d1df235db2a13a54558)) - renovate[bot]
-- **(deps)** update github/codeql-action action to v3.25.0 - ([e5d15f8](https://github.com/kristof-mattei/autoheal-rs/commit/e5d15f8dc239828e2ac32ffa973aad58640c11f9)) - renovate[bot]
-- **(deps)** lock file maintenance - ([93ab6e6](https://github.com/kristof-mattei/autoheal-rs/commit/93ab6e63cb3ae2bada53eee05444d11ebaacc39e)) - renovate[bot]
-- **(deps)** lock file maintenance - ([742663d](https://github.com/kristof-mattei/autoheal-rs/commit/742663d1c3984535308491628a7e7606cd142581)) - renovate[bot]
-- **(version)** v1.3.1 - ([096c422](https://github.com/kristof-mattei/autoheal-rs/commit/096c4229799cecace867a1de699a7f65eefe59bb)) - github-actions
-- **(version)** v1.3.0 - ([bee1b83](https://github.com/kristof-mattei/autoheal-rs/commit/bee1b83e6cfe1afd6286073fc1bb38787c0ba48e)) - github-actions
-- **(version)** v1.2.0 - ([1dbbec6](https://github.com/kristof-mattei/autoheal-rs/commit/1dbbec608864c5cb559a90d8904996011daef52c)) - github-actions
-- simplify prettierconfig - ([15da060](https://github.com/kristof-mattei/autoheal-rs/commit/15da060278add228c90f65f822279a0f93e43ed2)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- also format toml - ([aebaeae](https://github.com/kristof-mattei/autoheal-rs/commit/aebaeae7a9cd79ead5a4bd64e7c5f5633bca43a8)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- fmt - ([e28e2d9](https://github.com/kristof-mattei/autoheal-rs/commit/e28e2d9467de13ed7431bbcd0bed16f960057b69)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- cleanup - ([146c27d](https://github.com/kristof-mattei/autoheal-rs/commit/146c27dc94d80bb1a3dfc3fa2a3459c3ea29d7cd)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- enable clone_on_ref_ptr - ([1afa75c](https://github.com/kristof-mattei/autoheal-rs/commit/1afa75c15ffd8409cacab55724fbdeb171bef55e)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- settings update - ([be03d72](https://github.com/kristof-mattei/autoheal-rs/commit/be03d72b4def3a601986845cd063edd915e71daa)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove glob from path - ([faf30f8](https://github.com/kristof-mattei/autoheal-rs/commit/faf30f8f10ecc0d43c0d07f1fed5883694f5ef2d)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- rust doesn't support manual mode, no need to pre-build - ([e932a61](https://github.com/kristof-mattei/autoheal-rs/commit/e932a6182bc42113faf8ff9aecc9a3c551897236)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- cleanup - ([1135c86](https://github.com/kristof-mattei/autoheal-rs/commit/1135c86230b38095743a9cb189064872fcb3a51a)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- fix dockerfile instruction order - ([6013577](https://github.com/kristof-mattei/autoheal-rs/commit/6013577f1f0615e0cf8d1c861c5b3bcc0d421df9)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- don't push image cargo build/test/... failed - ([bbc21d0](https://github.com/kristof-mattei/autoheal-rs/commit/bbc21d076d767fe5fa393f782b7dcc43b63d831d)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- cleanup - ([f113c99](https://github.com/kristof-mattei/autoheal-rs/commit/f113c99f22a429bf6f743289129a5d0a3ea69f15)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- update comment - ([0ddb54f](https://github.com/kristof-mattei/autoheal-rs/commit/0ddb54f6ec28a11d5839f9d47f7cb0732b4b16b7)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- disable multiple_crate_versions, it's just noise - ([c9dee4b](https://github.com/kristof-mattei/autoheal-rs/commit/c9dee4bc1e7e8d99750843b3883ed8b327062655)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- shuffle stuff around - ([cd283f4](https://github.com/kristof-mattei/autoheal-rs/commit/cd283f4470b10eb7509b6c4634e20548b4d74f43)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- disable raw-entry & allocator-api2 (they were enabled by default by hashbrown) - ([8daf122](https://github.com/kristof-mattei/autoheal-rs/commit/8daf122cdfe66d7b094fdd8e5a66bdcf27396078)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- formatting - ([6fb033f](https://github.com/kristof-mattei/autoheal-rs/commit/6fb033fbb4458100673639f29835a6af0496b5a0)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- alphabet - ([e6d1bef](https://github.com/kristof-mattei/autoheal-rs/commit/e6d1beffdac232a3f25358804bd22539db56cca5)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- cargo binstall defaults to cargo install when not found - ([61cf619](https://github.com/kristof-mattei/autoheal-rs/commit/61cf6192a81156d3e81026058d4f4e8c0cdf54b8)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- testing - ([3de7372](https://github.com/kristof-mattei/autoheal-rs/commit/3de73727c81184cd5f2f492d27a6664d4519a314)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- split command, remove prefix - ([61fb123](https://github.com/kristof-mattei/autoheal-rs/commit/61fb1236d3451146507548f0efab8e5a4eb590c5)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- add coveralls - ([e9fe37b](https://github.com/kristof-mattei/autoheal-rs/commit/e9fe37b857938501c790abd7c63eb99633a73b8e)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- disable telemetry, use oidc - ([0b862de](https://github.com/kristof-mattei/autoheal-rs/commit/0b862dea6cb59aa90c377cdf2a622c68a4a1e57a)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- caching doesn't need the runner's OS - ([f6c6e07](https://github.com/kristof-mattei/autoheal-rs/commit/f6c6e07f96ef39a9927b6959976115a69d1a4c88)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- don't prompt to accept commit when no conflicts - ([e0677f8](https://github.com/kristof-mattei/autoheal-rs/commit/e0677f83c9c49b189b96f5136b327f722de0e85c)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- fix deprecation warning - ([837157b](https://github.com/kristof-mattei/autoheal-rs/commit/837157b57a19dfefa416576f38b7d597030d9d83)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- upgrade before installing - ([8887b23](https://github.com/kristof-mattei/autoheal-rs/commit/8887b2380320aaf84268ac9f199b6b453b47c893)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- use `CARGO_CRATE_NAME` which always has `-` replaced by `_` - ([8873e26](https://github.com/kristof-mattei/autoheal-rs/commit/8873e26a1d228d9bad7252d3b7bdf57b59c2f065)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- fix typo - ([0ac7ffb](https://github.com/kristof-mattei/autoheal-rs/commit/0ac7ffb096832c33b15a2369f9a101849c342ffb)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- move scripts - ([242ce77](https://github.com/kristof-mattei/autoheal-rs/commit/242ce77b6b07062f09cecc116df82720af27fb2f)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- fix strip-components, it caused nothing to be placed - ([b88f13c](https://github.com/kristof-mattei/autoheal-rs/commit/b88f13c48b7a68493819786d1c7e3ddf70e81526)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- set revision explicitely - ([1ca21b9](https://github.com/kristof-mattei/autoheal-rs/commit/1ca21b9c350223869f42f51e85cf6311b2ca7307)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- group variables in single step - ([793b007](https://github.com/kristof-mattei/autoheal-rs/commit/793b0079596c261547767c8e939b31d12345e336)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- fix output - ([39aecb7](https://github.com/kristof-mattei/autoheal-rs/commit/39aecb7f88547541cb73a0daea054cba7bafc37f)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- even more variables - ([64866e5](https://github.com/kristof-mattei/autoheal-rs/commit/64866e5bc5547d3b4ef13329f07708f59a0c1c6b)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- move away from env, use output - ([a6a7b2c](https://github.com/kristof-mattei/autoheal-rs/commit/a6a7b2c240dfc8f005740d3b15b9a1e5473f7a4d)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- consolidation of scripts - ([0a075f6](https://github.com/kristof-mattei/autoheal-rs/commit/0a075f6204c8e468fa8027314dc89ed552b5d839)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- convention: bash variable names are lowercase - ([dc27ba1](https://github.com/kristof-mattei/autoheal-rs/commit/dc27ba1dc0d30acc3765a6369749891823bf5a70)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove customization, packages now work oob with binstall - ([c85dd07](https://github.com/kristof-mattei/autoheal-rs/commit/c85dd0741ff01084504eb2d18c53efcb57a5f37b)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- make wget more robust - ([a7e1e60](https://github.com/kristof-mattei/autoheal-rs/commit/a7e1e60645a975d9787f1681273af3b8b22326fc)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- more precise coverage, don't include test/** - ([83002c7](https://github.com/kristof-mattei/autoheal-rs/commit/83002c72807cf5ffe0b77fcc16f7353eeefe46fe)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove need for build & targetplatform in scripts - ([13b8275](https://github.com/kristof-mattei/autoheal-rs/commit/13b827509a357046309726f116cdfb611753d266)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- i686 is 32-bit, we need 64-bit - ([e57dbf8](https://github.com/kristof-mattei/autoheal-rs/commit/e57dbf819b37fe82bab231af7c693a8bb32cc04c)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- formatting - ([f3dde64](https://github.com/kristof-mattei/autoheal-rs/commit/f3dde6447ec7fc4eadd646da761b872e21fdd6a2)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- change wording - ([34fb4cf](https://github.com/kristof-mattei/autoheal-rs/commit/34fb4cf3eda6724b074e3ce877a733dfaf8780cf)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- update texts - ([8d09808](https://github.com/kristof-mattei/autoheal-rs/commit/8d09808eccdb55a2c4def5d4732a932ca0741745)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- update debug setup - ([59756b7](https://github.com/kristof-mattei/autoheal-rs/commit/59756b712762276d2032290b7d24f3a9e900d059)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- set default debug visualizer - ([6941793](https://github.com/kristof-mattei/autoheal-rs/commit/69417931ad3e2506dbee9732bef5b1ef9649c885)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- disable required signatures - ([445e425](https://github.com/kristof-mattei/autoheal-rs/commit/445e4253a7dcbe8fac577cdcaff328466590abe1)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- clippy 1.86 fixes - ([883a211](https://github.com/kristof-mattei/autoheal-rs/commit/883a2118ff3600b8adb5117011e412c2faf49f7e)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- clippy 1.86 fixes - ([1ba9e82](https://github.com/kristof-mattei/autoheal-rs/commit/1ba9e82c8de2d8fd2ba93018639ec3683e95c9e6)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- ignore generated changelog - ([9084f3f](https://github.com/kristof-mattei/autoheal-rs/commit/9084f3fe60d2794d98ca6fff47428c169a8f3f80)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- add template clippy.toml - ([307cbdb](https://github.com/kristof-mattei/autoheal-rs/commit/307cbdb563c89194cf50119410509e4f4030659b)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove incorrect comment - ([82a8d6d](https://github.com/kristof-mattei/autoheal-rs/commit/82a8d6d47279919c074137571d5901367e9826d3)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- ensure we restore symlinks - ([ceede20](https://github.com/kristof-mattei/autoheal-rs/commit/ceede20c91e783b56d32c109e7e989834ea38cfe)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- set working-directory - ([f657766](https://github.com/kristof-mattei/autoheal-rs/commit/f657766fd5b75716fa316bd1ad90c5d7c32e975b)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- use working-directory - ([e7e90d5](https://github.com/kristof-mattei/autoheal-rs/commit/e7e90d51a297e56a3fabc95ee2ade32c4150bb57)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- install rust-fmt - ([234465e](https://github.com/kristof-mattei/autoheal-rs/commit/234465e358cc52c0fead88af8f2116bac0f632b7)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- fix for rustup 1.28.0 not installing needed toolchain by default - ([9f283b7](https://github.com/kristof-mattei/autoheal-rs/commit/9f283b736f6e0f03ac8c2afaa2fda5cbbb86896d)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- be more specific - ([0caaab7](https://github.com/kristof-mattei/autoheal-rs/commit/0caaab7de808ef8e50ce96fc3887fe24542d0fae)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- allow custom docker socket - ([1072e05](https://github.com/kristof-mattei/autoheal-rs/commit/1072e056884eb704f5e228ed1af42b2504d4ad22)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- correct logging with console subscriber - ([d4e096d](https://github.com/kristof-mattei/autoheal-rs/commit/d4e096d5c58b010f55aa68fe3116bf0540b66c88)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- use eyre::Report instead of the too-specialized color_eyre::eyre::Report - ([02b08be](https://github.com/kristof-mattei/autoheal-rs/commit/02b08beaf2315701e7f5a254facff26b68f90793)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- add logging, try remove unneeded (?) buildx - ([baafce6](https://github.com/kristof-mattei/autoheal-rs/commit/baafce66428bb303013f3dbc2760556cbbeca150)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- push by tag, not filepath... - ([cb03a00](https://github.com/kristof-mattei/autoheal-rs/commit/cb03a00f208e2e3116f048bc6dcd42615933d90d)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- forgot `push` - ([6842ab4](https://github.com/kristof-mattei/autoheal-rs/commit/6842ab4e26a3417520d3334da6fd542d1d240871)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove oras - ([8eceae9](https://github.com/kristof-mattei/autoheal-rs/commit/8eceae99297f4f5900549ef08f6105df530069cb)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- rust 1.85.0 - ([e790939](https://github.com/kristof-mattei/autoheal-rs/commit/e790939e5162a5b1f5bac286dac41d51f4969cfc)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- fmt also 1.85.0 - ([c9488e3](https://github.com/kristof-mattei/autoheal-rs/commit/c9488e384c6ac0816b2a02574f18e0e54eff3b12)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- format dockerfile - ([edb1f30](https://github.com/kristof-mattei/autoheal-rs/commit/edb1f309e3326acbad14b3b83aea65b53e12e506)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- rust 1.85.0 - ([d876c00](https://github.com/kristof-mattei/autoheal-rs/commit/d876c00796252ef81adf85ea6ae8fc25b9d5e0d8)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- reduce allowed duplicate crates - ([578dd3d](https://github.com/kristof-mattei/autoheal-rs/commit/578dd3dd585db7233e5d132a0c99c84a036c1e52)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- allow multi wasi versions - ([7953ddc](https://github.com/kristof-mattei/autoheal-rs/commit/7953ddc71690bed3cbd3da8b64c40ed7430b32c9)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- install cargo-binstall from updated url - ([8172e7f](https://github.com/kristof-mattei/autoheal-rs/commit/8172e7fe5a8996eb4b499ccd4ee443f7e5ee2cca)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- fix title - ([1ecfb70](https://github.com/kristof-mattei/autoheal-rs/commit/1ecfb70f8778f65098b117403bbc1574a2f6a017)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- ensure we have oras - ([adb17dd](https://github.com/kristof-mattei/autoheal-rs/commit/adb17dd3071a0f100b7f9b25d5ee79b2af0594da)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- enable more lints - ([4cb6bb7](https://github.com/kristof-mattei/autoheal-rs/commit/4cb6bb7967f130408917be3a75e19421c5fedb86)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- formatting - ([978f4b2](https://github.com/kristof-mattei/autoheal-rs/commit/978f4b2a669b1d2f6ab3d9e7d738ab2b87516be4)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove unneeded .ci - ([3be9c19](https://github.com/kristof-mattei/autoheal-rs/commit/3be9c19e347578b89a0c2e9b3448e5df3e9aeaee)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- formatting - ([773e45a](https://github.com/kristof-mattei/autoheal-rs/commit/773e45a7839624fef2056ed1e7f4e37339860f23)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- fix merge conflict - ([e14bfb5](https://github.com/kristof-mattei/autoheal-rs/commit/e14bfb53d2071860925471e906cb7e458bf14f56)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- syntax consistency, as -> AS - ([ba8d334](https://github.com/kristof-mattei/autoheal-rs/commit/ba8d3344466d98c4ddd2260291cecbe946c7c9ec)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- syntax consistency, as -> AS - ([a28deb7](https://github.com/kristof-mattei/autoheal-rs/commit/a28deb75b3a8ae060d7ca1f4459ad074ab7a276d)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- use rev as branch is gone - ([11a117f](https://github.com/kristof-mattei/autoheal-rs/commit/11a117fbb9e8898bdf88f506d068d2c3f2c7646e)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- try Rc<str> instead of String - ([7d3c8ac](https://github.com/kristof-mattei/autoheal-rs/commit/7d3c8ac03fe016e643727adc5e119dc445bc1a1c)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- formatting - ([53a0e5b](https://github.com/kristof-mattei/autoheal-rs/commit/53a0e5b88ad79efebc8f790df0cb253df0f3ff99)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- enforce_admins should be null if you want to disable it... - ([97a3c84](https://github.com/kristof-mattei/autoheal-rs/commit/97a3c846ebfaa2489bb7af87f4149ec7b9276efc)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- separate the name so the rename script doesn't update it - ([db3de07](https://github.com/kristof-mattei/autoheal-rs/commit/db3de077fe7c68dfd00b94332eb776c889abc19b)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- change name - ([7bcbcb6](https://github.com/kristof-mattei/autoheal-rs/commit/7bcbcb6b9a667327f8b239b4f49743efc6e55130)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- remove unneeded id - ([81b3536](https://github.com/kristof-mattei/autoheal-rs/commit/81b35367789ed5722e391766ed52dd73b02ac259)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- add linebreaks in the if statements, otherwise the vscode parser gets upset - ([79ecc87](https://github.com/kristof-mattei/autoheal-rs/commit/79ecc8745e7629e60c75b1990aae2850543eb4d0)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- disable codecov running plugins, disable codecov searching - ([c946f90](https://github.com/kristof-mattei/autoheal-rs/commit/c946f90a1a119f7f97f1e2830c2c55eef3050c6a)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- always run reporting, even when no changes as reports are mandatory - ([c86f535](https://github.com/kristof-mattei/autoheal-rs/commit/c86f5353d6813262e0bf327dbe2db641f87d363c)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- readme - ([5d5d935](https://github.com/kristof-mattei/autoheal-rs/commit/5d5d93557bf83ec841b8abd310f7e67cc7c5d086)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- also rebuild when .nvmrc changes - ([6155455](https://github.com/kristof-mattei/autoheal-rs/commit/61554551d015d07fb230e09d8d5e33da2cfd1e54)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- fix typo - ([3a3e968](https://github.com/kristof-mattei/autoheal-rs/commit/3a3e96855b5eadc81a2d0704a1c4de6569d721a5)) - [@kristof-mattei](https://github.com/kristof-mattei)
-- minor build changes, formatting - ([8b1e9f8](https://github.com/kristof-mattei/autoheal-rs/commit/8b1e9f8aa2e6a37c268dd7587d0912d251afdea4)) - [@kristof-mattei](https://github.com/kristof-mattei)
+### 🐛 Bug Fixes
 
-- - -
+- *(deps)* Update rust crate serde_json to 1.0.141 - ([ffaabb9](https://github.com/kristof-mattei/autoheal-rs/commit/ffaabb9633b1a5bc40a2770b94ede7c29ec99a5e))
+- *(deps)* Update rust crate hyper-util to 0.1.16 - ([f0517bd](https://github.com/kristof-mattei/autoheal-rs/commit/f0517bd7f0860d176cf8eb2a9786ce7b934e5366))
+- *(deps)* Update rust crate rustls to 0.23.31 - ([c2dd138](https://github.com/kristof-mattei/autoheal-rs/commit/c2dd13859f4bb6be48427d2ef44a3fd80d4120b3))
+- *(deps)* Update rust crate clap to 4.5.42 - ([ac1b995](https://github.com/kristof-mattei/autoheal-rs/commit/ac1b9958509f2aa43c8b9a6b01031988b4253bd5))
+- *(deps)* Update rust crate serde_json to 1.0.142 - ([1fc6780](https://github.com/kristof-mattei/autoheal-rs/commit/1fc6780229bdbc6ed637271d4b93715aa6e69e42))
+- *(deps)* Update rust crate tokio to 1.47.1 - ([22ec986](https://github.com/kristof-mattei/autoheal-rs/commit/22ec986b338b66f750cfb8b61346f2384fdd2649))
+- *(deps)* Update rust crate clap to 4.5.43 - ([092b588](https://github.com/kristof-mattei/autoheal-rs/commit/092b5884981c8c66b1b5a8bfeba088aec3c15bea))
+- *(deps)* Update rust crate hashbrown to 0.15.5 - ([60be830](https://github.com/kristof-mattei/autoheal-rs/commit/60be8308bb195832b1fdbf07f7371c43ed356c2d))
+- *(deps)* Update rust crate libc to 0.2.175 - ([d088844](https://github.com/kristof-mattei/autoheal-rs/commit/d0888440b0d75461d361da82917a7d0b21542c0a))
+- *(deps)* Update rust crate clap to 4.5.44 - ([f5e12b1](https://github.com/kristof-mattei/autoheal-rs/commit/f5e12b10fd2c9e32fc407af5526e738f3d645cdc))
+- *(deps)* Update rust crate clap to 4.5.45 - ([284a81e](https://github.com/kristof-mattei/autoheal-rs/commit/284a81ee0eb2212f3ef96b587cae757603025e94))
+- *(deps)* Update rust crate hyper to 1.7.0 - ([5f44d5e](https://github.com/kristof-mattei/autoheal-rs/commit/5f44d5ec2a4c0cbae5c714cc8b1fa91e4553e21d))
+- *(deps)* Update rust crate serde_json to 1.0.143 - ([379a5fe](https://github.com/kristof-mattei/autoheal-rs/commit/379a5fed86fe79f3d028391a00af56d071e4f92e))
+- *(deps)* Update rust crate url to 2.5.6 - ([4a58f52](https://github.com/kristof-mattei/autoheal-rs/commit/4a58f52851a0939b6da467cf473c8656228e88df))
+- *(deps)* Update rust crate percent-encoding to 2.3.2 - ([fb3deb4](https://github.com/kristof-mattei/autoheal-rs/commit/fb3deb4be445eb379007c48d822691f790330dc4))
+- *(deps)* Update rust crate url to 2.5.7 - ([64a502b](https://github.com/kristof-mattei/autoheal-rs/commit/64a502bd8107364bce41e2d4f41b1f0f3fcc7e9c))
+- *(deps)* Update rust crate clap to 4.5.46 - ([c9198d1](https://github.com/kristof-mattei/autoheal-rs/commit/c9198d17255a7daa5889ed35682b49f5a75c5225))
+- *(deps)* Update rust crate tracing-subscriber to v0.3.20 [security] - ([efa7900](https://github.com/kristof-mattei/autoheal-rs/commit/efa79003ef5ae2ac6c4794ab211bbb830c37944f))
+- *(deps)* Update rust crate tracing-subscriber to 0.3.20 - ([bed882a](https://github.com/kristof-mattei/autoheal-rs/commit/bed882a7336d06cdaef943120151042785f3f97a))
+- *(deps)* Update rust crate clap to 4.5.47 - ([0870b5e](https://github.com/kristof-mattei/autoheal-rs/commit/0870b5ed573a864b5928d4b96d7c3c5eedc31c04))
+- *(deps)* Update rust crate serde to 1.0.221 - ([e1ef2d0](https://github.com/kristof-mattei/autoheal-rs/commit/e1ef2d06266c29e05ef13bdbf253cf71455390db))
+- *(deps)* Update rust crate serde_json to 1.0.144 - ([8f7f4f7](https://github.com/kristof-mattei/autoheal-rs/commit/8f7f4f7cb4cc8318a9c34fff6cac33760f49c872))
+- *(deps)* Update rust crate serde_json to 1.0.145 - ([d3e00cc](https://github.com/kristof-mattei/autoheal-rs/commit/d3e00ccac77f653e42735c2b7ff1d4ffbc3f6068))
+- *(deps)* Update rust crate serde to 1.0.223 - ([9151c40](https://github.com/kristof-mattei/autoheal-rs/commit/9151c40aaba48587383eca7aaf20e3299e3f801c))
+- *(deps)* Update rust crate serde to 1.0.224 - ([032b8e2](https://github.com/kristof-mattei/autoheal-rs/commit/032b8e277867905655e4425aac02ca326f7a8ac4))
+- *(deps)* Update rust crate hyper-util to 0.1.17 - ([c034ddb](https://github.com/kristof-mattei/autoheal-rs/commit/c034ddb720b8ac7c27ca967af88ad6f14813db9c))
+- *(deps)* Update rust crate serde to 1.0.225 - ([e4a8551](https://github.com/kristof-mattei/autoheal-rs/commit/e4a85514e67299ad96be56b784a70f1550cfb998))
+- *(deps)* Update rust crate rustls to 0.23.32 - ([7cb43a7](https://github.com/kristof-mattei/autoheal-rs/commit/7cb43a7c4b1369896437107964ed35034fbe538c))
+- *(deps)* Update rust crate clap to 4.5.48 - ([f83042f](https://github.com/kristof-mattei/autoheal-rs/commit/f83042f8738ff0b779d2dcd4d7dc84959e0794ee))
+- *(deps)* Update rust crate serde to 1.0.226 - ([36c3152](https://github.com/kristof-mattei/autoheal-rs/commit/36c31522a48956c5884dadb014abffdeda8e6e54))
+- Cleanup unused lints - ([5a38041](https://github.com/kristof-mattei/autoheal-rs/commit/5a38041fe40daa98087753ea9c3a2a4cab2a842e))
+- We know that sort order when iterating over hash-type isn't guaranteed - ([82a22ac](https://github.com/kristof-mattei/autoheal-rs/commit/82a22acb0bf4caf05e96785c69f69db94a7f07fa))
+- No more openssl - ([94e9bd4](https://github.com/kristof-mattei/autoheal-rs/commit/94e9bd4f5957671148ecafab4b53b75f4f05d619))
+- Default is 30 seconds, not 30 milliseconds - ([f233bb3](https://github.com/kristof-mattei/autoheal-rs/commit/f233bb33c41c2d2b1636c5ec02633352daf62695))
+- Set defaults - ([b747dc6](https://github.com/kristof-mattei/autoheal-rs/commit/b747dc619a18351fb0edba5b37c2489c276dbf48))
+- Allow cargo features selection - ([bb52f2f](https://github.com/kristof-mattei/autoheal-rs/commit/bb52f2fe772f0cbed2ae63ebcd109f7b10d08597))
+- FeaTures - ([6372af0](https://github.com/kristof-mattei/autoheal-rs/commit/6372af04da9b9ce338e2ec2d12e00f3fedbb2ec5))
+- Missing read permissions in test and report - ([3f8f6a5](https://github.com/kristof-mattei/autoheal-rs/commit/3f8f6a51b3ce1be82b2c165f75353c4e9b222ae4))
+- Use the github token to ensure we can download - ([f6ecce7](https://github.com/kristof-mattei/autoheal-rs/commit/f6ecce72871eba2bd3d8386da8afc525f803942d))
+- Set full version - ([5535b81](https://github.com/kristof-mattei/autoheal-rs/commit/5535b81f32546a474b3efcc5a96158bf47311133))
+- Build multi-platform docker images - ([5342da1](https://github.com/kristof-mattei/autoheal-rs/commit/5342da175081a5dd495b3039e06cea73011ee475))
+- Pre-cache - ([e35eb20](https://github.com/kristof-mattei/autoheal-rs/commit/e35eb2015728b1f7e1c210e89bacbbc18ff96c2e))
+- Copilot instructions - ([a494929](https://github.com/kristof-mattei/autoheal-rs/commit/a4949293d72a56254fd14699807855ee539a787e))
+- Fetch per arch, locked, and explicit import - ([399084a](https://github.com/kristof-mattei/autoheal-rs/commit/399084afecc27cbc36fe204c6804d036d4a98834))
+- Src in registry should not be cached - ([5c4d96c](https://github.com/kristof-mattei/autoheal-rs/commit/5c4d96cd47b47d95fce5e7bdf614c73ccb193f05))
+- Lock fetch - ([d7ac9da](https://github.com/kristof-mattei/autoheal-rs/commit/d7ac9da6eba1e8c34be075a95a107496f24f7181))
+- Bring ARG together - ([cc62162](https://github.com/kristof-mattei/autoheal-rs/commit/cc621629fd8c447546f8bb2391bda7cf1ff7e858))
+- Disable cache dependencies for docker build, the downloading of ./target takes up too much space, and we're not building anyway - ([a6b9b6f](https://github.com/kristof-mattei/autoheal-rs/commit/a6b9b6fd4afc687635b0c2dd4f2be81c19476344))
+- Hashbrown 0.16.0 - ([f5a0d9b](https://github.com/kristof-mattei/autoheal-rs/commit/f5a0d9b07a42224ba045d72d73852d9ddbd59577))
+- Shrink what we cache - ([a71972a](https://github.com/kristof-mattei/autoheal-rs/commit/a71972a001a23b800efb383affc9bc0c5356da7c))
+- Fmt doesn't need target - ([0d9005c](https://github.com/kristof-mattei/autoheal-rs/commit/0d9005c5f324e604141694007df0b24bfc2cff61))
+- Download binstall based on runner arch - ([1307db8](https://github.com/kristof-mattei/autoheal-rs/commit/1307db8f053679f68b0ace029d056730980eedda))
+- We lost the pr-<number>-latest tag - ([78eb251](https://github.com/kristof-mattei/autoheal-rs/commit/78eb2517abc67f51409de808583dcacf75544dd8))
+- Restore missed raw tag - ([cc2ea20](https://github.com/kristof-mattei/autoheal-rs/commit/cc2ea20087e8ec53794c650a0c330b23f69fb589))
+- Separate cache package - ([b14d54a](https://github.com/kristof-mattei/autoheal-rs/commit/b14d54ac88e7ff177857235b4d0067b86aa7b202))
+- Use semver version. - ([f7fa495](https://github.com/kristof-mattei/autoheal-rs/commit/f7fa495682e4910b99bf39850988cecd6eb6e7c2))
+- Set sha for pnpm - ([eb3e312](https://github.com/kristof-mattei/autoheal-rs/commit/eb3e3126b017db2a4482f00cb5097f53cd852a1e))
+- Admin can bypass - ([872a8bf](https://github.com/kristof-mattei/autoheal-rs/commit/872a8bf3a220c13f61cfaed5fc72862363e033ce))
+- Image as well because renovate is slow - ([b2a2c2d](https://github.com/kristof-mattei/autoheal-rs/commit/b2a2c2d675d902775baa61a96ee7c47e9ab0106c))
 
-Changelog generated by [cocogitto](https://github.com/cocogitto/cocogitto).
+### ⚙️ Miscellaneous Tasks
+
+- Enable as_conversions lint - ([b60eb10](https://github.com/kristof-mattei/autoheal-rs/commit/b60eb1002c74159fb6a80cdf8b3d39a7f2dbfde8))
+- Move deps, disable as_conversions, too broad - ([4a48efe](https://github.com/kristof-mattei/autoheal-rs/commit/4a48efeafbb4224b6ef154e50a203e5696263c6d))
+- Remove redundant excepts - ([90a50f2](https://github.com/kristof-mattei/autoheal-rs/commit/90a50f29f6ca210dbe480b063da16d2af0a68266))
+- Restructure - ([1c21c8f](https://github.com/kristof-mattei/autoheal-rs/commit/1c21c8f6c67aae11af31df8924b83502adc7b959))
+- Simplify - ([2853307](https://github.com/kristof-mattei/autoheal-rs/commit/2853307e95544be0514a150be33f8b5299ccb043))
+- Rename components - ([4e83515](https://github.com/kristof-mattei/autoheal-rs/commit/4e83515ed40b55ec552f38c2a12a99d7987adb0c))
+- Rename components - ([50a4456](https://github.com/kristof-mattei/autoheal-rs/commit/50a4456ac60460ed472e773351b92ec7680dbd5a))
+- Don't cache in lint-configs - ([ab37d2f](https://github.com/kristof-mattei/autoheal-rs/commit/ab37d2fb61fef6b4a462c1686faa77fbdcccb6f9))
+- Disable codecov, fails too often - ([252a089](https://github.com/kristof-mattei/autoheal-rs/commit/252a089765ee5872923b20f2d3b26f8e6b5dc41c))
+- Fmt - ([e9239d2](https://github.com/kristof-mattei/autoheal-rs/commit/e9239d2809368cb2f242e5b7573b8589b15b7362))
+- Remove unneeded newline - ([66e19b3](https://github.com/kristof-mattei/autoheal-rs/commit/66e19b3bfb7a4371b072ac7c8dc51db797bfa730))
+- More robust downloading of crane - ([c306637](https://github.com/kristof-mattei/autoheal-rs/commit/c3066375bd8abf949146bc69e873acd4c4ca99a5))
+- Pass download format to binstall for cocogitto - ([2e173f6](https://github.com/kristof-mattei/autoheal-rs/commit/2e173f61f09b1b338bff01edee10e1fed0f63540))
+- Disable oldstyle branch protection - ([a6a851a](https://github.com/kristof-mattei/autoheal-rs/commit/a6a851a1f84c80ee58e3294c132601bb4f330892))
+- Delete old-style protection - ([a754f7d](https://github.com/kristof-mattei/autoheal-rs/commit/a754f7dce43b3d534a364df25fcec53df3196f96))
+- Dedupe checkout in the integration test - ([e0a6f69](https://github.com/kristof-mattei/autoheal-rs/commit/e0a6f69ff116542d3fb5c3f54ad873dcc467b3c1))
+- Use musl all the way - ([828d679](https://github.com/kristof-mattei/autoheal-rs/commit/828d67953e2be358e3565197feb91ec127cb2da2))
+- Remove lldb-prettifier built as part of repo, use shared config - ([8a7e110](https://github.com/kristof-mattei/autoheal-rs/commit/8a7e110376c9a57b26a0a3ab9540b466394a8290))
+- Fmt - ([3d4e946](https://github.com/kristof-mattei/autoheal-rs/commit/3d4e9462ada1800d8c22b210ba56ce28758770ec))
+- Remove arch from image as we now always deal with a multi-platform image - ([1958005](https://github.com/kristof-mattei/autoheal-rs/commit/19580050ce6cef2f354c3e3ce4732d18cc167245))
+- Remove submodule folder - ([f6e5d3a](https://github.com/kristof-mattei/autoheal-rs/commit/f6e5d3a28c8efe2dcae9575945860a54e710d410))
+- Sort - ([c757c8d](https://github.com/kristof-mattei/autoheal-rs/commit/c757c8de56467f6c8f45b8825684605c4435da47))
+- Typo - ([cded012](https://github.com/kristof-mattei/autoheal-rs/commit/cded012f14f816d0e1878e4abf0225bbc22b5925))
+## [1.6.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.6.0..v1.6.1) - 2025-07-14
+
+### 🐛 Bug Fixes
+
+- Remove unused env that comes in via variables - ([adf0cd7](https://github.com/kristof-mattei/autoheal-rs/commit/adf0cd7117034c106eac21c2384bfa282d4271b8))
+- Set correct guard name - ([3131d66](https://github.com/kristof-mattei/autoheal-rs/commit/3131d663eac696ac0d1ed2aa522051f1218e8067))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(version)* V1.6.1 - ([a4a70dd](https://github.com/kristof-mattei/autoheal-rs/commit/a4a70dd2f2ab1818636d70c99a6bf7a3fce8cbb8))
+## [1.6.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.3.1..v1.6.0) - 2025-07-13
+
+### 🚀 Features
+
+- Multiplatform with caching - ([6c5188b](https://github.com/kristof-mattei/autoheal-rs/commit/6c5188b32d43e0f8ae0bd1d9082871b23e244116))
+- Enable codeql - ([9d22fa5](https://github.com/kristof-mattei/autoheal-rs/commit/9d22fa5261061d03a3c63a9fa5f5599e374b36ed))
+- Update publish defaults - ([406e06c](https://github.com/kristof-mattei/autoheal-rs/commit/406e06cae013094a6e2995e2c49158b1677b814e))
+- Ensure formatting works - ([a7ae4c6](https://github.com/kristof-mattei/autoheal-rs/commit/a7ae4c6870fcd124a76741003d4dce3773f7a056))
+- Attest individual and multiplatform images - ([b2393c1](https://github.com/kristof-mattei/autoheal-rs/commit/b2393c1478174e162e13e33ac06c4d3ccf028e84))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to 1.45.1 - ([9be75cd](https://github.com/kristof-mattei/autoheal-rs/commit/9be75cd51593ee4d09a835e61f5aa1497c63df8d))
+- *(deps)* Update rust crate hyper-util to 0.1.13 - ([aff8c53](https://github.com/kristof-mattei/autoheal-rs/commit/aff8c53895c249ff5adb1ee5091e9bedf014cc63))
+- *(deps)* Update rust crate openssl to 0.10.73 - ([cd9ec5a](https://github.com/kristof-mattei/autoheal-rs/commit/cd9ec5af07de8c6dd502278fc70ee56df7f0d091))
+- *(deps)* Update rust crate color-eyre to 0.6.5 - ([882364e](https://github.com/kristof-mattei/autoheal-rs/commit/882364e4f3c5b59736446df3c22c60cefaec6b82))
+- *(deps)* Update rust crate hyper-util to 0.1.14 - ([6301706](https://github.com/kristof-mattei/autoheal-rs/commit/6301706468b7b69e18e90958958eb5fb20bade30))
+- *(deps)* Update rust crate hashbrown to 0.15.4 - ([5d3c383](https://github.com/kristof-mattei/autoheal-rs/commit/5d3c3836aec7a7bb70f41750f8158d1181f93393))
+- *(deps)* Update rust crate openssl to 0.10.73 - ([818d5d7](https://github.com/kristof-mattei/autoheal-rs/commit/818d5d763e04fc8e3f0638a9264e9c8f1aecc4cb))
+- *(deps)* Update rust crate color-eyre to 0.6.5 - ([6cbb98d](https://github.com/kristof-mattei/autoheal-rs/commit/6cbb98dc877f5d2785ceb938f3fca30172c21bbe))
+- *(deps)* Update rust crate libc to 0.2.173 - ([f4e0de0](https://github.com/kristof-mattei/autoheal-rs/commit/f4e0de00e28fce8ca29a5af1c88ef72561c9e6e6))
+- *(deps)* Update rust crate libc to 0.2.174 - ([b94400c](https://github.com/kristof-mattei/autoheal-rs/commit/b94400c6e1061fbefce7ab2df7bfbdc2f412b3f7))
+- *(deps)* Update rust crate tokio to 1.46.0 - ([5cb1036](https://github.com/kristof-mattei/autoheal-rs/commit/5cb103614a93e5896cb3ab384c06db277041546a))
+- *(deps)* Update rust crate tokio to 1.46.1 - ([da95a8f](https://github.com/kristof-mattei/autoheal-rs/commit/da95a8f1b874a5a8e55e6b596d9d984a18510794))
+- *(deps)* Update rust crate hyper-util to 0.1.15 - ([0986d07](https://github.com/kristof-mattei/autoheal-rs/commit/0986d076cfb47b7cda8728e288f7ea7086293fd2))
+- Switch to prettier's mjs setup, widen limit for non-json files - ([15954b2](https://github.com/kristof-mattei/autoheal-rs/commit/15954b23a004049eb88cbce34cc69bd231dce81e))
+- Correct dpkg-architecture architecture check - ([83055c9](https://github.com/kristof-mattei/autoheal-rs/commit/83055c9bba144255202d4d12658323903be69d53))
+- Install with locked to prevent cargo from updating deps during cargo install - ([bdb7e91](https://github.com/kristof-mattei/autoheal-rs/commit/bdb7e91b3054f6ef902f1c87870118ff035638e3))
+- Cache per arch, as these overwrite each other - ([90bb69a](https://github.com/kristof-mattei/autoheal-rs/commit/90bb69af3c0d082b4cea18a161b99e34d61cd5fc))
+- Dir, path, I don't know anymore - ([4bfa22d](https://github.com/kristof-mattei/autoheal-rs/commit/4bfa22d121e114bb8fbb8435ec90735f4f30466c))
+- Line continuation - ([8239c41](https://github.com/kristof-mattei/autoheal-rs/commit/8239c4108c487acea05461ebe09f69887a3bd597))
+- Uppercase - ([e70a0ca](https://github.com/kristof-mattei/autoheal-rs/commit/e70a0ca8dda3bc0126f539a945a0477ab6c8c875))
+- Test against amd64 - ([a6da33f](https://github.com/kristof-mattei/autoheal-rs/commit/a6da33f82bedfc04d9ad5cdc1b09d0ee375975f2))
+- Grab pointer without intermediate reference - ([e52bbbd](https://github.com/kristof-mattei/autoheal-rs/commit/e52bbbd7ecc504d953bdd7b6b7157640022f9368))
+- Remove no-deps - ([80518c0](https://github.com/kristof-mattei/autoheal-rs/commit/80518c0b1875c34158846e16e7de58d7b422b6e9))
+- Reduce permissions - ([54b4398](https://github.com/kristof-mattei/autoheal-rs/commit/54b4398e66ee00c3e8f2254b9479d7ff79b29026))
+- Manually build Rust for codeql as per our standard build - ([af9390e](https://github.com/kristof-mattei/autoheal-rs/commit/af9390ee873ba6968417c2749569cc630214ca7e))
+- Build-mode `manual` is not supported for Rust - ([7659499](https://github.com/kristof-mattei/autoheal-rs/commit/76594994e616ebef734f5a7c275c5a19249d5d52))
+- Pnpm - ([229ffad](https://github.com/kristof-mattei/autoheal-rs/commit/229ffad2a4bb0deb7f0c2d4fa954c84691262494))
+- Ignore pnpm-lock.yaml format - ([34ee806](https://github.com/kristof-mattei/autoheal-rs/commit/34ee80670cf28b511be17ca61fdb52d0eb463ce4))
+- Ensure cargo.lock is up to date - ([75f241b](https://github.com/kristof-mattei/autoheal-rs/commit/75f241bf01868d419fa383572650b891c06cacc6))
+- Remove unused script - ([f8aa057](https://github.com/kristof-mattei/autoheal-rs/commit/f8aa05727ba3a31d557bb9287eccf147edc8827d))
+- Also set style_edition - ([172d6ab](https://github.com/kristof-mattei/autoheal-rs/commit/172d6ab04a50b2f19415ec0b64726b6d6d773db5))
+- Infer edition from Cargo.toml - ([f1d0742](https://github.com/kristof-mattei/autoheal-rs/commit/f1d0742fa46c850b4c983d5c6e378108bd22e942))
+- Schema - ([df22c46](https://github.com/kristof-mattei/autoheal-rs/commit/df22c4616102dd6af00cd2f8993cf6d955467c99))
+- Also ignore samply output - ([87357c9](https://github.com/kristof-mattei/autoheal-rs/commit/87357c9d0439fd731cb818c830898947a3735025))
+- Simplify license, use MIT license instead of BSD, simplify package.json - ([da64573](https://github.com/kristof-mattei/autoheal-rs/commit/da64573e286744b1e812856b7d8cb8e27d600447))
+- Validate toml & sh & ... formatting as part of PR process - ([69f84c6](https://github.com/kristof-mattei/autoheal-rs/commit/69f84c6436c864b272611f8629b1dbda46560e45))
+- Ignore Cargo.lock from being formatted - ([e721512](https://github.com/kristof-mattei/autoheal-rs/commit/e72151217ff0eb6b92d4a15dfd11aeba8ee2687d))
+- Restore package.json 2 tab width - ([f8851e3](https://github.com/kristof-mattei/autoheal-rs/commit/f8851e36b4f0f8795b4a945211e673f3aa8dcb55))
+- Reorder - ([d0080cd](https://github.com/kristof-mattei/autoheal-rs/commit/d0080cde013c86eab0087d897024be4ab18df1ae))
+- Update integration test to use local registry - ([d28ae41](https://github.com/kristof-mattei/autoheal-rs/commit/d28ae41481fa36e82d0c85b867d1170e70a564a1))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(version)* V1.6.0 - ([717d540](https://github.com/kristof-mattei/autoheal-rs/commit/717d540e2e933f9c4c9609a31d6d1e11f247d916))
+- Fix strip-components, it caused nothing to be placed - ([b88f13c](https://github.com/kristof-mattei/autoheal-rs/commit/b88f13c48b7a68493819786d1c7e3ddf70e81526))
+- Move scripts - ([242ce77](https://github.com/kristof-mattei/autoheal-rs/commit/242ce77b6b07062f09cecc116df82720af27fb2f))
+- Fix typo - ([0ac7ffb](https://github.com/kristof-mattei/autoheal-rs/commit/0ac7ffb096832c33b15a2369f9a101849c342ffb))
+- Use `CARGO_CRATE_NAME` which always has `-` replaced by `_` - ([8873e26](https://github.com/kristof-mattei/autoheal-rs/commit/8873e26a1d228d9bad7252d3b7bdf57b59c2f065))
+- Upgrade before installing - ([8887b23](https://github.com/kristof-mattei/autoheal-rs/commit/8887b2380320aaf84268ac9f199b6b453b47c893))
+- Fix deprecation warning - ([837157b](https://github.com/kristof-mattei/autoheal-rs/commit/837157b57a19dfefa416576f38b7d597030d9d83))
+- Don't prompt to accept commit when no conflicts - ([e0677f8](https://github.com/kristof-mattei/autoheal-rs/commit/e0677f83c9c49b189b96f5136b327f722de0e85c))
+- Caching doesn't need the runner's OS - ([f6c6e07](https://github.com/kristof-mattei/autoheal-rs/commit/f6c6e07f96ef39a9927b6959976115a69d1a4c88))
+- Disable telemetry, use oidc - ([0b862de](https://github.com/kristof-mattei/autoheal-rs/commit/0b862dea6cb59aa90c377cdf2a622c68a4a1e57a))
+- Add coveralls - ([e9fe37b](https://github.com/kristof-mattei/autoheal-rs/commit/e9fe37b857938501c790abd7c63eb99633a73b8e))
+- Split command, remove prefix - ([61fb123](https://github.com/kristof-mattei/autoheal-rs/commit/61fb1236d3451146507548f0efab8e5a4eb590c5))
+- Testing - ([3de7372](https://github.com/kristof-mattei/autoheal-rs/commit/3de73727c81184cd5f2f492d27a6664d4519a314))
+- Cargo binstall defaults to cargo install when not found - ([61cf619](https://github.com/kristof-mattei/autoheal-rs/commit/61cf6192a81156d3e81026058d4f4e8c0cdf54b8))
+- Alphabet - ([e6d1bef](https://github.com/kristof-mattei/autoheal-rs/commit/e6d1beffdac232a3f25358804bd22539db56cca5))
+- Disable raw-entry & allocator-api2 (they were enabled by default by hashbrown) - ([8daf122](https://github.com/kristof-mattei/autoheal-rs/commit/8daf122cdfe66d7b094fdd8e5a66bdcf27396078))
+- Formatting - ([6fb033f](https://github.com/kristof-mattei/autoheal-rs/commit/6fb033fbb4458100673639f29835a6af0496b5a0))
+- Shuffle stuff around - ([cd283f4](https://github.com/kristof-mattei/autoheal-rs/commit/cd283f4470b10eb7509b6c4634e20548b4d74f43))
+- Disable multiple_crate_versions, it's just noise - ([c9dee4b](https://github.com/kristof-mattei/autoheal-rs/commit/c9dee4bc1e7e8d99750843b3883ed8b327062655))
+- Update comment - ([0ddb54f](https://github.com/kristof-mattei/autoheal-rs/commit/0ddb54f6ec28a11d5839f9d47f7cb0732b4b16b7))
+- Cleanup - ([f113c99](https://github.com/kristof-mattei/autoheal-rs/commit/f113c99f22a429bf6f743289129a5d0a3ea69f15))
+- Don't push image cargo build/test/... failed - ([bbc21d0](https://github.com/kristof-mattei/autoheal-rs/commit/bbc21d076d767fe5fa393f782b7dcc43b63d831d))
+- Fix dockerfile instruction order - ([6013577](https://github.com/kristof-mattei/autoheal-rs/commit/6013577f1f0615e0cf8d1c861c5b3bcc0d421df9))
+- Cleanup - ([1135c86](https://github.com/kristof-mattei/autoheal-rs/commit/1135c86230b38095743a9cb189064872fcb3a51a))
+- Rust doesn't support manual mode, no need to pre-build - ([e932a61](https://github.com/kristof-mattei/autoheal-rs/commit/e932a6182bc42113faf8ff9aecc9a3c551897236))
+- Remove glob from path - ([faf30f8](https://github.com/kristof-mattei/autoheal-rs/commit/faf30f8f10ecc0d43c0d07f1fed5883694f5ef2d))
+- Settings update - ([be03d72](https://github.com/kristof-mattei/autoheal-rs/commit/be03d72b4def3a601986845cd063edd915e71daa))
+- Enable clone_on_ref_ptr - ([1afa75c](https://github.com/kristof-mattei/autoheal-rs/commit/1afa75c15ffd8409cacab55724fbdeb171bef55e))
+- Cleanup - ([146c27d](https://github.com/kristof-mattei/autoheal-rs/commit/146c27dc94d80bb1a3dfc3fa2a3459c3ea29d7cd))
+- Fmt - ([e28e2d9](https://github.com/kristof-mattei/autoheal-rs/commit/e28e2d9467de13ed7431bbcd0bed16f960057b69))
+- Also format toml - ([aebaeae](https://github.com/kristof-mattei/autoheal-rs/commit/aebaeae7a9cd79ead5a4bd64e7c5f5633bca43a8))
+- Simplify prettierconfig - ([15da060](https://github.com/kristof-mattei/autoheal-rs/commit/15da060278add228c90f65f822279a0f93e43ed2))
+## [1.3.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.5.0..v1.3.1) - 2025-05-21
+
+### 🚀 Features
+
+- Docker multiplatform - ([c1f9221](https://github.com/kristof-mattei/autoheal-rs/commit/c1f922116dd2e78d149247667a514f3bb4724aa1))
+- Support for releasing crates - ([6da4854](https://github.com/kristof-mattei/autoheal-rs/commit/6da485494a7d16767c01b0255eae49fff6cb6dcf))
+- Get rid of semantic release, use cocogitto - ([a4b5e8c](https://github.com/kristof-mattei/autoheal-rs/commit/a4b5e8cf58786d438cccee5678dcad0bc1fdcdb2))
+- Add cross building - ([46dedc2](https://github.com/kristof-mattei/autoheal-rs/commit/46dedc27e9c8fc8af3110a95ac803c08f6a82aa8))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate hyper to 1.3.0 - ([ee9f142](https://github.com/kristof-mattei/autoheal-rs/commit/ee9f142656e66a87adfc8ce2fcd0cb2c238e283f))
+- *(deps)* Update rust crate serde_json to 1.0.116 - ([858006e](https://github.com/kristof-mattei/autoheal-rs/commit/858006e01e0802fd0cd3e46a871f84d854987c0d))
+- *(deps)* Update rust crate hyper to 1.3.1 - ([a5b00a5](https://github.com/kristof-mattei/autoheal-rs/commit/a5b00a56e4dd20c1f876f07b9a210ee62e7de338))
+- *(deps)* Update rust crate serde to 1.0.198 - ([4b9dd7d](https://github.com/kristof-mattei/autoheal-rs/commit/4b9dd7ddeac67561c9d839b242c6292d4534637a))
+- *(deps)* Update rust crate serde to 1.0.199 - ([abff3a8](https://github.com/kristof-mattei/autoheal-rs/commit/abff3a83db36a16e93b9e29594179ee21b9a814a))
+- *(deps)* Update rust crate hashbrown to 0.14.5 - ([37b585a](https://github.com/kristof-mattei/autoheal-rs/commit/37b585a35b7b423a6bb3860dcc35b275d3b01415))
+- *(deps)* Update rust crate libc to 0.2.154 - ([e65350a](https://github.com/kristof-mattei/autoheal-rs/commit/e65350a7590bbf825b46f97d955d4c966c4f621d))
+- *(deps)* Update rust crate serde to 1.0.200 - ([55ad82b](https://github.com/kristof-mattei/autoheal-rs/commit/55ad82b10edd1a7498ec426d897679d21f2cc414))
+- *(deps)* Update rust crate serde to 1.0.201 - ([54f9413](https://github.com/kristof-mattei/autoheal-rs/commit/54f94132f18c3680cfb37d5e7f109d7bca329481))
+- *(deps)* Update rust crate serde_json to 1.0.117 - ([1f42d58](https://github.com/kristof-mattei/autoheal-rs/commit/1f42d58b4722c2568ad3b011763eb906ca1044b1))
+- *(deps)* Update rust crate serde to 1.0.202 - ([2d479d6](https://github.com/kristof-mattei/autoheal-rs/commit/2d479d6da73af81733f57aa936aab416472fd645))
+- *(deps)* Update rust crate hyper-util to 0.1.4 - ([58df9d0](https://github.com/kristof-mattei/autoheal-rs/commit/58df9d0d24d2ae792b81a2ecda36135ebe062c64))
+- *(deps)* Update rust crate serde to 1.0.203 - ([dfbdda6](https://github.com/kristof-mattei/autoheal-rs/commit/dfbdda6e1226015bd6b474e00b399b5fab667d78))
+- *(deps)* Update rust crate hyper-util to 0.1.5 - ([26558f9](https://github.com/kristof-mattei/autoheal-rs/commit/26558f944f3a2dfee07eeee6439ed40916dae3d7))
+- *(deps)* Update rust crate tokio to 1.38.0 - ([9433da2](https://github.com/kristof-mattei/autoheal-rs/commit/9433da2d6b8fa5a5cae73a507520dbca49f44f73))
+- *(deps)* Update rust crate backtrace to 0.3.72 - ([6f7d814](https://github.com/kristof-mattei/autoheal-rs/commit/6f7d8143e954ef6883aae2126ccdaf82249db920))
+- *(deps)* Update rust crate url to 2.5.1 - ([03a1673](https://github.com/kristof-mattei/autoheal-rs/commit/03a16735746ad200b1f15996186595714739b670))
+- *(deps)* Update rust crate http-body-util to 0.1.2 - ([7c5babd](https://github.com/kristof-mattei/autoheal-rs/commit/7c5babd99ce860bffae501cc87397814ef96a56c))
+- *(deps)* Update rust crate backtrace to 0.3.73 - ([00558d4](https://github.com/kristof-mattei/autoheal-rs/commit/00558d40e73aff56d6dca58ce439ecb7b1fb7c76))
+- *(deps)* Update rust crate url to 2.5.2 - ([c30ba13](https://github.com/kristof-mattei/autoheal-rs/commit/c30ba13498deee4c4c98d005137fae65eca23113))
+- *(deps)* Update rust crate serde_json to 1.0.118 - ([dbf1cf0](https://github.com/kristof-mattei/autoheal-rs/commit/dbf1cf07267e702e7d1ce0728f37f9e9c191052d))
+- *(deps)* Update rust crate serde_json to 1.0.119 - ([1725dde](https://github.com/kristof-mattei/autoheal-rs/commit/1725ddeea4bf18c0ce81d720465122f936762738))
+- *(deps)* Update rust crate hyper-util to 0.1.6 - ([7b18a3a](https://github.com/kristof-mattei/autoheal-rs/commit/7b18a3add0e2d627955084b84a8045dd0fc0c2e6))
+- *(deps)* Update rust crate hyper to 1.4.0 - ([dc1bbbd](https://github.com/kristof-mattei/autoheal-rs/commit/dc1bbbd40ac37afc978bb4837eb4bb70c2e2347c))
+- *(deps)* Update rust crate serde_json to 1.0.120 - ([9278aac](https://github.com/kristof-mattei/autoheal-rs/commit/9278aacb4ba78269600a4e578e08f747cb273ab6))
+- *(deps)* Update rust crate serde to 1.0.204 - ([22cfc8e](https://github.com/kristof-mattei/autoheal-rs/commit/22cfc8ecb2c284c6b90130d1c6339a4ef8909a86))
+- *(deps)* Update rust crate hyper to 1.4.1 - ([ed1ee7d](https://github.com/kristof-mattei/autoheal-rs/commit/ed1ee7d7adbbf996d16defd3f728c1806d02dbca))
+- *(deps)* Update rust crate tokio to 1.38.1 - ([c29b3e8](https://github.com/kristof-mattei/autoheal-rs/commit/c29b3e8c1dc5ad6020f59979ea68ef27f92ee668))
+- *(deps)* Update rust crate tokio to 1.39.1 - ([d89a2f5](https://github.com/kristof-mattei/autoheal-rs/commit/d89a2f5a1f4bbbee24589657cbed0b090b4b582c))
+- *(deps)* Update rust crate tokio to 1.39.2 - ([e67cad1](https://github.com/kristof-mattei/autoheal-rs/commit/e67cad15002a9357f207b858d2d85ecb18e3491c))
+- *(deps)* Update rust crate serde_json to 1.0.121 - ([6d1de65](https://github.com/kristof-mattei/autoheal-rs/commit/6d1de6516534482dcc6b53d75a3f3e4b021f56e6))
+- *(deps)* Update rust crate serde_json to 1.0.122 - ([878b712](https://github.com/kristof-mattei/autoheal-rs/commit/878b71299a598811455d252d5970f51cbee45c65))
+- *(deps)* Update rust crate hyper-util to 0.1.7 - ([de56f26](https://github.com/kristof-mattei/autoheal-rs/commit/de56f268db17c5e9f467c7c0d336abfa84c1a975))
+- *(deps)* Update rust crate serde to 1.0.205 - ([bbdb3d7](https://github.com/kristof-mattei/autoheal-rs/commit/bbdb3d72b9178b41db4fac3b2787023334a0abfd))
+- *(deps)* Update rust crate serde to 1.0.206 - ([e212f27](https://github.com/kristof-mattei/autoheal-rs/commit/e212f2799584a665422a5adaac48b5294bf4fc43))
+- *(deps)* Update rust crate serde_json to 1.0.123 - ([0f875c5](https://github.com/kristof-mattei/autoheal-rs/commit/0f875c5fda421c1485abe79407dbf67e0a52cc8c))
+- *(deps)* Update rust crate serde_json to 1.0.124 - ([cd38558](https://github.com/kristof-mattei/autoheal-rs/commit/cd38558ec0dc040dccfbb0df31e626340311209f))
+- *(deps)* Update rust crate serde to 1.0.207 - ([5848c58](https://github.com/kristof-mattei/autoheal-rs/commit/5848c58a295d4025865260b7d4161bbb440dcb3f))
+- *(deps)* Update rust crate serde_json to 1.0.125 - ([27ff524](https://github.com/kristof-mattei/autoheal-rs/commit/27ff5242a055d53e29f7e09d9c0d9e31165b6c16))
+- *(deps)* Update rust crate serde to 1.0.208 - ([06f5cc3](https://github.com/kristof-mattei/autoheal-rs/commit/06f5cc31799564ecf190cbdb2cb1f845495d0e00))
+- *(deps)* Update rust crate libc to 0.2.156 - ([aed0b05](https://github.com/kristof-mattei/autoheal-rs/commit/aed0b056447994568999a3f9fb37fef000b9c9e3))
+- *(deps)* Update rust crate tokio to 1.39.3 - ([43e705a](https://github.com/kristof-mattei/autoheal-rs/commit/43e705adf8e299383ef0ad8798a246c2610b95dc))
+- *(deps)* Update rust crate libc to 0.2.157 - ([0517eed](https://github.com/kristof-mattei/autoheal-rs/commit/0517eed8d25a67ea3b4fdfe97809b935e45d5694))
+- *(deps)* Update rust crate libc to 0.2.158 - ([baf169a](https://github.com/kristof-mattei/autoheal-rs/commit/baf169a817391a02b6511fbf6a77a093b5fe00c7))
+- *(deps)* Update rust crate serde_json to 1.0.127 - ([1832ce9](https://github.com/kristof-mattei/autoheal-rs/commit/1832ce95d0e18dc031f4f25effe64f288ddaf5ad))
+- *(deps)* Update rust crate serde to 1.0.209 - ([e82fb41](https://github.com/kristof-mattei/autoheal-rs/commit/e82fb41c4bda525cf6ea0ad233f1ce9a66af6242))
+- *(deps)* Update rust crate tokio to 1.40.0 - ([4155717](https://github.com/kristof-mattei/autoheal-rs/commit/4155717366d64e85c3f850de2fc106d86e8fb990))
+- *(deps)* Update rust crate serde_json to 1.0.128 - ([2eb80b9](https://github.com/kristof-mattei/autoheal-rs/commit/2eb80b9f988e5ed3f0f5545cd58cd2f184573c31))
+- *(deps)* Update rust crate serde to 1.0.210 - ([3048f80](https://github.com/kristof-mattei/autoheal-rs/commit/3048f8007b2179cb97223ac315d8678e41af056d))
+- *(deps)* Update rust crate backtrace to 0.3.74 - ([88601cf](https://github.com/kristof-mattei/autoheal-rs/commit/88601cf14dbea3feeda3b81e7e4d6c8eb754dfca))
+- *(deps)* Update rust crate hyper-util to 0.1.8 - ([e64a9d9](https://github.com/kristof-mattei/autoheal-rs/commit/e64a9d98334f14486365fa134ed82fb8e5836603))
+- *(deps)* Update rust crate libc to 0.2.159 - ([e48ac54](https://github.com/kristof-mattei/autoheal-rs/commit/e48ac54f9f960ae15d37a0f8c1d0bed3310c7d42))
+- *(deps)* Update rust crate hyper-util to 0.1.9 - ([da4f38c](https://github.com/kristof-mattei/autoheal-rs/commit/da4f38c2fbf664bd3c590e66cee9e3e8509e06ab))
+- *(deps)* Update rust crate hashbrown to 0.15.0 - ([7346aaf](https://github.com/kristof-mattei/autoheal-rs/commit/7346aaf222c3679808f6273c14084bf1f7a41016))
+- *(deps)* Update rust crate hyper to 1.5.0 - ([efb5d16](https://github.com/kristof-mattei/autoheal-rs/commit/efb5d165e45b542e6d83ac92d8d9951ee1049a7f))
+- *(deps)* Update rust crate libc to 0.2.160 - ([074a271](https://github.com/kristof-mattei/autoheal-rs/commit/074a2717d42e8ed324abc5ca710e3f75092222a0))
+- *(deps)* Update rust crate serde_json to 1.0.129 - ([7e45068](https://github.com/kristof-mattei/autoheal-rs/commit/7e45068f25d762dac60a56535526e9930090b80d))
+- *(deps)* Update rust crate libc to 0.2.161 - ([3daa46f](https://github.com/kristof-mattei/autoheal-rs/commit/3daa46fbe2eccba8e74fba620618c8cdcf5eca20))
+- *(deps)* Update rust crate serde_json to 1.0.130 - ([813fb6d](https://github.com/kristof-mattei/autoheal-rs/commit/813fb6dad0ef1144671a91c080accc89bbb635df))
+- *(deps)* Update rust crate serde_json to 1.0.131 - ([593f125](https://github.com/kristof-mattei/autoheal-rs/commit/593f12582a8fbe044b6c4902c2b6df7a1f71f46f))
+- *(deps)* Update rust crate serde_json to 1.0.132 - ([1961845](https://github.com/kristof-mattei/autoheal-rs/commit/19618457fb1acf7dede2722b744fd945dffa9319))
+- *(deps)* Update rust crate serde to 1.0.211 - ([59fa2d6](https://github.com/kristof-mattei/autoheal-rs/commit/59fa2d6dc80494a256ff7ad7a01773ea37325475))
+- *(deps)* Update rust crate tokio to 1.41.0 - ([890a30c](https://github.com/kristof-mattei/autoheal-rs/commit/890a30c9aad59ac90e6e8027e5bd8666c25a1008))
+- *(deps)* Update rust crate serde to 1.0.213 - ([7995d7f](https://github.com/kristof-mattei/autoheal-rs/commit/7995d7fb8664b541945b05799cf6cdd28bac9401))
+- *(deps)* Update rust crate hyper-util to 0.1.10 - ([d12722a](https://github.com/kristof-mattei/autoheal-rs/commit/d12722a04b03a5423f7221a2b125dc53505bf1b9))
+- *(deps)* Update rust crate serde to 1.0.214 - ([e054151](https://github.com/kristof-mattei/autoheal-rs/commit/e054151e1080c4c1432a0cb12a828a65263c97d2))
+- *(deps)* Update rust crate url to 2.5.3 - ([f50bb3b](https://github.com/kristof-mattei/autoheal-rs/commit/f50bb3b33daf6d8540913c8b4ba8b21b0b2f3a4d))
+- *(deps)* Update rust crate hashbrown to 0.15.1 - ([7bfb390](https://github.com/kristof-mattei/autoheal-rs/commit/7bfb39054e10437e9ec38b7559379b16c28d92cf))
+- *(deps)* Update rust crate libc to 0.2.162 - ([a59be67](https://github.com/kristof-mattei/autoheal-rs/commit/a59be670eafe402acc666a545bcc0b0881fefd8b))
+- *(deps)* Update rust crate tokio to 1.41.1 - ([a5c936e](https://github.com/kristof-mattei/autoheal-rs/commit/a5c936eff85358379df6efdb097f2c4f3c78417e))
+- *(deps)* Update rust crate serde to 1.0.215 - ([300f5cd](https://github.com/kristof-mattei/autoheal-rs/commit/300f5cdac75b1578360e8c9a87d849da6f5eb225))
+- *(deps)* Update rust crate libc to 0.2.164 - ([ea82922](https://github.com/kristof-mattei/autoheal-rs/commit/ea82922a681aec35c5b45ae20cadb0a64ea1eb9a))
+- *(deps)* Update rust crate serde_json to 1.0.133 - ([cb4d9bf](https://github.com/kristof-mattei/autoheal-rs/commit/cb4d9bf1086ab1f7650178b9f0b8c269cb546883))
+- *(deps)* Update rust crate hyper to 1.5.1 - ([57d6dc8](https://github.com/kristof-mattei/autoheal-rs/commit/57d6dc856be68f4d1f627a91dbb41395c40cbd12))
+- *(deps)* Update rust crate hashbrown to 0.15.2 - ([883837f](https://github.com/kristof-mattei/autoheal-rs/commit/883837f35fbdf072b32998d52b817bd5ab651e8e))
+- *(deps)* Update rust crate libc to 0.2.165 - ([9590be3](https://github.com/kristof-mattei/autoheal-rs/commit/9590be32ba5d7dacd29e7465b6c6ede1c8accaaa))
+- *(deps)* Update rust crate tracing to 0.1.41 - ([8b8de58](https://github.com/kristof-mattei/autoheal-rs/commit/8b8de58e6eef5736f66af1f90de6b0a0be745327))
+- *(deps)* Update rust crate libc to 0.2.167 - ([c030a24](https://github.com/kristof-mattei/autoheal-rs/commit/c030a241eee19ff647cc49c514900ac644b2e148))
+- *(deps)* Update rust crate tracing-subscriber to 0.3.19 - ([2101c76](https://github.com/kristof-mattei/autoheal-rs/commit/2101c766173596988113f9ceb9be48f1c1553484))
+- *(deps)* Update rust crate tokio to 1.42.0 - ([2dde957](https://github.com/kristof-mattei/autoheal-rs/commit/2dde9571f0e3616298e57b1054aa3e8e62f39c01))
+- *(deps)* Update rust crate http to 1.2.0 - ([537c5d7](https://github.com/kristof-mattei/autoheal-rs/commit/537c5d7f154f4c292f30916669429975beeaea94))
+- *(deps)* Update rust crate libc to 0.2.168 - ([cb78bc5](https://github.com/kristof-mattei/autoheal-rs/commit/cb78bc58170266378a19ea10fabbfc482a077652))
+- *(deps)* Update rust crate serde to 1.0.216 - ([41897d2](https://github.com/kristof-mattei/autoheal-rs/commit/41897d274f075aae51b7ad0f500b35057642ab64))
+- *(deps)* Update rust crate hyper to 1.5.2 - ([542321c](https://github.com/kristof-mattei/autoheal-rs/commit/542321c04006f8dce046ef34422accf0726c2ff8))
+- *(deps)* Update rust crate libc to 0.2.169 - ([f0b1a52](https://github.com/kristof-mattei/autoheal-rs/commit/f0b1a521d11276d09d8e626999fd4e57871fa9e5))
+- *(deps)* Update rust crate serde_json to 1.0.134 - ([2b3894d](https://github.com/kristof-mattei/autoheal-rs/commit/2b3894d6ad96aba0969d6832a10d03d80595189f))
+- *(deps)* Update rust crate hyper-unix-socket to 0.3.0 - ([d3ac57a](https://github.com/kristof-mattei/autoheal-rs/commit/d3ac57a85dda87e169ca85a0a52ba7ebd40f164c))
+- *(deps)* Update rust crate serde to 1.0.217 - ([5b80d8f](https://github.com/kristof-mattei/autoheal-rs/commit/5b80d8ff56b472eaf3a2705ccc893bc545fafc5f))
+- *(deps)* Update rust crate serde_json to 1.0.135 - ([5b16dd3](https://github.com/kristof-mattei/autoheal-rs/commit/5b16dd30793dd19f94bfa0ee6adac15c01a779d5))
+- *(deps)* Update rust crate tokio to 1.43.0 - ([c1c1198](https://github.com/kristof-mattei/autoheal-rs/commit/c1c119815e10bb083dcce3b2919d33e0073fb234))
+- *(deps)* Update rust crate serde_json to 1.0.136 - ([ee77fd2](https://github.com/kristof-mattei/autoheal-rs/commit/ee77fd2db809753b3d2f6298fd2792175ae358fa))
+- *(deps)* Update rust crate serde_json to 1.0.137 - ([d3c31e0](https://github.com/kristof-mattei/autoheal-rs/commit/d3c31e043d053cb9636306a728bdbba298b0faad))
+- *(deps)* Update rust crate hyper to 1.6.0 - ([be42873](https://github.com/kristof-mattei/autoheal-rs/commit/be42873859d153c97833e9c9f23eb7d35504921f))
+- *(deps)* Update rust crate serde_json to 1.0.138 - ([ce702b7](https://github.com/kristof-mattei/autoheal-rs/commit/ce702b72891334a79cd2b13d8064027a2f2913f7))
+- *(deps)* Update rust crate serde_json to 1.0.139 - ([6031c86](https://github.com/kristof-mattei/autoheal-rs/commit/6031c865033bcf931c5dcbfc5c561b754a4a3129))
+- *(deps)* Update rust crate serde to 1.0.218 - ([2c2ffee](https://github.com/kristof-mattei/autoheal-rs/commit/2c2ffeea0b9078097981e3877d74a8bf0b312c5b))
+- *(deps)* Update rust crate libc to 0.2.170 - ([a36a27f](https://github.com/kristof-mattei/autoheal-rs/commit/a36a27f5b32fd682ffb111e9342679f7fa12b692))
+- *(deps)* Update rust crate serde_json to 1.0.140 - ([b409630](https://github.com/kristof-mattei/autoheal-rs/commit/b4096309843eaabd874436b3fd2a74a508b0a033))
+- *(deps)* Update rust crate tokio to 1.44.0 - ([6a367c8](https://github.com/kristof-mattei/autoheal-rs/commit/6a367c8b1840442a25b3f54c2bbac0d914727c75))
+- *(deps)* Update rust crate serde to 1.0.219 - ([fa4afa3](https://github.com/kristof-mattei/autoheal-rs/commit/fa4afa34da6ab966c03e7c8e636a2ba0eb18e2c5))
+- *(deps)* Update rust crate libc to 0.2.171 - ([f01522c](https://github.com/kristof-mattei/autoheal-rs/commit/f01522c0b871af19d4cef4abf2022f2f0634f145))
+- *(deps)* Update rust crate http-body-util to 0.1.3 - ([3f23c15](https://github.com/kristof-mattei/autoheal-rs/commit/3f23c15a6a5226c7839c5b517294f7b3ee94f375))
+- *(deps)* Update rust crate http to 1.3.1 - ([fbfb24e](https://github.com/kristof-mattei/autoheal-rs/commit/fbfb24e3d0df0ecb0f1dd43e409b51b50896d14b))
+- *(deps)* Update rust crate tokio to 1.44.1 - ([3e12af7](https://github.com/kristof-mattei/autoheal-rs/commit/3e12af72da7b00a17f9a43a627ca1c7db22f7e20))
+- *(deps)* Update rust crate hyper-util to 0.1.11 - ([6e187ca](https://github.com/kristof-mattei/autoheal-rs/commit/6e187ca5e582e13aa29affc9532270bc838c4621))
+- *(deps)* Update rust crate tokio to 1.44.2 - ([2c556ca](https://github.com/kristof-mattei/autoheal-rs/commit/2c556cac8c24c60ca29c4db9679316ac92997c96))
+- *(deps)* Update rust crate libc to 0.2.172 - ([66f6546](https://github.com/kristof-mattei/autoheal-rs/commit/66f654657bab86491a2d578adc0dd57a9a021a14))
+- *(deps)* Update rust crate hashbrown to 0.15.3 - ([abdbafd](https://github.com/kristof-mattei/autoheal-rs/commit/abdbafd72072221915005e95d0b0834b69331d7d))
+- *(deps)* Update rust crate tokio to 1.45.0 - ([b49fbc4](https://github.com/kristof-mattei/autoheal-rs/commit/b49fbc4ef87b8671a8e7663895f9f94cdcb94dd1))
+- *(deps)* Update rust crate url to 2.5.4 - ([867a4a4](https://github.com/kristof-mattei/autoheal-rs/commit/867a4a4b804372df3c5145b9755bb5271ec1ec7a))
+- *(deps)* Update rust crate hyper-util to 0.1.12 - ([2510f55](https://github.com/kristof-mattei/autoheal-rs/commit/2510f5562fa1c0cf46fca70438d607caaad8f661))
+- Try something else - ([0efe974](https://github.com/kristof-mattei/autoheal-rs/commit/0efe9741d77cf9f7ca93f38255aa91e7dcf670af))
+- Temp use custom version of eyre that depends on an updated of backtrace so we can update backtrace itself to its latest version - ([899f442](https://github.com/kristof-mattei/autoheal-rs/commit/899f44227e870e8706e94ab813d3e839b8813428))
+- Report tests to codecov for tracking - ([cc1ccdd](https://github.com/kristof-mattei/autoheal-rs/commit/cc1ccdd729170ab4f8fddc1660911caf587fc3ad))
+- Docker-compose has been deprecated for docker compose - ([164dd98](https://github.com/kristof-mattei/autoheal-rs/commit/164dd986987a326254cbbd0170903da31cb689fb))
+- Always run integration tests - ([db8728b](https://github.com/kristof-mattei/autoheal-rs/commit/db8728b9c3c02cf96b8ce6235546a07d6df70726))
+- Ensure docker_integration_test needs to pass - ([ab3b2d7](https://github.com/kristof-mattei/autoheal-rs/commit/ab3b2d7bdcdbd8964142bb37346aeb88e0863044))
+- Remove obsolete props - ([9e14174](https://github.com/kristof-mattei/autoheal-rs/commit/9e14174ff0c98f57d27fe539a887225b9203eda9))
+- Docker compose uses '-' instead of '_' - ([f463dba](https://github.com/kristof-mattei/autoheal-rs/commit/f463dba3a3e495881d2a1654f136871784a85c63))
+- Prettier 3.41.0 - ([64aa76c](https://github.com/kristof-mattei/autoheal-rs/commit/64aa76cc522d7ee28a38bfffee53dc789abe4c12))
+- Restore needed workflows - ([72180e8](https://github.com/kristof-mattei/autoheal-rs/commit/72180e8239e1a85a892f7713d8986bb9ad34f55c))
+- Build container from scratch - ([250217a](https://github.com/kristof-mattei/autoheal-rs/commit/250217a80fa10d152f21f31c6031ce45039b32ce))
+- Remove @actions/tool-cache - ([3889143](https://github.com/kristof-mattei/autoheal-rs/commit/3889143b5e053e5d63835407138decb395314a13))
+- Start tracking lldb debug helper - ([b662ffa](https://github.com/kristof-mattei/autoheal-rs/commit/b662ffa8c38b08c5f3d276e6e58646013a051efd))
+- Rust 1.87.0, use .display() - ([041042b](https://github.com/kristof-mattei/autoheal-rs/commit/041042b6ea3f7b110ec39f35584b9c2ff657f0c7))
+- Disable clippy 1.87.0 let_and_return - ([9246d86](https://github.com/kristof-mattei/autoheal-rs/commit/9246d861995c87085c04618a8619320afdbd771d))
+- Add runner.arch to the cache keys - ([64b63e2](https://github.com/kristof-mattei/autoheal-rs/commit/64b63e2f99501f0208e54f3d1d35e19990751cec))
+- Set correct cache key for the docker step - ([bb875b8](https://github.com/kristof-mattei/autoheal-rs/commit/bb875b8d038162d657082014a7070edb573cae92))
+- Don't install binstall, cargo-edit doesn't have a package anyway - ([377a21e](https://github.com/kristof-mattei/autoheal-rs/commit/377a21ec73fd822d22099945fb196dcb89b75cc4))
+- Ensure we enable tokio_unstable in the container as well - ([d87f4d5](https://github.com/kristof-mattei/autoheal-rs/commit/d87f4d5ae3279f35abaaaf257c53741d751564c5))
+- Remove incorrec exit - ([3791382](https://github.com/kristof-mattei/autoheal-rs/commit/379138240224b860cf69d1249f93cacc8c847b6e))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(version)* V1.2.0 - ([1dbbec6](https://github.com/kristof-mattei/autoheal-rs/commit/1dbbec608864c5cb559a90d8904996011daef52c))
+- *(version)* V1.3.0 - ([bee1b83](https://github.com/kristof-mattei/autoheal-rs/commit/bee1b83e6cfe1afd6286073fc1bb38787c0ba48e))
+- *(version)* V1.3.1 - ([096c422](https://github.com/kristof-mattei/autoheal-rs/commit/096c4229799cecace867a1de699a7f65eefe59bb))
+- Minor build changes, formatting - ([8b1e9f8](https://github.com/kristof-mattei/autoheal-rs/commit/8b1e9f8aa2e6a37c268dd7587d0912d251afdea4))
+- Fix typo - ([3a3e968](https://github.com/kristof-mattei/autoheal-rs/commit/3a3e96855b5eadc81a2d0704a1c4de6569d721a5))
+- Also rebuild when .nvmrc changes - ([6155455](https://github.com/kristof-mattei/autoheal-rs/commit/61554551d015d07fb230e09d8d5e33da2cfd1e54))
+- Readme - ([5d5d935](https://github.com/kristof-mattei/autoheal-rs/commit/5d5d93557bf83ec841b8abd310f7e67cc7c5d086))
+- Always run reporting, even when no changes as reports are mandatory - ([c86f535](https://github.com/kristof-mattei/autoheal-rs/commit/c86f5353d6813262e0bf327dbe2db641f87d363c))
+- Disable codecov running plugins, disable codecov searching - ([c946f90](https://github.com/kristof-mattei/autoheal-rs/commit/c946f90a1a119f7f97f1e2830c2c55eef3050c6a))
+- Add linebreaks in the if statements, otherwise the vscode parser gets upset - ([79ecc87](https://github.com/kristof-mattei/autoheal-rs/commit/79ecc8745e7629e60c75b1990aae2850543eb4d0))
+- Remove unneeded id - ([81b3536](https://github.com/kristof-mattei/autoheal-rs/commit/81b35367789ed5722e391766ed52dd73b02ac259))
+- Change name - ([7bcbcb6](https://github.com/kristof-mattei/autoheal-rs/commit/7bcbcb6b9a667327f8b239b4f49743efc6e55130))
+- Separate the name so the rename script doesn't update it - ([db3de07](https://github.com/kristof-mattei/autoheal-rs/commit/db3de077fe7c68dfd00b94332eb776c889abc19b))
+- Enforce_admins should be null if you want to disable it... - ([97a3c84](https://github.com/kristof-mattei/autoheal-rs/commit/97a3c846ebfaa2489bb7af87f4149ec7b9276efc))
+- Formatting - ([53a0e5b](https://github.com/kristof-mattei/autoheal-rs/commit/53a0e5b88ad79efebc8f790df0cb253df0f3ff99))
+- Try Rc<str> instead of String - ([7d3c8ac](https://github.com/kristof-mattei/autoheal-rs/commit/7d3c8ac03fe016e643727adc5e119dc445bc1a1c))
+- Use rev as branch is gone - ([11a117f](https://github.com/kristof-mattei/autoheal-rs/commit/11a117fbb9e8898bdf88f506d068d2c3f2c7646e))
+- Syntax consistency, as -> AS - ([a28deb7](https://github.com/kristof-mattei/autoheal-rs/commit/a28deb75b3a8ae060d7ca1f4459ad074ab7a276d))
+- Syntax consistency, as -> AS - ([ba8d334](https://github.com/kristof-mattei/autoheal-rs/commit/ba8d3344466d98c4ddd2260291cecbe946c7c9ec))
+- Fix merge conflict - ([e14bfb5](https://github.com/kristof-mattei/autoheal-rs/commit/e14bfb53d2071860925471e906cb7e458bf14f56))
+- Formatting - ([773e45a](https://github.com/kristof-mattei/autoheal-rs/commit/773e45a7839624fef2056ed1e7f4e37339860f23))
+- Allow multi wasi versions - ([7953ddc](https://github.com/kristof-mattei/autoheal-rs/commit/7953ddc71690bed3cbd3da8b64c40ed7430b32c9))
+- Reduce allowed duplicate crates - ([578dd3d](https://github.com/kristof-mattei/autoheal-rs/commit/578dd3dd585db7233e5d132a0c99c84a036c1e52))
+- Rust 1.85.0 - ([e790939](https://github.com/kristof-mattei/autoheal-rs/commit/e790939e5162a5b1f5bac286dac41d51f4969cfc))
+- Use eyre::Report instead of the too-specialized color_eyre::eyre::Report - ([02b08be](https://github.com/kristof-mattei/autoheal-rs/commit/02b08beaf2315701e7f5a254facff26b68f90793))
+- Correct logging with console subscriber - ([d4e096d](https://github.com/kristof-mattei/autoheal-rs/commit/d4e096d5c58b010f55aa68fe3116bf0540b66c88))
+- Allow custom docker socket - ([1072e05](https://github.com/kristof-mattei/autoheal-rs/commit/1072e056884eb704f5e228ed1af42b2504d4ad22))
+- Be more specific - ([0caaab7](https://github.com/kristof-mattei/autoheal-rs/commit/0caaab7de808ef8e50ce96fc3887fe24542d0fae))
+- Remove unneeded .ci - ([3be9c19](https://github.com/kristof-mattei/autoheal-rs/commit/3be9c19e347578b89a0c2e9b3448e5df3e9aeaee))
+- Formatting - ([978f4b2](https://github.com/kristof-mattei/autoheal-rs/commit/978f4b2a669b1d2f6ab3d9e7d738ab2b87516be4))
+- Enable more lints - ([4cb6bb7](https://github.com/kristof-mattei/autoheal-rs/commit/4cb6bb7967f130408917be3a75e19421c5fedb86))
+- Ensure we have oras - ([adb17dd](https://github.com/kristof-mattei/autoheal-rs/commit/adb17dd3071a0f100b7f9b25d5ee79b2af0594da))
+- Fix title - ([1ecfb70](https://github.com/kristof-mattei/autoheal-rs/commit/1ecfb70f8778f65098b117403bbc1574a2f6a017))
+- Install cargo-binstall from updated url - ([8172e7f](https://github.com/kristof-mattei/autoheal-rs/commit/8172e7fe5a8996eb4b499ccd4ee443f7e5ee2cca))
+- Rust 1.85.0 - ([d876c00](https://github.com/kristof-mattei/autoheal-rs/commit/d876c00796252ef81adf85ea6ae8fc25b9d5e0d8))
+- Format dockerfile - ([edb1f30](https://github.com/kristof-mattei/autoheal-rs/commit/edb1f309e3326acbad14b3b83aea65b53e12e506))
+- Fmt also 1.85.0 - ([c9488e3](https://github.com/kristof-mattei/autoheal-rs/commit/c9488e384c6ac0816b2a02574f18e0e54eff3b12))
+- Remove oras - ([8eceae9](https://github.com/kristof-mattei/autoheal-rs/commit/8eceae99297f4f5900549ef08f6105df530069cb))
+- Forgot `push` - ([6842ab4](https://github.com/kristof-mattei/autoheal-rs/commit/6842ab4e26a3417520d3334da6fd542d1d240871))
+- Push by tag, not filepath... - ([cb03a00](https://github.com/kristof-mattei/autoheal-rs/commit/cb03a00f208e2e3116f048bc6dcd42615933d90d))
+- Add logging, try remove unneeded (?) buildx - ([baafce6](https://github.com/kristof-mattei/autoheal-rs/commit/baafce66428bb303013f3dbc2760556cbbeca150))
+- Fix for rustup 1.28.0 not installing needed toolchain by default - ([9f283b7](https://github.com/kristof-mattei/autoheal-rs/commit/9f283b736f6e0f03ac8c2afaa2fda5cbbb86896d))
+- Install rust-fmt - ([234465e](https://github.com/kristof-mattei/autoheal-rs/commit/234465e358cc52c0fead88af8f2116bac0f632b7))
+- Use working-directory - ([e7e90d5](https://github.com/kristof-mattei/autoheal-rs/commit/e7e90d51a297e56a3fabc95ee2ade32c4150bb57))
+- Set working-directory - ([f657766](https://github.com/kristof-mattei/autoheal-rs/commit/f657766fd5b75716fa316bd1ad90c5d7c32e975b))
+- Ensure we restore symlinks - ([ceede20](https://github.com/kristof-mattei/autoheal-rs/commit/ceede20c91e783b56d32c109e7e989834ea38cfe))
+- Clippy 1.86 fixes - ([883a211](https://github.com/kristof-mattei/autoheal-rs/commit/883a2118ff3600b8adb5117011e412c2faf49f7e))
+- Add template clippy.toml - ([307cbdb](https://github.com/kristof-mattei/autoheal-rs/commit/307cbdb563c89194cf50119410509e4f4030659b))
+- Remove incorrect comment - ([82a8d6d](https://github.com/kristof-mattei/autoheal-rs/commit/82a8d6d47279919c074137571d5901367e9826d3))
+- Ignore generated changelog - ([9084f3f](https://github.com/kristof-mattei/autoheal-rs/commit/9084f3fe60d2794d98ca6fff47428c169a8f3f80))
+- Clippy 1.86 fixes - ([1ba9e82](https://github.com/kristof-mattei/autoheal-rs/commit/1ba9e82c8de2d8fd2ba93018639ec3683e95c9e6))
+- Disable required signatures - ([445e425](https://github.com/kristof-mattei/autoheal-rs/commit/445e4253a7dcbe8fac577cdcaff328466590abe1))
+- Set default debug visualizer - ([6941793](https://github.com/kristof-mattei/autoheal-rs/commit/69417931ad3e2506dbee9732bef5b1ef9649c885))
+- Update debug setup - ([59756b7](https://github.com/kristof-mattei/autoheal-rs/commit/59756b712762276d2032290b7d24f3a9e900d059))
+- Update texts - ([8d09808](https://github.com/kristof-mattei/autoheal-rs/commit/8d09808eccdb55a2c4def5d4732a932ca0741745))
+- Change wording - ([34fb4cf](https://github.com/kristof-mattei/autoheal-rs/commit/34fb4cf3eda6724b074e3ce877a733dfaf8780cf))
+- Formatting - ([f3dde64](https://github.com/kristof-mattei/autoheal-rs/commit/f3dde6447ec7fc4eadd646da761b872e21fdd6a2))
+- I686 is 32-bit, we need 64-bit - ([e57dbf8](https://github.com/kristof-mattei/autoheal-rs/commit/e57dbf819b37fe82bab231af7c693a8bb32cc04c))
+- Remove need for build & targetplatform in scripts - ([13b8275](https://github.com/kristof-mattei/autoheal-rs/commit/13b827509a357046309726f116cdfb611753d266))
+- More precise coverage, don't include test/** - ([83002c7](https://github.com/kristof-mattei/autoheal-rs/commit/83002c72807cf5ffe0b77fcc16f7353eeefe46fe))
+- Make wget more robust - ([a7e1e60](https://github.com/kristof-mattei/autoheal-rs/commit/a7e1e60645a975d9787f1681273af3b8b22326fc))
+- Remove customization, packages now work oob with binstall - ([c85dd07](https://github.com/kristof-mattei/autoheal-rs/commit/c85dd0741ff01084504eb2d18c53efcb57a5f37b))
+- Convention: bash variable names are lowercase - ([dc27ba1](https://github.com/kristof-mattei/autoheal-rs/commit/dc27ba1dc0d30acc3765a6369749891823bf5a70))
+- Consolidation of scripts - ([0a075f6](https://github.com/kristof-mattei/autoheal-rs/commit/0a075f6204c8e468fa8027314dc89ed552b5d839))
+- Move away from env, use output - ([a6a7b2c](https://github.com/kristof-mattei/autoheal-rs/commit/a6a7b2c240dfc8f005740d3b15b9a1e5473f7a4d))
+- Even more variables - ([64866e5](https://github.com/kristof-mattei/autoheal-rs/commit/64866e5bc5547d3b4ef13329f07708f59a0c1c6b))
+- Fix output - ([39aecb7](https://github.com/kristof-mattei/autoheal-rs/commit/39aecb7f88547541cb73a0daea054cba7bafc37f))
+- Group variables in single step - ([793b007](https://github.com/kristof-mattei/autoheal-rs/commit/793b0079596c261547767c8e939b31d12345e336))
+- Set revision explicitely - ([1ca21b9](https://github.com/kristof-mattei/autoheal-rs/commit/1ca21b9c350223869f42f51e85cf6311b2ca7307))
+## [1.5.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.4.1..v1.5.0) - 2024-04-13
+
+### 🚀 Features
+
+- Count unhealthy times - ([c866ebc](https://github.com/kristof-mattei/autoheal-rs/commit/c866ebcd7b2f34631ae26c55b5c9d6549e4a9f0e))
+- Multi-platform images - ([45196bd](https://github.com/kristof-mattei/autoheal-rs/commit/45196bd6bd8801472a6db0b76278fbeaa54c1ca1))
+- Codecov - ([fac48b6](https://github.com/kristof-mattei/autoheal-rs/commit/fac48b684db19cf74aae4afbf77783a9d31cacc2))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate http-body-util to 0.1.1 - ([d951ffd](https://github.com/kristof-mattei/autoheal-rs/commit/d951ffdd4e775b87038c4543330d81c3ecc685dc))
+- *(deps)* Update rust crate color-eyre to 0.6.3 - ([aaf8529](https://github.com/kristof-mattei/autoheal-rs/commit/aaf852985cc4ad9b07361d0858111fbe5e6c6652))
+- *(deps)* Update rust crate color-eyre to 0.6.3 - ([baf1dc7](https://github.com/kristof-mattei/autoheal-rs/commit/baf1dc7b4352679914415662a2b16ec8f036d409))
+- *(deps)* Update rust crate backtrace to 0.3.70 - ([538cf6e](https://github.com/kristof-mattei/autoheal-rs/commit/538cf6edaa42b46eb4cfec1cc80a609c33c2dc41))
+- *(deps)* Update rust crate serde_json to 1.0.115 - ([b0e8894](https://github.com/kristof-mattei/autoheal-rs/commit/b0e8894e98b3af25283b8e36831abec04d3c13e6))
+- *(deps)* Update rust crate tokio to 1.37.0 - ([f5847db](https://github.com/kristof-mattei/autoheal-rs/commit/f5847dbaea422ccea1066513b3d9a0d7861e66d6))
+- Don't set shell, not needed in semgrep container - ([de4ab4c](https://github.com/kristof-mattei/autoheal-rs/commit/de4ab4c42e490e7e5a5ce2a6af342659f9ef3a49))
+- Separate scan and fixup, as the scan container doesn't have bash / jq anymore - ([4e59581](https://github.com/kristof-mattei/autoheal-rs/commit/4e595812651951b3e762d8abe0ef7dac61ff6156))
+- Only upload sarif file itself - ([0629d45](https://github.com/kristof-mattei/autoheal-rs/commit/0629d45d07730960d087feed26c941ee1d7fa0a6))
+- Set unpack folder, not filepath - ([3612966](https://github.com/kristof-mattei/autoheal-rs/commit/36129662df205055eedb8fd73e62a4dbeb08e323))
+- Also wait on integration test - ([9788d0d](https://github.com/kristof-mattei/autoheal-rs/commit/9788d0dd0913acc1a11f6cee5cb8d352ef071ce4))
+- Platform name - ([d8cf974](https://github.com/kristof-mattei/autoheal-rs/commit/d8cf9747ae7b1c14fa7f70b1f7f612d342d1e31a))
+- Filepaths were wrong - ([6d1f131](https://github.com/kristof-mattei/autoheal-rs/commit/6d1f131d50f29b4e9f58a3ab29cc83da7dd3c0e2))
+- Use artifact v4 settings - ([d8c091d](https://github.com/kristof-mattei/autoheal-rs/commit/d8c091de62781eac1789ad4a11889e3fa4559414))
+- Correctly build musl - ([c712945](https://github.com/kristof-mattei/autoheal-rs/commit/c7129451d3a7618b0304bcf78471f5fd14811bf2))
+
+### ⚙️ Miscellaneous Tasks
+
+- Revert use of hashset for names - ([b8a60ba](https://github.com/kristof-mattei/autoheal-rs/commit/b8a60ba2616a8f5a17efbb8f189137032937611a))
+- Explicitely set prettierrc's path - ([3787f7f](https://github.com/kristof-mattei/autoheal-rs/commit/3787f7f1842f1b72aad3ad93a86af660c438f138))
+- Align title - ([0a560bf](https://github.com/kristof-mattei/autoheal-rs/commit/0a560bf62205abac716b75abe3a54d1776fbca81))
+- Checkout to satisfy the codeql tool - ([d6f858a](https://github.com/kristof-mattei/autoheal-rs/commit/d6f858a3a1f026bb0c219e0dfdc199f3b3676af6))
+- Ignore warning certain packages pulling in same crate with different version - ([ba42c01](https://github.com/kristof-mattei/autoheal-rs/commit/ba42c01790c622adfcde37248338be4bd00abd42))
+- Rename semgrep job to make it register with semgrep - ([9720764](https://github.com/kristof-mattei/autoheal-rs/commit/9720764f82f17f202c8886bd638cf0faa36c4897))
+- Use semgrep action, not container - ([738b8de](https://github.com/kristof-mattei/autoheal-rs/commit/738b8deb1606266e1106577b3f61231efe5b2d4c))
+- Back to container, the action is outdated - ([dc2bd52](https://github.com/kristof-mattei/autoheal-rs/commit/dc2bd5258b484556d1600145067aa2a1fdb20d56))
+- Add category - ([df3df77](https://github.com/kristof-mattei/autoheal-rs/commit/df3df77ba61c070a904f3d2f721cb245a0ac6ad9))
+- Semgrep 1 job - ([5c6c2ee](https://github.com/kristof-mattei/autoheal-rs/commit/5c6c2ee8527a899ec058e6194fea015c957e23a9))
+- Fix filename - ([3802280](https://github.com/kristof-mattei/autoheal-rs/commit/3802280c2239d9a4174a315ccd172cfe8fc7f181))
+- Allow warnings in test - ([83d3bb2](https://github.com/kristof-mattei/autoheal-rs/commit/83d3bb205342485cf9f3ff8f87c20cd1a9df616e))
+- Allow warnings in test - ([e49075f](https://github.com/kristof-mattei/autoheal-rs/commit/e49075f2c6d6ab5b98e0d81304a2a6acad966c8a))
+- Set checks with new API - ([8361952](https://github.com/kristof-mattei/autoheal-rs/commit/83619524f171939a235a921255eea4f52c4e9e07))
+- Fix ] typo - ([3648333](https://github.com/kristof-mattei/autoheal-rs/commit/3648333faa3377507bef44aa89fdbc06882293d3))
+- Try codecov - ([e1dd293](https://github.com/kristof-mattei/autoheal-rs/commit/e1dd29358d55d597f95fa4053b76a7a99b1154f7))
+- Support for ARM64 - ([8658748](https://github.com/kristof-mattei/autoheal-rs/commit/865874837be48194e825e92178951bdd7859d744))
+- Try OCI - ([d40e4f7](https://github.com/kristof-mattei/autoheal-rs/commit/d40e4f7901c299a5429579c484e5fbc3c24716dc))
+- Build with matrix - ([87566ad](https://github.com/kristof-mattei/autoheal-rs/commit/87566adcc016b050b52b7749ce47183f7d78e791))
+- Also add rust target to name - ([fa11cb5](https://github.com/kristof-mattei/autoheal-rs/commit/fa11cb5b76646809cd5de6451a07818bec922b93))
+- Correct params - ([3b4513c](https://github.com/kristof-mattei/autoheal-rs/commit/3b4513c6dfd7d46a21b41594173de731f9139ece))
+- Debugging - ([89153e2](https://github.com/kristof-mattei/autoheal-rs/commit/89153e203b481aa34552ffdb093e608138b5bc10))
+- Export docker - ([5cff099](https://github.com/kristof-mattei/autoheal-rs/commit/5cff0993fca0e1a278b63e91059474efe6853486))
+- Prettier - ([abe1135](https://github.com/kristof-mattei/autoheal-rs/commit/abe113575b1383bb35be5849d65ced7b7bf7b240))
+- Disable arm64 - musl - ([828077d](https://github.com/kristof-mattei/autoheal-rs/commit/828077da7fdf2772d50a55eb89067504e4c5a209))
+- Use correct tar name - ([8e3a561](https://github.com/kristof-mattei/autoheal-rs/commit/8e3a5611108a2a62f0475104d2a27fda0369843f))
+- Prettier - ([1ae2986](https://github.com/kristof-mattei/autoheal-rs/commit/1ae2986e3828aa0949d6319146f544c545a4c9d8))
+- Linker for aarch64 - ([112a197](https://github.com/kristof-mattei/autoheal-rs/commit/112a19734f542c4ce61a93e1e1d365dbc4b0619d))
+- Copy in linker into docker container - ([57ff932](https://github.com/kristof-mattei/autoheal-rs/commit/57ff9320ee1aa210641ea66041351a3d308cd9a0))
+- Re-enable aarch64 - ([d629f99](https://github.com/kristof-mattei/autoheal-rs/commit/d629f99b3e09fc0df2d64d0fbc5d4186011bd4e1))
+- Fix build error - ([4dae08f](https://github.com/kristof-mattei/autoheal-rs/commit/4dae08f1665344c945f3d95663fbf10b58203bf4))
+- Arm64 - ([9510d6d](https://github.com/kristof-mattei/autoheal-rs/commit/9510d6d00bbb8b67a8317f3e452fc5fda93b0036))
+## [1.4.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.4.0..v1.4.1) - 2024-03-09
+
+### 🐛 Bug Fixes
+
+- Ensure we start the to-be-ignored-container, otherwise our tests aren't testing anything - ([1ef9d6e](https://github.com/kristof-mattei/autoheal-rs/commit/1ef9d6e17ff3002f744b6d27e73c867c83aa9752))
+- Trim slash, fix ignore test - ([b1513a7](https://github.com/kristof-mattei/autoheal-rs/commit/b1513a7b743e3f78ffc41f8109211a41485b3cdb))
+
+### ⚙️ Miscellaneous Tasks
+
+- Log when we're ignorning an unhealthy container - ([38b1adc](https://github.com/kristof-mattei/autoheal-rs/commit/38b1adc343706a725401c8720ba2f6e81875c8df))
+- Better message - ([d972d43](https://github.com/kristof-mattei/autoheal-rs/commit/d972d43c21b7513540d7cc6a87b02182952ed357))
+- Fix tests - ([94fa5ec](https://github.com/kristof-mattei/autoheal-rs/commit/94fa5ec7273143bd60d668110b7705c4db5f337b))
+- Fix unneeded use - ([413eae3](https://github.com/kristof-mattei/autoheal-rs/commit/413eae33b533813ab016c7cf9b7eac5ff3bacf82))
+- Fix docker compose container naming scheme - ([dae11f1](https://github.com/kristof-mattei/autoheal-rs/commit/dae11f1933484c8bc52b8612fb93327b44f56dbe))
+## [1.3.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.2.0..v1.3.0) - 2024-03-07
+
+### 🚀 Features
+
+- Webhooks support ntfy - ([a6f110b](https://github.com/kristof-mattei/autoheal-rs/commit/a6f110be9c728b97e39577e78c661341469992c3))
+- Start migrating away from =true auto labels - ([2f6960b](https://github.com/kristof-mattei/autoheal-rs/commit/2f6960b18e81ef2975ba371e0d61028f6678fdee))
+- Allow for excluding containers by name - ([023b97d](https://github.com/kristof-mattei/autoheal-rs/commit/023b97db6e934e4f3d602983299b3db604dca35f))
+- Update env var name - ([9d24b6f](https://github.com/kristof-mattei/autoheal-rs/commit/9d24b6f3f73d87d4daa7159dbe2f791f723328a1))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate libc to 0.2.150 - ([66f6690](https://github.com/kristof-mattei/autoheal-rs/commit/66f66905da8e2b91e88db4fb52129d10b8509ec4))
+- *(deps)* Update rust crate serde to 1.0.191 - ([953382a](https://github.com/kristof-mattei/autoheal-rs/commit/953382a411bb81e97a88d71f370ad72ef832f687))
+- *(deps)* Update rust crate serde to 1.0.192 - ([c131b69](https://github.com/kristof-mattei/autoheal-rs/commit/c131b69025ce2525bdc34145fce80a6e39d15394))
+- *(deps)* Update rust crate tokio to 1.34.0 - ([9ca1920](https://github.com/kristof-mattei/autoheal-rs/commit/9ca1920b6cdb8a041b89c57a4c8abffc36bb918e))
+- *(deps)* Update rust crate http to 0.2.10 - ([f4e37a5](https://github.com/kristof-mattei/autoheal-rs/commit/f4e37a53aa2594c2419314f7b58ceccca403ded1))
+- *(deps)* Update rust crate http to 0.2.11 - ([c2da08c](https://github.com/kristof-mattei/autoheal-rs/commit/c2da08cc04dec3c68eceb5309afaccaafc6ab499))
+- *(deps)* Update rust crate tracing-subscriber to 0.3.18 - ([a253173](https://github.com/kristof-mattei/autoheal-rs/commit/a2531730cbec708180e6f446445d1fbe87653ea0))
+- *(deps)* Update rust crate hyper-util to 0.1.1 - ([66cff7a](https://github.com/kristof-mattei/autoheal-rs/commit/66cff7a3f2c5cc0e2d0ccf6da64c67389a7a8490))
+- *(deps)* Update rust crate serde to 1.0.193 - ([b8b5828](https://github.com/kristof-mattei/autoheal-rs/commit/b8b582826be58707f47fb5a4be8bb50f6a1b8a0b))
+- *(deps)* Update rust crate percent-encoding to 2.3.1 - ([6dc5187](https://github.com/kristof-mattei/autoheal-rs/commit/6dc5187efe3aff95201ebb2d3588216890b97663))
+- *(deps)* Update rust crate url to 2.5.0 - ([f150348](https://github.com/kristof-mattei/autoheal-rs/commit/f15034848a6e43d534f0f61c0421153996ddf54a))
+- *(deps)* Update rust crate tokio to 1.35.0 - ([c8c84a8](https://github.com/kristof-mattei/autoheal-rs/commit/c8c84a8081e051226cba822fce35142de2a8dad5))
+- *(deps)* Update rust crate libc to 0.2.151 - ([27a366a](https://github.com/kristof-mattei/autoheal-rs/commit/27a366aac7c3ef78902efc8d878055469e749a4f))
+- *(deps)* Update rust crate hyper to 1.1.0 - ([996f971](https://github.com/kristof-mattei/autoheal-rs/commit/996f971cd7ab04e6aba0d2e7162e5d6541ee84f2))
+- *(deps)* Update rust crate tokio to 1.35.1 - ([a0b7203](https://github.com/kristof-mattei/autoheal-rs/commit/a0b72033867e349b0b334bf45d7f707b78d06c22))
+- *(deps)* Update rust crate hyper-util to 0.1.2 - ([40ac8fc](https://github.com/kristof-mattei/autoheal-rs/commit/40ac8fc727d092ab225cca77a1285725bb472c86))
+- *(deps)* Update rust crate serde_json to 1.0.109 - ([68cd62f](https://github.com/kristof-mattei/autoheal-rs/commit/68cd62f6383433cdd4e7f6f89a6db33b7d350a52))
+- *(deps)* Update rust crate serde to 1.0.194 - ([a64a690](https://github.com/kristof-mattei/autoheal-rs/commit/a64a690ba29b40fa8b5acd9f8d536a4710c2535c))
+- *(deps)* Update rust crate serde_json to 1.0.110 - ([07a8024](https://github.com/kristof-mattei/autoheal-rs/commit/07a802408a4ec8244ddd5006adcba1359e641694))
+- *(deps)* Update rust crate serde_json to 1.0.111 - ([02b0ea8](https://github.com/kristof-mattei/autoheal-rs/commit/02b0ea819f7177954a67446907b7149e56638774))
+- *(deps)* Update rust crate serde to 1.0.195 - ([b5f5f5e](https://github.com/kristof-mattei/autoheal-rs/commit/b5f5f5e3b080df880c4e2bf05940f194b44c5ffe))
+- *(deps)* Update rust crate libc to 0.2.152 - ([53e67f7](https://github.com/kristof-mattei/autoheal-rs/commit/53e67f7b8c69d6f161e6627d6f60ef2d96b94af6))
+- *(deps)* Update rust crate serde to 1.0.196 - ([c1fbc9e](https://github.com/kristof-mattei/autoheal-rs/commit/c1fbc9e0fa1bfb100c1aff1cea4ccef09184eb90))
+- *(deps)* Update rust crate serde_json to 1.0.112 - ([7692a0e](https://github.com/kristof-mattei/autoheal-rs/commit/7692a0e8e63b826ee1a72fd083a27ab46c623923))
+- *(deps)* Update rust crate serde_json to 1.0.113 - ([c5c1b3d](https://github.com/kristof-mattei/autoheal-rs/commit/c5c1b3d0ce031a921ad9ecd8618924a81a3912d8))
+- *(deps)* Update rust crate libc to 0.2.153 - ([e2d2350](https://github.com/kristof-mattei/autoheal-rs/commit/e2d23501f25aaddf0ad0f916cd434064b8b28399))
+- *(deps)* Update rust crate hyper-util to 0.1.3 - ([95bbb6b](https://github.com/kristof-mattei/autoheal-rs/commit/95bbb6b1f5ccd7ffbf0917c2f653f43f92fc3fbd))
+- *(deps)* Update rust crate tokio to 1.36.0 - ([87cfec2](https://github.com/kristof-mattei/autoheal-rs/commit/87cfec270f01dd7a894125e480287e7a3f8d39e3))
+- *(deps)* Update rust crate serde to 1.0.197 - ([85d629c](https://github.com/kristof-mattei/autoheal-rs/commit/85d629c4addda006a7265430e763556449bad20f))
+- *(deps)* Update rust crate serde_json to 1.0.114 - ([17ebab2](https://github.com/kristof-mattei/autoheal-rs/commit/17ebab2ab12b8e09cb5e600586738c0c88a0d063))
+- *(deps)* Update rust crate hyper to 1.2.0 - ([e692907](https://github.com/kristof-mattei/autoheal-rs/commit/e692907cd58ed01e0501a0062168d43de560ce89))
+- *(deps)* Update rust crate http to 1.1.0 - ([91c23ce](https://github.com/kristof-mattei/autoheal-rs/commit/91c23ceac3ddf6094037957579256b379e5f0852))
+- Don't share IDE settings - ([d096f8b](https://github.com/kristof-mattei/autoheal-rs/commit/d096f8b70dacea9cf3deb5258209951e1eacb0c6))
+- Workflow_dispatch does not take a branch - ([7cb9b28](https://github.com/kristof-mattei/autoheal-rs/commit/7cb9b2833bc904c936e96cb57d091262d3246933))
+- Fix new version - ([ef697ab](https://github.com/kristof-mattei/autoheal-rs/commit/ef697abfef681fa7d69f7baa93c9c76b77b3548c))
+- Fixup botched merge - ([21d26c8](https://github.com/kristof-mattei/autoheal-rs/commit/21d26c8e7d4ce1239d01a870c4b439b751636003))
+- Add placeholder for env variable - ([4bb5340](https://github.com/kristof-mattei/autoheal-rs/commit/4bb534066cf1c3471e352cc5c8eb80ea3af113d5))
+- Move semantic-release config file as per https://github.com/semantic-release/semantic-release/releases/tag/v23.0.0 - ([e77b9d1](https://github.com/kristof-mattei/autoheal-rs/commit/e77b9d10a3019ff3c00f28ed49eb6cf4faeb5f1c))
+- Mixed up config name order - ([6976f89](https://github.com/kristof-mattei/autoheal-rs/commit/6976f89fbd6f5774047fa42c1dff717e2a37e0e5))
+- Simplified tags - ([5c2e4f9](https://github.com/kristof-mattei/autoheal-rs/commit/5c2e4f911c20a994d2c70cbb9105e1ebb156c6ae))
+- Cleanup - ([80a9dda](https://github.com/kristof-mattei/autoheal-rs/commit/80a9dda3495b1f1142304906a9246b8f6072c0ec))
+
+### 🧪 Testing
+
+- Trigger build - ([8ea2267](https://github.com/kristof-mattei/autoheal-rs/commit/8ea226738eb615fce0abdffc37ef8cd01c6fabe6))
+
+### ⚙️ Miscellaneous Tasks
+
+- Move to node 20, make backtrace always compile release as we don't care about their internals - ([47ce350](https://github.com/kristof-mattei/autoheal-rs/commit/47ce350ee2b385ddb05e0f04271950fa344b11a1))
+- Just retain all names - ([bbba821](https://github.com/kristof-mattei/autoheal-rs/commit/bbba8212f5098f636c7fa876a6e2e1b7999b7e7d))
+- Use lints - ([3f9d4ef](https://github.com/kristof-mattei/autoheal-rs/commit/3f9d4ef710834eb82812c2cba60986df58494117))
+- DENY uninlined format args - ([9a8e100](https://github.com/kristof-mattei/autoheal-rs/commit/9a8e1007eba0101c9aa5cbefb1e1edcfb2bb5f2c))
+- ALLOW uninlined format args - ([73e964d](https://github.com/kristof-mattei/autoheal-rs/commit/73e964d65776a2eed8c71af0ab734b9ef517f2ea))
+- Remove redundant quotes - ([50c419b](https://github.com/kristof-mattei/autoheal-rs/commit/50c419b558e160a602b69911a6356fb2f875ced9))
+- Bump uninlined format args priority - ([61e818b](https://github.com/kristof-mattei/autoheal-rs/commit/61e818b5e0f6f209e8f28d601e99ff98d3b922ea))
+- Add mold, use lints - ([7a06c47](https://github.com/kristof-mattei/autoheal-rs/commit/7a06c474c0b4fcb9df8099bd46a933872d017b8c))
+- Restore backtrace always optimize - ([9f2d778](https://github.com/kristof-mattei/autoheal-rs/commit/9f2d77895397e064a3b86e0e75624318181d3f27))
+- Fix typo - ([3bc4758](https://github.com/kristof-mattei/autoheal-rs/commit/3bc4758d422559eab53724774bda44684c585eb3))
+- Pin mold - ([6222e7a](https://github.com/kristof-mattei/autoheal-rs/commit/6222e7a5d096509d7b714b152c1dbfc4a5f32692))
+- Run from scratch - ([a296dd1](https://github.com/kristof-mattei/autoheal-rs/commit/a296dd1b4307d9c81f36fd2e0ca77eb20665ed42))
+- Comments - ([f2701db](https://github.com/kristof-mattei/autoheal-rs/commit/f2701db16e2019fa31bd72b069e6425ae6eec715))
+- Use hyper-tls from hyperium - ([f3a5dea](https://github.com/kristof-mattei/autoheal-rs/commit/f3a5dea88d6e9d7a03027f63acbf9004bcc884c2))
+- Disable function-next-line formatting, it looks weird - ([1eb4dd2](https://github.com/kristof-mattei/autoheal-rs/commit/1eb4dd2f28f2e6955ba36f09e464e6891b6d4c2c))
+- Rename nextversion to next_version - ([4821da4](https://github.com/kristof-mattei/autoheal-rs/commit/4821da4b016aa974cffaf974c43165b504c1f125))
+- Ensure run and debug from main add the right LOG settings - ([d271883](https://github.com/kristof-mattei/autoheal-rs/commit/d27188314fa89fdcac88034f612d5bce6a13bcb4))
+- Console isn't useful, updated casing of levels - ([0cb31d5](https://github.com/kristof-mattei/autoheal-rs/commit/0cb31d5840aaf7672d71398a96e119fbc9d9a722))
+- No trailing commas in json - ([a7b01be](https://github.com/kristof-mattei/autoheal-rs/commit/a7b01be89742c69a3a671fba6f674d7895cec524))
+- Use internal console, not the terminal for debugging - ([33e467c](https://github.com/kristof-mattei/autoheal-rs/commit/33e467c0afbef21f88e46190f86ad01431cb41aa))
+- Fix startColumn/endColumn being 0. Is invalid. Normalize json file for diffing, ignore output. Diff is expected - ([d37020f](https://github.com/kristof-mattei/autoheal-rs/commit/d37020fdd19bd9f2d7348fd7b9553dd0921afa6f))
+- Tests - ([01451a8](https://github.com/kristof-mattei/autoheal-rs/commit/01451a8724ec741b6f78a296f0fb1a3d309c258a))
+## [1.2.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.1.0..v1.2.0) - 2023-11-02
+
+### 🚀 Features
+
+- Generalize dockerfile - ([be4e9a5](https://github.com/kristof-mattei/autoheal-rs/commit/be4e9a5fe9cc34bcd239080845ace4c6a631ba97))
+- Allow for https webhooks - ([d7dc9d8](https://github.com/kristof-mattei/autoheal-rs/commit/d7dc9d82f0f906ca6fa14d465be15c3ffb2c4d66))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to 1.25.0 - ([ee6b42d](https://github.com/kristof-mattei/autoheal-rs/commit/ee6b42db67dd9a11bae35a97947aef35ed8cea3e))
+- *(deps)* Update rust crate anyhow to 1.0.69 - ([da77aca](https://github.com/kristof-mattei/autoheal-rs/commit/da77aca6ce7548c76c3aee2403a5270084be1fee))
+- *(deps)* Update rust crate serde_json to 1.0.92 - ([d600167](https://github.com/kristof-mattei/autoheal-rs/commit/d60016744d7bdfd55d427a5172d12c8e5cc52862))
+- *(deps)* Update rust crate serde_json to 1.0.93 - ([f8fd96b](https://github.com/kristof-mattei/autoheal-rs/commit/f8fd96b68351034ae089e4ea6894561e419cb530))
+- *(deps)* Update rust crate hyper to 1.0.0-rc.3 - ([0a61aae](https://github.com/kristof-mattei/autoheal-rs/commit/0a61aae5220845013ef3ae7f6286687c525a47f9))
+- *(deps)* Update rust crate tokio to 1.26.0 - ([c69b049](https://github.com/kristof-mattei/autoheal-rs/commit/c69b049e5507ff92630f94c2d1de2583f389af88))
+- *(deps)* Update rust crate serde_json to 1.0.94 - ([8c11baa](https://github.com/kristof-mattei/autoheal-rs/commit/8c11baaaa64f8d816f35fdc42e17a16cfe0952b2))
+- *(deps)* Update rust crate serde to 1.0.153 - ([e02f0c4](https://github.com/kristof-mattei/autoheal-rs/commit/e02f0c40ea9821b1c4aebda472574a48eeff3a74))
+- *(deps)* Update rust crate serde to 1.0.154 - ([a2ac5de](https://github.com/kristof-mattei/autoheal-rs/commit/a2ac5def84b0444b1533f8882160d6ede57c37f0))
+- *(deps)* Update rust crate libc to 0.2.140 - ([2c2f8dd](https://github.com/kristof-mattei/autoheal-rs/commit/2c2f8dd5f2a18696faae11449f549bfd1a27bf6f))
+- *(deps)* Update rust crate serde to 1.0.155 - ([8bdc436](https://github.com/kristof-mattei/autoheal-rs/commit/8bdc436284926daf21a9d22c37c43ee117e45a5d))
+- *(deps)* Update rust crate serde to 1.0.156 - ([99cdbeb](https://github.com/kristof-mattei/autoheal-rs/commit/99cdbeb1e89adea94e52275729fa29c2de5bacc8))
+- *(deps)* Update rust crate anyhow to 1.0.70 - ([4d7a707](https://github.com/kristof-mattei/autoheal-rs/commit/4d7a70756892ffa10172a86660b8fa4917ab6a76))
+- *(deps)* Update rust crate serde to 1.0.157 - ([3e39722](https://github.com/kristof-mattei/autoheal-rs/commit/3e39722933ed8449500b01fee0b27fa791092a94))
+- *(deps)* Update rust crate serde to 1.0.158 - ([2f13e14](https://github.com/kristof-mattei/autoheal-rs/commit/2f13e14d64d1ff413e94b8728608a11b16443f2f))
+- *(deps)* Update rust crate serde_json to 1.0.95 - ([b09b5ba](https://github.com/kristof-mattei/autoheal-rs/commit/b09b5ba8b8ea88cd43fc894fe882359eae88b880))
+- *(deps)* Update rust crate tokio to 1.27.0 - ([6fdf86f](https://github.com/kristof-mattei/autoheal-rs/commit/6fdf86facf655f954a8fdbddee83d2682729b6cf))
+- *(deps)* Update rust crate serde to 1.0.159 - ([5d246ef](https://github.com/kristof-mattei/autoheal-rs/commit/5d246efbdd19cd4e3977704ef6f0a90ceb5febde))
+- *(deps)* Update rust crate libc to 0.2.141 - ([e92b0cc](https://github.com/kristof-mattei/autoheal-rs/commit/e92b0cc495cc7c2f7659cf1762a90b04c775ab08))
+- *(deps)* Update rust crate serde to 1.0.160 - ([e95e700](https://github.com/kristof-mattei/autoheal-rs/commit/e95e700df1ecf3e84b24d1e3f466dd80f984bbd1))
+- *(deps)* Update rust crate serde_json to 1.0.96 - ([2555744](https://github.com/kristof-mattei/autoheal-rs/commit/25557440169c41eefc9025b400b2cde2de5e392e))
+- *(deps)* Update rust crate libc to 0.2.142 - ([4ea52bb](https://github.com/kristof-mattei/autoheal-rs/commit/4ea52bb08ab333458997e231d88617654e4b1c61))
+- *(deps)* Update rust crate tracing-subscriber to 0.3.17 - ([11fde92](https://github.com/kristof-mattei/autoheal-rs/commit/11fde92371d908d80ea008afd18001d1cfd74e2b))
+- *(deps)* Update rust crate tracing to 0.1.38 - ([c33375f](https://github.com/kristof-mattei/autoheal-rs/commit/c33375fddcf4ed003a06071cc470fb478aefcd8c))
+- *(deps)* Update rust crate tokio to 1.28.0 - ([5bb17c3](https://github.com/kristof-mattei/autoheal-rs/commit/5bb17c39e5aecbc7d2988a6f51119e4bd2f0a83f))
+- *(deps)* Update rust crate libc to 0.2.144 - ([699acec](https://github.com/kristof-mattei/autoheal-rs/commit/699acece36ae08d3d070d1bb12b6c72f26c1e22a))
+- *(deps)* Update rust crate anyhow to 1.0.71 - ([a1a51dc](https://github.com/kristof-mattei/autoheal-rs/commit/a1a51dc83841ef978f5d6dad3fc7a2c21030d2c9))
+- *(deps)* Update rust crate serde to 1.0.163 - ([afa7898](https://github.com/kristof-mattei/autoheal-rs/commit/afa789861547c9853dcb12ef1a395fc73f4ceb1a))
+- *(deps)* Update rust crate tokio to 1.28.1 - ([15574d2](https://github.com/kristof-mattei/autoheal-rs/commit/15574d2ce02d9575d172b8abb00e7a3b95aa8f58))
+- *(deps)* Update rust crate tokio to 1.28.2 - ([091bb00](https://github.com/kristof-mattei/autoheal-rs/commit/091bb00bdcfa3d9deb08c83611d1cc9d3d4e69f5))
+- *(deps)* Update rust crate libc to 0.2.145 - ([cdea17d](https://github.com/kristof-mattei/autoheal-rs/commit/cdea17d7656d0aac82e8ff86d557d7cfc6343843))
+- *(deps)* Update rust crate percent-encoding to 2.3.0 - ([6a07766](https://github.com/kristof-mattei/autoheal-rs/commit/6a0776658607dd079806849135be3e1ed98b0295))
+- *(deps)* Update rust crate url to 2.4.0 - ([937235a](https://github.com/kristof-mattei/autoheal-rs/commit/937235af4342a3b20bfd5c9aaac94943241b028c))
+- *(deps)* Update rust crate libc to 0.2.146 - ([c679c7b](https://github.com/kristof-mattei/autoheal-rs/commit/c679c7b3f91a967e12d3b540fd2e5bb94627b1e6))
+- *(deps)* Update rust crate serde to 1.0.164 - ([98fe3f1](https://github.com/kristof-mattei/autoheal-rs/commit/98fe3f16547d0af3fe97594b289ac83d7ed23a31))
+- *(deps)* Update rust crate serde_json to 1.0.97 - ([3021b77](https://github.com/kristof-mattei/autoheal-rs/commit/3021b7783feaf396d002a28b79ba2e7d70e5550d))
+- *(deps)* Update rust crate serde_json to 1.0.99 - ([0ac8a1a](https://github.com/kristof-mattei/autoheal-rs/commit/0ac8a1ae81fcb65b91f75ca8c61458a8cda6be5f))
+- *(deps)* Update rust crate libc to 0.2.147 - ([2826b1a](https://github.com/kristof-mattei/autoheal-rs/commit/2826b1ad2ee00122674ecd68e5d5821b09367c3c))
+- *(deps)* Update rust crate tokio to 1.29.0 - ([34f094a](https://github.com/kristof-mattei/autoheal-rs/commit/34f094aa1f23390c193a6670b26d66413be58855))
+- *(deps)* Update rust crate tokio to 1.29.1 - ([cee514a](https://github.com/kristof-mattei/autoheal-rs/commit/cee514a7123c54fda4c3e516142abd3094f2598c))
+- *(deps)* Update rust crate serde to 1.0.165 - ([884d213](https://github.com/kristof-mattei/autoheal-rs/commit/884d213e0c3007752611bd36b49c45021ccb309d))
+- *(deps)* Update rust crate serde to 1.0.166 - ([51bf5ab](https://github.com/kristof-mattei/autoheal-rs/commit/51bf5ab925a689362a7466d3ea4629664680af47))
+- *(deps)* Update rust crate serde_json to 1.0.100 - ([ef0a193](https://github.com/kristof-mattei/autoheal-rs/commit/ef0a19340bdfeed8c74aec475c2d47ea9e9029c9))
+- *(deps)* Update rust crate serde to 1.0.167 - ([c44b7c1](https://github.com/kristof-mattei/autoheal-rs/commit/c44b7c1dbd9e9b733cb838be9f16aa3631fa54af))
+- *(deps)* Update rust crate serde to 1.0.168 - ([869bfd7](https://github.com/kristof-mattei/autoheal-rs/commit/869bfd7e867c858f624a42832de65ca4a0b42ed7))
+- *(deps)* Update rust crate serde to 1.0.169 - ([7b40fb3](https://github.com/kristof-mattei/autoheal-rs/commit/7b40fb3723eae92f1c948501a174bee631ace2bf))
+- *(deps)* Update rust crate serde to 1.0.170 - ([a728395](https://github.com/kristof-mattei/autoheal-rs/commit/a728395581e579e721aaf2014e9b57aa18c1e1a6))
+- *(deps)* Update rust crate serde to 1.0.171 - ([c9d8e9d](https://github.com/kristof-mattei/autoheal-rs/commit/c9d8e9d8060516ecdae17611382149d829ff2097))
+- *(deps)* Update rust crate http-body-util to 0.1.0-rc.3 - ([936801f](https://github.com/kristof-mattei/autoheal-rs/commit/936801f7c1883634355caa384cdce40c1f1797b1))
+- *(deps)* Update rust crate hyper to 1.0.0-rc.4 - ([110022f](https://github.com/kristof-mattei/autoheal-rs/commit/110022f7ef76fa5963d53f23aec99187ed871c76))
+- *(deps)* Update rust crate serde_json to 1.0.102 - ([909aed0](https://github.com/kristof-mattei/autoheal-rs/commit/909aed04c2e24115bf4d756723727c80594a62d0))
+- *(deps)* Update rust crate serde_json to 1.0.103 - ([b332d7d](https://github.com/kristof-mattei/autoheal-rs/commit/b332d7d65dbcf29894eaeefa8c34203ec2fed617))
+- *(deps)* Update rust crate serde to 1.0.172 - ([646586b](https://github.com/kristof-mattei/autoheal-rs/commit/646586bce28ae38e7703c04da292e1f70d1891e9))
+- *(deps)* Update rust crate serde to 1.0.173 - ([691700c](https://github.com/kristof-mattei/autoheal-rs/commit/691700c0044bcc238e07ced145205c43238ef72e))
+- *(deps)* Update rust crate serde to 1.0.174 - ([61176b0](https://github.com/kristof-mattei/autoheal-rs/commit/61176b0ccf601fa6e5a31e8fa8e6fe167514ec5e))
+- *(deps)* Update rust crate serde to 1.0.175 - ([0d526d7](https://github.com/kristof-mattei/autoheal-rs/commit/0d526d7db6c6ad81ab9fc6c9b3d688d8b41f322d))
+- *(deps)* Update rust crate serde to 1.0.176 - ([43e0ca9](https://github.com/kristof-mattei/autoheal-rs/commit/43e0ca9d04077d90fa81be6df5b4795fece0e4aa))
+- *(deps)* Update rust crate serde_json to 1.0.104 - ([043971a](https://github.com/kristof-mattei/autoheal-rs/commit/043971ac7454f2e2a962015d6404dbd081b181be))
+- *(deps)* Update rust crate serde to 1.0.177 - ([4fc8bcf](https://github.com/kristof-mattei/autoheal-rs/commit/4fc8bcfd388dd949144fcc68ba8fc4c91a5c1212))
+- *(deps)* Update rust crate serde to 1.0.178 - ([168a975](https://github.com/kristof-mattei/autoheal-rs/commit/168a97588c40bd15aecf149a65fa065b2579cfcb))
+- *(deps)* Update rust crate serde to 1.0.179 - ([a305a6e](https://github.com/kristof-mattei/autoheal-rs/commit/a305a6eb8bbf7cb8086d0f0b9626d42772fb5b67))
+- *(deps)* Update rust crate serde to 1.0.180 - ([6ba585a](https://github.com/kristof-mattei/autoheal-rs/commit/6ba585a5ca231c51cd857490d7cffdfb6d0fbce3))
+- *(deps)* Update rust crate serde to 1.0.181 - ([8434903](https://github.com/kristof-mattei/autoheal-rs/commit/843490321b52dd05a7f946d7e6a19e83dafb3e5a))
+- *(deps)* Update rust crate serde to 1.0.182 - ([f3db716](https://github.com/kristof-mattei/autoheal-rs/commit/f3db71683bbe24d1d5972f413ee8a9df2a8ae54a))
+- *(deps)* Update rust crate serde to 1.0.183 - ([20e2341](https://github.com/kristof-mattei/autoheal-rs/commit/20e234140760bc00aac0e4e2700527b5e6f4cdf6))
+- *(deps)* Update rust crate tokio to 1.30.0 - ([2be17d7](https://github.com/kristof-mattei/autoheal-rs/commit/2be17d7f31a61ee2969f93bf9d50f9d741af1b52))
+- *(deps)* Update rust crate tokio to 1.31.0 - ([71c638a](https://github.com/kristof-mattei/autoheal-rs/commit/71c638a9d7de23e1b1d9a96529ecdbed17eaaac8))
+- *(deps)* Update rust crate serde_json to 1.0.105 - ([02112f0](https://github.com/kristof-mattei/autoheal-rs/commit/02112f09cf1f8fddcd22e29a1be0bb311896cc5e))
+- *(deps)* Update rust crate tokio to 1.32.0 - ([9fa296b](https://github.com/kristof-mattei/autoheal-rs/commit/9fa296b1e6c74c16050b9a46b7dc9539272077df))
+- *(deps)* Update rust crate serde to 1.0.184 - ([edad230](https://github.com/kristof-mattei/autoheal-rs/commit/edad230812ab63a61ee17023108219b81bd902f0))
+- *(deps)* Update rust crate serde to 1.0.185 - ([95aed6c](https://github.com/kristof-mattei/autoheal-rs/commit/95aed6c713b89ce692cf26c0f9b55e95b3e6bf09))
+- *(deps)* Update rust crate serde to 1.0.186 - ([57c142f](https://github.com/kristof-mattei/autoheal-rs/commit/57c142fe74c23f932af31c8527f32b15e029c96c))
+- *(deps)* Update rust crate serde to 1.0.187 - ([bb73c8c](https://github.com/kristof-mattei/autoheal-rs/commit/bb73c8c3103ff3b37763b1aea4a585f898abe775))
+- *(deps)* Update rust crate serde to 1.0.188 - ([209857f](https://github.com/kristof-mattei/autoheal-rs/commit/209857fb62f66735aa36ecaad868bce2c9bb25b8))
+- *(deps)* Update rust crate url to 2.4.1 - ([7c2ad80](https://github.com/kristof-mattei/autoheal-rs/commit/7c2ad8057f7b047975bb7719542b7a4cf8cd840d))
+- *(deps)* Update rust crate serde_json to 1.0.106 - ([391b3ec](https://github.com/kristof-mattei/autoheal-rs/commit/391b3ecb6bd1064adde1ea7c7f220839adc3f196))
+- *(deps)* Update rust crate libc to 0.2.148 - ([2e6db06](https://github.com/kristof-mattei/autoheal-rs/commit/2e6db06bc11d952ad0065433a9e125fa0b147069))
+- *(deps)* Update rust crate serde_json to 1.0.107 - ([906e83b](https://github.com/kristof-mattei/autoheal-rs/commit/906e83b8381044d667d48474c39e8fc32eab792d))
+- *(deps)* Update rust crate libc to 0.2.149 - ([5001b0c](https://github.com/kristof-mattei/autoheal-rs/commit/5001b0cfddc4d2d5da4fecf9d203facd0beac7f5))
+- *(deps)* Update rust crate tokio to 1.33.0 - ([605859a](https://github.com/kristof-mattei/autoheal-rs/commit/605859a02f586298c1d4a45d2b90f5623841d46c))
+- *(deps)* Update rust crate serde to 1.0.189 - ([c8d8c8c](https://github.com/kristof-mattei/autoheal-rs/commit/c8d8c8cbbc2f691ed0544631834cece8669c3e11))
+- *(deps)* Update rust crate tracing to 0.1.39 - ([1d95e7d](https://github.com/kristof-mattei/autoheal-rs/commit/1d95e7d0526f09449fecf517e18c4e77bdd62398))
+- *(deps)* Update rust crate tracing to 0.1.40 - ([e4349ce](https://github.com/kristof-mattei/autoheal-rs/commit/e4349ce264c3cc6a8b7d1a0a2b93dfc58ecc0ac4))
+- *(deps)* Update rust crate serde to 1.0.190 - ([bc4c06e](https://github.com/kristof-mattei/autoheal-rs/commit/bc4c06eb922b4b16e6efc099dfcbacd810ba990b))
+- *(deps)* Update rust crate serde_json to 1.0.108 - ([486eede](https://github.com/kristof-mattei/autoheal-rs/commit/486eedeb7f5475af4502c54d0f2d06d39a255066))
+- Dump version number on boot - ([9bb0132](https://github.com/kristof-mattei/autoheal-rs/commit/9bb0132d3dc87987f5fa9acd233a509344c371fb))
+- Formatting - ([bc850da](https://github.com/kristof-mattei/autoheal-rs/commit/bc850daa182501dbe2c7e7ff6280e0f84e433652))
+- Clippy 1.67 - ([bc72883](https://github.com/kristof-mattei/autoheal-rs/commit/bc72883c3b8ac54956fd16bfedb462d0951a4ef7))
+- Switch to editorconfig - ([02402b7](https://github.com/kristof-mattei/autoheal-rs/commit/02402b75b91fc52f36a1140d67f95460670a5f11))
+- Allow uninlined format args - ([203df05](https://github.com/kristof-mattei/autoheal-rs/commit/203df05f519b8fa8d6f0f89044320194726ed5ca))
+- Add update script - ([bb08a31](https://github.com/kristof-mattei/autoheal-rs/commit/bb08a315ab8b2269cc5d848c821a75b1ad79e97d))
+- Make clippy more annoying - ([af9bc12](https://github.com/kristof-mattei/autoheal-rs/commit/af9bc12597c1236c3a642570c3c4fb526f5668b1))
+- Hack version (?) - ([58ff338](https://github.com/kristof-mattei/autoheal-rs/commit/58ff338a043dc581440936114e8e0005a00a938c))
+- Remove version, doesn't work for container > image - ([2ef1e88](https://github.com/kristof-mattei/autoheal-rs/commit/2ef1e883d0411aeaad4d0ea9e4a925bcd73a4ac1))
+- Set rangeStrategy - ([752da2c](https://github.com/kristof-mattei/autoheal-rs/commit/752da2c3898fddaa537083430da3d0fd31d5a5cd))
+- Unset rangeStrategy, move to the renovate base config - ([2dae343](https://github.com/kristof-mattei/autoheal-rs/commit/2dae3431cfeda8a8ef5c6b78a69f0e32b02db894))
+- Editorconfig settings for shell files - ([72d74b7](https://github.com/kristof-mattei/autoheal-rs/commit/72d74b755522d30b07a00202ddf6e23138a9b1cb))
+- Pin clippy - ([bd33a24](https://github.com/kristof-mattei/autoheal-rs/commit/bd33a2469072c2430b02694ebfe406f956de3862))
+- Uninlined args, it's not well recognized and actually doesn't improve readability - ([7da6808](https://github.com/kristof-mattei/autoheal-rs/commit/7da68084ee59be4060297107e9cb8b2b99a06596))
+- Yeet code climate - ([0ff8087](https://github.com/kristof-mattei/autoheal-rs/commit/0ff8087a8aca74832292d787329cb2c30d3cddb7))
+- Lock down with version and digest - ([ea6cda5](https://github.com/kristof-mattei/autoheal-rs/commit/ea6cda5aff2e89af491654668c95edef6231898c))
+- More formatting enforcement - ([4825d45](https://github.com/kristof-mattei/autoheal-rs/commit/4825d45eac04d98c8b20870657fb8346ef5636a3))
+- Allow for building / not building docker container - ([9a91217](https://github.com/kristof-mattei/autoheal-rs/commit/9a91217a67620dcae3d4a9dbe5f71712c97aa03c))
+- Ascii idents only to prevent idents starting with characters my keyboard can't handle - ([0b7f646](https://github.com/kristof-mattei/autoheal-rs/commit/0b7f6469dbd30ad44508f836277282860cad6cbd))
+- Allow disable container retagging - ([8e39b39](https://github.com/kristof-mattei/autoheal-rs/commit/8e39b39694931df1716d2b79dafcfd7348de04f0))
+- Updated cache ids - ([75f6e51](https://github.com/kristof-mattei/autoheal-rs/commit/75f6e51d56f491eabd2038688a4348f421eaad34))
+- Comment indent - ([aff7168](https://github.com/kristof-mattei/autoheal-rs/commit/aff7168b45600424fed73fb582001cf55c2e2cd3))
+- Don't retag when we don't build a container - ([fe1a006](https://github.com/kristof-mattei/autoheal-rs/commit/fe1a006c3d9e9d95f0d8cef01555d3a4c303e92a))
+- Set maximum backtrace - ([cd44fe2](https://github.com/kristof-mattei/autoheal-rs/commit/cd44fe2ab070d930dea9b1040a5e57ec9276ed34))
+- Hyper v1.0.0-rc.4 fixes - ([417b954](https://github.com/kristof-mattei/autoheal-rs/commit/417b954e3c59a3a3605f52f7c0b643a477189b89))
+- Also do RUST_BACKTRACE=full for debugging - ([fde9619](https://github.com/kristof-mattei/autoheal-rs/commit/fde9619668b4eb33ad41e0265c8ff5cae164001e))
+- Build all with tests too - ([2fdf062](https://github.com/kristof-mattei/autoheal-rs/commit/2fdf062917c86c9ffebbd81b3b9bb8720aa841ef))
+- Trace for all, not just the app - ([e92d8c0](https://github.com/kristof-mattei/autoheal-rs/commit/e92d8c04661c0a06a6932a701ba7fc4e0f731fc2))
+- Default is to use color-eyre - ([9ec7951](https://github.com/kristof-mattei/autoheal-rs/commit/9ec795182352fc168b18cd5a9fd623b1930494f3))
+- Trace for run and test - ([57bb0f1](https://github.com/kristof-mattei/autoheal-rs/commit/57bb0f18bcf3c360eca25ee5aeeb61ac37000d46))
+- Add update-name script - ([57e5023](https://github.com/kristof-mattei/autoheal-rs/commit/57e502335d9e4f409054ed5ecfb7d1ad8ab1d2d9))
+- Coveralls as CodeCov keeps on failing - ([fab1710](https://github.com/kristof-mattei/autoheal-rs/commit/fab171080b3de6c51c4bc7531699841534366f8a))
+- Specify version, Renovate will pin it - ([2a44ecb](https://github.com/kristof-mattei/autoheal-rs/commit/2a44ecbc3cbca50f1fddaf65ec4633b762384ef1))
+- Formatting - ([e4de56e](https://github.com/kristof-mattei/autoheal-rs/commit/e4de56e38ddd799c5a76a534a14deeba7346f8ab))
+- Use hyper-util - ([89f5859](https://github.com/kristof-mattei/autoheal-rs/commit/89f585990b1dc07796acdcfaaae861c14cf28884))
+- Make BUILD_DOCKER_CONTAINER configurable from variables - ([5ab39f5](https://github.com/kristof-mattei/autoheal-rs/commit/5ab39f5f95c94aec0291d15c83e10f466fa659e4))
+- Env -> vars - ([a4ef4d5](https://github.com/kristof-mattei/autoheal-rs/commit/a4ef4d59898bea126c2531a76799c0ba557ff2c7))
+- Get application name automatically - ([5f71149](https://github.com/kristof-mattei/autoheal-rs/commit/5f71149c9c86a79155fe7180c8fc7e154febbca3))
+- Remove unneeded newline - ([4a3fe57](https://github.com/kristof-mattei/autoheal-rs/commit/4a3fe575e0eb6d3a254a5041ccba662ddcbcbdcd))
+- Flatten match, easier to read - ([c54faf4](https://github.com/kristof-mattei/autoheal-rs/commit/c54faf46bb142040d4ad528a8a1e3e85c1e54990))
+- We don't use .idea config - ([4d22e96](https://github.com/kristof-mattei/autoheal-rs/commit/4d22e96241230cf0406dfc2cb3199b38acd2bad3))
+- Better defaults - ([0c8b4a7](https://github.com/kristof-mattei/autoheal-rs/commit/0c8b4a74b7e969af7b5b696ba9300b0b6cd31a85))
+- Consolidate clippy & rust config on top of main, all the rest causes duplication - ([e158e41](https://github.com/kristof-mattei/autoheal-rs/commit/e158e41a05171aadc4a36bed4f40685e9f15a8fc))
+- Don't show progress - ([2be0887](https://github.com/kristof-mattei/autoheal-rs/commit/2be088747fc874dad816ed60d0e49dbf3390e0bb))
+- No-progress - ([1800647](https://github.com/kristof-mattei/autoheal-rs/commit/1800647f7c4b59e3167bb62f2c328741bba3fe97))
+- Use static url - ([586cbd1](https://github.com/kristof-mattei/autoheal-rs/commit/586cbd15494baa03098ede86b0f11a4807d6671d))
+- Use native-tls via hyper-tls - ([98b8008](https://github.com/kristof-mattei/autoheal-rs/commit/98b80081f1cebb3b94fee5e01dd2197ee0a2519e))
+
+### ⚙️ Miscellaneous Tasks
+
+- Ensure we take the longest tag, v1.0.0 instead of v1 - ([f9d106a](https://github.com/kristof-mattei/autoheal-rs/commit/f9d106a78779f14e61abea3416341a0801268a3b))
+- Updated devcontainer config - ([fd84775](https://github.com/kristof-mattei/autoheal-rs/commit/fd84775429513a4be51795a717b780eb303fcfdc))
+- Rename - ([a8dc23f](https://github.com/kristof-mattei/autoheal-rs/commit/a8dc23fde7791f5fb7bff45888a0286151a64682))
+
+### ◀️ Revert
+
+- *(deps)* Update rust crate tracing to 0.1.38 - ([a0d13db](https://github.com/kristof-mattei/autoheal-rs/commit/a0d13db03ecd4897d212694fb8c9c275b4bd742b))
+## [1.1.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.0.2..v1.1.0) - 2023-01-22
+
+### 🚀 Features
+
+- Set latest tag - ([f024dd6](https://github.com/kristof-mattei/autoheal-rs/commit/f024dd60e4eb831a2dc0bd4011701e0c44b9e318))
+- Always run as root - ([984cc68](https://github.com/kristof-mattei/autoheal-rs/commit/984cc6833311263026d015e37b61afdc46fb3fbf))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to 1.24.2 - ([f96f994](https://github.com/kristof-mattei/autoheal-rs/commit/f96f994fff83c4cbbd60fc017b0fc8a219f6d285))
+- Prevent cog throwing an error which causes script termination - ([a0e6468](https://github.com/kristof-mattei/autoheal-rs/commit/a0e6468e9491beccaed2ac227f9f6c93bec69bc4))
+- Set latest tag - ([1870e1d](https://github.com/kristof-mattei/autoheal-rs/commit/1870e1da3545c8fee6f6026ba6cece373316c1c4))
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump package-lock.json - ([1e0d6eb](https://github.com/kristof-mattei/autoheal-rs/commit/1e0d6eb569c0928fc17eba447bf64a4fe6e4f809))
+## [1.0.2](https://github.com/kristof-mattei/autoheal-rs/compare/v1.0.1..v1.0.2) - 2023-01-11
+
+### 🐛 Bug Fixes
+
+- Settings - ([769ba7d](https://github.com/kristof-mattei/autoheal-rs/commit/769ba7d6fab0e5833e503b669531a1c9018c15a6))
+- Formatting - ([a6c47ee](https://github.com/kristof-mattei/autoheal-rs/commit/a6c47ee700414a12bb6ee60a8a3d9bcdd28b7194))
+- Formatting - ([f71fbed](https://github.com/kristof-mattei/autoheal-rs/commit/f71fbed5f1ac288c4d25462fbcd013dcca7a9ba0))
+- Snake in comments is causing parsing failures - ([69d278d](https://github.com/kristof-mattei/autoheal-rs/commit/69d278dee797be71e67582b6ac0275853d1f5898))
+- Use cocogitto bump, and support no new version generated - ([68a37df](https://github.com/kristof-mattei/autoheal-rs/commit/68a37dfdadd533d41497cdfed2cdff70716df06e))
+
+### ⚙️ Miscellaneous Tasks
+
+- Node v18 - ([33b78ea](https://github.com/kristof-mattei/autoheal-rs/commit/33b78ea423dedd7d25bfc96395aa1f532347afa3))
+## [1.0.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.0.0..v1.0.1) - 2023-01-11
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to 1.23.1 - ([1658444](https://github.com/kristof-mattei/autoheal-rs/commit/16584441d47eddfb5cb7e0167d8d4f1433053aba))
+- *(deps)* Update rust crate tokio to 1.24.0 - ([2ee09dd](https://github.com/kristof-mattei/autoheal-rs/commit/2ee09dd8079b07f1f86e9e71d61da04c973d407a))
+- *(deps)* Update rust crate tokio to 1.24.1 - ([4b4a956](https://github.com/kristof-mattei/autoheal-rs/commit/4b4a956578e1c4033573b59b8f1590c76e0252ca))
+## [1.0.0](https://github.com/kristof-mattei/autoheal-rs/compare/v0.1.0..v1.0.0) - 2023-01-03
+
+### 🚀 Features
+
+- Allowed for concurrent building of docker container - ([7a99b3b](https://github.com/kristof-mattei/autoheal-rs/commit/7a99b3b303846cb1a98e80f54f5950faee7fc28a))
+- Grcov -> tarpaulin - ([a37fa30](https://github.com/kristof-mattei/autoheal-rs/commit/a37fa307247860f4071f31a569506b1bc8544045))
+- Use cog - ([146fdca](https://github.com/kristof-mattei/autoheal-rs/commit/146fdca905e0a1d268eb9750934e3204803be68b))
+- Use shell - ([2a266e9](https://github.com/kristof-mattei/autoheal-rs/commit/2a266e93167b8a39c482a8a615e12ecd5ddc4c21))
+- Rust 1.58.0 - ([3ac03e8](https://github.com/kristof-mattei/autoheal-rs/commit/3ac03e829ae931369967728de3326294446a53e5))
+- Rust 1.60.0 - ([0180532](https://github.com/kristof-mattei/autoheal-rs/commit/0180532b1e432662ccb7908ebc98d39ad501a227))
+- Rust 1.61.0 - ([c130478](https://github.com/kristof-mattei/autoheal-rs/commit/c130478ad91eaf6b1cea04a2cfe57f6e926efa92))
+- Upgrade semgrep to latest version - ([c7dc4f5](https://github.com/kristof-mattei/autoheal-rs/commit/c7dc4f5bf96c15784a6b6b5c7ff260a15f244dcd))
+- Devcontainer - ([1d77ed5](https://github.com/kristof-mattei/autoheal-rs/commit/1d77ed59fbf4915e3b1393867d56ec36a22f9b42))
+- More rust 1.62 - ([628756b](https://github.com/kristof-mattei/autoheal-rs/commit/628756bf8790f9ffe84ac5cb3ff37baac70c7fcc))
+- Initial commit - ([4e1dc05](https://github.com/kristof-mattei/autoheal-rs/commit/4e1dc056165cd10542f105be9e11d5116e4bbeb5))
+- Sync-repo-settings first pass - ([0d88baa](https://github.com/kristof-mattei/autoheal-rs/commit/0d88baa34a3d7b167028941aafdf32e5c464b9c2))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate serde_json to 1.0.89 - ([a16d8ef](https://github.com/kristof-mattei/autoheal-rs/commit/a16d8ef98b28ecfa6415fd170b6b3daad83904e6))
+- *(deps)* Update rust crate serde to 1.0.148 - ([b56026d](https://github.com/kristof-mattei/autoheal-rs/commit/b56026d55c3d78d28c0d6a2fd96ddc3cc8e6e909))
+- *(deps)* Update rust crate libc to 0.2.138 - ([93a5383](https://github.com/kristof-mattei/autoheal-rs/commit/93a5383c376eb2464e76c9827fc44a914ed0dc5d))
+- *(deps)* Update rust crate serde to 1.0.149 - ([a73043c](https://github.com/kristof-mattei/autoheal-rs/commit/a73043c356959b21fd47329e17e4a69681b86729))
+- *(deps)* Update rust crate tokio to 1.23.0 - ([c5400de](https://github.com/kristof-mattei/autoheal-rs/commit/c5400de23697c8c5799e5d10714b84a2f664e003))
+- *(deps)* Update rust crate serde to 1.0.150 - ([1de6ae0](https://github.com/kristof-mattei/autoheal-rs/commit/1de6ae0515b2c07dc1bf6e61244bb92521796976))
+- *(deps)* Update rust crate serde to 1.0.151 - ([407efa8](https://github.com/kristof-mattei/autoheal-rs/commit/407efa8c2d2326f321c3ea7eaed829c111365025))
+- *(deps)* Update rust crate anyhow to 1.0.67 - ([c7eab08](https://github.com/kristof-mattei/autoheal-rs/commit/c7eab087e9b7c3f9659ce1acb2f2e13921fd9309))
+- *(deps)* Update rust crate serde_json to 1.0.90 - ([a4d7c6f](https://github.com/kristof-mattei/autoheal-rs/commit/a4d7c6fa4cd5fe2662f58955c5d2a6632a9f3ff5))
+- *(deps)* Update rust crate serde_json to 1.0.91 - ([3c150f4](https://github.com/kristof-mattei/autoheal-rs/commit/3c150f491bf91d64d3b3a8b73c3a095366afa9fc))
+- *(deps)* Update rust crate anyhow to 1.0.68 - ([ef78200](https://github.com/kristof-mattei/autoheal-rs/commit/ef78200f3fe362783bc145b60961a0bf75243c89))
+- *(deps)* Update rust crate libc to 0.2.139 - ([8a1ac1f](https://github.com/kristof-mattei/autoheal-rs/commit/8a1ac1fc59650fdde4747aecc6656cfdd08a47af))
+- *(deps)* Update rust crate serde to 1.0.152 - ([e9349a4](https://github.com/kristof-mattei/autoheal-rs/commit/e9349a40317d1e9683f595a9d4a6c3e7f7729770))
+- *(deps)* Update rust crate http-body-util to 0.1.0-rc.2 - ([c3f112c](https://github.com/kristof-mattei/autoheal-rs/commit/c3f112ca0d74dad02a96a4699059b66437e44c82))
+- *(deps)* Update rust crate hyper to 1.0.0-rc.2 - ([5d83f65](https://github.com/kristof-mattei/autoheal-rs/commit/5d83f6562fd10cb064eb46ad45c86763125cdf18))
+- Split build and push for faster overall times - ([83d504e](https://github.com/kristof-mattei/autoheal-rs/commit/83d504eb164a50cdd52f850b144a71b467c3cf04))
+- Reduced parent^2 detection complexity - ([2fab698](https://github.com/kristof-mattei/autoheal-rs/commit/2fab698158059e4ad8f2c9cc44a553beba68f826))
+- Forgot to put back line to add SHA to $env - ([5e2a12a](https://github.com/kristof-mattei/autoheal-rs/commit/5e2a12a1eea0baa55a445077396f9468a1a16e3e))
+- --quiet isn't quiet - ([764ef0a](https://github.com/kristof-mattei/autoheal-rs/commit/764ef0ab2140b0b80cf53b476ba6525b3a873b4e))
+- Initialize otherwise EXITCODE is not set on success, and then it still fails 😅 - ([6658ea7](https://github.com/kristof-mattei/autoheal-rs/commit/6658ea7799a523b54b122ff6c8d5a33a18e2c7c6))
+- Fake commit - ([80eec6e](https://github.com/kristof-mattei/autoheal-rs/commit/80eec6ed5bdf245ca071780face928adf95848f4))
+- Centralized names - ([2e2345b](https://github.com/kristof-mattei/autoheal-rs/commit/2e2345b2f1337ed5c99dea090d94de2b4b932949))
+- Removed submodules, going direct - ([2e2a71c](https://github.com/kristof-mattei/autoheal-rs/commit/2e2a71c68a23764369cf67dfc485c9a76372dad2))
+- Switched to fixed commits for actions - ([2bd59a8](https://github.com/kristof-mattei/autoheal-rs/commit/2bd59a85d847c6cbe5ce39038e25666c99086674))
+- Fix for too much action... - ([8256387](https://github.com/kristof-mattei/autoheal-rs/commit/8256387796424f2cd5066452cf17a32f0cbe8f35))
+- Removed needs for docker-build to allow parallel operation - ([64986f6](https://github.com/kristof-mattei/autoheal-rs/commit/64986f67e074439c1433011d5b27eafc725c35e4))
+- Remove be - ([21d027b](https://github.com/kristof-mattei/autoheal-rs/commit/21d027bdf904697f96c9fe4adfe91fd2cf081d4f))
+- Reduce docker tag complexity - ([d187184](https://github.com/kristof-mattei/autoheal-rs/commit/d187184277fadc66b6c7027624ecb9340c1e2fd9))
+- Aspiring comments - ([791bbed](https://github.com/kristof-mattei/autoheal-rs/commit/791bbedad194c189fb9e35389f1c265c94df29da))
+- ToUpper() - ([81ba43c](https://github.com/kristof-mattei/autoheal-rs/commit/81ba43cd7ba41aad25165e5e2232dad00476b3a7))
+- Added skip-tags to prevent it from pushing tags - ([3806f32](https://github.com/kristof-mattei/autoheal-rs/commit/3806f32e8b0e56462a525744feb93954a15e562e))
+- Dry run still verifies push permissions - ([57b2cde](https://github.com/kristof-mattei/autoheal-rs/commit/57b2cde87e49ce10c0e9b9b082eb0174409a2b0f))
+- Even dry-run wants a token - ([a1349fc](https://github.com/kristof-mattei/autoheal-rs/commit/a1349fc215d87c4f5220496ae841c56776c9067f))
+- Handle script dependency - ([54be1b9](https://github.com/kristof-mattei/autoheal-rs/commit/54be1b982120c880256a061895f15784d11752d9))
+- Corrected library usage - ([ed8e289](https://github.com/kristof-mattei/autoheal-rs/commit/ed8e289589a490b61dc229021fc860d1d52fbb89))
+- Forgot .rest - ([2cb78e7](https://github.com/kristof-mattei/autoheal-rs/commit/2cb78e791ee76ef95925e61a4f7988fc427bdde2))
+- Variable correction - ([7e0baaa](https://github.com/kristof-mattei/autoheal-rs/commit/7e0baaa911c814c430ee69d43edfe3433c189aec))
+- Create reports directory, otherwise tool complains - ([15ef2e8](https://github.com/kristof-mattei/autoheal-rs/commit/15ef2e83b9aff72e8986656d457e9439c2d1b7ba))
+- Capture the rest, not the value called 'rest' - ([222ef7c](https://github.com/kristof-mattei/autoheal-rs/commit/222ef7c6edd6c3011d8d70cb0af0ae6319899842))
+- Renamed for clarity - ([319817f](https://github.com/kristof-mattei/autoheal-rs/commit/319817fac4290114976eab8c87102278c8b87440))
+- Locked node version - ([5a7acea](https://github.com/kristof-mattei/autoheal-rs/commit/5a7aceafe7488f93450bbeb494f400e5ef60193f))
+- Reran npm install with npm 8 to update package-lock - ([2f51f25](https://github.com/kristof-mattei/autoheal-rs/commit/2f51f25cf9aec79943511b87b12d57e40224b6c3))
+- Added npm to dependabot - ([f99a1cb](https://github.com/kristof-mattei/autoheal-rs/commit/f99a1cbce03151e38279c081b2becd4478a5f87b))
+- A change in build scripts should cause a full rebuild - ([4e3da47](https://github.com/kristof-mattei/autoheal-rs/commit/4e3da4743be7b4043d46cd10c2f9a05c60c4fc1b))
+- Use environment variable to get cargo location - ([c57b6db](https://github.com/kristof-mattei/autoheal-rs/commit/c57b6dbcf20fabf1cbbc3cb946e656855acf992d))
+- Corrected environment variable - ([40527e4](https://github.com/kristof-mattei/autoheal-rs/commit/40527e48765c4a99008d3207173de249c1de0b81))
+- Updated cargo cache to use tilde again - ([e650509](https://github.com/kristof-mattei/autoheal-rs/commit/e650509c93198c1ca654b7ad46bf0f672b6f101a))
+- See if we can cache the whole .cargo directory - ([54d824f](https://github.com/kristof-mattei/autoheal-rs/commit/54d824f82fd2e12457feaeb08ed259d15960f33f))
+- Updated concurrency key - ([eda182b](https://github.com/kristof-mattei/autoheal-rs/commit/eda182b9fd074b2f515ad546d2ac15ef450c9141))
+- Leverage setup-node's ability to read from .nvmrc - ([f78dc4c](https://github.com/kristof-mattei/autoheal-rs/commit/f78dc4ce7a4008e34e43a367be283327926f8581))
+- Added missing data - ([230c651](https://github.com/kristof-mattei/autoheal-rs/commit/230c651afffa59e575e6d231d3334314df9179f3))
+- Alltargets for tarpaulin - ([3ba7006](https://github.com/kristof-mattei/autoheal-rs/commit/3ba7006cd3bf3d027a0485aced51810837f41333))
+- Install tarpaulin from source - ([9f1966c](https://github.com/kristof-mattei/autoheal-rs/commit/9f1966ce22f42e508d223a35ee4b651768fc2786))
+- Synced tool invocation parameters - ([8417c23](https://github.com/kristof-mattei/autoheal-rs/commit/8417c23b540cd56be8123b85a0796b12ada21740))
+- Bumped rust version - ([c84b022](https://github.com/kristof-mattei/autoheal-rs/commit/c84b02218ea3256f0138944b6939860a48236d7f))
+- Added rust-toolchain, symlinked to rust-toolchain.toml - ([cac0b9a](https://github.com/kristof-mattei/autoheal-rs/commit/cac0b9aac7d25396a442e45dc3279ad9dd183eee))
+- Getting toolchain file to work - ([15ae1ab](https://github.com/kristof-mattei/autoheal-rs/commit/15ae1abfbcc6472cd29039c4ef13c720966b5520))
+- Try with profile and toolchain specified here - ([05991b7](https://github.com/kristof-mattei/autoheal-rs/commit/05991b716bed23ab70dfc1c6d8cdbfc83489e408))
+- Infer components from rust-toolchain.toml - ([e8aa97d](https://github.com/kristof-mattei/autoheal-rs/commit/e8aa97da616b81fc8fbdfff829f6b820cac90513))
+- Corrected build dependencies, all-done work be a success if docker-build failed - ([ee3789d](https://github.com/kristof-mattei/autoheal-rs/commit/ee3789db3225903b09255799f34df000d4b79462))
+- The world is ok - ([b9c1196](https://github.com/kristof-mattei/autoheal-rs/commit/b9c119625d8f140e0e249ff5fcdafa55db969c0b))
+- Fixed wrong needs name - ([977e159](https://github.com/kristof-mattei/autoheal-rs/commit/977e1592730e0ac018d1d6e1c7dfcc3a41ff4bfb))
+- Set up toolchain manually - ([f5f92d6](https://github.com/kristof-mattei/autoheal-rs/commit/f5f92d6794df30cf70f7ad9963cd00c2367f1591))
+- -y to accept defaults - ([9280bfc](https://github.com/kristof-mattei/autoheal-rs/commit/9280bfc01863ebac2baa024c28a447e2cc52098d))
+- Don't fail tarpaulin when a test fails - ([b065efa](https://github.com/kristof-mattei/autoheal-rs/commit/b065efadf1e005dcc2c4c4ed8a7ddc74627bcf1b))
+- Rebuild when NPM packages change - ([43b4a7f](https://github.com/kristof-mattei/autoheal-rs/commit/43b4a7fcce073b3ab19ea9d44d2cc8a3189dc285))
+- Add commit linting - ([141820a](https://github.com/kristof-mattei/autoheal-rs/commit/141820aabf5b6a5823bb6c1080304797884187c5))
+- Npm cleanup - ([12b30b3](https://github.com/kristof-mattei/autoheal-rs/commit/12b30b3877504b61ec1157e9fc3350ad1f219830))
+- Reduced complexity tied to semantic release because cog doesn't need it - ([21ed988](https://github.com/kristof-mattei/autoheal-rs/commit/21ed98844785b0addf90a083e624e26aa92e08d8))
+- Set git user and email so that cog bump works - ([01efb04](https://github.com/kristof-mattei/autoheal-rs/commit/01efb04af74d945bd368152b9281f4ab2d551209))
+- Set the right variable - ([18978f8](https://github.com/kristof-mattei/autoheal-rs/commit/18978f8e875aec0a31553f3ab5dd6d6d998b44f8))
+- Ensure we're logged in to use the registry cache - ([994a73c](https://github.com/kristof-mattei/autoheal-rs/commit/994a73c7c3d49280a7f5b7f6110859bafb7ba1c2))
+- Reordered cache restore and toolchain setup - ([5f08e37](https://github.com/kristof-mattei/autoheal-rs/commit/5f08e374bcb75cc7d1eccd519884f069d05ce758))
+- Try coveralls - ([2e06476](https://github.com/kristof-mattei/autoheal-rs/commit/2e06476d20cb459d068c9b6daf1f4e2725559835))
+- Try coveralls - ([d7196c5](https://github.com/kristof-mattei/autoheal-rs/commit/d7196c57c7fa793db927c58dadf8cf6c28bd7a67))
+- Renamed step name - ([a7044ff](https://github.com/kristof-mattei/autoheal-rs/commit/a7044ff77cf15d48660acb46621237e2aad81c82))
+- Remove cache exclusion - ([baee94e](https://github.com/kristof-mattei/autoheal-rs/commit/baee94e4f6a90a8696c1e62b43c3d187083ab477))
+- Use built-in rustup - ([1b2d13b](https://github.com/kristof-mattei/autoheal-rs/commit/1b2d13b9889b833b3616e825e49714bdfcde2cc8))
+- Removed unneeded linting file - ([7a6b3ed](https://github.com/kristof-mattei/autoheal-rs/commit/7a6b3ed5d44dad4c4eb1360a73016200e4b10834))
+- Merged configuration into 1 - ([db6004a](https://github.com/kristof-mattei/autoheal-rs/commit/db6004ac753af69521dbb529916b5c9f0fdc293e))
+- Updated to 2021 edition - ([cee0bd0](https://github.com/kristof-mattei/autoheal-rs/commit/cee0bd0a17664f00947cc0d4bfe56fc178bcf9fe))
+- Restored packages configuration - ([506eac8](https://github.com/kristof-mattei/autoheal-rs/commit/506eac86ff59359bf45758ca4182eeea3069fdbf))
+- Missing package - ([a20bc10](https://github.com/kristof-mattei/autoheal-rs/commit/a20bc107500b531f2e1b23d45ab86063ab125225))
+- Lock down sha256 of docker images - ([659aadd](https://github.com/kristof-mattei/autoheal-rs/commit/659aadd292af52bade19aeebc00747c8ee3c808d))
+- Grcov intstead of tarpaulin - ([d8f1fe1](https://github.com/kristof-mattei/autoheal-rs/commit/d8f1fe173d6fe3efaa5aa2bb77ae0d988296c51b))
+- Filename was wrong + comment update + rust-version bump - ([4371418](https://github.com/kristof-mattei/autoheal-rs/commit/4371418d7fd70cd8faaee6d77b98c932905339b5))
+- Corrected title - ([b3b0cb6](https://github.com/kristof-mattei/autoheal-rs/commit/b3b0cb62e4b96f95daef20bc0d1ec6143e5d2e97))
+- Merge steps for testbased coverage - ([a7b74e1](https://github.com/kristof-mattei/autoheal-rs/commit/a7b74e1637ac50f4165507f491278386cb986244))
+- Install llvm tools - ([3d5b63b](https://github.com/kristof-mattei/autoheal-rs/commit/3d5b63b77c7c0b431c4f547c7b429a5266703637))
+- Typo in env variable - ([d4e47fa](https://github.com/kristof-mattei/autoheal-rs/commit/d4e47faa41b598137d3e60418a7f4d9d8f8a0921))
+- Code climate test reporter - ([9c58b72](https://github.com/kristof-mattei/autoheal-rs/commit/9c58b72f8b04698b8ef901e4e19ae642f3c99e8e))
+- Use correct subcommand - ([96fa7aa](https://github.com/kristof-mattei/autoheal-rs/commit/96fa7aa0d712a2d8feb188ad28587b5f0e697de1))
+- Remove dependency on build to run on main - ([0a6b0c6](https://github.com/kristof-mattei/autoheal-rs/commit/0a6b0c66405b44a17ba512cb8f56f64ee4420c9f))
+- Tag -> sha - ([7be092d](https://github.com/kristof-mattei/autoheal-rs/commit/7be092dfdf25244113b8695cf94e7edae3a4ec23))
+- Filter out lcov - ([60e9e4e](https://github.com/kristof-mattei/autoheal-rs/commit/60e9e4eb97e40080a4c4ec563c27675404e370a9))
+- Also keep tests - ([a746b08](https://github.com/kristof-mattei/autoheal-rs/commit/a746b08a460aafa5b984303dc4527ef0046dcbe8))
+- Add linebreak - ([4712a1f](https://github.com/kristof-mattei/autoheal-rs/commit/4712a1f6df2e3005b70e49cc4d6a097d0645a455))
+- Set code climate filter - ([e171505](https://github.com/kristof-mattei/autoheal-rs/commit/e17150556571145f9295d3f6ed46eb372485b262))
+- No need to bring in action just for this - ([faa92dc](https://github.com/kristof-mattei/autoheal-rs/commit/faa92dc31731b248339b30e9c2c583164f37afce))
+- Removed spaces - ([15a0f18](https://github.com/kristof-mattei/autoheal-rs/commit/15a0f18752a64ce109f269bd8eb362334982b327))
+- Auto dependabot merge - ([cdc772a](https://github.com/kristof-mattei/autoheal-rs/commit/cdc772a475f030e5135f22ced30af4a74129b8b2))
+- Ignore merge commit linting - ([314180a](https://github.com/kristof-mattei/autoheal-rs/commit/314180a6a826335dfab4d4425fc29b474871ab33))
+- Instrument coverage is stable! - ([cd2a8e6](https://github.com/kristof-mattei/autoheal-rs/commit/cd2a8e618131056b33df7711cac1da6d7e267e9c))
+- Switch to auto config - ([71ec2d9](https://github.com/kristof-mattei/autoheal-rs/commit/71ec2d96c2778dc3c8c9359840b7c43f18323f44))
+- Remove fixes - ([e90953e](https://github.com/kristof-mattei/autoheal-rs/commit/e90953e4eba7037818de69e8067faa244f6259a0))
+- Add user - ([4e414de](https://github.com/kristof-mattei/autoheal-rs/commit/4e414de196055df363eb355b100ba5d6e7cb4a06))
+- Set the right user - ([c82af71](https://github.com/kristof-mattei/autoheal-rs/commit/c82af712a81c84e773764916c281274377d150e0))
+- Set permissions - ([d3c9dcf](https://github.com/kristof-mattei/autoheal-rs/commit/d3c9dcfea41224b596e87672338c66bf5f98f78e))
+- Try centralized renovate config - ([973829b](https://github.com/kristof-mattei/autoheal-rs/commit/973829b723a20cdd4b5c5f9d0bf3477cc8d421e2))
+- Download binstall to /tmp to avoid additional untracked files - ([eb3d325](https://github.com/kristof-mattei/autoheal-rs/commit/eb3d3252dabeeb48c960995a46bb13b4df71796d))
+- Binstall now wants stuff with a capital - ([4e862db](https://github.com/kristof-mattei/autoheal-rs/commit/4e862dbb4fcd5577e2ab36ebf2ba3ceb755eb122))
+- Don't copy paste - ([d9ed65e](https://github.com/kristof-mattei/autoheal-rs/commit/d9ed65e9c1ac8e3ffd77a33f5f0956637ee90302))
+- Fixed... the name! - ([219147e](https://github.com/kristof-mattei/autoheal-rs/commit/219147ea097f02f1c275036e4f4b9d638d237e88))
+- Lowercase package fmt - ([d464837](https://github.com/kristof-mattei/autoheal-rs/commit/d4648375d819651c86216d8b2d3f511622f91d82))
+- Fix schema - ([2363092](https://github.com/kristof-mattei/autoheal-rs/commit/23630924a373ca06ffed352f8574516afb7e0cda))
+- Don't require reviews - ([921c419](https://github.com/kristof-mattei/autoheal-rs/commit/921c4193b6dd2b37af2487072117c7586bbc37c3))
+- Force signed commits - ([9c408fd](https://github.com/kristof-mattei/autoheal-rs/commit/9c408fdef65a9dbe2599402b5654de69ed9cfbcc))
+- Update rules - ([db556a8](https://github.com/kristof-mattei/autoheal-rs/commit/db556a800db25f534302a594a120632d709b8a2f))
+- Set the correct tag - ([273291f](https://github.com/kristof-mattei/autoheal-rs/commit/273291fe484addf894f8ddc3c13889b140389103))
+- Deny stuff, nobody reads warnings - ([20a9980](https://github.com/kristof-mattei/autoheal-rs/commit/20a998015fee19324cf08f8893bb260c69aff3a3))
+- Semgrep from container - ([de3c82d](https://github.com/kristof-mattei/autoheal-rs/commit/de3c82ddb3ec7fc91b63376ab3db0dfcbd6cfd48))
+- Set tag & sha256 - ([7b6e267](https://github.com/kristof-mattei/autoheal-rs/commit/7b6e267179f85e2615185826d42f1ac74b1cb14d))
+- Group imports - ([a561eab](https://github.com/kristof-mattei/autoheal-rs/commit/a561eabca180fbdebe301f830f2bcd3139887134))
+- Quotes - ([91c129c](https://github.com/kristof-mattei/autoheal-rs/commit/91c129c1d09e29453c37024514cfdda0b3407c87))
+- Comment out nightly function, add match | - ([d0c9366](https://github.com/kristof-mattei/autoheal-rs/commit/d0c936698945e3733e598e229ba117b44557d822))
+- No leading pipes - ([1010233](https://github.com/kristof-mattei/autoheal-rs/commit/101023383a45998b4e0ed2a1dbd86f5681f7a73f))
+- Correct cocogitto again with binstall - ([6d58aa7](https://github.com/kristof-mattei/autoheal-rs/commit/6d58aa766b57ca79248ddfffaa2e405efda60fb2))
+- Google -> probot - ([23ac95c](https://github.com/kristof-mattei/autoheal-rs/commit/23ac95cd6c81f0b0f32accf434f4a50d5c48e65b))
+- Allow overrides - ([33769f0](https://github.com/kristof-mattei/autoheal-rs/commit/33769f0d2f9451e5411470dc2dfc3b278b036229))
+- Add other settings - ([f520994](https://github.com/kristof-mattei/autoheal-rs/commit/f520994518d0f5e13e59ec7c593c76da65062b02))
+- Updated script for easier integrations - ([a89a35d](https://github.com/kristof-mattei/autoheal-rs/commit/a89a35d6e763354f644708a2389a25851cee80de))
+- Rewrite to rust - ([e438f25](https://github.com/kristof-mattei/autoheal-rs/commit/e438f25e6f2461313e76a93fbe41ee3ac4dc9229))
+- Set-output is deprecated - ([8b69dd4](https://github.com/kristof-mattei/autoheal-rs/commit/8b69dd437a5cec1f3dd7e256be22658338bcbb03))
+- Set correct nextest config - ([2447503](https://github.com/kristof-mattei/autoheal-rs/commit/2447503724f960fb66a723705e52810e169ae2aa))
+- Formatting - ([c5cd437](https://github.com/kristof-mattei/autoheal-rs/commit/c5cd437d2876744a61201a6db494866c021510df))
+- Move optimization - ([5eb3d81](https://github.com/kristof-mattei/autoheal-rs/commit/5eb3d81f0f168f7e56257e02e50cd97482863a6f))
+- Allow macro to be called with both StdError and anyhow::Error - ([fa3f522](https://github.com/kristof-mattei/autoheal-rs/commit/fa3f522d5cc4f6b401a107eea4ed0aa7c70ab738))
+- Use tracing - ([04295d7](https://github.com/kristof-mattei/autoheal-rs/commit/04295d75e4c4541a121f33ca271a24a50e618e0d))
+- Add lines to set upstream properly - ([8a03499](https://github.com/kristof-mattei/autoheal-rs/commit/8a03499dc3a635d3cce3a7e3f1454c859cbb5db0))
+- Comments - ([2d2fe04](https://github.com/kristof-mattei/autoheal-rs/commit/2d2fe04efc456c63fc1954fae5e64b9ba0a14e56))
+- Testing - ([8f62e62](https://github.com/kristof-mattei/autoheal-rs/commit/8f62e6203a27454f67166a76478c4b6ea9490fc8))
+- Integration testing - ([67f4313](https://github.com/kristof-mattei/autoheal-rs/commit/67f43132097874b5affd72e1d54650a7e82132d5))
+- Write full name - ([fc014b6](https://github.com/kristof-mattei/autoheal-rs/commit/fc014b6260e21cd60b8145adb1a1a9f56a5bbd14))
+- Inline label - ([797a7ec](https://github.com/kristof-mattei/autoheal-rs/commit/797a7ec0423156d5ecc2fbc7005eb819c8d0a3ce))
+- Use buildkit for compose - ([5c6b4b6](https://github.com/kristof-mattei/autoheal-rs/commit/5c6b4b65f1beae36e493b50418e8c282ac81763f))
+- Use up to date action - ([47190c9](https://github.com/kristof-mattei/autoheal-rs/commit/47190c9524d3029fe2a3dedc570e1b88d2f63105))
+- Bump packages - ([05fd117](https://github.com/kristof-mattei/autoheal-rs/commit/05fd11757ab2ecf9ae9e4c48843876a9e09354a3))
+- Separate before and after cache - ([82f9775](https://github.com/kristof-mattei/autoheal-rs/commit/82f97756352773948e9a4572f2740831d5bf9f2c))
+- Don't test docker until we've successfully built container and use digest - ([db3a72b](https://github.com/kristof-mattei/autoheal-rs/commit/db3a72b2ebee52995beb61150595c5ff43457e40))
+- Settings - ([b114d41](https://github.com/kristof-mattei/autoheal-rs/commit/b114d412cd21416f37b976b239ce30938fdc6c5d))
+- Use cache - ([ad1886d](https://github.com/kristof-mattei/autoheal-rs/commit/ad1886de48fcfec634f400b2ff961eb7a83a8fea))
+- Cleanup - ([0eecc55](https://github.com/kristof-mattei/autoheal-rs/commit/0eecc55c44375cb00b6a662cda21e80854361398))
+- Log webhook success - ([5390013](https://github.com/kristof-mattei/autoheal-rs/commit/53900133d8b3c9a64e2217ee85d05b91cad52564))
+
+### 🧪 Testing
+
+- Flow - ([9e940fb](https://github.com/kristof-mattei/autoheal-rs/commit/9e940fbe55fa07e3b24358b023720ba2d73d8c86))
+- Print changelog.md - ([ce90089](https://github.com/kristof-mattei/autoheal-rs/commit/ce900894ee712c58c14955ec4bfa9b90b0c050e8))
+- Failure test - ([fc23c01](https://github.com/kristof-mattei/autoheal-rs/commit/fc23c01aee19e787bf952f9ce9b2205e62ff15cc))
+
+### ⚙️ Miscellaneous Tasks
+
+- Spelling correction - ([78e52a8](https://github.com/kristof-mattei/autoheal-rs/commit/78e52a882d3cc7e22e17e4457e870f9b3b7534d2))
+- Removed unneeded print - ([045ea6c](https://github.com/kristof-mattei/autoheal-rs/commit/045ea6c8ecceed3918dd2c5307cbae9e56ff1864))
+- Added comment for future me <insert 88mph joke> - ([1c4c032](https://github.com/kristof-mattei/autoheal-rs/commit/1c4c0321a161d6719796b0724a13eb754b2125c8))
+- Renamed files - ([e34981a](https://github.com/kristof-mattei/autoheal-rs/commit/e34981a3a8506a261ad818f45ea726e3d2e20e7c))
+- Debugging changelog printing issues - ([cf9a3de](https://github.com/kristof-mattei/autoheal-rs/commit/cf9a3de23bf33ea746cd56d0c50b15b3825aca52))
+- Fix linebreaks - ([25900e3](https://github.com/kristof-mattei/autoheal-rs/commit/25900e3490df1800b89ed40ad727f64a74ef8252))
+- Forgot dependency - ([24064f8](https://github.com/kristof-mattei/autoheal-rs/commit/24064f83d4cb48e7b908485d1a1c0104e6b07bc4))
+- Fix space - ([023334b](https://github.com/kristof-mattei/autoheal-rs/commit/023334b405aabed437cbb00a6f9152f259f30830))
+- Added final step - ([ea08b74](https://github.com/kristof-mattei/autoheal-rs/commit/ea08b74d52466ba5ae07af106737e036b27ce0b1))
+- Update README.md - ([f043d40](https://github.com/kristof-mattei/autoheal-rs/commit/f043d40421a8e5836e2b18711e751965e67103ae))
+- Updated name everywhere - ([e0da1df](https://github.com/kristof-mattei/autoheal-rs/commit/e0da1dfbaab56c5bfe15145abab04ddfbd05539c))
+- Bumped rust numbers everywhere - ([a0577b5](https://github.com/kristof-mattei/autoheal-rs/commit/a0577b5c76c2c590f7ec371dab5669b648b31bf9))
+- Fixed name - ([eb13981](https://github.com/kristof-mattei/autoheal-rs/commit/eb13981ac036fa28dfe7f8df5665d28ef071aab2))
+- Consolidated npm usage - ([146c18f](https://github.com/kristof-mattei/autoheal-rs/commit/146c18fa3ddc6c63cd2fa1e32a9cfefaf346ffa2))
+- Cleanup un-used script - ([e8ab324](https://github.com/kristof-mattei/autoheal-rs/commit/e8ab3245bc3ac74a7bd96844047c68ee789f18b4))
+- Foundation for correct version numbers - ([82fe6c5](https://github.com/kristof-mattei/autoheal-rs/commit/82fe6c562db8fcc81eed9ff614346e1dcb6ca8e3))
+- Set version number of Rust binary at build time - ([5746431](https://github.com/kristof-mattei/autoheal-rs/commit/57464314eadd600e6ceb395041d8ba6f33c3afb5))
+- Reduce unneeded builds - ([ed49297](https://github.com/kristof-mattei/autoheal-rs/commit/ed49297faf6c0300cbfe42ae5b4b5d7fcfbbf091))
+- Add dry-run to make sure we don't publish preemptively - ([5285cee](https://github.com/kristof-mattei/autoheal-rs/commit/5285cee32977ef1ada378dc306c20b9c5f08ccb5))
+- Ensure checkout so that we have a package-lock - ([4eeb52e](https://github.com/kristof-mattei/autoheal-rs/commit/4eeb52e02e4eb3c18f39edadbdafe4ed3b47b2fb))
+- Remove spurious ) - ([5a81c7e](https://github.com/kristof-mattei/autoheal-rs/commit/5a81c7e34b0dbe620524c8399eb6a4f56083084c))
+- I used the wrong script - ([7dcc44d](https://github.com/kristof-mattei/autoheal-rs/commit/7dcc44d2c43e506d4b436c1fdf43bd9cabf3da33))
+- Flip aroud switches until we find the right combination - ([1c225f6](https://github.com/kristof-mattei/autoheal-rs/commit/1c225f6c17d71594ab8fbb751d5de52df0d821d1))
+- Hack the semantic-release - ([65bd2eb](https://github.com/kristof-mattei/autoheal-rs/commit/65bd2ebb3aeea525700fab234db4499581e11fa8))
+- Semantic-release doesn't like refs/pulls/12/merge, surrounding with quotes to test - ([c3acbf5](https://github.com/kristof-mattei/autoheal-rs/commit/c3acbf55e23ecd55e4d280efdfc3bb1d7ccfa834))
+- Just trying to get  this to work - ([b5478dd](https://github.com/kristof-mattei/autoheal-rs/commit/b5478dd32304377204c6d7b8960ac877f5af19f4))
+- Can't go without --no-ci - ([29fbe92](https://github.com/kristof-mattei/autoheal-rs/commit/29fbe92afa714985de7f0c6fc8c779a8caaeca04))
+- Try get last tag - ([a37253e](https://github.com/kristof-mattei/autoheal-rs/commit/a37253eb904612f60e0a6e4ea2a891cf7a76e051))
+- Removed duplicate version id - ([97ee09a](https://github.com/kristof-mattei/autoheal-rs/commit/97ee09a29da6ccedb4591b9cd91d1520506cad58))
+- Better way to check out the head? - ([04c1587](https://github.com/kristof-mattei/autoheal-rs/commit/04c1587aea423444d50b9b63ebd78a74b5ec895c))
+- Work around semantic-release restrictions - ([63a6315](https://github.com/kristof-mattei/autoheal-rs/commit/63a63159018ab9b7806dd669768fcfdc06f6c6b1))
+- Hack around semantic-release some more - ([3bd1a9c](https://github.com/kristof-mattei/autoheal-rs/commit/3bd1a9c0f70f33abdc0f51b68ddb6b02cfa298af))
+- Wrong script name - ([517cb82](https://github.com/kristof-mattei/autoheal-rs/commit/517cb822538623679fcd57d5aaba79317038ee97))
+- Skip tag, we don't want to give this one rights to push - ([278546c](https://github.com/kristof-mattei/autoheal-rs/commit/278546c990fc0937d60403b661ac555cee8a966d))
+- Give more permissions for dry-run - ([1d5cbf0](https://github.com/kristof-mattei/autoheal-rs/commit/1d5cbf0ba44ead2afaa0e94bf967155758e8577d))
+- Testing new flow - ([8d9c25a](https://github.com/kristof-mattei/autoheal-rs/commit/8d9c25a2ff7b97357fd5f385eaf5cf801995d2f4))
+- Fix publish script - ([68bb738](https://github.com/kristof-mattei/autoheal-rs/commit/68bb738d6d2f86e71f91588e1c5fe2f4ccc45a62))
+- Check for changes - ([39f071c](https://github.com/kristof-mattei/autoheal-rs/commit/39f071cd709181ee79f9e42869332af34a142da1))
+- Restructure, remove unneeded submodule pull - ([cfebd29](https://github.com/kristof-mattei/autoheal-rs/commit/cfebd2921b7e87dec2003216c88e2e0efb58dcd7))
+- Fix condition - ([02df130](https://github.com/kristof-mattei/autoheal-rs/commit/02df1304baa8a2b096b8e0f29b93eaf6faa552e6))
+- Split steps - ([95bf3b6](https://github.com/kristof-mattei/autoheal-rs/commit/95bf3b6a5c85f11cfb08c9594369d58bd7a9188c))
+- Reduced complexity of filter - ([20f398c](https://github.com/kristof-mattei/autoheal-rs/commit/20f398c8adbd47f93754d42298ca2a59c808bf6b))
+- Beautified titles - ([00b5d37](https://github.com/kristof-mattei/autoheal-rs/commit/00b5d37f9dde952c90c8684fe7d2dec900d1e341))
+- Updated task name - ([10882f2](https://github.com/kristof-mattei/autoheal-rs/commit/10882f2f181ae6d5e441dc8327c37ac729671261))
+- Prevent clippy from running twice - ([5db45b9](https://github.com/kristof-mattei/autoheal-rs/commit/5db45b9964d66de7d9d5377748158bdd624b5bbf))
+- Aligned commandline parameters - ([fd9d518](https://github.com/kristof-mattei/autoheal-rs/commit/fd9d51865bd14d729d49d15a6de25fb53a42c869))
+- Expanded clippy warnings - ([01272f6](https://github.com/kristof-mattei/autoheal-rs/commit/01272f622b1a588f3fb064c82203222da3f29252))
+- Also run pedantic and cargo test on push - ([23ba6db](https://github.com/kristof-mattei/autoheal-rs/commit/23ba6db09d220e17608aa43ab4ffe903507f2ada))
+- Also run test-and-report on main to update 'main' coverage - ([07cab02](https://github.com/kristof-mattei/autoheal-rs/commit/07cab02c61478f168aa0fc7984a2dc5e79265ef1))
+- Also run clippy when merged to main to track progress - ([bccc597](https://github.com/kristof-mattei/autoheal-rs/commit/bccc59739a8d274a06f093a2b625b09195d03ce0))
+- Create LICENSE - ([9662fd0](https://github.com/kristof-mattei/autoheal-rs/commit/9662fd0bc59b52956cd6b30e26e6c5d4854ead9a))
+- Respect cargo.lock when doing cargo install - ([20b7f38](https://github.com/kristof-mattei/autoheal-rs/commit/20b7f38541eb2641b99ede169a18b4323deae8b2))
+- Fixed the name - ([7166635](https://github.com/kristof-mattei/autoheal-rs/commit/716663523d3c1e3d10b86a6b477298fa70196312))
+- Remove outdated comment - ([88369f7](https://github.com/kristof-mattei/autoheal-rs/commit/88369f7ade36328e1b5156841a8127358c4a69a3))
+- Switch to cog - ([d9dc537](https://github.com/kristof-mattei/autoheal-rs/commit/d9dc537936181daea34d14a6958064ff9c507eea))
+- Switch to cog wip - ([70bc0fe](https://github.com/kristof-mattei/autoheal-rs/commit/70bc0fee3bec0b60d2eabd27999c80b43018bd92))
+- Use registry cache - ([6e66668](https://github.com/kristof-mattei/autoheal-rs/commit/6e66668788e41a33e2efa36edf74297e83e58a13))
+- Typo, docker -> Docker - ([8571cd7](https://github.com/kristof-mattei/autoheal-rs/commit/8571cd7fd8d6153eb75bef254aaa2e7ae8a1dc0f))
+- Use built-in rustup - ([e3a791a](https://github.com/kristof-mattei/autoheal-rs/commit/e3a791a527a9f0e5b8a7696dd310d08f394ca4ce))
+- Set the checkout name - ([a8a45b4](https://github.com/kristof-mattei/autoheal-rs/commit/a8a45b4f6ff2ef4783a60d0ddf99a519069e9f0a))
+- Fixed rustup update warning about rustfmt and cargo-fmt - ([bb187f3](https://github.com/kristof-mattei/autoheal-rs/commit/bb187f384fb1042f363b9d756afc7aa64f5c852b))
+- No need to run clippy on push to main - ([44890f7](https://github.com/kristof-mattei/autoheal-rs/commit/44890f764e814f9d99b92f43fd720cb2ab3998f3))
+- Updated generated cache name - ([4aa7084](https://github.com/kristof-mattei/autoheal-rs/commit/4aa7084bddacb70518081f6a5872d4896f3bfd81))
+- Removed todo that's not gonna happen - ([5205794](https://github.com/kristof-mattei/autoheal-rs/commit/5205794394c05e1f65333e4936def18162a8db0d))
+- Set nice name - ([22f0bca](https://github.com/kristof-mattei/autoheal-rs/commit/22f0bcaf26b62359c2afd18cfad6fb280baf3d85))
+- Removed unneeded comments - ([dca69dc](https://github.com/kristof-mattei/autoheal-rs/commit/dca69dc3ea2cbacb0a490e011c8c5a385ebf7c51))
+- Exclude rustfmt and cargo-fmt from the cache as rustup doesn't like that - ([d95f77f](https://github.com/kristof-mattei/autoheal-rs/commit/d95f77ffd16ffa56db736e564928aa4726a7c224))
+- Use built-in rustup - ([5a98432](https://github.com/kristof-mattei/autoheal-rs/commit/5a9843252f358198ac7b43bb06825052e7be3fa7))
+- Exclude rustfmt and cargo-fmt from the cache as rustup doesn't like that - ([2c04592](https://github.com/kristof-mattei/autoheal-rs/commit/2c04592da28a24dc92b3f1025345654ed51d84cb))
+- Run prettier - ([46ff0fb](https://github.com/kristof-mattei/autoheal-rs/commit/46ff0fb4c6b3f3509f42798b1b9adbd59617f0b4))
+- Don't clean before clippy, not needed - ([253afc2](https://github.com/kristof-mattei/autoheal-rs/commit/253afc287d6ce9aafd9d906066a54410270ef80e))
+- Don't consider it 'all-done' when anything is cancelled - ([4fdc19d](https://github.com/kristof-mattei/autoheal-rs/commit/4fdc19df0990801ebaf40f25fa955eb22f3f1946))
+- Also rebuild on cargo.lock changes - ([b196ad4](https://github.com/kristof-mattei/autoheal-rs/commit/b196ad45b3b648f7588091e083df970f896b8185))
+- Updated npm packages - ([79e5129](https://github.com/kristof-mattei/autoheal-rs/commit/79e5129e640c62201cc72d4807e3ff44a8ad2033))
+- Also bump rust-toolchain to rust 1.58.1 - ([1f91934](https://github.com/kristof-mattei/autoheal-rs/commit/1f919341edc6d1538f96ae02ec832424ea0a9395))
+- Cleaned up rustfmt, added 2 settings - ([b484519](https://github.com/kristof-mattei/autoheal-rs/commit/b484519b041b4336e93bbc556d202f70f68bf73e))
+- Set test comment mode - ([137affd](https://github.com/kristof-mattei/autoheal-rs/commit/137affd7ddec571febf32f235fa26ac8702da2eb))
+- Formatting! - ([f2ab063](https://github.com/kristof-mattei/autoheal-rs/commit/f2ab06359a1a980404bf2aebd013e43aef804662))
+- Don't create new comment, recycle! - ([c3a7cb4](https://github.com/kristof-mattei/autoheal-rs/commit/c3a7cb4dd9fa46c893969e84e42c5b673e7adb8b))
+- Fixed title - ([14bdc49](https://github.com/kristof-mattei/autoheal-rs/commit/14bdc49a2c8135972be93fef36a425bd9b094c80))
+- Correctly report test failure - ([6250142](https://github.com/kristof-mattei/autoheal-rs/commit/6250142008a5f74fad09c6088fa64ec87d5c49a5))
+- Also update cargo & toolchain - ([291be2a](https://github.com/kristof-mattei/autoheal-rs/commit/291be2aa3dd1d15c726686b0dd71ff2e35bff341))
+- Also update cargo & toolchain - ([52e4649](https://github.com/kristof-mattei/autoheal-rs/commit/52e46491946ebb62922e3f120ec4d9b5c33f8d81))
+- Fail done properly - ([9a420bf](https://github.com/kristof-mattei/autoheal-rs/commit/9a420bf23ae315b64a7a0d20734de30db6ac01df))
+- Made task file rust-analyzer compliant - ([6f244be](https://github.com/kristof-mattei/autoheal-rs/commit/6f244beea8c5c8232b66f51bb1dcd0d42759d223))
+- Spacing and remove verbose - ([abceeeb](https://github.com/kristof-mattei/autoheal-rs/commit/abceeeb0e023cd1629df3540fe5f9d310b8dbd36))
+- Add release test script - ([0918c90](https://github.com/kristof-mattei/autoheal-rs/commit/0918c90afafcb26396983767979f08dc46d5d7c0))
+- Consolidated extensions - ([7ebc90c](https://github.com/kristof-mattei/autoheal-rs/commit/7ebc90c506e2570c0ec92145c4b4a6d23270c2cf))
+- Add title (name) to step - ([8f4396d](https://github.com/kristof-mattei/autoheal-rs/commit/8f4396d247c865897e0088c6af23a54a0affef7c))
+- Docker images names should always be lowercase - ([9932b72](https://github.com/kristof-mattei/autoheal-rs/commit/9932b72ad08d8a5eeacc0946b1fc367320c9e19f))
+- Add shell name and consolidated format - ([00ca5d7](https://github.com/kristof-mattei/autoheal-rs/commit/00ca5d7c67d31eed62556cdcf12b0a77318a0be4))
+- Delete unneeded file - ([4734616](https://github.com/kristof-mattei/autoheal-rs/commit/4734616fc8be237c5ee89130cd942fa971ad767f))
+- Update packages - ([c39ff7e](https://github.com/kristof-mattei/autoheal-rs/commit/c39ff7e8cc8032f91fa8d765d600a1acce21e3de))
+- Clean up semgrep file, update package-lock - ([df7e1e4](https://github.com/kristof-mattei/autoheal-rs/commit/df7e1e4d3942aa0f3b703de1c14005093ef41dec))
+- Crlf to lf - ([fdca795](https://github.com/kristof-mattei/autoheal-rs/commit/fdca795c627dbed981e6ed02fe4287c37b29d169))
+- Install latest semgrep - ([b720d30](https://github.com/kristof-mattei/autoheal-rs/commit/b720d30449d174b74e1ed3fa184d4c1e9e69f255))
+- Use token to get more rules - ([342529b](https://github.com/kristof-mattei/autoheal-rs/commit/342529ba015edca81583186343b7d93949f5ac76))
+- Try to speed up by using binstall - ([ddf6fc7](https://github.com/kristof-mattei/autoheal-rs/commit/ddf6fc7bb52110b4da4d67c3e380ed915442d848))
+- And more 1.62 - ([f048ac0](https://github.com/kristof-mattei/autoheal-rs/commit/f048ac05a5aaed0f6a39ae632d7595c352acfaf1))
+- Fix the binary names - ([e700aaa](https://github.com/kristof-mattei/autoheal-rs/commit/e700aaaae4cd095ab196892fb19e86cac143b8bf))
+- Spacing, made lint-commits also use binstall - ([c4daf59](https://github.com/kristof-mattei/autoheal-rs/commit/c4daf591677669b2603f25019f5176dc850bbbe8))
+- Updated file property to junit_files as per https://github.com/EnricoMi/publish-unit-test-result-action/pull/285 - ([73a0ad7](https://github.com/kristof-mattei/autoheal-rs/commit/73a0ad75fdb21be7081eb628fc2d8da728355629))
+- Remove duplicate `USER`, not needed - ([2bc87f5](https://github.com/kristof-mattei/autoheal-rs/commit/2bc87f5cdc946847eef2f215f9316a45ec840f3b))
+- Enable renovate - ([741b4bd](https://github.com/kristof-mattei/autoheal-rs/commit/741b4bd48ce77da72268caddf460cba3fe7ea75e))
+- Explicitly set token to avoid failed uploads - ([45e6bcf](https://github.com/kristof-mattei/autoheal-rs/commit/45e6bcfbb31f1e1219db97bf65da1c33fdc64961))
+- Disable coveralls, it's acting up - ([e8ff3d3](https://github.com/kristof-mattei/autoheal-rs/commit/e8ff3d3eca52fc746ef5ad8120071d9619f0b17e))
+- Also include rust-specific configs - ([0888cb2](https://github.com/kristof-mattei/autoheal-rs/commit/0888cb2abb68acd808d532186220ebabe986de36))
+- Fixed double update typo - ([bc15a92](https://github.com/kristof-mattei/autoheal-rs/commit/bc15a92e9c4eb0910f44a9368bbae281c5a4eb91))
+- Testing renovate's custom file updater - ([7918b9c](https://github.com/kristof-mattei/autoheal-rs/commit/7918b9c204a40bd5b5ce19c8d3ad6abb61f2e148))
+- Restored codecov, remove executable modifier - ([b45eb0f](https://github.com/kristof-mattei/autoheal-rs/commit/b45eb0f353f1928990d23fd54996ed97b70e1c61))
+- Disable coveralls & codecov - ([c43c49a](https://github.com/kristof-mattei/autoheal-rs/commit/c43c49a500d053d5c1d2a5861a8ffa8d44281093))
+- Put versions so that renovate can tag correctly - ([dce5fd5](https://github.com/kristof-mattei/autoheal-rs/commit/dce5fd57af8aa1a1a7722f4bfedc42e7be29a306))
+- Remove variable from dockerfile - ([1a47885](https://github.com/kristof-mattei/autoheal-rs/commit/1a478854622fd3426534ebceac142ac2b633eaf5))
+- Update from upstream util - ([a5298cd](https://github.com/kristof-mattei/autoheal-rs/commit/a5298cd749e13e1959c2a00eee2947de7e512aaa))
+- Try codecov again - ([f53b8db](https://github.com/kristof-mattei/autoheal-rs/commit/f53b8dbce2882cfdbff917b4ee2261bc7fa47ad2))
+## [0.1.0] - 2021-10-30
+
+### 🚀 Features
+
+- Initial commit - ([7af0684](https://github.com/kristof-mattei/autoheal-rs/commit/7af0684c86b197699123cc67d0d87ec66fbd1e2e))
+- Added Quz and test - ([07ee173](https://github.com/kristof-mattei/autoheal-rs/commit/07ee173edd9983669abfac91aa60245c7347d911))
+- Use crane as tool instead of elaborate docker setup - ([a5bc70b](https://github.com/kristof-mattei/autoheal-rs/commit/a5bc70b9231c9fe16b4594e6349d75f5c0986932))
+
+### 🐛 Bug Fixes
+
+- Enabled codecov - ([70a7b60](https://github.com/kristof-mattei/autoheal-rs/commit/70a7b60de32c66a3c0315f67d0f8278d91fc797a))
+- Codecov - ([1f6458f](https://github.com/kristof-mattei/autoheal-rs/commit/1f6458f7eeb0ba5dd85d02ebcd67734c4dbd5623))
+- Bumped cargo version - ([f47f7d0](https://github.com/kristof-mattei/autoheal-rs/commit/f47f7d0d5f7c6ba227002ba705a58f2fdf05aa2b))
+- Username.toLowerCase() - ([3c41052](https://github.com/kristof-mattei/autoheal-rs/commit/3c410523e2c154652a3564511bbc90fde0710bb3))
+- Make sure husky doesn't install on CI servers - ([6908d84](https://github.com/kristof-mattei/autoheal-rs/commit/6908d84e175ffab99bd18227bcbd515e0020c778))
+- Download grcov from releases, WAY faster - ([9a8c19b](https://github.com/kristof-mattei/autoheal-rs/commit/9a8c19b538ae5c3cff200aa2460d03055ee1d14b))
+- Don't try extract bz2 as gzip - ([edd13c8](https://github.com/kristof-mattei/autoheal-rs/commit/edd13c85f1f11c38e7bd1be2a1e8a4210346797a))
+- Arguments go into an array - ([9c6ff93](https://github.com/kristof-mattei/autoheal-rs/commit/9c6ff93cb599504352c601e3e9f34790859a86d5))
+- 2nd param is dest, not flags, null to infer destination though - ([6db1ca8](https://github.com/kristof-mattei/autoheal-rs/commit/6db1ca87785155c6e124dd99782acd5d9967778f))
+- Remove duplicated login - ([03eeddf](https://github.com/kristof-mattei/autoheal-rs/commit/03eeddf662f5ebafb049c945d052340c8ee0d7e6))
+
+### 🧪 Testing
+
+- Sign with GPG signature - ([979cd32](https://github.com/kristof-mattei/autoheal-rs/commit/979cd322c6433c7f9200ed36c0deb84ab02b0706))
+- Sign with GPG signature - ([63d0aa2](https://github.com/kristof-mattei/autoheal-rs/commit/63d0aa281c26653cb62b1e7416fc047fe72c589a))
+
+### ⚙️ Miscellaneous Tasks
+
+- Copy tags with docker tags again - ([8ffcf1e](https://github.com/kristof-mattei/autoheal-rs/commit/8ffcf1ed1de7a080abcea97328b049bf909a1dba))
+<!-- generated by git-cliff -->
