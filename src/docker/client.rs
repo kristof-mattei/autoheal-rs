@@ -27,8 +27,28 @@ pub struct DockerClient {
 }
 
 struct ClientCredentials {
-    cert_chain: Vec<CertificateDer<'static>>,
     key: PrivateKeyDer<'static>,
+    certs: Vec<CertificateDer<'static>>,
+}
+
+fn build_root_cert_store(cacert: Option<PathBuf>) -> Result<RootCertStore, eyre::Report> {
+    let mut store = RootCertStore::empty();
+
+    if let Some(cacert) = cacert {
+        store.add(CertificateDer::from_pem_file(cacert)?)?;
+    } else {
+        let native_certs = rustls_native_certs::load_native_certs();
+
+        for error in native_certs.errors {
+            event!(Level::ERROR, ?error, "Failed to load certificate");
+        }
+
+        for cert in native_certs.certs {
+            store.add(cert).unwrap();
+        }
+    }
+
+    Ok(store)
 }
 
 impl DockerClient {
@@ -48,43 +68,20 @@ impl DockerClient {
 
             let client_credentials = match (client_cert, client_key) {
                 (Some(client_cert), Some(client_key)) => Some(ClientCredentials {
-                    cert_chain: vec![CertificateDer::from_pem_file(client_cert)?],
                     key: PrivateKeyDer::from_pem_file(client_key)?,
+                    certs: vec![CertificateDer::from_pem_file(client_cert)?],
                 }),
                 _ => None,
             };
 
-            let cacert = if let Some(cacert) = cacert {
-                Some(CertificateDer::from_pem_file(cacert)?)
-            } else {
-                None
-            };
-
-            let root_store = {
-                let mut store = RootCertStore::empty();
-
-                if let Some(cacert) = cacert {
-                    store.add(cacert)?;
-                } else {
-                    let native_certs = rustls_native_certs::load_native_certs();
-                    for error in native_certs.errors {
-                        event!(Level::ERROR, ?error, "Failed to load certificate");
-                    }
-
-                    for cert in native_certs.certs {
-                        store.add(cert).unwrap();
-                    }
-                }
-
-                store
-            };
+            let root_store = build_root_cert_store(cacert)?;
 
             let client_config = ClientConfig::builder_with_protocol_versions(DEFAULT_VERSIONS)
                 .with_root_certificates(root_store);
 
             let client_config = if let Some(client_credentials) = client_credentials {
                 client_config
-                    .with_client_auth_cert(client_credentials.cert_chain, client_credentials.key)?
+                    .with_client_auth_cert(client_credentials.certs, client_credentials.key)?
             } else {
                 client_config.with_no_client_auth()
             };
