@@ -40,7 +40,7 @@ pub struct DockerConfig {
 pub struct HealerConfig {
     pub default_stop_timeout: u32,
     pub interval: u64,
-    pub exclude_containers: Vec<String>,
+    pub exclude_containers: Box<[Box<str>]>,
     pub start_period: u64,
     pub timeout_milliseconds: u64,
 }
@@ -66,7 +66,11 @@ impl AppConfig {
         let healer_config = HealerConfig {
             default_stop_timeout: raw_config.autoheal_default_stop_timeout,
             interval: raw_config.autoheal_interval,
-            exclude_containers: raw_config.autoheal_exclude_containers,
+            exclude_containers: raw_config
+                .autoheal_exclude_containers
+                .into_iter()
+                .map(|s| s.into_boxed_str())
+                .collect::<Box<[_]>>(),
             start_period: raw_config.autoheal_start_period,
             timeout_milliseconds: raw_config.timeout_milliseconds,
         };

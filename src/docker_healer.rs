@@ -1,6 +1,11 @@
-use std::rc::Rc;
 use std::time::Duration;
 
+use crate::docker::client::{DockerClient, DockerEndpoint};
+use crate::docker::container::Container;
+use crate::encoding::url_encode;
+use crate::http_client::{build_request, execute_request};
+use crate::webhook::WebHookNotifier;
+use app_config::HealerConfig;
 use color_eyre::eyre;
 use hashbrown::HashMap;
 use http::Uri;
@@ -10,16 +15,11 @@ use hyper::{Method, Response, StatusCode};
 use tokio::time::{sleep, timeout};
 use tracing::{Level, event};
 
-use crate::app_config::HealerConfig;
-use crate::docker::client::{DockerClient, DockerEndpoint};
-use crate::docker::container::Container;
-use crate::encoding::url_encode;
-use crate::http_client::{build_request, execute_request};
-use crate::webhook::WebHookNotifier;
+use crate::app_config;
 
 pub struct DockerHealer {
     client: DockerClient,
-    encoded_filters: Rc<str>,
+    encoded_filters: Box<str>,
     healer_config: HealerConfig,
     notifier: WebHookNotifier,
 }
@@ -35,7 +35,7 @@ impl DockerHealer {
 
         Self {
             client,
-            encoded_filters: Rc::from(encoded_filters),
+            encoded_filters: encoded_filters.into_boxed_str(),
             healer_config,
             notifier: WebHookNotifier { uri: webhook_uri },
         }
@@ -182,14 +182,14 @@ impl DockerHealer {
             sleep(Duration::from_secs(self.healer_config.start_period)).await;
         }
 
-        let mut history_unhealthy = HashMap::<Rc<str>, (Option<Rc<str>>, usize)>::new();
+        let mut history_unhealthy = HashMap::<Box<str>, (Option<Box<str>>, usize)>::new();
 
         loop {
             match self.get_containers().await {
                 Ok(containers) => {
-                    let mut current_unhealthy: HashMap<Rc<str>, Option<Rc<str>>> = containers
+                    let mut current_unhealthy: HashMap<Box<str>, Option<Box<str>>> = containers
                         .iter()
-                        .map(|c| (Rc::clone(&c.id), c.get_name().map(Into::into)))
+                        .map(|c| (Box::clone(&c.id), c.get_name().map(Into::into)))
                         .collect::<HashMap<_, _>>();
 
                     for container in containers {
