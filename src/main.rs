@@ -1,19 +1,3 @@
-use std::convert::Infallible;
-use std::env;
-use std::env::VarError;
-
-use app_config::AppConfig;
-use color_eyre::config::HookBuilder;
-use color_eyre::eyre;
-use docker_healer::DockerHealer;
-use ffi_handlers::set_up_handlers;
-use tracing::{Level, event};
-use tracing_subscriber::layer::SubscriberExt as _;
-use tracing_subscriber::util::SubscriberInitExt as _;
-use tracing_subscriber::{EnvFilter, Layer as _};
-
-use crate::docker::client::DockerClient;
-
 mod app_config;
 mod docker;
 mod docker_healer;
@@ -22,7 +6,25 @@ mod ffi_handlers;
 mod helpers;
 mod http_client;
 mod unhealthy_filters;
+mod utils;
 mod webhook;
+
+use std::convert::Infallible;
+use std::env;
+use std::env::VarError;
+
+use app_config::AppConfig;
+use color_eyre::config::HookBuilder;
+use color_eyre::eyre;
+use docker::client::DockerClient;
+use docker_healer::DockerHealer;
+use ffi_handlers::set_up_handlers;
+use tracing::{Level, event};
+use tracing_subscriber::layer::SubscriberExt as _;
+use tracing_subscriber::util::SubscriberInitExt as _;
+use tracing_subscriber::{EnvFilter, Layer as _};
+
+use crate::utils::flatten_handle;
 
 fn build_default_filter() -> EnvFilter {
     EnvFilter::builder()
@@ -55,7 +57,7 @@ fn init_tracing() -> Result<(), eyre::Report> {
     filter_parsing_error.map_or(Ok(()), Err)
 }
 
-fn main() -> Result<(), eyre::Report> {
+fn main() -> Result<Infallible, eyre::Report> {
     HookBuilder::default()
         .capture_span_trace_by_default(true)
         .display_env_section(false)
@@ -66,12 +68,20 @@ fn main() -> Result<(), eyre::Report> {
     set_up_handlers()?;
 
     // initialize the runtime
-    let rt = tokio::runtime::Runtime::new().unwrap();
+    let result: Result<Infallible, eyre::Report> = tokio::runtime::Builder::new_multi_thread()
+        .enable_io()
+        .enable_time()
+        .build()
+        .expect("Failed building the Runtime")
+        .block_on(async {
+            // explicitly launch everything in a spawned task
+            // see https://docs.rs/tokio/latest/tokio/attr.main.html#non-worker-async-function
+            let handle = tokio::task::spawn(healer());
 
-    // start service
-    rt.block_on(healer())?;
+            flatten_handle(handle).await
+        });
 
-    Ok(())
+    result
 }
 
 async fn healer() -> Result<Infallible, eyre::Report> {

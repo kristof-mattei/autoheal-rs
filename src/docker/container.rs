@@ -1,19 +1,18 @@
 use std::fmt;
 use std::marker::PhantomData;
-use std::rc::Rc;
 use std::str::FromStr;
 
 use serde::de::{MapAccess, SeqAccess, Visitor};
 use serde::{Deserialize, Deserializer, Serialize};
 
-fn deserialize_names<'de, D>(deserializer: D) -> Result<Rc<[String]>, D::Error>
+fn deserialize_names<'de, D>(deserializer: D) -> Result<Box<[Box<str>]>, D::Error>
 where
     D: Deserializer<'de>,
 {
     struct SeqVisitor();
 
     impl<'de> Visitor<'de> for SeqVisitor {
-        type Value = Rc<[String]>;
+        type Value = Box<[Box<str>]>;
 
         fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
             formatter.write_str("a nonempty sequence of items")
@@ -30,9 +29,9 @@ where
                 if value.starts_with('/') {
                     let split = value.split_off(1);
 
-                    buffer.push(split);
+                    buffer.push(split.into_boxed_str());
                 } else {
-                    buffer.push(value);
+                    buffer.push(value.into_boxed_str());
                 }
             }
 
@@ -85,11 +84,11 @@ where
 #[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
 #[serde(rename_all = "PascalCase")]
 pub struct Container {
-    pub id: Rc<str>,
+    pub id: Box<str>,
     #[serde(deserialize_with = "deserialize_names")]
     #[serde(rename(deserialize = "Names"))]
-    pub names: Rc<[String]>,
-    pub state: Rc<str>,
+    pub names: Box<[Box<str>]>,
+    pub state: Box<str>,
     #[serde(deserialize_with = "deserialize_timeout")]
     #[serde(rename(deserialize = "Labels"))]
     pub timeout: Option<u32>,
@@ -97,10 +96,15 @@ pub struct Container {
 
 impl Container {
     pub fn get_name(&self) -> Option<String> {
-        self.names.iter().cloned().reduce(|mut p, n| {
-            p.push_str(&n);
-            p
-        })
+        self.names
+            .iter()
+            .map(|s| (**s).to_owned())
+            .reduce(|mut p, n| {
+                p.push(',');
+                p.push(' ');
+                p.push_str(&n);
+                p
+            })
     }
 }
 
