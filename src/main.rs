@@ -26,6 +26,9 @@ use tracing_subscriber::{EnvFilter, Layer as _};
 
 use crate::utils::flatten_handle;
 
+#[global_allocator]
+static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
+
 fn build_default_filter() -> EnvFilter {
     EnvFilter::builder()
         .parse(format!("INFO,{}=TRACE", env!("CARGO_CRATE_NAME")))
