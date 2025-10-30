@@ -1,7 +1,5 @@
 use std::path::PathBuf;
 
-use crate::app_config::DockerConfig;
-use crate::http_client;
 use color_eyre::eyre;
 use http_body_util::Full;
 use hyper::body::Bytes;
@@ -14,6 +12,9 @@ use rustls::pki_types::pem::PemObject as _;
 use rustls::pki_types::{CertificateDer, PrivateKeyDer};
 use rustls::{DEFAULT_VERSIONS, RootCertStore};
 use tracing::{Level, event};
+
+use crate::app_config::DockerConfig;
+use crate::http_client;
 
 pub enum DockerEndpoint {
     Socket(Client<UnixSocketConnector<PathBuf>, Full<Bytes>>),

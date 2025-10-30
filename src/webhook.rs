@@ -1,4 +1,3 @@
-use crate::http_client::execute_request;
 use color_eyre::eyre;
 use http::Request;
 use http_body_util::Full;
@@ -9,6 +8,8 @@ use hyper_rustls::HttpsConnectorBuilder;
 use hyper_util::client::legacy::Client;
 use hyper_util::rt::TokioExecutor;
 use tracing::{Level, event};
+
+use crate::http_client::execute_request;
 
 #[derive(Debug)]
 struct WebHookInvocation {

@@ -1,10 +1,11 @@
 use std::io::Error;
 use std::ptr::null_mut;
 
-use crate::wrap_and_report;
 use color_eyre::eyre;
 use libc::{SIG_IGN, SIGINT, SIGPIPE, SIGTERM, c_int, sigaction};
 use tracing::{Level, event};
+
+use crate::wrap_and_report;
 
 #[unsafe(no_mangle)]
 pub extern "C" fn sig_handler(signal: i32) {

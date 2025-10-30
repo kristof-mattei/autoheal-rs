@@ -5,18 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debug executable 'autoheal-rs'",
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'autoheal-rs' with socket",
             "cargo": {
-                "args": ["build", "--bin=autoheal-rs", "--package=autoheal-rs"],
-                "filter": {
-                    "name": "autoheal-rs",
-                    "kind": "bin"
-                }
+                "args": ["run", "--bin=autoheal-rs"]
             },
             "args": [],
-            "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
                 "RUST_LOG": "DEBUG,autoheal_rs=TRACE"
@@ -25,18 +20,13 @@
             "terminal": "integrated"
         },
         {
+            "name": "Debug executable 'autoheal-rs' over http",
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'autoheal-rs' over http",
             "cargo": {
-                "args": ["build", "--bin=autoheal-rs", "--package=autoheal-rs"],
-                "filter": {
-                    "name": "autoheal-rs",
-                    "kind": "bin"
-                }
+                "args": ["run", "--bin=autoheal-rs"]
             },
             "args": [],
-            "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
                 "DOCKER_SOCK": "tcp://localhost:2376",
@@ -46,20 +36,11 @@
             "terminal": "integrated"
         },
         {
+            "name": "Debug unit tests in executable 'autoheal-rs'",
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'autoheal-rs'",
             "cargo": {
-                "args": [
-                    "test",
-                    "--no-run",
-                    "--bin=autoheal-rs",
-                    "--package=autoheal-rs"
-                ],
-                "filter": {
-                    "name": "autoheal-rs",
-                    "kind": "bin"
-                }
+                "args": ["test", "--bin=autoheal-rs"]
             },
             "args": [],
             "cwd": "${workspaceFolder}",
@@ -71,23 +52,12 @@
             "terminal": "integrated"
         },
         {
+            "name": "Debug integration test 'integration_tests'",
             "type": "lldb",
             "request": "launch",
-            "name": "Debug integration test 'integration_tests'",
             "cargo": {
-                "args": [
-                    "test",
-                    "--no-run",
-                    "--test=integration_tests",
-                    "--package=autoheal-rs"
-                ],
-                "filter": {
-                    "name": "integration_tests",
-                    "kind": "test"
-                }
+                "args": ["test", "--test=integration_tests"]
             },
-            "args": [],
-            "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
                 "RUST_LOG": "DEBUG,autoheal_rs=TRACE"

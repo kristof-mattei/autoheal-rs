@@ -95,6 +95,13 @@ pub struct Container {
 }
 
 impl Container {
+    pub fn get_short_id(&self) -> &str {
+        #[expect(
+            clippy::string_slice,
+            reason = "ID is guaranteed to be hex, and thus ASCII"
+        )]
+        &self.id[0..12]
+    }
     pub fn get_name(&self) -> Option<String> {
         self.names
             .iter()
