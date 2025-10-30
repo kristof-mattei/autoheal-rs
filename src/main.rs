@@ -1,4 +1,5 @@
 mod app_config;
+mod build_env;
 mod docker;
 mod docker_healer;
 mod encoding;
@@ -24,6 +25,7 @@ use tracing_subscriber::layer::SubscriberExt as _;
 use tracing_subscriber::util::SubscriberInitExt as _;
 use tracing_subscriber::{EnvFilter, Layer as _};
 
+use crate::build_env::get_build_env;
 use crate::utils::flatten_handle;
 
 #[global_allocator]
@@ -79,7 +81,7 @@ fn main() -> Result<Infallible, eyre::Report> {
         .block_on(async {
             // explicitly launch everything in a spawned task
             // see https://docs.rs/tokio/latest/tokio/attr.main.html#non-worker-async-function
-            let handle = tokio::task::spawn(healer());
+            let handle = tokio::task::spawn(start_tasks());
 
             flatten_handle(handle).await
         });
@@ -87,22 +89,24 @@ fn main() -> Result<Infallible, eyre::Report> {
     result
 }
 
-async fn healer() -> Result<Infallible, eyre::Report> {
-    let name = env!("CARGO_PKG_NAME");
-    let version = env!("CARGO_PKG_VERSION");
+fn print_header() {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+
+    let build_env = get_build_env();
 
     event!(
         Level::INFO,
-        "{} v{} - built for {}-{}",
-        name,
-        version,
-        std::env::var("TARGETARCH")
-            .as_deref()
-            .unwrap_or("unknown-arch"),
-        std::env::var("TARGETVARIANT")
-            .as_deref()
-            .unwrap_or("base variant")
+        "{} v{} - built for {} ({})",
+        NAME,
+        VERSION,
+        build_env.get_target(),
+        build_env.get_target_cpu().unwrap_or("base cpu variant"),
     );
+}
+
+async fn start_tasks() -> Result<Infallible, eyre::Report> {
+    print_header();
 
     let AppConfig {
         docker_startup_config,

@@ -27,8 +27,9 @@ pub fn build(autoheal_container_label_filter: Option<&str>) -> serde_json::Value
 
 #[cfg(test)]
 mod tests {
-    use crate::unhealthy_filters::build;
     use serde_json::json;
+
+    use crate::unhealthy_filters::build;
 
     #[test]
     fn build_filters_all() {

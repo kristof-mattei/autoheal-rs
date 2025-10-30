@@ -1,10 +1,5 @@
 use std::time::Duration;
 
-use crate::docker::client::{DockerClient, DockerEndpoint};
-use crate::docker::container::Container;
-use crate::encoding::url_encode;
-use crate::http_client::{build_request, execute_request};
-use crate::webhook::WebHookNotifier;
 use app_config::HealerConfig;
 use color_eyre::eyre;
 use hashbrown::HashMap;
@@ -16,6 +11,11 @@ use tokio::time::{sleep, timeout};
 use tracing::{Level, event};
 
 use crate::app_config;
+use crate::docker::client::{DockerClient, DockerEndpoint};
+use crate::docker::container::Container;
+use crate::encoding::url_encode;
+use crate::http_client::{build_request, execute_request};
+use crate::webhook::WebHookNotifier;
 
 pub struct DockerHealer {
     client: DockerClient,
@@ -114,7 +114,7 @@ impl DockerHealer {
     }
 
     pub async fn check_container_health(&self, container_info: &Container, times: usize) {
-        let container_short_id = &container_info.id[0..12];
+        let container_short_id = container_info.get_short_id();
 
         match container_info.get_name() {
             None => {
@@ -205,7 +205,7 @@ impl DockerHealer {
                                     .get_name()
                                     .as_deref()
                                     .unwrap_or("<UNNAMED CONTAINER>"),
-                                &container.id[0..12],
+                                container.get_short_id(),
                             );
 
                             continue;
