@@ -1,4 +1,84 @@
 <!-- header goes here -->
+## [1.8.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.7.0..v1.8.0) - 2025-11-14
+
+### 🚀 Features
+
+- *(ci)* Multi level - ([eb36e7a](https://github.com/kristof-mattei/autoheal-rs/commit/eb36e7acf6ab747376cddd1d67e917262d6627dd))
+- Use target cpu for optimal builds - ([0cf1732](https://github.com/kristof-mattei/autoheal-rs/commit/0cf17329e505ee5fd266a1777147321d6618a3ec))
+- Mimalloc - ([20ef31e](https://github.com/kristof-mattei/autoheal-rs/commit/20ef31e5fb4015f96f1df19c7107c10ed2afcf69))
+- Buildscript to embed targetted platform - ([40464d9](https://github.com/kristof-mattei/autoheal-rs/commit/40464d910ef834a24b9e16f1007b742fbc496595))
+
+### 🐛 Bug Fixes
+
+- *(ci)* Only pre-build cargo-edit when we actually build a container - ([9bfd2a5](https://github.com/kristof-mattei/autoheal-rs/commit/9bfd2a517d7b9a9081211c94e124de3ddcf19fc3))
+- *(ci)* Surpress "warning: be sure to add `/output/bin` to your PATH to be able to run the installed binaries" - ([77f6810](https://github.com/kristof-mattei/autoheal-rs/commit/77f681080fb7d2b399ba3944c63db8d1bbfaa169))
+- *(ci)* Use --list-different to actually list the files different - ([37e5d53](https://github.com/kristof-mattei/autoheal-rs/commit/37e5d53fe82cf449cc43fed4a8ff33bd1e7635b4))
+- *(deps)* Update rust crate libc to 0.2.176 - ([e05d2d1](https://github.com/kristof-mattei/autoheal-rs/commit/e05d2d1a17219db33c1b8ccef88ccaf7f3c90b13))
+- *(deps)* Update rust crate libc to 0.2.177 - ([93bfb62](https://github.com/kristof-mattei/autoheal-rs/commit/93bfb6220d1ef06f10f7efe3410acedb45f2631d))
+- *(deps)* Update rust crate clap to 4.5.49 - ([015ba8c](https://github.com/kristof-mattei/autoheal-rs/commit/015ba8cfbcad9106febd0f6c3c1feb1469fde973))
+- *(deps)* Update rust crate tokio to 1.48.0 - ([bc4588f](https://github.com/kristof-mattei/autoheal-rs/commit/bc4588fdb5db139c8dd08a41809c06de17ab8f6b))
+- *(deps)* Update rust crate rustls-native-certs to 0.8.2 - ([6d44469](https://github.com/kristof-mattei/autoheal-rs/commit/6d444699b881b65d003ffcd7dde5985a7ef03816))
+- *(deps)* Update rust crate rustls to 0.23.33 - ([5c00382](https://github.com/kristof-mattei/autoheal-rs/commit/5c0038290c7215a149567be6fdc83d3b42f6176f))
+- *(deps)* Update rust crate clap to 4.5.50 - ([e3e05e4](https://github.com/kristof-mattei/autoheal-rs/commit/e3e05e4c52580c3a3b38f2864412e80ab52e4b3a))
+- *(deps)* Update rust crate rustls to 0.23.34 - ([c9c9222](https://github.com/kristof-mattei/autoheal-rs/commit/c9c922261bcfd937daf7889cdc5e273055ecac56))
+- *(deps)* Update rust crate clap to 4.5.51 - ([d832bed](https://github.com/kristof-mattei/autoheal-rs/commit/d832beda8f8a99a06b50a82bc8aec6232bca6b77))
+- *(deps)* Update rust crate console-subscriber to 0.5.0 - ([e521213](https://github.com/kristof-mattei/autoheal-rs/commit/e521213be8c4b282b89e48ec5ad6125358727c00))
+- *(deps)* Update rust crate rustls to 0.23.35 - ([78232e7](https://github.com/kristof-mattei/autoheal-rs/commit/78232e7cf700b55939234e34f004598c8edb2c15))
+- *(deps)* Update rust crate hyper to 1.8.0 - ([324c754](https://github.com/kristof-mattei/autoheal-rs/commit/324c75468a0db23547fa956b62142e7c89700fd1))
+- *(deps)* Update rust crate hyper-util to 0.1.18 - ([be5ee70](https://github.com/kristof-mattei/autoheal-rs/commit/be5ee709a4464c6f8d0d9690c3070283b5d4a486))
+- *(deps)* Update rust crate hyper to 1.8.1 - ([46005aa](https://github.com/kristof-mattei/autoheal-rs/commit/46005aaed8ed90c5f5c7a3253cc00fbabd364960))
+- Breaking doesn't make us go from 0->1 by default - ([b6c3182](https://github.com/kristof-mattei/autoheal-rs/commit/b6c3182ca96730a0d6adb3cea886d4dabc39b8d4))
+- Run test from local single-platform image (we don't have a multiplatform one yet here) - ([396c3c5](https://github.com/kristof-mattei/autoheal-rs/commit/396c3c55ff35128d6d8e69b39e3b97897b98ad5e))
+- Use correct image for testing - ([6fc9368](https://github.com/kristof-mattei/autoheal-rs/commit/6fc936894ea65609d7d8b8b3be842b0c206f8e2c))
+- Cleanup script - ([9b6dc8b](https://github.com/kristof-mattei/autoheal-rs/commit/9b6dc8bf460824cb8510719e191a5d5cb03b9f93))
+- Removed erroneous space, added name - ([fbed64f](https://github.com/kristof-mattei/autoheal-rs/commit/fbed64f4e620ab45862d7ed38b1b8cc5477662eb))
+- Clean up build-cache as well, and run every day - ([1d6a0a4](https://github.com/kristof-mattei/autoheal-rs/commit/1d6a0a4181be25b94c08af55da3d69f4c4846e69))
+- Also delete from build cache if expired (right now 30 days) - ([70b2624](https://github.com/kristof-mattei/autoheal-rs/commit/70b2624ed0eae2e920c0a0733faa8b4531c85557))
+- Launch main code also as a task, and moved code from Rc<str> to Box<str>, as we only clone the `id` once, so no point in having the `Arc<str>` overhead there - ([e32a598](https://github.com/kristof-mattei/autoheal-rs/commit/e32a5983a8ae46ccc06ea1d61bf4a2bb7c3ba589))
+- Full version - ([95902e1](https://github.com/kristof-mattei/autoheal-rs/commit/95902e1100aca1c5fc03d4c4b73e4fb6d12d7751))
+- Full version - ([801bbfa](https://github.com/kristof-mattei/autoheal-rs/commit/801bbfa4b2da8cd3e824be51ea31f989a00cab1b))
+- Regenerate launch.json - ([401c374](https://github.com/kristof-mattei/autoheal-rs/commit/401c374aacc2a2d46c65dad30537dace5f8f5849))
+- String_to_string is deprecated and fails in 1.91.0 - ([ebfba18](https://github.com/kristof-mattei/autoheal-rs/commit/ebfba184701e819f7b0700d0e86b55c06f20c55c))
+- Regenerate launch.json - ([bf8b4b3](https://github.com/kristof-mattei/autoheal-rs/commit/bf8b4b3d753ab0690b1670efa31370df4e837f94))
+- Update build_env - ([75149fe](https://github.com/kristof-mattei/autoheal-rs/commit/75149fea98ba64e5679877bf4669c25ebdfac96a))
+- Limit amount of concurrent builds to reduce pressure - ([8f67f94](https://github.com/kristof-mattei/autoheal-rs/commit/8f67f94909e191e8ba75a2d21f8d415d779ef5a5))
+- Retry final docker push - ([c49e870](https://github.com/kristof-mattei/autoheal-rs/commit/c49e870692a536f7f261fb47ef14b1921aac16ab))
+- More timeout defense - ([06820af](https://github.com/kristof-mattei/autoheal-rs/commit/06820afdccce9bdc8cac5aa8e1c7e6178f647f43))
+- Disable collapsible-if lint, it decreases legibility - ([2274bcd](https://github.com/kristof-mattei/autoheal-rs/commit/2274bcd883877479f663fe526ed3732d91ad606e))
+- Move the attestation to a separate job for easier retries - ([11bb234](https://github.com/kristof-mattei/autoheal-rs/commit/11bb2345f62fcfdac4946c53581ce05e423bfdb5))
+- Separate push and inspection - ([91903f9](https://github.com/kristof-mattei/autoheal-rs/commit/91903f95b8d84a6726caffef9aadbd7ba2773697))
+- No attestation for building initial images - ([f174a10](https://github.com/kristof-mattei/autoheal-rs/commit/f174a10ad48b6d4ea02b685854966ffc18d08f3f))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Add step that builds cargo-edit and cargo-get before the docker build. Docker build will then pick up cached version - ([a0c20d6](https://github.com/kristof-mattei/autoheal-rs/commit/a0c20d6543ef13d301721a66f75250cfeacc491a))
+- *(ci)* Add comment ensuring the non-standard action gets updated - ([af60f14](https://github.com/kristof-mattei/autoheal-rs/commit/af60f143907c0fc3a3e1ddcc37ccc02784e0394e))
+- *(ci)* Split builds again for speed - ([a33e1ab](https://github.com/kristof-mattei/autoheal-rs/commit/a33e1ab61073a555dd707ca7cfc0d1efa275ef6f))
+- *(ci)* Reduce platforms for qemu - ([e67fe57](https://github.com/kristof-mattei/autoheal-rs/commit/e67fe57673bcdb67648141144b6fb077d3df3e0e))
+- *(ci)* Pin action to full version - ([6fb96b1](https://github.com/kristof-mattei/autoheal-rs/commit/6fb96b162a9098884338b7da32cba77c4addda33))
+- *(ci)* Use github-scripts@v8 - ([7495be9](https://github.com/kristof-mattei/autoheal-rs/commit/7495be94fc8a75dfcfef52a5deb5dd76f096825a))
+- *(ci)* Add machete - ([08bd0ef](https://github.com/kristof-mattei/autoheal-rs/commit/08bd0efd204b4b7ba7994ce4f9bfb985e0692cc0))
+- *(ci)* Enforce machete - ([38c2d3b](https://github.com/kristof-mattei/autoheal-rs/commit/38c2d3b8949c898688c4edeca898da735d6f90cd))
+- *(ci)* Rename format to machete - ([d8e6d9f](https://github.com/kristof-mattei/autoheal-rs/commit/d8e6d9f0ef133cee5f38e5c6641e79a26d99cfaf))
+- *(ci)* Enforce nightly fmt - ([3ec2ad1](https://github.com/kristof-mattei/autoheal-rs/commit/3ec2ad14ee4b4dd97b161ce62d37871f42f78dd7))
+- *(ci)* Kill enforcement of nightly fmt - ([ba7dfda](https://github.com/kristof-mattei/autoheal-rs/commit/ba7dfdaedabe7840657c288075ee4796fd31faf4))
+- *(fmt)* Fmt - ([f7b0a11](https://github.com/kristof-mattei/autoheal-rs/commit/f7b0a1189c2e2b834199e2fc876b95aa63c8a246))
+- *(release)* Release 0.0.1 - ([a075d2d](https://github.com/kristof-mattei/autoheal-rs/commit/a075d2d69cd0202de3d42c8a888ca14b49e0051f))
+- *(release)* Release v1.8.0 - ([](https://github.com/kristof-mattei/autoheal-rs/commit/))
+- Move root store creation to separate fn - ([34cfaf6](https://github.com/kristof-mattei/autoheal-rs/commit/34cfaf66c1e2fd33b9b8f1d9b1c6c44d21258402))
+- Bump... again - ([d4aa088](https://github.com/kristof-mattei/autoheal-rs/commit/d4aa088566c4a806669f49f40830260a3ea95870))
+- Use slim-trixie instead of trixie - ([ecd2b0e](https://github.com/kristof-mattei/autoheal-rs/commit/ecd2b0e978c392b1ed12726877de4e78f19980e7))
+- Cleanup - ([fb181c3](https://github.com/kristof-mattei/autoheal-rs/commit/fb181c3e899c70d21a4d0081ebf2ddf44192012e))
+- Don't show progress - ([e08f1a3](https://github.com/kristof-mattei/autoheal-rs/commit/e08f1a3f42403d0c564f2672cffea0c22709897a))
+- Prebuild -> pre-build - ([9cd7f51](https://github.com/kristof-mattei/autoheal-rs/commit/9cd7f51513126a751427be4f4e5cfa2fe9a2a875))
+- Fmt - ([54866c7](https://github.com/kristof-mattei/autoheal-rs/commit/54866c7e83be6676c455beba5ff83f92985c25ac))
+- Test script for local coverage display - ([37ee7be](https://github.com/kristof-mattei/autoheal-rs/commit/37ee7bed77437a8f2ce2d3a7f1d72b9cbbd77bbf))
+- Fmt - ([dc64562](https://github.com/kristof-mattei/autoheal-rs/commit/dc6456255c2f810edf5d774400065f5e9edcd1a5))
+- Full (semantic) version - ([57c3c2b](https://github.com/kristof-mattei/autoheal-rs/commit/57c3c2b3941327f56dd19f67d44bfdb784084103))
+- Update lints, keep the ones we allow to allow for tracking new ones - ([357ce57](https://github.com/kristof-mattei/autoheal-rs/commit/357ce572bc03bd7e2c9810b8216e8d36006b47c9))
+- Update lints - ([df8ba12](https://github.com/kristof-mattei/autoheal-rs/commit/df8ba122d9772796479bfaf7b1ef1440219f20e8))
+- Ensure both jobs have a setup docker and setup buildx - ([b780ecc](https://github.com/kristof-mattei/autoheal-rs/commit/b780eccdf762e5996ab2ee2a96a733345b4b9f2a))
+- Allow parallel - ([ebf9517](https://github.com/kristof-mattei/autoheal-rs/commit/ebf95176c678741fa9387c70a82d2b7441f6054d))
 ## [1.7.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.6.1..v1.7.0) - 2025-09-21
 
 ### 🚀 Features
@@ -83,7 +163,7 @@
 ### ⚙️ Miscellaneous Tasks
 
 - *(release)* Release v1.5.0 - ([5504d10](https://github.com/kristof-mattei/autoheal-rs/commit/5504d10df91b765fac320a1ae903bc761017728c))
-- *(release)* Release v1.7.0 - ([](https://github.com/kristof-mattei/autoheal-rs/commit/))
+- *(release)* Release v1.7.0 - ([433cb4d](https://github.com/kristof-mattei/autoheal-rs/commit/433cb4dca8a1077a53800866530def13f5a8dec4))
 - *(version)* V1.4.0 - ([d2b999b](https://github.com/kristof-mattei/autoheal-rs/commit/d2b999b17175f8686884477736fc1412eb32928f))
 - Enable as_conversions lint - ([b60eb10](https://github.com/kristof-mattei/autoheal-rs/commit/b60eb1002c74159fb6a80cdf8b3d39a7f2dbfde8))
 - Move deps, disable as_conversions, too broad - ([4a48efe](https://github.com/kristof-mattei/autoheal-rs/commit/4a48efeafbb4224b6ef154e50a203e5696263c6d))
