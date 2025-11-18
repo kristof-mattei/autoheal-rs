@@ -17,7 +17,7 @@ default = []
 tokio-console = ["dep:console-subscriber"]
 
 [dependencies]
-clap = { version = "4.5.51", features = ["cargo", "derive", "env"] }
+clap = { version = "4.5.52", features = ["cargo", "derive", "env"] }
 color-eyre = "0.6.5"
 console-subscriber = { version = "0.5.0", optional = true }
 hashbrown = { version = "0.16.0", default-features = false, features = [
