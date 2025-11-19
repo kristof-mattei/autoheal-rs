@@ -1,4 +1,15 @@
 <!-- header goes here -->
+## [1.8.2](https://github.com/kristof-mattei/autoheal-rs/compare/v1.8.1..v1.8.2) - 2025-11-19
+
+### 🐛 Bug Fixes
+
+- Untagged containers is broken, they are actually multiplatform sources, but not detected as such - ([8138918](https://github.com/kristof-mattei/autoheal-rs/commit/8138918a0acae18f6c62ff126b5ae89c482d72cf))
+- Re-enable attestation - ([b0bd3e1](https://github.com/kristof-mattei/autoheal-rs/commit/b0bd3e1d07a88c229cace8f93fb7cc0f6f0ba534))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v1.8.2 - ([](https://github.com/kristof-mattei/autoheal-rs/commit/))
+- Bump packages - ([8faeb89](https://github.com/kristof-mattei/autoheal-rs/commit/8faeb89e4a25e22f479a560e12ebadbb2b450061))
 ## [1.8.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.8.0..v1.8.1) - 2025-11-19
 
 ### 🐛 Bug Fixes
@@ -8,7 +19,7 @@
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Release v1.8.1 - ([](https://github.com/kristof-mattei/autoheal-rs/commit/))
+- *(release)* Release v1.8.1 - ([d255358](https://github.com/kristof-mattei/autoheal-rs/commit/d255358946eca55784156639845f09f254be4ac5))
 - Bump packages - ([94283d6](https://github.com/kristof-mattei/autoheal-rs/commit/94283d6323074446b610f2c0404048469c1d3cb1))
 ## [1.8.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.7.0..v1.8.0) - 2025-11-14
 
