@@ -1,4 +1,15 @@
 <!-- header goes here -->
+## [1.8.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.8.0..v1.8.1) - 2025-11-19
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate clap to 4.5.52 - ([9cc315c](https://github.com/kristof-mattei/autoheal-rs/commit/9cc315c0de1994b47516080d4b8774679b901378))
+- Push image with imagetools create - ([9e58649](https://github.com/kristof-mattei/autoheal-rs/commit/9e586493dfd7fac05e70787914d50cdc43fd95a2))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v1.8.1 - ([](https://github.com/kristof-mattei/autoheal-rs/commit/))
+- Bump packages - ([94283d6](https://github.com/kristof-mattei/autoheal-rs/commit/94283d6323074446b610f2c0404048469c1d3cb1))
 ## [1.8.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.7.0..v1.8.0) - 2025-11-14
 
 ### 🚀 Features
@@ -64,7 +75,7 @@
 - *(ci)* Kill enforcement of nightly fmt - ([ba7dfda](https://github.com/kristof-mattei/autoheal-rs/commit/ba7dfdaedabe7840657c288075ee4796fd31faf4))
 - *(fmt)* Fmt - ([f7b0a11](https://github.com/kristof-mattei/autoheal-rs/commit/f7b0a1189c2e2b834199e2fc876b95aa63c8a246))
 - *(release)* Release 0.0.1 - ([a075d2d](https://github.com/kristof-mattei/autoheal-rs/commit/a075d2d69cd0202de3d42c8a888ca14b49e0051f))
-- *(release)* Release v1.8.0 - ([](https://github.com/kristof-mattei/autoheal-rs/commit/))
+- *(release)* Release v1.8.0 - ([c7fa166](https://github.com/kristof-mattei/autoheal-rs/commit/c7fa1666653505fe92c424232b2e9db1ef88e8a0))
 - Move root store creation to separate fn - ([34cfaf6](https://github.com/kristof-mattei/autoheal-rs/commit/34cfaf66c1e2fd33b9b8f1d9b1c6c44d21258402))
 - Bump... again - ([d4aa088](https://github.com/kristof-mattei/autoheal-rs/commit/d4aa088566c4a806669f49f40830260a3ea95870))
 - Use slim-trixie instead of trixie - ([ecd2b0e](https://github.com/kristof-mattei/autoheal-rs/commit/ecd2b0e978c392b1ed12726877de4e78f19980e7))
