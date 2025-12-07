@@ -123,7 +123,7 @@ mod tests {
     fn deserialize() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"Labels":{},"State":"running"},{"Id":"281ea0c72e2e4a41fd2f81df945da9dfbfbc7ea0fe5e59c3d2a8234552e367cf","Names":["/whoogle-search"],"Labels":{},"State":"running"}]"#;
 
-        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_slice(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
@@ -150,7 +150,7 @@ mod tests {
     fn deserialize_multiple_names() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism-1","/photoprism-2"],"Labels":{}, "State":"running"}]"#;
 
-        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_slice(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
@@ -169,7 +169,7 @@ mod tests {
     fn deserialize_timeout() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"State":"running","Labels":{"autoheal.stop.timeout":"12"}}]"#;
 
-        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_slice(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
@@ -188,7 +188,7 @@ mod tests {
     fn deserialize_no_labels() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"State":"running"}]"#;
 
-        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_slice(input.as_bytes());
 
         deserialized.unwrap_err();
     }
@@ -197,7 +197,7 @@ mod tests {
     fn deserialize_missing_timeout() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism"],"State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
-        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_slice(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
@@ -216,7 +216,7 @@ mod tests {
     fn deserialize_with_no_names_array() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
-        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_slice(input.as_bytes());
 
         deserialized.unwrap_err();
     }
@@ -225,7 +225,7 @@ mod tests {
     fn deserialize_names_empty_names_array() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":[],"State":"running","Labels":{"autoheal.stop.other_label":"some_value"}}]"#;
 
-        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_slice(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
@@ -244,7 +244,7 @@ mod tests {
     fn deserialize_multiple_names_with_and_without_slash() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/photoprism-1","photoprism-2"],"Labels": {}, "State":"running"}]"#;
 
-        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_slice(input.as_bytes());
 
         assert!(deserialized.is_ok());
 
@@ -263,7 +263,7 @@ mod tests {
     fn deserialize_invalid_labels() {
         let input = r#"[{"Id":"582036c7a5e8719bbbc9476e4216bfaf4fd318b61723f41f2e8fe3b60d8182ae","Names":["/foo"],"State":"running","Labels": "I am not a map, but a string"}]"#;
 
-        let deserialized: Result<Vec<Container>, _> = serde_json::from_reader(input.as_bytes());
+        let deserialized: Result<Vec<Container>, _> = serde_json::from_slice(input.as_bytes());
 
         assert!(deserialized.is_err());
 
