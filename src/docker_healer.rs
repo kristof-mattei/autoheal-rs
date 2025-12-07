@@ -5,7 +5,7 @@ use color_eyre::eyre;
 use hashbrown::HashMap;
 use http::Uri;
 use http_body_util::BodyExt as _;
-use hyper::body::{Buf as _, Incoming};
+use hyper::body::Incoming;
 use hyper::{Method, Response, StatusCode};
 use tokio::time::{sleep, timeout};
 use tracing::{Level, event};
@@ -46,9 +46,9 @@ impl DockerHealer {
 
         let response = self.send_request(&path_and_query, Method::GET).await?;
 
-        let reader = response.collect().await?.aggregate().reader();
+        let bytes = response.collect().await?.to_bytes();
 
-        let result = serde_json::from_reader::<_, Vec<Container>>(reader)?;
+        let result = serde_json::from_slice::<Vec<Container>>(&bytes)?;
 
         Ok(result)
     }
