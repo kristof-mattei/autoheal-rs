@@ -69,7 +69,7 @@ impl AppConfig {
             exclude_containers: raw_config
                 .autoheal_exclude_containers
                 .into_iter()
-                .map(|s| s.into_boxed_str())
+                .map(String::into_boxed_str)
                 .collect::<Box<[_]>>(),
             start_period: raw_config.autoheal_start_period,
             timeout_milliseconds: raw_config.timeout_milliseconds,
