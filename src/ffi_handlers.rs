@@ -52,7 +52,7 @@ pub(crate) fn set_up_handlers() -> Result<(), eyre::Report> {
         clippy::fn_to_numeric_cast_any,
         reason = "We actually need the function as a pointer, and this is well-defined"
     )]
-    let sig_handler_ptr = sig_handler as usize;
+    let sig_handler_ptr = sig_handler as *const fn() as usize;
 
     set_up_handler(SIGTERM, sig_handler_ptr)?;
     set_up_handler(SIGINT, sig_handler_ptr)?;
