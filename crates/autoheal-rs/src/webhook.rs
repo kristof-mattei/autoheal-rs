@@ -100,7 +100,7 @@ impl WebHookNotifier {
 async fn notify_webhook_and_log(invocation: WebHookInvocation) {
     match notify_webhook(&invocation).await {
         Ok(()) => event!(Level::TRACE, ?invocation, "Successfully notified webhook"),
-        Err(err) => event!(Level::TRACE, ?err, ?invocation, "Failure sending webhook"),
+        Err(error) => event!(Level::TRACE, ?error, ?invocation, "Failure sending webhook"),
     }
 }
 
