@@ -8,6 +8,8 @@ pub fn url_encode(filter: &serde_json::Value) -> String {
 
 #[cfg(test)]
 mod tests {
+    use pretty_assertions::assert_eq;
+
     use crate::encoding::url_encode;
     use crate::unhealthy_filters::build;
 

@@ -91,9 +91,9 @@ impl DockerHealer {
                 )
                 .await
                 {
-                    Ok(Ok(o)) => Ok(o),
-                    Ok(Err(e)) => Err(e),
-                    Err(e) => Err(e.into()),
+                    Ok(Ok(response)) => Ok(response),
+                    Ok(Err(error)) => Err(error),
+                    Err(error) => Err(error.into()),
                 }
             },
             DockerEndpoint::Socket(ref client) => {
@@ -105,9 +105,9 @@ impl DockerHealer {
                 )
                 .await
                 {
-                    Ok(Ok(o)) => Ok(o),
-                    Ok(Err(e)) => Err(e),
-                    Err(e) => Err(e.into()),
+                    Ok(Ok(response)) => Ok(response),
+                    Ok(Err(error)) => Err(error),
+                    Err(error) => Err(error.into()),
                 }
             },
         }
@@ -151,9 +151,10 @@ impl DockerHealer {
                             self.notifier
                                 .notify_webhook_success(container_short_id, container_names);
                         },
-                        Err(err) => {
-                            event!(Level::INFO,
-                                error = ?err,
+                        Err(error) => {
+                            event!(
+                                Level::INFO,
+                                ?error,
                                 "Restarting container {} ({}) failed.",
                                 container_names,
                                 container_short_id
@@ -162,7 +163,7 @@ impl DockerHealer {
                             self.notifier.notify_webhook_failure(
                                 container_names,
                                 container_short_id,
-                                err,
+                                error,
                             );
                         },
                     }
@@ -240,8 +241,8 @@ impl DockerHealer {
                         })
                         .collect();
                 },
-                Err(err) => {
-                    event!(Level::ERROR, ?err, "Failed to fetch container info");
+                Err(error) => {
+                    event!(Level::ERROR, ?error, "Failed to fetch container info");
                 },
             }
 

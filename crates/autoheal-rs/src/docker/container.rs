@@ -117,6 +117,8 @@ impl Container {
 
 #[cfg(test)]
 mod tests {
+    use pretty_assertions::assert_eq;
+
     use crate::docker::container::Container;
 
     #[test]
