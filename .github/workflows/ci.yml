@@ -653,7 +653,7 @@ jobs:
       - docker-publish
       - docker-attest
     if: |
-      always()
+      !cancelled()
     steps:
       - name: Fail!
         shell: bash
