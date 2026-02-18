@@ -1,5 +1,10 @@
 <!-- header goes here -->
-## [1.9.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.8.2..v1.9.0) - 2026-02-18
+## [1.9.0-rc.2](https://github.com/kristof-mattei/autoheal-rs/compare/v1.9.0-rc.1..v1.9.0-rc.2) - 2026-02-18
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v1.9.0  ([``](https://github.com/kristof-mattei/autoheal-rs/commit/))
+## [1.9.0-rc.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.8.2..v1.9.0-rc.1) - 2026-02-18
 
 ### 🚀 Features
 
@@ -91,7 +96,7 @@
 ### ⚙️ Miscellaneous Tasks
 
 - *(ci)* Make coverage optional  by @kristof-mattei ([`3400180`](https://github.com/kristof-mattei/autoheal-rs/commit/34001803940dedc56564b839d4abf55ab6d94299))
-- *(release)* Release v1.9.0-rc.1  ([``](https://github.com/kristof-mattei/autoheal-rs/commit/))
+- *(release)* Release v1.9.0-rc.1  by @github-actions[bot] ([`2d215d3`](https://github.com/kristof-mattei/autoheal-rs/commit/2d215d3132594cceb9e1a8d1b047458fb9b625a3))
 - Use full version  by @kristof-mattei ([`2eb8f41`](https://github.com/kristof-mattei/autoheal-rs/commit/2eb8f41bae2b9c8738b851b6361957c63a8b8486))
 - Use full version  by @kristof-mattei ([`8c4c444`](https://github.com/kristof-mattei/autoheal-rs/commit/8c4c444ffac801dd72db7804dd15b53ef09f49fd))
 - Update from upstream  by @kristof-mattei ([`7e9670c`](https://github.com/kristof-mattei/autoheal-rs/commit/7e9670c1a64557337d0560a427c1976320433d18))
