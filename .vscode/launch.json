@@ -24,7 +24,7 @@
             "type": "lldb",
             "request": "launch",
             "cargo": {
-                "args": ["run", "--bin=autoheal-rs"]
+                "args": ["test", "--no-run", "--bin=autoheal-rs"]
             },
             "args": [],
             "env": {
@@ -56,8 +56,9 @@
             "type": "lldb",
             "request": "launch",
             "cargo": {
-                "args": ["test", "--test=integration_tests"]
+                "args": ["test", "--no-run", "--test=integration_tests"]
             },
+            "args": [],
             "env": {
                 "RUST_BACKTRACE": "1",
                 "RUST_LOG": "DEBUG,autoheal_rs=TRACE"
