@@ -1,4 +1,20 @@
 <!-- header goes here -->
+## [1.10.2](https://github.com/kristof-mattei/autoheal-rs/compare/v1.10.1..v1.10.2) - 2026-04-05
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to 1.51.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`37781dd`](https://github.com/kristof-mattei/autoheal-rs/commit/37781dd9559d8d09d419777364c1caf13646dddb))
+- We can now release without having ANY tags on the repo by [@kristof-mattei](https://github.com/kristof-mattei) ([`80cbc44`](https://github.com/kristof-mattei/autoheal-rs/commit/80cbc44189bf721637640dbf7257f852ca82f877))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Upload edge to docker.io by [@kristof-mattei](https://github.com/kristof-mattei) ([`f235bac`](https://github.com/kristof-mattei/autoheal-rs/commit/f235bac7e7bf720a4c42711f12fa57cb361c6adf))
+- *(ci)* Reattest every stage by [@kristof-mattei](https://github.com/kristof-mattei) ([`19c7f04`](https://github.com/kristof-mattei/autoheal-rs/commit/19c7f048fad6474f798c9d810dbe1d2278731d6d))
+- *(ci)* Use skopeo wherever possible by [@kristof-mattei](https://github.com/kristof-mattei) ([`50a6786`](https://github.com/kristof-mattei/autoheal-rs/commit/50a678665fd200021293e938c0b493891077a5ef))
+- *(ci)* Scout for visualizing cves etc by [@kristof-mattei](https://github.com/kristof-mattei) ([`2fe6e06`](https://github.com/kristof-mattei/autoheal-rs/commit/2fe6e06ada42423eeacec95be6a29ccbd3806068))
+- *(ci)* Username is not secret by [@kristof-mattei](https://github.com/kristof-mattei) ([`7d168f4`](https://github.com/kristof-mattei/autoheal-rs/commit/7d168f446d7bbdabaf2bd58c2818af2a65b07c41))
+- *(release)* Release v1.10.2
+- Fix fmt by [@kristof-mattei](https://github.com/kristof-mattei) ([`1c63af5`](https://github.com/kristof-mattei/autoheal-rs/commit/1c63af585079ee98e0b241fc6683c31982159106))
 ## [1.10.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.10.0..v1.10.1) - 2026-04-01
 
 ### 🐛 Bug Fixes
@@ -9,7 +25,7 @@
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Release v1.10.1
+- *(release)* Release v1.10.1 by [@github-actions[bot]](https://github.com/github-actions[bot]) ([`8473ba2`](https://github.com/kristof-mattei/autoheal-rs/commit/8473ba27d93835d3a0eaa9428976e076f4428b29))
 - Prepare doesn't need the cache & toolchain by [@kristof-mattei](https://github.com/kristof-mattei) ([`a255daf`](https://github.com/kristof-mattei/autoheal-rs/commit/a255daf9066d8a79c834e73fee97a89c7d32b1a2))
 - Render username link by [@kristof-mattei](https://github.com/kristof-mattei) ([`19debe7`](https://github.com/kristof-mattei/autoheal-rs/commit/19debe713ec00dc8f6534a65bab8f1f9ef5dccec))
 - Sort tags by creation time by [@kristof-mattei](https://github.com/kristof-mattei) ([`39ce04b`](https://github.com/kristof-mattei/autoheal-rs/commit/39ce04bd2b02ef17d869c2828bf3e641854a25b1))
