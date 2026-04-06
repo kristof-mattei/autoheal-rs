@@ -7,9 +7,8 @@ use hyper::{Method, Uri};
 use hyper_rustls::HttpsConnectorBuilder;
 use hyper_util::client::legacy::Client;
 use hyper_util::rt::TokioExecutor;
+use shared::http_client::execute_request;
 use tracing::{Level, event};
-
-use crate::http_client::execute_request;
 
 #[derive(Debug)]
 struct WebHookInvocation {
@@ -136,5 +135,8 @@ async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Repo
         .header("X-Tags", invocation.to_tags())
         .body(Full::new(Bytes::from(message)))?;
 
-    execute_request(&client, request).await.map(|_| ())
+    execute_request(&client, request)
+        .await
+        .map(|_| ())
+        .map_err(Into::into)
 }
