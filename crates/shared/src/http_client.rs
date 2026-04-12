@@ -13,7 +13,7 @@ use hyper_util::client::legacy::Client;
 use hyper_util::client::legacy::connect::Connect;
 use hyper_util::rt::TokioExecutor;
 
-pub fn build_request<B>(
+pub(crate) fn build_request<B>(
     base: Uri,
     path_and_query: &str,
     method: Method,
@@ -32,8 +32,8 @@ where
     )
 }
 
-#[expect(unused, reason = "Shared code")]
-pub fn build_request_with_body<B>(
+#[expect(unused, reason = "WIP")]
+pub(crate) fn build_request_with_body<B>(
     base: Uri,
     path_and_query: &str,
     method: Method,
@@ -53,8 +53,8 @@ where
     )
 }
 
-#[expect(unused, reason = "Shared code")]
-pub fn build_request_with_headers<K>(
+#[expect(unused, reason = "WIP")]
+pub(crate) fn build_request_with_headers<K>(
     base: Uri,
     path_and_query: &str,
     headers: HashMap<K, HeaderValue>,
@@ -72,7 +72,7 @@ where
     )
 }
 
-pub fn build_request_with_headers_and_body<B, K>(
+pub(crate) fn build_request_with_headers_and_body<B, K>(
     base: Uri,
     path_and_query: &str,
     headers: HashMap<K, HeaderValue>,
@@ -110,10 +110,15 @@ where
     Client::builder(TokioExecutor::new()).build::<_, B>(connector)
 }
 
+/// Executes a request on a client.
+///
+/// # Errors
+///
+/// When the request errors.
 pub async fn execute_request<C, B>(
     client: &Client<C, B>,
     request: Request<B>,
-) -> Result<Response<hyper::body::Incoming>, eyre::Report>
+) -> Result<Response<hyper::body::Incoming>, hyper_util::client::legacy::Error>
 where
     C: Connect + Clone + Send + Sync + 'static,
     B: Body + Send + 'static + Unpin,
@@ -125,7 +130,7 @@ where
     Ok(response)
 }
 
-pub fn build_uri(base_url: Uri, path_and_query: &str) -> Result<Uri, eyre::Report> {
+fn build_uri(base_url: Uri, path_and_query: &str) -> Result<Uri, eyre::Report> {
     let mut parts = base_url.into_parts();
 
     parts.path_and_query = Some(PathAndQuery::from_str(path_and_query)?);

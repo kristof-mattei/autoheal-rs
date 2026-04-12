@@ -15,6 +15,11 @@ repository = "https://github.com/kristof-mattei/autoheal-rs"
 include = ["crates/**", "/LICENSE", "/LICENSE-*"]
 
 [workspace.dependencies]
+hashbrown = { version = "0.16.1", default-features = false, features = [
+    "default-hasher",
+    "equivalent",
+    "inline-more",
+] }
 
 [workspace.metadata.spellcheck]
 config = "spellcheck.toml"

@@ -95,6 +95,7 @@ pub struct Container {
 }
 
 impl Container {
+    #[must_use] 
     pub fn get_short_id(&self) -> &str {
         #[expect(
             clippy::string_slice,
@@ -102,6 +103,7 @@ impl Container {
         )]
         &self.id[0..12]
     }
+    #[must_use] 
     pub fn get_name(&self) -> Option<String> {
         self.names
             .iter()
