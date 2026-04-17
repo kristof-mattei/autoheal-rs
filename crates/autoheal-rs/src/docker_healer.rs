@@ -18,6 +18,26 @@ pub struct DockerHealer {
     notifier: WebHookNotifier,
 }
 
+fn get_timeout(labels: &HashMap<Box<str>, Box<str>>) -> Option<Duration> {
+    if let Some(timeout) = labels.get("autoheal.stop.timeout") {
+        match timeout.parse::<u64>() {
+            Ok(value) => Some(Duration::from_secs(value)),
+            Err(error) => {
+                event!(
+                    Level::WARN,
+                    ?timeout,
+                    ?error,
+                    "Could not parse timeout as `u64`"
+                );
+
+                None
+            },
+        }
+    } else {
+        None
+    }
+}
+
 impl DockerHealer {
     pub fn new(
         client: Client,
@@ -53,10 +73,8 @@ impl DockerHealer {
                         "Container found to be restarting - don't restart.",
                     );
                 } else {
-                    let timeout = container_info.timeout.map_or_else(
-                        || self.healer_config.default_stop_timeout,
-                        |v| Duration::from_secs(v.into()),
-                    );
+                    let timeout = get_timeout(&container_info.labels)
+                        .unwrap_or(self.healer_config.default_stop_timeout);
 
                     event!(
                         Level::INFO,
@@ -115,7 +133,7 @@ impl DockerHealer {
                 Ok(containers) => {
                     let mut current_unhealthy: HashMap<Box<str>, Option<Box<str>>> = containers
                         .iter()
-                        .map(|c| (Box::clone(&c.id), c.get_name().map(Into::into)))
+                        .map(|c| (Box::clone(&c.id), c.get_name()))
                         .collect::<HashMap<_, _>>();
 
                     for container in containers {
