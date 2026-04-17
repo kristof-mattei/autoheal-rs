@@ -131,12 +131,16 @@ impl DockerHealer {
         loop {
             match self.client.list_containers(&self.filters).await {
                 Ok(containers) => {
-                    let mut current_unhealthy: HashMap<Box<str>, Option<Box<str>>> = containers
-                        .iter()
-                        .map(|c| (Box::clone(&c.id), c.get_name()))
-                        .collect::<HashMap<_, _>>();
+                    let mut new_history =
+                        HashMap::<Box<str>, (Option<Box<str>>, usize)>::with_capacity(
+                            containers.len(),
+                        );
 
                     for container in containers {
+                        let times = history_unhealthy
+                            .get(&container.id)
+                            .map_or(1, |&(_, t)| t + 1);
+
                         if container
                             .names
                             .iter()
@@ -151,38 +155,26 @@ impl DockerHealer {
                                 container_short_id = %container.get_short_id(),
                                 "Container is unhealthy, but it is excluded",
                             );
-
-                            continue;
+                        } else {
+                            self.check_container_health(&container, times).await;
                         }
 
-                        self.check_container_health(
-                            &container,
-                            history_unhealthy
-                                .get(&container.id)
-                                .map_or(1, |&(_, t)| t + 1),
-                        )
-                        .await;
+                        let name = container.get_name();
+                        new_history.insert(container.id, (name, times));
                     }
 
-                    history_unhealthy = history_unhealthy
-                        .into_iter()
-                        .filter_map(|(key, (names, times))| {
-                            if let Some(new_name) = current_unhealthy.remove(&key) {
-                                // still unhealthy
-                                // take the new name
-                                Some((key, (new_name, times + 1)))
-                            } else {
-                                // healthy
-                                event!(
-                                    Level::INFO,
-                                    container_names = %names.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
-                                    container_id = %key,
-                                    "Container returned to healthy state.",
-                                );
-                                None
-                            }
-                        })
-                        .collect();
+                    for (key, &(ref names, _)) in &history_unhealthy {
+                        if !new_history.contains_key(key) {
+                            event!(
+                                Level::INFO,
+                                container_names = %names.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
+                                container_id = %key,
+                                "Container returned to healthy state.",
+                            );
+                        }
+                    }
+
+                    history_unhealthy = new_history;
                 },
                 Err(error) => {
                     event!(Level::ERROR, ?error, "Failed to fetch container info");
