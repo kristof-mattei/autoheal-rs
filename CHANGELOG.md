@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [1.11.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.11.0..v1.11.1) - 2026-04-17
+
+### 🐛 Bug Fixes
+
+- Twistlock is now on crates.io by [@kristof-mattei](https://github.com/kristof-mattei) ([`c1819c2`](https://github.com/kristof-mattei/autoheal-rs/commit/c1819c263bcd0b494c4c8726c00065a2324b362b))
 ## [1.11.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.10.2..v1.11.0) - 2026-04-17
 
 ### 🚀 Features
