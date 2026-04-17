@@ -1,9 +1,9 @@
 absolute-paths-allowed-crates = [
-    "color_eyre",
+    "hyper_util",
     "hyper",
     "std",
-    "tracing_subscriber",
     "tokio",
+    "tracing_subscriber",
 ]
 disallowed-macros = [
     { path = "std::assert_ne", reason = "use `pretty_assertions::assert_ne` instead" },

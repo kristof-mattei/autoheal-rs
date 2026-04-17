@@ -1,115 +1,36 @@
 use std::time::Duration;
 
 use app_config::HealerConfig;
-use color_eyre::eyre;
 use hashbrown::HashMap;
 use http::Uri;
-use http_body_util::BodyExt as _;
-use hyper::body::Incoming;
-use hyper::{Method, Response, StatusCode};
-use tokio::time::{sleep, timeout};
+use tokio::time::sleep;
 use tracing::{Level, event};
+use twistlock::client::Client;
+use twistlock::filters::Filters;
+use twistlock::models::container::Container;
 
 use crate::app_config;
-use crate::docker::client::{DockerClient, DockerEndpoint};
-use crate::docker::container::Container;
-use crate::encoding::url_encode;
-use crate::http_client::{build_request, execute_request};
 use crate::webhook::WebHookNotifier;
 
 pub struct DockerHealer {
-    client: DockerClient,
-    encoded_filters: Box<str>,
+    client: Client,
+    filters: Filters,
     healer_config: HealerConfig,
     notifier: WebHookNotifier,
 }
 
 impl DockerHealer {
     pub fn new(
-        client: DockerClient,
+        client: Client,
         healer_config: HealerConfig,
-        filters: &serde_json::Value,
+        filters: Filters,
         webhook_uri: Option<Uri>,
     ) -> Self {
-        let encoded_filters = url_encode(filters);
-
         Self {
             client,
-            encoded_filters: encoded_filters.into_boxed_str(),
+            filters,
             healer_config,
             notifier: WebHookNotifier { uri: webhook_uri },
-        }
-    }
-
-    pub async fn get_containers(&self) -> Result<Vec<Container>, eyre::Report> {
-        let path_and_query = format!("/containers/json?filters={}", self.encoded_filters);
-
-        let response = self.send_request(&path_and_query, Method::GET).await?;
-
-        let bytes = response.collect().await?.to_bytes();
-
-        let result = serde_json::from_slice::<Vec<Container>>(&bytes)?;
-
-        Ok(result)
-    }
-
-    pub async fn restart_container(
-        &self,
-        container_id: &str,
-        timeout: u32,
-    ) -> Result<(), eyre::Report> {
-        let path_and_query = format!("/containers/{}/restart?t={}", container_id, timeout);
-
-        let response = self.send_request(&path_and_query, Method::POST).await?;
-
-        let status_code = response.status();
-
-        if StatusCode::is_success(&status_code) {
-            Ok(())
-        } else {
-            Err(eyre::Report::msg(format!(
-                "Tried to refresh container but it failed with {:?}",
-                status_code
-            )))
-        }
-    }
-
-    async fn send_request(
-        &self,
-        path_and_query: &str,
-        method: Method,
-    ) -> Result<Response<Incoming>, eyre::Report> {
-        let request = build_request(self.client.uri.clone(), path_and_query, method)?;
-
-        match self.client.endpoint {
-            DockerEndpoint::Tls(ref client) => {
-                let response = execute_request(client, request);
-
-                match timeout(
-                    Duration::from_millis(self.healer_config.timeout_milliseconds),
-                    response,
-                )
-                .await
-                {
-                    Ok(Ok(response)) => Ok(response),
-                    Ok(Err(error)) => Err(error),
-                    Err(error) => Err(error.into()),
-                }
-            },
-            DockerEndpoint::Socket(ref client) => {
-                let response = execute_request(client, request);
-
-                match timeout(
-                    Duration::from_millis(self.healer_config.timeout_milliseconds),
-                    response,
-                )
-                .await
-                {
-                    Ok(Ok(response)) => Ok(response),
-                    Ok(Err(error)) => Err(error),
-                    Err(error) => Err(error.into()),
-                }
-            },
         }
     }
 
@@ -133,9 +54,10 @@ impl DockerHealer {
                         container_short_id
                     );
                 } else {
-                    let timeout = container_info
-                        .timeout
-                        .unwrap_or((self.healer_config).default_stop_timeout);
+                    let timeout = container_info.timeout.map_or_else(
+                        || Duration::from_secs(self.healer_config.default_stop_timeout.into()),
+                        |v| Duration::from_secs(v.into()),
+                    );
 
                     event!(
                         Level::INFO,
@@ -143,10 +65,14 @@ impl DockerHealer {
                         container_names,
                         container_short_id,
                         times,
-                        timeout
+                        timeout.as_secs()
                     );
 
-                    match self.restart_container(container_short_id, timeout).await {
+                    match self
+                        .client
+                        .restart_container(container_short_id, timeout)
+                        .await
+                    {
                         Ok(()) => {
                             self.notifier
                                 .notify_webhook_success(container_short_id, container_names);
@@ -163,7 +89,7 @@ impl DockerHealer {
                             self.notifier.notify_webhook_failure(
                                 container_names,
                                 container_short_id,
-                                error,
+                                error.into(),
                             );
                         },
                     }
@@ -186,7 +112,7 @@ impl DockerHealer {
         let mut history_unhealthy = HashMap::<Box<str>, (Option<Box<str>>, usize)>::new();
 
         loop {
-            match self.get_containers().await {
+            match self.client.list_containers(&self.filters).await {
                 Ok(containers) => {
                     let mut current_unhealthy: HashMap<Box<str>, Option<Box<str>>> = containers
                         .iter()

@@ -1,11 +1,8 @@
 mod app_config;
 mod build_env;
-mod docker;
 mod docker_healer;
-mod encoding;
 mod ffi_handlers;
 mod helpers;
-mod http_client;
 mod unhealthy_filters;
 mod utils;
 mod webhook;
@@ -13,17 +10,19 @@ mod webhook;
 use std::convert::Infallible;
 use std::env;
 use std::env::VarError;
+use std::time::Duration;
 
 use app_config::AppConfig;
 use color_eyre::config::HookBuilder;
 use color_eyre::eyre;
-use docker::client::DockerClient;
 use docker_healer::DockerHealer;
 use ffi_handlers::set_up_handlers;
 use tracing::{Level, event};
 use tracing_subscriber::layer::SubscriberExt as _;
 use tracing_subscriber::util::SubscriberInitExt as _;
 use tracing_subscriber::{EnvFilter, Layer as _};
+use twistlock::client::Client as DockerClient;
+use twistlock::config::Config as DockerConfig;
 
 use crate::build_env::get_build_env;
 use crate::utils::flatten_handle;
@@ -117,14 +116,22 @@ async fn start_tasks() -> Result<Infallible, eyre::Report> {
 
     let filters = unhealthy_filters::build(container_label.as_deref());
 
-    let docker_client = DockerClient::build(docker_startup_config)?;
+    let docker_client = DockerClient::build(
+        DockerConfig::build(
+            docker_startup_config
+                .docker_sock
+                .parse()
+                .map_err(|error| eyre::Report::msg(error))?,
+        ),
+        docker_startup_config.cacert,
+        docker_startup_config.client_cert,
+        docker_startup_config.client_key,
+        Duration::from_millis(healer_config.timeout_milliseconds),
+    )?;
 
-    let docker_healer = DockerHealer::new(docker_client, healer_config, &filters, webhook_url);
+    let docker_healer = DockerHealer::new(docker_client, healer_config, filters, webhook_url);
 
     // TODO define failure mode
     // Do we fail? Do we retry?
     docker_healer.monitor_containers().await;
 }
-
-#[cfg(test)]
-mod tests {}
