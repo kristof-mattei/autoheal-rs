@@ -1,4 +1,31 @@
 <!-- header goes here -->
+## [1.11.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.10.2..v1.11.0) - 2026-04-17
+
+### 🚀 Features
+
+- Use twistlock for shared docker interactions by [@kristof-mattei](https://github.com/kristof-mattei) ([`393f732`](https://github.com/kristof-mattei/autoheal-rs/commit/393f732b1e69ec48a66084cdcb5263469c478d21))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to 1.51.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`6c4df03`](https://github.com/kristof-mattei/autoheal-rs/commit/6c4df030f0a78742fd81134de360f88478a77c23))
+- *(deps)* Update rust crate hashbrown to 0.17.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`7199657`](https://github.com/kristof-mattei/autoheal-rs/commit/7199657056958e3f52dc5c274b5fc925c8e5e3f8))
+- *(deps)* Update rust crate hyper-rustls to 0.27.8 by [@renovate[bot]](https://github.com/renovate[bot]) ([`135b8df`](https://github.com/kristof-mattei/autoheal-rs/commit/135b8df0f051ccb7312d47c6da5adac47647af10))
+- *(deps)* Update rust crate rustls to 0.23.38 by [@renovate[bot]](https://github.com/renovate[bot]) ([`7bc7780`](https://github.com/kristof-mattei/autoheal-rs/commit/7bc77809ee18ac1b4c7d43894fb121e786f2c09b))
+- *(deps)* Update rust crate hyper-unix-socket to 0.6.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`fb02fed`](https://github.com/kristof-mattei/autoheal-rs/commit/fb02feda8bed16b0ddb1c53a4b866faaea1a9ee9))
+- *(deps)* Update rust crate libc to 0.2.185 by [@renovate[bot]](https://github.com/renovate[bot]) ([`6b16078`](https://github.com/kristof-mattei/autoheal-rs/commit/6b1607845e615531bc14483db6c06abc98028ef9))
+- *(deps)* Update rust crate hyper-rustls to 0.27.9 by [@renovate[bot]](https://github.com/renovate[bot]) ([`fb44459`](https://github.com/kristof-mattei/autoheal-rs/commit/fb44459cd72536685dc59e4eab73635c654ed40c))
+- *(deps)* Update rust crate tokio to 1.52.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`dff6ab6`](https://github.com/kristof-mattei/autoheal-rs/commit/dff6ab647d168028b99d00a6ed51a06b3f30d9cc))
+- *(deps)* Update rust crate clap to 4.6.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a96aeb9`](https://github.com/kristof-mattei/autoheal-rs/commit/a96aeb92140b37ad7d633db795b9ce638a6ecdc4))
+- *(deps)* Update rust crate tokio to 1.52.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`6eb1d33`](https://github.com/kristof-mattei/autoheal-rs/commit/6eb1d33e0066c200e25a53af8f0699e0f70edd29))
+- *(deps)* Update rust crate clap to 4.6.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d44015f`](https://github.com/kristof-mattei/autoheal-rs/commit/d44015f1f5aa6cebf2121580c67dcf41c9ee2f73))
+- *(deps)* Update rust crate tokio to 1.52.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`47610d9`](https://github.com/kristof-mattei/autoheal-rs/commit/47610d999de971b113b8206b62bae2d5a7cc4eeb))
+- Disable plugins by [@kristof-mattei](https://github.com/kristof-mattei) ([`3725751`](https://github.com/kristof-mattei/autoheal-rs/commit/37257510cce405e0426a57c6e76ec53d73454c91))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Restore ability to do prerelease versions by [@kristof-mattei](https://github.com/kristof-mattei) ([`7c5b0ea`](https://github.com/kristof-mattei/autoheal-rs/commit/7c5b0ea895c5e92aa3c69fec62e3a7156f2ca183))
+- *(ci)* Allow re-release pre-release without having to add features by [@kristof-mattei](https://github.com/kristof-mattei) ([`657a7db`](https://github.com/kristof-mattei/autoheal-rs/commit/657a7db145169f1dd3cd17b587324fae32ec4d04))
+- Start of tearing it apart by [@kristof-mattei](https://github.com/kristof-mattei) ([`7e197c6`](https://github.com/kristof-mattei/autoheal-rs/commit/7e197c6ea54cbecc859cb2be928484e015492628))
 ## [1.10.2](https://github.com/kristof-mattei/autoheal-rs/compare/v1.10.1..v1.10.2) - 2026-04-05
 
 ### 🐛 Bug Fixes
@@ -13,7 +40,7 @@
 - *(ci)* Use skopeo wherever possible by [@kristof-mattei](https://github.com/kristof-mattei) ([`50a6786`](https://github.com/kristof-mattei/autoheal-rs/commit/50a678665fd200021293e938c0b493891077a5ef))
 - *(ci)* Scout for visualizing cves etc by [@kristof-mattei](https://github.com/kristof-mattei) ([`2fe6e06`](https://github.com/kristof-mattei/autoheal-rs/commit/2fe6e06ada42423eeacec95be6a29ccbd3806068))
 - *(ci)* Username is not secret by [@kristof-mattei](https://github.com/kristof-mattei) ([`7d168f4`](https://github.com/kristof-mattei/autoheal-rs/commit/7d168f446d7bbdabaf2bd58c2818af2a65b07c41))
-- *(release)* Release v1.10.2
+- *(release)* Release v1.10.2 by [@github-actions[bot]](https://github.com/github-actions[bot]) ([`34a50c7`](https://github.com/kristof-mattei/autoheal-rs/commit/34a50c72a4df42b1efcca870f5524ef7a10d5575))
 - Fix fmt by [@kristof-mattei](https://github.com/kristof-mattei) ([`1c63af5`](https://github.com/kristof-mattei/autoheal-rs/commit/1c63af585079ee98e0b241fc6683c31982159106))
 ## [1.10.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.10.0..v1.10.1) - 2026-04-01
 
