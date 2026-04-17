@@ -26,7 +26,7 @@ jobs:
           show-progress: false
 
       - name: Cache cargo
-        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         env:
           CACHE_NAME: cargo
         with:
@@ -99,7 +99,7 @@ jobs:
 
       - &cache_cargo
         name: Cache cargo
-        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         env:
           CACHE_NAME: cargo
         with:
@@ -118,7 +118,7 @@ jobs:
 
       - &cache_target
         name: Cache target
-        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         env:
           CACHE_NAME: target
         with:
@@ -198,7 +198,7 @@ jobs:
           rustup update
 
       - name: Install nextest, custom test runner, with native support for junit and grcov
-        uses: taiki-e/install-action@0abfcd587b70a713fdaa7fb502c885e2112acb15 # v2.75.7
+        uses: taiki-e/install-action@a2352fc6ce487f030a3aa709482d57823eadfb37 # v2.75.16
         with:
           tool: cargo-nextest, grcov
 
@@ -261,7 +261,7 @@ jobs:
           # flags: tests
           files: reports/lcov
           name: code-coverage
-          plugins: ""
+          plugins: noop
           report_type: "coverage"
           use_oidc: true
 
@@ -275,7 +275,7 @@ jobs:
           # flags: tests
           files: reports/results.xml
           name: test-results
-          plugins: ""
+          plugins: noop
           report_type: "test_results"
           use_oidc: true
 

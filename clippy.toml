@@ -1,5 +1,4 @@
 absolute-paths-allowed-crates = [
-    "color_eyre",
     "hyper_util",
     "hyper",
     "std",

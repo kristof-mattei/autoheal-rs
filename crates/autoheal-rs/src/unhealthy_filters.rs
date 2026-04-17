@@ -8,7 +8,7 @@ pub fn build(autoheal_container_label_filter: Option<&str>) -> Filters {
             if let Some((left, right)) = v.split_once('=') {
                 Some(HashMap::from_iter([(left.into(), Some(right.into()))]))
             } else {
-                Some(HashMap::from_iter([(v.into(), None)]))
+                Some(HashMap::from_iter([(v.into(), Some("true".into()))]))
             }
         },
     };
@@ -22,6 +22,7 @@ pub fn build(autoheal_container_label_filter: Option<&str>) -> Filters {
 
 #[cfg(test)]
 mod tests {
+    use hashbrown::{HashMap, HashSet};
     use pretty_assertions::assert_eq;
     use twistlock::filters::Health;
 
@@ -32,12 +33,9 @@ mod tests {
         let all_unhealthy = build(Some("all"));
 
         assert_eq!(
-            all_unhealthy
-                .health
-                .map(|h| h.into_iter().collect::<Vec<_>>()),
-            Some(vec![Health::Unhealthy])
+            all_unhealthy.health,
+            Some(HashSet::from([Health::Unhealthy]))
         );
-
         assert_eq!(all_unhealthy.label, None);
     }
 
@@ -46,17 +44,12 @@ mod tests {
         let autoheal_and_unhealthy = build(Some("autoheal"));
 
         assert_eq!(
-            autoheal_and_unhealthy
-                .health
-                .map(|h| h.into_iter().collect::<Vec<_>>()),
-            Some(vec![Health::Unhealthy])
+            autoheal_and_unhealthy.health,
+            Some(HashSet::from([Health::Unhealthy]))
         );
-
         assert_eq!(
-            autoheal_and_unhealthy
-                .label
-                .map(|l| l.into_iter().collect::<Vec<_>>()),
-            Some(vec![("autoheal".into(), Some("true".into()))])
+            autoheal_and_unhealthy.label,
+            Some(HashMap::from([("autoheal".into(), Some("true".into()))]))
         );
     }
 
@@ -65,36 +58,26 @@ mod tests {
         let custom_and_unhealthy = build(Some("custom"));
 
         assert_eq!(
-            custom_and_unhealthy
-                .health
-                .map(|h| h.into_iter().collect::<Vec<_>>()),
-            Some(vec![Health::Unhealthy])
+            custom_and_unhealthy.health,
+            Some(HashSet::from([Health::Unhealthy]))
         );
-
         assert_eq!(
-            custom_and_unhealthy
-                .label
-                .map(|l| l.into_iter().collect::<Vec<_>>()),
-            Some(vec![("custom".into(), Some("true".into()))])
+            custom_and_unhealthy.label,
+            Some(HashMap::from([("custom".into(), Some("true".into()))]))
         );
     }
 
     #[test]
     fn build_filters_custom_and_value_1() {
-        let custom_and_unhealthy = build(Some("custom"));
+        let custom_and_unhealthy = build(Some("custom=true"));
 
         assert_eq!(
-            custom_and_unhealthy
-                .health
-                .map(|h| h.into_iter().collect::<Vec<_>>()),
-            Some(vec![Health::Unhealthy])
+            custom_and_unhealthy.health,
+            Some(HashSet::from([Health::Unhealthy]))
         );
-
         assert_eq!(
-            custom_and_unhealthy
-                .label
-                .map(|l| l.into_iter().collect::<Vec<_>>()),
-            Some(vec![("custom".into(), Some("true".into()))])
+            custom_and_unhealthy.label,
+            Some(HashMap::from([("custom".into(), Some("true".into()))]))
         );
     }
 
@@ -103,17 +86,12 @@ mod tests {
         let custom_and_unhealthy = build(Some("custom=false"));
 
         assert_eq!(
-            custom_and_unhealthy
-                .health
-                .map(|h| h.into_iter().collect::<Vec<_>>()),
-            Some(vec![Health::Unhealthy])
+            custom_and_unhealthy.health,
+            Some(HashSet::from([Health::Unhealthy]))
         );
-
         assert_eq!(
-            custom_and_unhealthy
-                .label
-                .map(|l| l.into_iter().collect::<Vec<_>>()),
-            Some(vec![("custom".into(), Some("false".into()))])
+            custom_and_unhealthy.label,
+            Some(HashMap::from([("custom".into(), Some("false".into()))]))
         );
     }
 
@@ -122,17 +100,12 @@ mod tests {
         let custom_and_unhealthy = build(Some("custom=foobar"));
 
         assert_eq!(
-            custom_and_unhealthy
-                .health
-                .map(|h| h.into_iter().collect::<Vec<_>>()),
-            Some(vec![Health::Unhealthy])
+            custom_and_unhealthy.health,
+            Some(HashSet::from([Health::Unhealthy]))
         );
-
         assert_eq!(
-            custom_and_unhealthy
-                .label
-                .map(|l| l.into_iter().collect::<Vec<_>>()),
-            Some(vec![("custom".into(), Some("foobar".into()))])
+            custom_and_unhealthy.label,
+            Some(HashMap::from([("custom".into(), Some("foobar".into()))]))
         );
     }
 }
