@@ -14,22 +14,49 @@ const DEFAULT_DOCKER_HOST: &str = "/var/run/docker.sock";
 struct RawConfig {
     #[arg(env, default_value = DEFAULT_DOCKER_HOST, value_parser = parse_docker_host, help = "Path to docker TCP/UNIX socket", long="docker")]
     pub docker_host: Endpoint,
-    #[clap(long, env)]
+
+    #[arg(long, env)]
     pub autoheal_container_label: Option<String>,
-    #[clap(long, env, default_value_t = 10)]
-    pub autoheal_default_stop_timeout: u32,
-    #[clap(long, env, default_value_t = 5)]
-    pub autoheal_interval: u64,
-    #[clap(long, env)]
+
+    #[arg(
+        env,
+        default_value = "10",
+        long,
+        help = "When container is unhealthy, how long to wait for it to stop, before forcefully restarting it, in seconds",
+        value_parser = parse_duration
+    )]
+    pub autoheal_default_stop_timeout: Duration,
+
+    #[arg(
+        env,
+        default_value = "5",
+        long,
+        help = "Interval between checks, in seconds",
+        value_parser = parse_duration
+    )]
+    pub autoheal_interval: Duration,
+
+    #[arg(long, env)]
     pub autoheal_exclude_containers: Vec<String>,
-    #[clap(long, env, default_value_t = 0)]
-    pub autoheal_start_period: u64,
-    #[clap(long, env = "CA")]
+
+    #[arg(
+        env,
+        default_value = "0",
+        help = "Startup timeout, in seconds",
+        value_parser = parse_duration,
+        long,
+   )]
+    pub autoheal_start_period: Duration,
+
+    #[arg(long, env = "CA")]
     pub cacert: Option<PathBuf>,
-    #[clap(long, env)]
+
+    #[arg(long, env)]
     pub client_key: Option<PathBuf>,
-    #[clap(long, env)]
+
+    #[arg(long, env)]
     pub client_cert: Option<PathBuf>,
+
     #[arg(
         env = "timeout",
         default_value = "30",
@@ -38,7 +65,8 @@ struct RawConfig {
         value_parser = parse_duration
     )]
     pub timeout: Duration,
-    #[clap(long, env)]
+
+    #[arg(long, env)]
     pub webhook_url: Option<Uri>,
 }
 
@@ -69,10 +97,10 @@ pub struct DockerConfig {
 }
 
 pub struct HealerConfig {
-    pub default_stop_timeout: u32,
-    pub interval: u64,
+    pub default_stop_timeout: Duration,
+    pub interval: Duration,
     pub exclude_containers: Box<[Box<str>]>,
-    pub start_period: u64,
+    pub start_period: Duration,
 }
 
 pub struct AppConfig {
