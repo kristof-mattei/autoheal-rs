@@ -1,6 +1,5 @@
 use std::time::Duration;
 
-use app_config::HealerConfig;
 use hashbrown::HashMap;
 use http::Uri;
 use tokio::time::sleep;
@@ -9,7 +8,7 @@ use twistlock::client::Client;
 use twistlock::filters::Filters;
 use twistlock::models::container::Container;
 
-use crate::app_config;
+use crate::config::HealerConfig;
 use crate::webhook::WebHookNotifier;
 
 pub struct DockerHealer {
