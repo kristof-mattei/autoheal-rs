@@ -54,7 +54,7 @@ impl DockerHealer {
                     );
                 } else {
                     let timeout = container_info.timeout.map_or_else(
-                        || Duration::from_secs(self.healer_config.default_stop_timeout.into()),
+                        || self.healer_config.default_stop_timeout,
                         |v| Duration::from_secs(v.into()),
                     );
 
@@ -98,14 +98,14 @@ impl DockerHealer {
     }
 
     pub async fn monitor_containers(&self) -> ! {
-        if self.healer_config.start_period > 0 {
+        if self.healer_config.start_period.as_secs() > 0 {
             event!(
                 Level::INFO,
                 "Monitoring containers for unhealthy status in {} second(s)",
-                self.healer_config.start_period
+                self.healer_config.start_period.as_secs()
             );
 
-            sleep(Duration::from_secs(self.healer_config.start_period)).await;
+            sleep(self.healer_config.start_period).await;
         }
 
         let mut history_unhealthy = HashMap::<Box<str>, (Option<Box<str>>, usize)>::new();
@@ -171,7 +171,7 @@ impl DockerHealer {
                 },
             }
 
-            tokio::time::sleep(Duration::from_secs(self.healer_config.interval)).await;
+            tokio::time::sleep(self.healer_config.interval).await;
         }
     }
 }
