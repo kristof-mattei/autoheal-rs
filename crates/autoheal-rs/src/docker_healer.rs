@@ -39,18 +39,18 @@ impl DockerHealer {
         match container_info.get_name() {
             None => {
                 event!(
-                    Level::ERROR,
-                    "Container name of {} is null, which implies container does not exist - don't restart.",
-                    container_short_id
+                    Level::WARN,
+                    %container_short_id,
+                    "Container name was null, which implies container does not exist - don't restart.",
                 );
             },
             Some(container_names) => {
                 if &*container_info.state == "restarting" {
                     event!(
                         Level::INFO,
-                        "Container {} ({}) found to be restarting - don't restart.",
-                        container_names,
-                        container_short_id
+                        %container_names,
+                        %container_short_id,
+                        "Container found to be restarting - don't restart.",
                     );
                 } else {
                     let timeout = container_info.timeout.map_or_else(
@@ -60,11 +60,11 @@ impl DockerHealer {
 
                     event!(
                         Level::INFO,
-                        "Container {} ({}) found to be unhealthy {} times. Restarting container now with {}s timeout.",
-                        container_names,
-                        container_short_id,
-                        times,
-                        timeout.as_secs()
+                        %container_names,
+                        %container_short_id,
+                        times_unhealthy = %times,
+                        timeout = ?timeout,
+                        "Container repeatedly found to be unhealthy. Restarting container now with timeout.",
                     );
 
                     match self
@@ -78,11 +78,11 @@ impl DockerHealer {
                         },
                         Err(error) => {
                             event!(
-                                Level::INFO,
+                                Level::WARN,
                                 ?error,
-                                "Restarting container {} ({}) failed.",
-                                container_names,
-                                container_short_id
+                                %container_names,
+                                %container_short_id,
+                                "Restarting container failed.",
                             );
 
                             self.notifier.notify_webhook_failure(
@@ -101,8 +101,8 @@ impl DockerHealer {
         if self.healer_config.start_period.as_secs() > 0 {
             event!(
                 Level::INFO,
-                "Monitoring containers for unhealthy status in {} second(s)",
-                self.healer_config.start_period.as_secs()
+                delay = ?self.healer_config.start_period,
+                "Monitoring containers for unhealthy status",
             );
 
             sleep(self.healer_config.start_period).await;
@@ -126,12 +126,12 @@ impl DockerHealer {
                         {
                             event!(
                                 Level::INFO,
-                                "Container {} ({}) is unhealthy, but it is excluded",
-                                container
+                                container_names = %container
                                     .get_name()
                                     .as_deref()
                                     .unwrap_or("<UNNAMED CONTAINER>"),
-                                container.get_short_id(),
+                                container_short_id = %container.get_short_id(),
+                                "Container is unhealthy, but it is excluded",
                             );
 
                             continue;
@@ -157,9 +157,9 @@ impl DockerHealer {
                                 // healthy
                                 event!(
                                     Level::INFO,
-                                    "Container {} ({}) returned to healthy state.",
-                                    names.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
-                                    key
+                                    container_names = %names.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
+                                    container_id = %key,
+                                    "Container returned to healthy state.",
                                 );
                                 None
                             }

@@ -33,8 +33,8 @@ where
 #[derive(Debug)]
 struct WebHookInvocation {
     uri: Uri,
-    container_name: String,
-    container_short_id: String,
+    container_name: Box<str>,
+    container_short_id: Box<str>,
     state: State,
 }
 
@@ -72,7 +72,7 @@ pub struct WebHookNotifier {
 }
 
 impl WebHookNotifier {
-    pub fn notify_webhook_success<S1: Into<String>, S2: Into<String>>(
+    pub fn notify_webhook_success<S1: Into<Box<str>>, S2: Into<Box<str>>>(
         &self,
         container_short_id: S1,
         container_name: S2,
@@ -93,7 +93,7 @@ impl WebHookNotifier {
         });
     }
 
-    pub fn notify_webhook_failure<S1: Into<String>, S2: Into<String>>(
+    pub fn notify_webhook_failure<S1: Into<Box<str>>, S2: Into<Box<str>>>(
         &self,
         container_name: S1,
         container_short_id: S2,
