@@ -3,34 +3,32 @@ use std::time::Duration;
 use app_config::HealerConfig;
 use hashbrown::HashMap;
 use http::Uri;
-use shared::docker::client::DockerClient;
-use shared::docker::container::Container;
 use tokio::time::sleep;
 use tracing::{Level, event};
+use twistlock::client::Client;
+use twistlock::filters::Filters;
+use twistlock::models::container::Container;
 
 use crate::app_config;
-use crate::encoding::url_encode;
 use crate::webhook::WebHookNotifier;
 
 pub struct DockerHealer {
-    client: DockerClient,
-    encoded_filters: Box<str>,
+    client: Client,
+    filters: Filters,
     healer_config: HealerConfig,
     notifier: WebHookNotifier,
 }
 
 impl DockerHealer {
     pub fn new(
-        client: DockerClient,
+        client: Client,
         healer_config: HealerConfig,
-        filters: &serde_json::Value,
+        filters: Filters,
         webhook_uri: Option<Uri>,
     ) -> Self {
-        let encoded_filters = url_encode(filters);
-
         Self {
             client,
-            encoded_filters: encoded_filters.into_boxed_str(),
+            filters,
             healer_config,
             notifier: WebHookNotifier { uri: webhook_uri },
         }
@@ -56,9 +54,10 @@ impl DockerHealer {
                         container_short_id
                     );
                 } else {
-                    let timeout = container_info
-                        .timeout
-                        .unwrap_or((self.healer_config).default_stop_timeout);
+                    let timeout = container_info.timeout.map_or_else(
+                        || Duration::from_secs(self.healer_config.default_stop_timeout.into()),
+                        |v| Duration::from_secs(v.into()),
+                    );
 
                     event!(
                         Level::INFO,
@@ -66,7 +65,7 @@ impl DockerHealer {
                         container_names,
                         container_short_id,
                         times,
-                        timeout
+                        timeout.as_secs()
                     );
 
                     match self
@@ -90,7 +89,7 @@ impl DockerHealer {
                             self.notifier.notify_webhook_failure(
                                 container_names,
                                 container_short_id,
-                                error,
+                                error.into(),
                             );
                         },
                     }
@@ -113,7 +112,7 @@ impl DockerHealer {
         let mut history_unhealthy = HashMap::<Box<str>, (Option<Box<str>>, usize)>::new();
 
         loop {
-            match self.client.get_containers(&self.encoded_filters).await {
+            match self.client.list_containers(&self.filters).await {
                 Ok(containers) => {
                     let mut current_unhealthy: HashMap<Box<str>, Option<Box<str>>> = containers
                         .iter()

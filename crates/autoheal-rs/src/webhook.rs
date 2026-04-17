@@ -1,14 +1,34 @@
 use color_eyre::eyre;
-use http::Request;
+use http::{Request, Response};
 use http_body_util::Full;
-use hyper::body::Bytes;
+use hyper::body::{Body, Bytes};
 use hyper::http::HeaderValue;
 use hyper::{Method, Uri};
 use hyper_rustls::HttpsConnectorBuilder;
 use hyper_util::client::legacy::Client;
+use hyper_util::client::legacy::connect::Connect;
 use hyper_util::rt::TokioExecutor;
-use shared::http_client::execute_request;
 use tracing::{Level, event};
+
+/// Executes a request on a client.
+///
+/// # Errors
+///
+/// When the request errors.
+pub async fn execute_request<C, B>(
+    client: &Client<C, B>,
+    request: Request<B>,
+) -> Result<Response<hyper::body::Incoming>, hyper_util::client::legacy::Error>
+where
+    C: Connect + Clone + Send + Sync + 'static,
+    B: Body + Send + 'static + Unpin,
+    B::Data: Send,
+    B::Error: Into<Box<dyn std::error::Error + Send + Sync>>,
+{
+    let response = client.request(request).await?;
+
+    Ok(response)
+}
 
 #[derive(Debug)]
 struct WebHookInvocation {
@@ -110,8 +130,6 @@ async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Repo
         .enable_all_versions()
         .build();
 
-    let client = Client::builder(TokioExecutor::new()).build(connector);
-
     let message = match invocation.state {
         State::Success => format!(
             "Container \"{}\" ({}) was unhealthy, but was successfully restarted.",
@@ -134,6 +152,8 @@ async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Repo
         .header("X-Priority", invocation.to_priority())
         .header("X-Tags", invocation.to_tags())
         .body(Full::new(Bytes::from(message)))?;
+
+    let client = Client::builder(TokioExecutor::new()).build(connector);
 
     execute_request(&client, request)
         .await
