@@ -1,4 +1,18 @@
 <!-- header goes here -->
+## [1.12.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.11.1..v1.12.0) - 2026-04-17
+
+### 🚀 Features
+
+- Use clap to parse early by [@kristof-mattei](https://github.com/kristof-mattei) ([`648bd76`](https://github.com/kristof-mattei/autoheal-rs/commit/648bd76221a31be967a5b0fe657445d1b7a94627))
+- Twistlock defers timeout reading to client by [@kristof-mattei](https://github.com/kristof-mattei) ([`090e396`](https://github.com/kristof-mattei/autoheal-rs/commit/090e3961b48b7017000f99a80c88795078f6fccc))
+
+### 🐛 Bug Fixes
+
+- Don't inline in message, clearer for when we do json logging by [@kristof-mattei](https://github.com/kristof-mattei) ([`f6a25b4`](https://github.com/kristof-mattei/autoheal-rs/commit/f6a25b4cd93aecad29663fbaf0b7e84454d24833))
+
+### ⚙️ Miscellaneous Tasks
+
+- Twistlock update by [@kristof-mattei](https://github.com/kristof-mattei) ([`5510440`](https://github.com/kristof-mattei/autoheal-rs/commit/5510440d91342af87fdb3d74184332dc146b08f3))
 ## [1.11.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.11.0..v1.11.1) - 2026-04-17
 
 ### 🐛 Bug Fixes
