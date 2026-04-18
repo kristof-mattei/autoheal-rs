@@ -1,4 +1,10 @@
 <!-- header goes here -->
+## [1.12.2](https://github.com/kristof-mattei/autoheal-rs/compare/v1.12.1..v1.12.2) - 2026-04-18
+
+### 🐛 Bug Fixes
+
+- `get_name()` returns a single name by [@kristof-mattei](https://github.com/kristof-mattei) ([`8477c41`](https://github.com/kristof-mattei/autoheal-rs/commit/8477c4124703213751a9cab7dbdef11a1704732b))
+- Certificates in Docker container so that webhooks over https work by [@kristof-mattei](https://github.com/kristof-mattei) ([`6bf2763`](https://github.com/kristof-mattei/autoheal-rs/commit/6bf27638c6e45d1377c8bbb8b7e97de6e5fa5fdc))
 ## [1.12.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.12.0..v1.12.1) - 2026-04-18
 
 ### 🐛 Bug Fixes
