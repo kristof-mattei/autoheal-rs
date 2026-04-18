@@ -14,6 +14,7 @@ RUN apt-get update \
     && apt-get upgrade --yes \
     && apt-get install --no-install-recommends --yes \
         build-essential \
+        ca-certificates \
         musl-dev \
         patch
 
@@ -105,6 +106,9 @@ COPY --from=passwd-build /tmp/group_root /etc/group
 COPY --from=passwd-build /tmp/passwd_root /etc/passwd
 
 COPY --from=rust-build /output/bin/${APPLICATION_NAME} /app/entrypoint
+
+# certificates
+COPY --from=rust-base /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 USER root
 
