@@ -1,4 +1,15 @@
 <!-- header goes here -->
+## [1.12.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.12.0..v1.12.1) - 2026-04-18
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate twistlock to 0.2.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`6ceef19`](https://github.com/kristof-mattei/autoheal-rs/commit/6ceef1996a22671d8b6f6786e8834716b93801f1))
+- Properly track history, as before we never recorded how often something was restarted by [@kristof-mattei](https://github.com/kristof-mattei) ([`7311c6a`](https://github.com/kristof-mattei/autoheal-rs/commit/7311c6af911670aa9716316d19d6f228bc1cc564))
+- Twistlock updates by [@kristof-mattei](https://github.com/kristof-mattei) ([`cf5f1d3`](https://github.com/kristof-mattei/autoheal-rs/commit/cf5f1d3b874342341958fddc7740b34f85ad0839))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Link in release proposal now points to sha as tag doesn't exist yet by [@kristof-mattei](https://github.com/kristof-mattei) ([`f2bcfc8`](https://github.com/kristof-mattei/autoheal-rs/commit/f2bcfc8ed61488c9863b26533432becd6e7267df))
 ## [1.12.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.11.1..v1.12.0) - 2026-04-17
 
 ### 🚀 Features
