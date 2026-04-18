@@ -64,11 +64,11 @@ impl DockerHealer {
                     "Container name was null, which implies container does not exist - don't restart.",
                 );
             },
-            Some(container_names) => {
+            Some(container_name) => {
                 if &*container_info.state == "restarting" {
                     event!(
                         Level::INFO,
-                        %container_names,
+                        %container_name,
                         %container_short_id,
                         "Container found to be restarting - don't restart.",
                     );
@@ -78,7 +78,7 @@ impl DockerHealer {
 
                     event!(
                         Level::INFO,
-                        %container_names,
+                        %container_name,
                         %container_short_id,
                         times_unhealthy = %times,
                         timeout = ?timeout,
@@ -92,19 +92,19 @@ impl DockerHealer {
                     {
                         Ok(()) => {
                             self.notifier
-                                .notify_webhook_success(container_short_id, container_names);
+                                .notify_webhook_success(container_short_id, container_name);
                         },
                         Err(error) => {
                             event!(
                                 Level::WARN,
                                 ?error,
-                                %container_names,
+                                %container_name,
                                 %container_short_id,
                                 "Restarting container failed.",
                             );
 
                             self.notifier.notify_webhook_failure(
-                                container_names,
+                                container_name,
                                 container_short_id,
                                 error.into(),
                             );
@@ -148,7 +148,7 @@ impl DockerHealer {
                         {
                             event!(
                                 Level::INFO,
-                                container_names = %container
+                                container_name = %container
                                     .get_name()
                                     .unwrap_or("<UNNAMED CONTAINER>"),
                                 container_short_id = %container.get_short_id(),
@@ -162,11 +162,11 @@ impl DockerHealer {
                         new_history.insert(container.id, (name, times));
                     }
 
-                    for (key, &(ref names, _)) in &history_unhealthy {
-                        if !new_history.contains_key(key) {
+                    for (key, (name, _)) in history_unhealthy {
+                        if !new_history.contains_key(&key) {
                             event!(
                                 Level::INFO,
-                                container_names = %names.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
+                                container_name = %name.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
                                 container_id = %key,
                                 "Container returned to healthy state.",
                             );
