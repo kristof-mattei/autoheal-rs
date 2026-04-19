@@ -38,12 +38,14 @@ hyper-util = { version = "0.1.20", default-features = false, features = [
 libc = "0.2.185"
 mimalloc = { version = "0.1.48", features = ["v3"] }
 tokio = { version = "1.52.1", features = [
-    "rt-multi-thread",
     "macros",
-    "time",
-    "signal",
     "net",
+    "rt-multi-thread",
+    "signal",
+    "time",
+    "tracing",
 ] }
+tokio-util = "0.7.18"
 tracing = "0.1.44"
 tracing-error = "0.2.1"
 tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }

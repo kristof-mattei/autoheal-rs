@@ -122,6 +122,7 @@ dependencies = [
  "mimalloc",
  "pretty_assertions",
  "tokio",
+ "tokio-util",
  "tracing",
  "tracing-error",
  "tracing-subscriber",

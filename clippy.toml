@@ -1,8 +1,10 @@
 absolute-paths-allowed-crates = [
+    "color_eyre",
     "hyper_util",
     "hyper",
     "std",
     "tokio",
+    "tokio_util",
     "tracing_subscriber",
 ]
 disallowed-macros = [
