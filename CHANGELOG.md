@@ -1,4 +1,14 @@
 <!-- header goes here -->
+## [1.12.3](https://github.com/kristof-mattei/autoheal-rs/compare/v1.12.2..v1.12.3) - 2026-04-23
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate mimalloc to 0.1.49 by [@renovate[bot]](https://github.com/renovate[bot]) ([`5d883fb`](https://github.com/kristof-mattei/autoheal-rs/commit/5d883fb43c84e768274cc43a26418c9fb94ee40d))
+- *(deps)* `mimalloc` by default now is v3, removing flag by [@kristof-mattei](https://github.com/kristof-mattei) ([`207ec6c`](https://github.com/kristof-mattei/autoheal-rs/commit/207ec6c5965ed8f5139c6912a604f7e3b6a0afaa))
+- *(deps)* `mimalloc` by default now is v3, removing flag by [@kristof-mattei](https://github.com/kristof-mattei) ([`c0fdb8a`](https://github.com/kristof-mattei/autoheal-rs/commit/c0fdb8aa5fae0dd08bcfb2441388bd458dd23a0c))
+- *(deps)* Update rust crate mimalloc to 0.1.50 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a960433`](https://github.com/kristof-mattei/autoheal-rs/commit/a960433b7c26fb80b6e8afbb28b39faecc70dc16))
+- Signals now exit with + 128 by [@kristof-mattei](https://github.com/kristof-mattei) ([`c0a3afa`](https://github.com/kristof-mattei/autoheal-rs/commit/c0a3afaf1436f6394fe3b23e909260c26768f6d1))
+- Tokio_unstable by [@kristof-mattei](https://github.com/kristof-mattei) ([`ecab2c0`](https://github.com/kristof-mattei/autoheal-rs/commit/ecab2c052e9acde309fb6335b7d6b2a50da75e8a))
 ## [1.12.2](https://github.com/kristof-mattei/autoheal-rs/compare/v1.12.1..v1.12.2) - 2026-04-18
 
 ### 🐛 Bug Fixes
