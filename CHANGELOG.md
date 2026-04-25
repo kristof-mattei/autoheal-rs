@@ -1,4 +1,16 @@
 <!-- header goes here -->
+## [1.12.4](https://github.com/kristof-mattei/autoheal-rs/compare/v1.12.3..v1.12.4) - 2026-04-25
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate mimalloc to 0.1.50 by [@renovate[bot]](https://github.com/renovate[bot]) ([`f488e9c`](https://github.com/kristof-mattei/autoheal-rs/commit/f488e9c023782304221631029603e77be7779648))
+- *(deps)* Update rust crate libc to 0.2.186 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d4dd213`](https://github.com/kristof-mattei/autoheal-rs/commit/d4dd213db02c0aa43ed7642b3cefe161e2b1df95))
+- *(deps)* Update rust crate twistlock to 0.2.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`c5f8b92`](https://github.com/kristof-mattei/autoheal-rs/commit/c5f8b92901751d698ed0744b143b61c9028791fa))
+
+### ⚙️ Miscellaneous Tasks
+
+- Move to keep track by [@kristof-mattei](https://github.com/kristof-mattei) ([`caaabc6`](https://github.com/kristof-mattei/autoheal-rs/commit/caaabc689c02f78d1c464cc173c9a931255876c0))
+- Restore by [@kristof-mattei](https://github.com/kristof-mattei) ([`8a075af`](https://github.com/kristof-mattei/autoheal-rs/commit/8a075afc397960177ca8b3818ac5cdc84c63292e))
 ## [1.12.3](https://github.com/kristof-mattei/autoheal-rs/compare/v1.12.2..v1.12.3) - 2026-04-23
 
 ### 🐛 Bug Fixes
