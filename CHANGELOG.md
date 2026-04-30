@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [1.13.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.12.4..v1.13.0) - 2026-04-30
+
+### 🚀 Features
+
+- Checkbox to allow for auto-merging a release PR by [@kristof-mattei](https://github.com/kristof-mattei) ([`8b67c89`](https://github.com/kristof-mattei/autoheal-rs/commit/8b67c89b30a8d6b3d4822110734fa4497caabe28))
 ## [1.12.4](https://github.com/kristof-mattei/autoheal-rs/compare/v1.12.3..v1.12.4) - 2026-04-25
 
 ### 🐛 Bug Fixes
