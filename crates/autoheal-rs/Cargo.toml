@@ -36,7 +36,7 @@ hyper-util = { version = "0.1.20", default-features = false, features = [
     "tokio",
 ] }
 libc = "0.2.186"
-mimalloc = "0.1.51"
+mimalloc = "0.1.52"
 tokio = { version = "1.52.3", features = [
     "macros",
     "net",
