@@ -1,4 +1,39 @@
 <!-- header goes here -->
+## [1.13.1](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.0..v1.13.1) - 2026-07-01
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to 1.52.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`bdc8fdb`](https://github.com/kristof-mattei/autoheal-rs/commit/bdc8fdb7e1177bba061aed767f56d9ef37fb9b43))
+- *(deps)* Update rust crate tokio to 1.52.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`ebd0884`](https://github.com/kristof-mattei/autoheal-rs/commit/ebd08844c3ac11bdbe3b59d3b8183e87f2a81bca))
+- *(deps)* Update rust crate hashbrown to 0.17.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a6e34f5`](https://github.com/kristof-mattei/autoheal-rs/commit/a6e34f5ada188244855bbbf5eb3926796f18a4b2))
+- *(deps)* Update rust crate mimalloc to 0.1.51 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a725213`](https://github.com/kristof-mattei/autoheal-rs/commit/a7252136a1cf3d46f73d549d69f3c0ec1ddff22b))
+- *(deps)* Update rust crate mimalloc to 0.1.51 (#2714) by [@renovate[bot]](https://github.com/renovate[bot]) in #2714 ([`2f35458`](https://github.com/kristof-mattei/autoheal-rs/commit/2f35458aa9248fef5f9d81c570992e445352c05c))
+- *(deps)* Update rust crate mimalloc to 0.1.51 by [@renovate[bot]](https://github.com/renovate[bot]) ([`297ccb0`](https://github.com/kristof-mattei/autoheal-rs/commit/297ccb05fd6ab86c94994ef240d04deb57450250))
+- *(deps)* Update rust crate mimalloc to 0.1.51 (#2814) by [@renovate[bot]](https://github.com/renovate[bot]) ([`bdb432d`](https://github.com/kristof-mattei/autoheal-rs/commit/bdb432da30a587fbec7fa48d6e3c4b94081c9a98))
+- *(deps)* Update rust crate mimalloc to 0.1.52 by [@renovate[bot]](https://github.com/renovate[bot]) ([`b492fb7`](https://github.com/kristof-mattei/autoheal-rs/commit/b492fb738e185fd97494ba63dc5ead78ddf83f37))
+- *(deps)* Update rust crate mimalloc to 0.1.52 (#2724) by [@renovate[bot]](https://github.com/renovate[bot]) in #2724 ([`4ad655f`](https://github.com/kristof-mattei/autoheal-rs/commit/4ad655fc3fed8339b2b8bf2af18c2fe22e55060c))
+- *(deps)* Update rust crate mimalloc to 0.1.52 by [@renovate[bot]](https://github.com/renovate[bot]) ([`1890f97`](https://github.com/kristof-mattei/autoheal-rs/commit/1890f97240cf108d41c370179666282ebe343759))
+- *(deps)* Update rust crate mimalloc to 0.1.52 (#2820) by [@renovate[bot]](https://github.com/renovate[bot]) ([`f964185`](https://github.com/kristof-mattei/autoheal-rs/commit/f964185dff4cee94f1a89e05ca7be9ae0d4f862a))
+- *(deps)* Update rust crate http to 1.4.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`054ecbe`](https://github.com/kristof-mattei/autoheal-rs/commit/054ecbe7fc4ea5d56dd2f9b48033147c97c7d0a4))
+- *(deps)* Update rust crate http to 1.4.1 (#2735) by [@renovate[bot]](https://github.com/renovate[bot]) in #2735 ([`b8e20fb`](https://github.com/kristof-mattei/autoheal-rs/commit/b8e20fb1159c79f74b626f6346f5b391d680a397))
+- *(deps)* Update rust crate hyper to 1.10.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`5fc1967`](https://github.com/kristof-mattei/autoheal-rs/commit/5fc1967e66c059f4d4598879c1f603798add195d))
+- *(deps)* Update rust crate hyper to 1.10.0 (#2740) by [@renovate[bot]](https://github.com/renovate[bot]) in #2740 ([`c55304f`](https://github.com/kristof-mattei/autoheal-rs/commit/c55304f36dca7d6af872c610a25ecb71989af8c8))
+- *(deps)* Update rust crate hyper to 1.10.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d85406d`](https://github.com/kristof-mattei/autoheal-rs/commit/d85406da9a12cbef7c29e47dee220b77b73ad23a))
+- *(deps)* Update rust crate hyper to 1.10.1 (#2749) by [@renovate[bot]](https://github.com/renovate[bot]) in #2749 ([`27c6fa7`](https://github.com/kristof-mattei/autoheal-rs/commit/27c6fa767e7f83243829774f42d991852e357626))
+- *(deps)* Update rust crate http to 1.4.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d6cd50b`](https://github.com/kristof-mattei/autoheal-rs/commit/d6cd50bb8952db9f69bde9286b624dff96f01949))
+- *(deps)* Update rust crate http to 1.4.2 (#2772) by [@renovate[bot]](https://github.com/renovate[bot]) in #2772 ([`4fa103e`](https://github.com/kristof-mattei/autoheal-rs/commit/4fa103e67cc90c801fad7590563a1c19659ed1e2))
+- *(deps)* Pin dependencies by [@renovate[bot]](https://github.com/renovate[bot]) ([`915be69`](https://github.com/kristof-mattei/autoheal-rs/commit/915be6932f7662f7aba54f1864d9fd08280d9f6f))
+- *(deps)* Pin dependencies (#2825) by [@renovate[bot]](https://github.com/renovate[bot]) in #2825 ([`af98ddc`](https://github.com/kristof-mattei/autoheal-rs/commit/af98ddcbb62e6f688f32f0cf436b04cc3c3be39b))
+
+### ⚙️ Miscellaneous Tasks
+
+- Node v26 and pnpm 11.2.2 by [@kristof-mattei](https://github.com/kristof-mattei) ([`16139f7`](https://github.com/kristof-mattei/autoheal-rs/commit/16139f7f5ad75af955e9cb7cce9a5968d478ee04))
+- Enable `as_conversions` lint by [@kristof-mattei](https://github.com/kristof-mattei) ([`3bfb7bb`](https://github.com/kristof-mattei/autoheal-rs/commit/3bfb7bb6d1a60f11ecfa7c46b7b6f3d5f4e795a0))
+- Re-establish link by [@kristof-mattei](https://github.com/kristof-mattei) ([`9b943e2`](https://github.com/kristof-mattei/autoheal-rs/commit/9b943e236a77d3936379035b9371ca44f851c714))
+- Re-establish contents by [@kristof-mattei](https://github.com/kristof-mattei) ([`e6d92ca`](https://github.com/kristof-mattei/autoheal-rs/commit/e6d92ca95f4526a0f232f4adbf8219b1e3ee17c2))
+- Address new lint by [@kristof-mattei](https://github.com/kristof-mattei) ([`7877146`](https://github.com/kristof-mattei/autoheal-rs/commit/7877146579c030004c80455fb3da6d91bad43c68))
+- Mandate `pretty_assertions::assert_matches` over `std` version by [@kristof-mattei](https://github.com/kristof-mattei) ([`d5e030c`](https://github.com/kristof-mattei/autoheal-rs/commit/d5e030cf9a767a50b2c10ad5eac80bf2257c49ab))
+- Tasks.json should not be executable by [@kristof-mattei](https://github.com/kristof-mattei) ([`5527290`](https://github.com/kristof-mattei/autoheal-rs/commit/552729080cf37c4ef92e90228e73971c42540bd9))
 ## [1.13.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.12.4..v1.13.0) - 2026-04-30
 
 ### 🚀 Features
