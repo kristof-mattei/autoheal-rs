@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use hashbrown::HashMap;
 use http::Uri;
-use tokio::time::sleep;
+use tokio::time::{MissedTickBehavior, sleep};
 use tracing::{Level, event};
 use twistlock::client::Client;
 use twistlock::filters::Filters;
@@ -128,7 +128,12 @@ impl DockerHealer {
 
         let mut history_unhealthy = HashMap::<Box<str>, (Option<Box<str>>, usize)>::new();
 
+        let mut interval = tokio::time::interval(self.healer_config.interval);
+        interval.set_missed_tick_behavior(MissedTickBehavior::Delay);
+
         loop {
+            interval.tick().await;
+
             match self.client.list_containers(&self.filters).await {
                 Ok(containers) => {
                     let mut new_history =
@@ -179,8 +184,6 @@ impl DockerHealer {
                     event!(Level::ERROR, ?error, "Failed to fetch container info");
                 },
             }
-
-            tokio::time::sleep(self.healer_config.interval).await;
         }
     }
 }
