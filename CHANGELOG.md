@@ -1,4 +1,59 @@
 <!-- header goes here -->
+## [1.13.3](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.2..v1.13.3) - 2026-07-31
+
+### 🐛 Bug Fixes
+
+- *(ci)* Disable asking for funds when installing pnpm by [@kristof-mattei](https://github.com/kristof-mattei) ([`b661b33`](https://github.com/kristof-mattei/autoheal-rs/commit/b661b336aeed70395e1a0a25484b48d88f6d3cb4))
+- *(ci)* Merge the PR based on the branch name, not the url by [@kristof-mattei](https://github.com/kristof-mattei) ([`b0af60a`](https://github.com/kristof-mattei/autoheal-rs/commit/b0af60a01b2f10665e3d2ffaf658fc5e9f4c1cff))
+- *(ci)* Address actionlint by [@kristof-mattei](https://github.com/kristof-mattei) ([`3d8e464`](https://github.com/kristof-mattei/autoheal-rs/commit/3d8e4648ec20159a31b930c0a6a6f39fa5b0eb6e))
+- *(deps)* Update rust crate http-body-util to v0.1.4 by [@renovate[bot]](https://github.com/renovate[bot]) ([`280ab51`](https://github.com/kristof-mattei/autoheal-rs/commit/280ab51e062a654f4560a72c5fea60b07aa0a9d1))
+- *(deps)* Update rust crate http-body-util to v0.1.4 (#2870) by [@renovate[bot]](https://github.com/renovate[bot]) in #2870 ([`96a737c`](https://github.com/kristof-mattei/autoheal-rs/commit/96a737c79feeb402814195d1385c42e83859987d))
+- *(deps)* Update rust crate clap to v4.6.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`df77e39`](https://github.com/kristof-mattei/autoheal-rs/commit/df77e39297ca81037978bbf5bb08e39fb9b3a105))
+- *(deps)* Update rust crate clap to v4.6.2 (#2877) by [@renovate[bot]](https://github.com/renovate[bot]) in #2877 ([`230d0fc`](https://github.com/kristof-mattei/autoheal-rs/commit/230d0fc52ff9c09515d8132f169c6a81c4014bef))
+- *(deps)* Update rust crate tokio to v1.52.4 by [@renovate[bot]](https://github.com/renovate[bot]) ([`29eb5cc`](https://github.com/kristof-mattei/autoheal-rs/commit/29eb5cc5480a3b5b670a89a537190333bc575232))
+- *(deps)* Update rust crate tokio to v1.52.4 (#2882) by [@renovate[bot]](https://github.com/renovate[bot]) in #2882 ([`6d4007b`](https://github.com/kristof-mattei/autoheal-rs/commit/6d4007bb01f14ef3b042768ac8a64e0432a38d11))
+- *(deps)* Update rust crate tokio to v1.53.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a8f4c69`](https://github.com/kristof-mattei/autoheal-rs/commit/a8f4c6901a78c93a2649e61f34b6a2422e18c2af))
+- *(deps)* Update rust crate tokio to v1.53.0 (#2886) by [@renovate[bot]](https://github.com/renovate[bot]) in #2886 ([`2fbef33`](https://github.com/kristof-mattei/autoheal-rs/commit/2fbef337cea499d65674e8bbab3571054244f92b))
+- *(deps)* Update rust crate clap to v4.6.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`df02a9e`](https://github.com/kristof-mattei/autoheal-rs/commit/df02a9e042ad70fcccd1c67e729df9b019db2d7c))
+- *(deps)* Update rust crate clap to v4.6.3 (#2893) by [@renovate[bot]](https://github.com/renovate[bot]) in #2893 ([`607962b`](https://github.com/kristof-mattei/autoheal-rs/commit/607962b8bed40555673c45639188a93d6b058d52))
+- *(deps)* Update rust crate tokio to v1.53.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`ef562a9`](https://github.com/kristof-mattei/autoheal-rs/commit/ef562a94e421e6496bad43539c4dc4cf17ecb6a4))
+- *(deps)* Update rust crate tokio to v1.53.1 (#2898) by [@renovate[bot]](https://github.com/renovate[bot]) in #2898 ([`f7b18c6`](https://github.com/kristof-mattei/autoheal-rs/commit/f7b18c6d02151e7d780c19111977faf7f6ef7288))
+- *(deps)* Update rust crate hyper to v1.11.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`b45ee01`](https://github.com/kristof-mattei/autoheal-rs/commit/b45ee010e94453b023e9495f3b832b2610d01515))
+- *(deps)* Update rust crate hyper to v1.11.0 (#2895) by [@renovate[bot]](https://github.com/renovate[bot]) in #2895 ([`8127687`](https://github.com/kristof-mattei/autoheal-rs/commit/8127687b09dda4dd7d4fe131e4b4a47d1a4cbf6b))
+- *(deps)* Update rust crate libc to v0.2.188 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d8a8b00`](https://github.com/kristof-mattei/autoheal-rs/commit/d8a8b0069bbc6ab85be704ee3e8bd3e4929c572f))
+- *(deps)* Update rust crate libc to v0.2.187 (#2900) by [@renovate[bot]](https://github.com/renovate[bot]) in #2900 ([`3573fb7`](https://github.com/kristof-mattei/autoheal-rs/commit/3573fb73777e80e6bc55ce660152956ac7f5d7e5))
+- *(deps)* Update rust crate tokio-util to v0.7.19 by [@renovate[bot]](https://github.com/renovate[bot]) ([`0d07bfd`](https://github.com/kristof-mattei/autoheal-rs/commit/0d07bfdd4427e1fc2afc2bdc5ef6953fabed70bf))
+- *(deps)* Update rust crate tokio-util to v0.7.19 (#2902) by [@renovate[bot]](https://github.com/renovate[bot]) in #2902 ([`08ed803`](https://github.com/kristof-mattei/autoheal-rs/commit/08ed803a621b316764c0cd934b50449cb16d356c))
+- *(deps)* Update rust crate clap to v4.6.4 by [@renovate[bot]](https://github.com/renovate[bot]) ([`ef33310`](https://github.com/kristof-mattei/autoheal-rs/commit/ef333109935fcdb742897a784faa3fe6269ba54c))
+- *(deps)* Update rust crate clap to v4.6.4 (#2903) by [@renovate[bot]](https://github.com/renovate[bot]) in #2903 ([`74e03b4`](https://github.com/kristof-mattei/autoheal-rs/commit/74e03b41fc53ab7728c35c8a0db01e359f122c0a))
+- *(deps)* Update rust crate libc to v0.2.189 by [@renovate[bot]](https://github.com/renovate[bot]) ([`1419634`](https://github.com/kristof-mattei/autoheal-rs/commit/141963478847fe0ebddbb2eb525dc22853f7c904))
+- *(deps)* Update rust crate libc to v0.2.189 (#2904) by [@renovate[bot]](https://github.com/renovate[bot]) in #2904 ([`01cdfff`](https://github.com/kristof-mattei/autoheal-rs/commit/01cdfff5c630838cbfd00b0898ddc02e92179d5d))
+- *(deps)* Update rust crate http to v1.5.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`e71012d`](https://github.com/kristof-mattei/autoheal-rs/commit/e71012dc0574f5e2f2b3024340abc12475c97ed1))
+- *(deps)* Update rust crate http to v1.5.0 (#2928) by [@renovate[bot]](https://github.com/renovate[bot]) in #2928 ([`d475d09`](https://github.com/kristof-mattei/autoheal-rs/commit/d475d0930aaa4900b1e047b70a0a5f69981e2e23))
+- *(deps)* Update rust crate clap to v4.6.5 by [@renovate[bot]](https://github.com/renovate[bot]) ([`e0e14b0`](https://github.com/kristof-mattei/autoheal-rs/commit/e0e14b01c9e8f6471daabd86fbbc6fa94fa20bf2))
+- *(deps)* Update rust crate clap to v4.6.5 (#2941) by [@renovate[bot]](https://github.com/renovate[bot]) in #2941 ([`27a0f4d`](https://github.com/kristof-mattei/autoheal-rs/commit/27a0f4d8fa81008ab15d287edc552f7f173cc357))
+- Use tokio interval by [@kristof-mattei](https://github.com/kristof-mattei) ([`ae791fa`](https://github.com/kristof-mattei/autoheal-rs/commit/ae791faff6675a62cd15ce90ae10bec06d136fa6))
+- Prettier config typescript version by [@kristof-mattei](https://github.com/kristof-mattei) ([`9a04bc8`](https://github.com/kristof-mattei/autoheal-rs/commit/9a04bc814c428efb9b1af82b6395e8a08fb69caa))
+- For markdown, decrease tabwidth by [@kristof-mattei](https://github.com/kristof-mattei) ([`775286c`](https://github.com/kristof-mattei/autoheal-rs/commit/775286c57e10452aa3580f168399f48f50066e40))
+
+### 💼 Other
+
+- Generate SBOM & provenance attestations, embedding the actual crate list via cargo-auditable by [@kristof-mattei](https://github.com/kristof-mattei) ([`7069ac7`](https://github.com/kristof-mattei/autoheal-rs/commit/7069ac7c50b8a9c3eab63e1b31ebf77164141d7c))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Long-form options by [@kristof-mattei](https://github.com/kristof-mattei) ([`8cc89ce`](https://github.com/kristof-mattei/autoheal-rs/commit/8cc89ce310fd951216ebb9bf5dad46a9eb5b4cab))
+- *(ci)* Create release commits with the api so they're signed by [@kristof-mattei](https://github.com/kristof-mattei) ([`0cacc4c`](https://github.com/kristof-mattei/autoheal-rs/commit/0cacc4cfff7e3e44eaaa27a9fcdf0d7006720c8b))
+- *(ci)* Let release runs finish and clean up stranded branches by [@kristof-mattei](https://github.com/kristof-mattei) ([`09c302f`](https://github.com/kristof-mattei/autoheal-rs/commit/09c302fef81815f523c7a8fa2b849b02222d3bdc))
+- *(ci)* Pass the github token to git-cliff via the environment by [@kristof-mattei](https://github.com/kristof-mattei) ([`73fe1c0`](https://github.com/kristof-mattei/autoheal-rs/commit/73fe1c0d32e7de5d97b90a7ee7433ef7edb75959))
+- *(ci)* Only mark stable releases as latest by [@kristof-mattei](https://github.com/kristof-mattei) ([`357e974`](https://github.com/kristof-mattei/autoheal-rs/commit/357e974a1e321345048fc53d805da083c191149e))
+- *(ci)* Update the release PR body via the rest api by [@kristof-mattei](https://github.com/kristof-mattei) ([`0358506`](https://github.com/kristof-mattei/autoheal-rs/commit/035850687f39ce852128a059f83f596cba9fab40))
+- *(ci)* Upload images sequentially by [@kristof-mattei](https://github.com/kristof-mattei) ([`128f6d4`](https://github.com/kristof-mattei/autoheal-rs/commit/128f6d4a0436cec8aeba4754262307ff0274b9df))
+- Ban more macros by [@kristof-mattei](https://github.com/kristof-mattei) ([`602457a`](https://github.com/kristof-mattei/autoheal-rs/commit/602457a4d5bcd65f5214d48e5601836041bebc0f))
+- Cspell by [@kristof-mattei](https://github.com/kristof-mattei) ([`9f5797a`](https://github.com/kristof-mattei/autoheal-rs/commit/9f5797a16adf5f2880b5bbdea2827ad7cf465688))
+- Remove copilot instructions as copilot is now behind a paywall by [@kristof-mattei](https://github.com/kristof-mattei) ([`8a34ae2`](https://github.com/kristof-mattei/autoheal-rs/commit/8a34ae290dfdb5ddf5d2b73eeca90a14146f3e9b))
+- Remove unused word by [@kristof-mattei](https://github.com/kristof-mattei) ([`4cf5b2d`](https://github.com/kristof-mattei/autoheal-rs/commit/4cf5b2dbd13e7d5f8143634ffaa773f10175141c))
+- Update dictionary by [@kristof-mattei](https://github.com/kristof-mattei) ([`e7f3adf`](https://github.com/kristof-mattei/autoheal-rs/commit/e7f3adf73bd90fcf5c8312052e247aafa3bb5dea))
 ## [1.13.2](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.1..v1.13.2) - 2026-07-07
 
 ### 🐛 Bug Fixes
