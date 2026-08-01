@@ -1,4 +1,10 @@
 <!-- header goes here -->
+## [1.13.5](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.4..v1.13.5) - 2026-08-01
+
+### 🐛 Bug Fixes
+
+- *(ci)* Poll for the release source tag instead of racing the push retag by [@kristof-mattei](https://github.com/kristof-mattei) ([`c0be1d5`](https://github.com/kristof-mattei/autoheal-rs/commit/c0be1d5486cbb92bf8772e4aff991b4da9861f99))
+- *(ci)* Skip Docker Hub tags that already exist with the expected digest by [@kristof-mattei](https://github.com/kristof-mattei) ([`784a607`](https://github.com/kristof-mattei/autoheal-rs/commit/784a607d54f6872e85ed0fc069377ae347530858))
 ## [1.13.3](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.2..v1.13.3) - 2026-07-31
 
 ### 🐛 Bug Fixes
