@@ -4,9 +4,9 @@ appuser
 autoheal
 bkeepers
 buildcache
-Cinstrument
+cinstrument
 cocogitto
-Ctarget
+ctarget
 cttc
 cves
 dorny
@@ -31,8 +31,9 @@ pathbuf
 postprocessors
 prereleased
 profraw
-Retag
-Retagging
+pyflakes
+retag
+retagging
 rustflags
 samply
 sccache
@@ -41,9 +42,9 @@ skopeo
 startswith
 striptags
 taiki
-TARGETPLATFORMDASH
+targetplatformdash
 telem
-Tera
+tera
 timeoouts
 topo
 trixie
