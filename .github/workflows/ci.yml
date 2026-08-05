@@ -402,13 +402,13 @@ jobs:
         shell: bash
         run: |
           APPLICATION_NAME=${{ github.repository }}
-          echo "APPLICATION_NAME=${APPLICATION_NAME##*/}" >> ${GITHUB_ENV}
+          echo "APPLICATION_NAME=${APPLICATION_NAME##*/}" >> "${GITHUB_ENV}"
 
       - name: Set Docker tag
         shell: bash
         run: |
           UNIQUE_TAG=pr-${{ github.event.pull_request.base.sha }}-${{ github.event.pull_request.head.sha }}
-          echo "UNIQUE_TAG=${UNIQUE_TAG##*/}" >> ${GITHUB_ENV}
+          echo "UNIQUE_TAG=${UNIQUE_TAG##*/}" >> "${GITHUB_ENV}"
 
       - name: Download artifact
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -678,6 +678,7 @@ jobs:
     # when all upstream success: success
     # combination of upstream skip and success: success
     runs-on: ubuntu-slim
+    permissions: {}
     needs:
       - changes
       - calculate-version
