@@ -4,7 +4,9 @@ shared: &shared
   - "build-scripts/**"
 docker:
   - *shared
+  - ".dockerignore"
   - Dockerfile
+  - "integration-tests/**"
 rust:
   - *shared
   - "**/*.toml"

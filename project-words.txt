@@ -1,6 +1,7 @@
 adduser
 appgroup
 appuser
+artipacked
 autoheal
 bkeepers
 buildcache
@@ -52,6 +53,8 @@ trixie
 TRUNC
 twistlock
 uninlined
+uninspectable
 unseparated
 usernamehw
 vadimcn
+Zizmor
