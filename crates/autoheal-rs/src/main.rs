@@ -2,6 +2,8 @@ mod build_env;
 mod config;
 mod docker_healer;
 mod helpers;
+#[cfg(target_os = "linux")]
+mod privileges;
 mod shutdown;
 mod signal_handlers;
 mod task_tracker_ext;
@@ -76,6 +78,15 @@ fn main() -> ExitCode {
         .display_env_section(false)
         .install()
         .expect("Failed to install panic handler");
+
+    // new threads inherit privileges from the thread that creates them, so we drop privileges before anything spawns a thread
+    #[cfg(target_os = "linux")]
+    if let Err(error) = privileges::drop_all() {
+        return Err::<Infallible, _>(
+            eyre::Report::from(error).wrap_err("Failed to drop privileges"),
+        )
+        .report();
+    }
 
     let (env_filter, parsing_error) = build_filter();
 

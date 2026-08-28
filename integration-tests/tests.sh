@@ -37,4 +37,15 @@ docker compose start shouldnt-restart-no-label
 docker compose start ignore
 docker compose start autoheal
 
+# autoheal drops its capabilities right after starting, give it a moment
+sleep 1
+
+autoheal_status="/proc/$(docker inspect --format '{{.State.Pid}}' "$(docker compose ps --quiet autoheal)")/status"
+
+# forgive me
+grep --extended-regexp '^(Uid|Cap(Inh|Prm|Eff|Bnd|Amb)|NoNewPrivs):' "${autoheal_status}"
+
+test "$(grep --extended-regexp --count '^Cap(Inh|Prm|Eff|Bnd|Amb):\s+0000000000000000$' "${autoheal_status}")" -eq 5
+grep --quiet --extended-regexp '^NoNewPrivs:\s+1$' "${autoheal_status}"
+
 docker compose up --abort-on-container-exit --exit-code-from watch-autoheal watch-autoheal
