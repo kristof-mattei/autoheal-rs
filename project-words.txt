@@ -26,7 +26,7 @@ monomorphization
 multiplatform
 mypy
 nextest
-nvmrc
+nologin
 pathbuf
 postprocessors
 prereleased
