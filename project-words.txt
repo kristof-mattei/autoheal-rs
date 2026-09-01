@@ -5,6 +5,8 @@ artipacked
 autoheal
 bkeepers
 buildcache
+capbset
+capset
 cinstrument
 ctarget
 cttc
@@ -30,13 +32,16 @@ nologin
 pathbuf
 postprocessors
 prereleased
+privs
 profraw
 pyflakes
 retag
 retagging
+rhysd
 rustflags
 samply
 sccache
+setpcap
 shouldnt
 skopeo
 skopeo's
