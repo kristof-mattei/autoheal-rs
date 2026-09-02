@@ -8,6 +8,7 @@ buildcache
 capbset
 capset
 cinstrument
+cliffignore
 ctarget
 cttc
 cves
@@ -19,14 +20,12 @@ grcov
 hubot
 idents
 kristof
-lldb
 logline
 mattei
 mimalloc
 miri
 monomorphization
 multiplatform
-mypy
 nextest
 nologin
 pathbuf
@@ -35,6 +34,7 @@ prereleased
 privs
 profraw
 pyflakes
+rawfile
 retag
 retagging
 rhysd
@@ -45,6 +45,7 @@ setpcap
 shouldnt
 skopeo
 skopeo's
+slurpfile
 startswith
 striptags
 taiki
