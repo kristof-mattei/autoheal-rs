@@ -2,10 +2,11 @@ use std::path::PathBuf;
 use std::str::FromStr as _;
 use std::time::Duration;
 
-use clap::Parser;
+use clap::{Args, Parser};
 use color_eyre::eyre;
 use hyper::Uri;
 use tracing::{Level, event};
+use twistlock::client::ClientCredentialPaths;
 use twistlock::config::Endpoint;
 
 const DEFAULT_DOCKER_HOST: &str = "/var/run/docker.sock";
@@ -51,11 +52,8 @@ struct RawConfig {
     #[arg(long, env = "CA")]
     pub cacert: Option<PathBuf>,
 
-    #[arg(long, env)]
-    pub client_key: Option<PathBuf>,
-
-    #[arg(long, env)]
-    pub client_cert: Option<PathBuf>,
+    #[command(flatten)]
+    pub client_credentials: Option<ClientCredentialArgs>,
 
     #[arg(
         env = "timeout",
@@ -68,6 +66,36 @@ struct RawConfig {
 
     #[arg(long, env)]
     pub webhook_url: Option<Uri>,
+}
+
+// flattened as `Option<Self>`. clap still marks the non-`Option` fields required, hence `required = false`. The group enforces both-or-neither
+#[derive(Args, Debug)]
+#[group(requires_all = ["client_key", "client_cert"])]
+struct ClientCredentialArgs {
+    #[arg(
+        long,
+        env,
+        required = false,
+        help = "Path to the client private key for mutual TLS with the Docker daemon"
+    )]
+    pub client_key: PathBuf,
+
+    #[arg(
+        long,
+        env,
+        required = false,
+        help = "Path to the client certificate for mutual TLS with the Docker daemon"
+    )]
+    pub client_cert: PathBuf,
+}
+
+impl From<ClientCredentialArgs> for ClientCredentialPaths {
+    fn from(args: ClientCredentialArgs) -> Self {
+        ClientCredentialPaths {
+            key: args.client_key,
+            cert: args.client_cert,
+        }
+    }
 }
 
 impl RawConfig {
@@ -91,8 +119,7 @@ fn parse_duration(value: &str) -> Result<Duration, String> {
 pub struct DockerConfig {
     pub docker_host: Endpoint,
     pub cacert: Option<PathBuf>,
-    pub client_key: Option<PathBuf>,
-    pub client_cert: Option<PathBuf>,
+    pub client_credentials: Option<ClientCredentialPaths>,
     pub timeout: Duration,
 }
 
@@ -119,8 +146,7 @@ impl AppConfig {
         let docker_config = DockerConfig {
             docker_host: raw_config.docker_host,
             cacert: raw_config.cacert,
-            client_key: raw_config.client_key,
-            client_cert: raw_config.client_cert,
+            client_credentials: raw_config.client_credentials.map(Into::into),
             timeout: raw_config.timeout,
         };
 
@@ -141,5 +167,62 @@ impl AppConfig {
             container_label: raw_config.autoheal_container_label,
             webhook_url: raw_config.webhook_url,
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::path::Path;
+
+    use clap::Parser as _;
+    use clap::error::ErrorKind;
+    use pretty_assertions::assert_eq;
+
+    use super::RawConfig;
+
+    // without `--docker`, clap parses `DEFAULT_DOCKER_HOST`, a unix socket, which `Endpoint` rejects on Windows (no `Socket` variant there). tcp parses on every platform
+    fn parse(args: &[&str]) -> Result<RawConfig, clap::Error> {
+        RawConfig::try_parse_from(
+            ["autoheal-rs", "--docker", "tcp://127.0.0.1:2375"]
+                .into_iter()
+                .chain(args.iter().copied()),
+        )
+    }
+
+    #[test]
+    fn client_credentials_absent() {
+        let config = parse(&[]).unwrap();
+
+        assert!(config.client_credentials.is_none());
+    }
+
+    #[test]
+    fn client_credentials_both_present() {
+        let config = parse(&[
+            "--client-key",
+            "/certs/key.pem",
+            "--client-cert",
+            "/certs/cert.pem",
+        ])
+        .unwrap();
+
+        let credentials = config.client_credentials.unwrap();
+
+        assert_eq!(credentials.client_key, Path::new("/certs/key.pem"));
+        assert_eq!(credentials.client_cert, Path::new("/certs/cert.pem"));
+    }
+
+    #[test]
+    fn client_key_without_client_cert_is_rejected() {
+        let error = parse(&["--client-key", "/certs/key.pem"]).unwrap_err();
+
+        assert_eq!(error.kind(), ErrorKind::MissingRequiredArgument);
+    }
+
+    #[test]
+    fn client_cert_without_client_key_is_rejected() {
+        let error = parse(&["--client-cert", "/certs/cert.pem"]).unwrap_err();
+
+        assert_eq!(error.kind(), ErrorKind::MissingRequiredArgument);
     }
 }

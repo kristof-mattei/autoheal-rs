@@ -137,8 +137,7 @@ async fn start_tasks() -> Shutdown {
     let docker_client = match Client::build(
         docker_config.docker_host,
         docker_config.cacert,
-        docker_config.client_cert,
-        docker_config.client_key,
+        docker_config.client_credentials,
         docker_config.timeout,
     ) {
         Ok(client) => client,
