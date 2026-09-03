@@ -180,17 +180,25 @@ mod tests {
 
     use super::RawConfig;
 
+    // without `--docker`, clap parses `DEFAULT_DOCKER_HOST`, a unix socket, which `Endpoint` rejects on Windows (no `Socket` variant there). tcp parses on every platform
+    fn parse(args: &[&str]) -> Result<RawConfig, clap::Error> {
+        RawConfig::try_parse_from(
+            ["autoheal-rs", "--docker", "tcp://127.0.0.1:2375"]
+                .into_iter()
+                .chain(args.iter().copied()),
+        )
+    }
+
     #[test]
     fn client_credentials_absent() {
-        let config = RawConfig::try_parse_from(["autoheal-rs"]).unwrap();
+        let config = parse(&[]).unwrap();
 
         assert!(config.client_credentials.is_none());
     }
 
     #[test]
     fn client_credentials_both_present() {
-        let config = RawConfig::try_parse_from([
-            "autoheal-rs",
+        let config = parse(&[
             "--client-key",
             "/certs/key.pem",
             "--client-cert",
@@ -206,16 +214,14 @@ mod tests {
 
     #[test]
     fn client_key_without_client_cert_is_rejected() {
-        let error = RawConfig::try_parse_from(["autoheal-rs", "--client-key", "/certs/key.pem"])
-            .unwrap_err();
+        let error = parse(&["--client-key", "/certs/key.pem"]).unwrap_err();
 
         assert_eq!(error.kind(), ErrorKind::MissingRequiredArgument);
     }
 
     #[test]
     fn client_cert_without_client_key_is_rejected() {
-        let error = RawConfig::try_parse_from(["autoheal-rs", "--client-cert", "/certs/cert.pem"])
-            .unwrap_err();
+        let error = parse(&["--client-cert", "/certs/cert.pem"]).unwrap_err();
 
         assert_eq!(error.kind(), ErrorKind::MissingRequiredArgument);
     }
