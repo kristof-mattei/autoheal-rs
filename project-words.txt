@@ -20,6 +20,7 @@ grcov
 hubot
 idents
 kristof
+lintian
 logline
 mattei
 mimalloc
