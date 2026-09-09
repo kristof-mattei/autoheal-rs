@@ -6,9 +6,14 @@ docker:
   - ".dockerignore"
   - Dockerfile
   - "integration-tests/**"
-rust:
+rust: &rust
   - *shared
   - "**/*.toml"
   - ".cargo/**"
   - "crates/**"
   - Cargo.lock
+# the package installs both files, see `license-file` and `assets` in `[package.metadata.deb]`
+deb:
+  - *rust
+  - LICENSE
+  - README.md
