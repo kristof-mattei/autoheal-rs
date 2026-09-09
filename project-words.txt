@@ -28,6 +28,7 @@ monomorphization
 multiplatform
 nextest
 nologin
+oras
 pathbuf
 postprocessors
 prereleased
