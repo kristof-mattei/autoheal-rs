@@ -32,6 +32,7 @@ nextest
 nologin
 oras
 pathbuf
+pkgs
 postprocessors
 prereleased
 privs
@@ -57,6 +58,7 @@ telem
 tera
 timeoouts
 topo
+tostring
 trixie
 trunc
 twistlock
