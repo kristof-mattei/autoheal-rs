@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [1.13.7](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.6..v1.13.7) - 2026-09-11
+
+### ⚙️ Miscellaneous Tasks
+
+- Rebuild the container when the predicted version updates by [@kristof-mattei](https://github.com/kristof-mattei) ([`e9eb22c`](https://github.com/kristof-mattei/autoheal-rs/commit/e9eb22c0e0ec473807e56c5766c09d939021ca20))
 ## [1.13.6](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.5..v1.13.6) - 2026-09-03
 
 ### 🐛 Bug Fixes
@@ -32,10 +37,6 @@
 - Prettier config typescript version by [@kristof-mattei](https://github.com/kristof-mattei) ([`9a04bc8`](https://github.com/kristof-mattei/autoheal-rs/commit/9a04bc814c428efb9b1af82b6395e8a08fb69caa))
 - For markdown, decrease tabwidth by [@kristof-mattei](https://github.com/kristof-mattei) ([`775286c`](https://github.com/kristof-mattei/autoheal-rs/commit/775286c57e10452aa3580f168399f48f50066e40))
 
-### 💼 Other
-
-- Generate SBOM & provenance attestations, embedding the actual crate list via cargo-auditable by [@kristof-mattei](https://github.com/kristof-mattei) ([`7069ac7`](https://github.com/kristof-mattei/autoheal-rs/commit/7069ac7c50b8a9c3eab63e1b31ebf77164141d7c))
-
 ### ⚙️ Miscellaneous Tasks
 
 - *(ci)* Long-form options by [@kristof-mattei](https://github.com/kristof-mattei) ([`8cc89ce`](https://github.com/kristof-mattei/autoheal-rs/commit/8cc89ce310fd951216ebb9bf5dad46a9eb5b4cab))
@@ -48,6 +49,10 @@
 - Ban more macros by [@kristof-mattei](https://github.com/kristof-mattei) ([`602457a`](https://github.com/kristof-mattei/autoheal-rs/commit/602457a4d5bcd65f5214d48e5601836041bebc0f))
 - Cspell by [@kristof-mattei](https://github.com/kristof-mattei) ([`9f5797a`](https://github.com/kristof-mattei/autoheal-rs/commit/9f5797a16adf5f2880b5bbdea2827ad7cf465688))
 - Remove copilot instructions as copilot is now behind a paywall by [@kristof-mattei](https://github.com/kristof-mattei) ([`8a34ae2`](https://github.com/kristof-mattei/autoheal-rs/commit/8a34ae290dfdb5ddf5d2b73eeca90a14146f3e9b))
+
+### 💼 Other
+
+- Generate SBOM & provenance attestations, embedding the actual crate list via cargo-auditable by [@kristof-mattei](https://github.com/kristof-mattei) ([`7069ac7`](https://github.com/kristof-mattei/autoheal-rs/commit/7069ac7c50b8a9c3eab63e1b31ebf77164141d7c))
 ## [1.13.2](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.1..v1.13.2) - 2026-07-07
 
 ### 🐛 Bug Fixes
@@ -830,6 +835,11 @@
 - Fix tests by [@kristof-mattei](https://github.com/kristof-mattei) ([`94fa5ec`](https://github.com/kristof-mattei/autoheal-rs/commit/94fa5ec7273143bd60d668110b7705c4db5f337b))
 - Fix unneeded use by [@kristof-mattei](https://github.com/kristof-mattei) ([`413eae3`](https://github.com/kristof-mattei/autoheal-rs/commit/413eae33b533813ab016c7cf9b7eac5ff3bacf82))
 - Fix docker compose container naming scheme by [@kristof-mattei](https://github.com/kristof-mattei) ([`dae11f1`](https://github.com/kristof-mattei/autoheal-rs/commit/dae11f1933484c8bc52b8612fb93327b44f56dbe))
+## [1.4.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.3.0..v1.4.0) - 2024-03-07
+
+### 🚀 Features
+
+- Update env var name by [@kristof-mattei](https://github.com/kristof-mattei) ([`9d24b6f`](https://github.com/kristof-mattei/autoheal-rs/commit/9d24b6f3f73d87d4daa7159dbe2f791f723328a1))
 ## [1.3.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.2.0..v1.3.0) - 2024-03-07
 
 ### 🚀 Features
@@ -837,7 +847,6 @@
 - Webhooks support ntfy by [@kristof-mattei](https://github.com/kristof-mattei) ([`a6f110b`](https://github.com/kristof-mattei/autoheal-rs/commit/a6f110be9c728b97e39577e78c661341469992c3))
 - Start migrating away from =true auto labels by [@kristof-mattei](https://github.com/kristof-mattei) ([`2f6960b`](https://github.com/kristof-mattei/autoheal-rs/commit/2f6960b18e81ef2975ba371e0d61028f6678fdee))
 - Allow for excluding containers by name by [@kristof-mattei](https://github.com/kristof-mattei) ([`023b97d`](https://github.com/kristof-mattei/autoheal-rs/commit/023b97db6e934e4f3d602983299b3db604dca35f))
-- Update env var name by [@kristof-mattei](https://github.com/kristof-mattei) ([`9d24b6f`](https://github.com/kristof-mattei/autoheal-rs/commit/9d24b6f3f73d87d4daa7159dbe2f791f723328a1))
 
 ### 🐛 Bug Fixes
 
