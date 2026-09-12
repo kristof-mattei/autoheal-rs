@@ -1,5 +1,10 @@
 <!-- header goes here -->
-## [1.13.7](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.6..v1.13.7) - 2026-09-11
+## [1.13.8](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.7..v1.13.8) - 2026-09-12
+
+### 🐛 Bug Fixes
+
+- Re-raise fatal signals instead of exiting 128+n by [@kristof-mattei](https://github.com/kristof-mattei) ([`6db9883`](https://github.com/kristof-mattei/autoheal-rs/commit/6db9883b6c2c3b6dac3c18fa92f27a67fbf467e8))
+## [1.13.7](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.6..v1.13.7) - 2026-09-12
 
 ### ⚙️ Miscellaneous Tasks
 
