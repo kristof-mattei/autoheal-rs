@@ -194,11 +194,18 @@ async fn start_tasks() -> Shutdown {
     // this is easier to write than x separate timeoouts
     // while we don't know if any of them gets killed
     // this will do for now, and we can always trace back the logs
-    if timeout(Duration::from_secs(10), tasks.wait())
-        .await
-        .is_err()
-    {
+    let drained = timeout(Duration::from_secs(10), tasks.wait()).await.is_ok();
+
+    if !drained {
         event!(Level::ERROR, "Task didn't stop within allotted time!");
+    }
+
+    // a shutdown that already reports a failure is returned unchanged
+    if !drained && matches!(shutdown_reason, Shutdown::Success | Shutdown::Signal(_)) {
+        return Shutdown::OperationalFailure {
+            code: ExitCode::FAILURE,
+            message: "Tasks didn't stop within the allotted time",
+        };
     }
 
     shutdown_reason
