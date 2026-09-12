@@ -47,6 +47,7 @@ samply
 sccache
 setpcap
 shouldnt
+signum
 skopeo
 skopeo's
 slurpfile
