@@ -115,7 +115,7 @@ COPY <<EOF /etc/group
 root:x:0:
 EOF
 
-COPY --from=rust-build /output/bin/${APPLICATION_NAME} /app/entrypoint
+COPY --from=rust-build /output/bin/${APPLICATION_NAME} /app/autoheal-rs
 
 # certificates
 COPY --from=rust-base /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
@@ -126,4 +126,4 @@ ENV RUST_BACKTRACE=full
 
 WORKDIR /app
 
-ENTRYPOINT ["/app/entrypoint"]
+ENTRYPOINT ["/app/autoheal-rs"]
