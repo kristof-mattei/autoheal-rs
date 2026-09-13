@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [1.13.9](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.8..v1.13.9) - 2026-09-13
+
+### 💼 Other
+
+- Name the entrypoint binary after the application by [@kristof-mattei](https://github.com/kristof-mattei) ([`31126fc`](https://github.com/kristof-mattei/autoheal-rs/commit/31126fc1e47b47022d7fd6f7a190cde21ccd93b5))
 ## [1.13.8](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.7..v1.13.8) - 2026-09-12
 
 ### 🐛 Bug Fixes
