@@ -16,7 +16,6 @@ headgreen
 idents
 kristof
 lintian
-logline
 mattei
 mimalloc
 miri
@@ -38,7 +37,6 @@ rhysd
 rustflags
 samply
 sccache
-shouldnt
 signum
 skopeo
 skopeo's
@@ -50,6 +48,7 @@ targetplatformdash
 telem
 tera
 timeoouts
+tmpfs
 topo
 tostring
 trixie
