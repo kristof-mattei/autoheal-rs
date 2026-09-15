@@ -1,74 +1,65 @@
+x-test-container: &test-container
+  network_mode: none
+  command: tail -f /dev/null
+  # PID 1 ignores SIGTERM, without this every stop waits out the default 10s
+  stop_grace_period: 1s
+
 services:
   should-keep-restarting:
-    # this container should be restarted by autoheal because its unhealthy and has the autoheal label
+    <<: *test-container
     image: alpine@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
-    network_mode: none
-    restart: "no"
     labels:
-      - "$AUTOHEAL_CONTAINER_LABEL=true"
+      - "${AUTOHEAL_CONTAINER_LABEL:?}=true"
     healthcheck:
       test: exit 1
       interval: 3s
       timeout: 1s
       retries: 3
       start_period: 5s
-    command: tail -f /dev/null
 
   shouldnt-restart-healthy:
-    # this container shouldn't be restarted by autoheal because its healthy
+    <<: *test-container
     image: alpine@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
-    network_mode: none
-    restart: "no"
     labels:
-      - "$AUTOHEAL_CONTAINER_LABEL=true"
+      - "${AUTOHEAL_CONTAINER_LABEL:?}=true"
     healthcheck:
       test: exit 0
       interval: 2s
       timeout: 1s
       retries: 1
       start_period: 1s
-    command: tail -f /dev/null
 
   shouldnt-restart-no-label:
-    # this container shouldn't be restarted by autoheal because its missing the autoheal label
+    <<: *test-container
     image: alpine@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
-    network_mode: none
-    restart: "no"
     healthcheck:
       test: exit 1
       interval: 3s
       timeout: 1s
       retries: 1
       start_period: 5s
-    command: tail -f /dev/null
 
   ignore:
-    # this container shouldn't be restarted because it is ignored by name
-    # even though technically it is included based on the label
+    <<: *test-container
     image: alpine@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
-    network_mode: none
-    restart: "no"
     labels:
-      - "$AUTOHEAL_CONTAINER_LABEL=true"
+      - "${AUTOHEAL_CONTAINER_LABEL:?}=true"
     healthcheck:
       test: exit 1
       interval: 3s
       timeout: 1s
       retries: 1
       start_period: 5s
-    command: tail -f /dev/null
 
-  autoheal:
-    restart: unless-stopped
-    user: root
+  autoheal-rs:
     cap_drop:
       - ALL
     security_opt:
       - no-new-privileges:true
     environment:
-      AUTOHEAL_CONTAINER_LABEL: "${AUTOHEAL_CONTAINER_LABEL:-all}"
+      AUTOHEAL_CONTAINER_LABEL: ${AUTOHEAL_CONTAINER_LABEL:?}
       AUTOHEAL_INTERVAL: "10"
-      AUTOHEAL_EXCLUDE_CONTAINERS: autoheal-test-ignore-1
+      AUTOHEAL_EXCLUDE_CONTAINERS: ${COMPOSE_PROJECT_NAME:?}-ignore-1
       # WEBHOOK_URL: https://ntfy.sh/...
     volumes:
       - type: bind

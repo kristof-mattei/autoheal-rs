@@ -1,12 +1,10 @@
 services:
-  watch-autoheal:
-    build: watch-autoheal
-    restart: "no"
-    user: root
+  watch-autoheal-rs:
+    build: watch-autoheal-rs
+    environment:
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME:?}
     volumes:
       - type: bind
         source: "${DOCKER_SOCKET:-/var/run/docker.sock}"
         target: /var/run/docker.sock
-    environment:
-      COMPOSE_PROJECT_NAME: $COMPOSE_PROJECT_NAME
     network_mode: none
