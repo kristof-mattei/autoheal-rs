@@ -28,7 +28,7 @@ docker compose config
 function cleanup() {
     exit_status=$?
     echo "exit was $exit_status"
-    # stop autoheal-rs first, to stop it restarting the test containers while we try to stop them
+    # prevent autoheal-rs from restarting test containers while they stop
     docker compose stop autoheal-rs
     if (( exit_status != 0 )); then
         docker compose logs autoheal-rs
@@ -41,6 +41,6 @@ trap cleanup EXIT
 docker compose build
 docker compose up --no-start --quiet-pull --force-recreate
 
-docker compose start should-keep-restarting shouldnt-restart-healthy shouldnt-restart-no-label ignore autoheal-rs
+docker compose start unhealthy-labeled healthy-labeled unhealthy-unlabeled unhealthy-excluded autoheal-rs
 
 docker compose up --abort-on-container-exit --exit-code-from watch-autoheal-rs watch-autoheal-rs

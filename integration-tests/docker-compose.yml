@@ -3,53 +3,37 @@ x-test-container: &test-container
   command: tail -f /dev/null
   # PID 1 ignores SIGTERM, without this every stop waits out the default 10s
   stop_grace_period: 1s
+  # the health check fails while the marker exists, the watcher creates it and restarting the container empties the tmpfs
+  tmpfs:
+    - /flags
+  healthcheck:
+    test: ["CMD-SHELL", "test ! -e /flags/unhealthy"]
+    interval: 1s
+    timeout: 1s
+    retries: 1
 
 services:
-  should-keep-restarting:
+  unhealthy-labeled:
     <<: *test-container
     image: alpine@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
     labels:
       - "${AUTOHEAL_CONTAINER_LABEL:?}=true"
-    healthcheck:
-      test: exit 1
-      interval: 3s
-      timeout: 1s
-      retries: 3
-      start_period: 5s
 
-  shouldnt-restart-healthy:
+  healthy-labeled:
     <<: *test-container
     image: alpine@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
     labels:
       - "${AUTOHEAL_CONTAINER_LABEL:?}=true"
-    healthcheck:
-      test: exit 0
-      interval: 2s
-      timeout: 1s
-      retries: 1
-      start_period: 1s
 
-  shouldnt-restart-no-label:
+  unhealthy-unlabeled:
     <<: *test-container
     image: alpine@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
-    healthcheck:
-      test: exit 1
-      interval: 3s
-      timeout: 1s
-      retries: 1
-      start_period: 5s
 
-  ignore:
+  unhealthy-excluded:
     <<: *test-container
     image: alpine@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
     labels:
       - "${AUTOHEAL_CONTAINER_LABEL:?}=true"
-    healthcheck:
-      test: exit 1
-      interval: 3s
-      timeout: 1s
-      retries: 1
-      start_period: 5s
 
   autoheal-rs:
     cap_drop:
@@ -58,8 +42,9 @@ services:
       - no-new-privileges:true
     environment:
       AUTOHEAL_CONTAINER_LABEL: ${AUTOHEAL_CONTAINER_LABEL:?}
-      AUTOHEAL_INTERVAL: "10"
-      AUTOHEAL_EXCLUDE_CONTAINERS: ${COMPOSE_PROJECT_NAME:?}-ignore-1
+      AUTOHEAL_INTERVAL: "1"
+      AUTOHEAL_DEFAULT_STOP_TIMEOUT: "1"
+      AUTOHEAL_EXCLUDE_CONTAINERS: ${COMPOSE_PROJECT_NAME:?}-unhealthy-excluded-1
       # WEBHOOK_URL: https://ntfy.sh/...
     volumes:
       - type: bind
