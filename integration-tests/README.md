@@ -1,4 +1,4 @@
-# Docker Autoheal Tests
+# autoheal-rs integration tests
 
 Docker autoheal monitor written in Rust, inspired by [docker-autoheal](https://github.com/willfarrell/docker-autoheal).
 

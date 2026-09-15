@@ -1,16 +1,23 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
 COMPOSE_PROJECT_NAME=${1:-autoheal-test}
 export COMPOSE_PROJECT_NAME
 
+AUTOHEAL_CONTAINER_LABEL=${AUTOHEAL_CONTAINER_LABEL:-autoheal-test}
+export AUTOHEAL_CONTAINER_LABEL
+
 COMPOSE_FILE="docker-compose.yml:docker-compose.autoheal.yml:"
 
-if ! [[ -z ${IMAGE_ID+x} ]]; then
-    # image id is from built container when ran via GitHub actions. See build.yml
+if [[ -n ${IMAGE_ID+x} ]]; then
+    # CI sets IMAGE_ID to the image it built
     COMPOSE_FILE+="docker-compose.image.yml"
 else
-    # build ourselves
+    # the Dockerfile needs version-bump.patch
+    touch ../version-bump.patch
+
     COMPOSE_FILE+="docker-compose.build.yml"
 fi
 
