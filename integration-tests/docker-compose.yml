@@ -61,6 +61,10 @@ services:
   autoheal:
     restart: unless-stopped
     user: root
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     environment:
       AUTOHEAL_CONTAINER_LABEL: "${AUTOHEAL_CONTAINER_LABEL:-all}"
       AUTOHEAL_INTERVAL: "10"
