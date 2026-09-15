@@ -6,13 +6,10 @@ artipacked
 autoheal
 bkeepers
 buildcache
-capbset
-capset
 cinstrument
 cliffignore
 ctarget
 cttc
-cves
 dorny
 endfor
 endmacro
@@ -35,7 +32,6 @@ pathbuf
 pkgs
 postprocessors
 prereleased
-privs
 profraw
 pyflakes
 rawfile
@@ -45,7 +41,6 @@ rhysd
 rustflags
 samply
 sccache
-setpcap
 shouldnt
 signum
 skopeo
