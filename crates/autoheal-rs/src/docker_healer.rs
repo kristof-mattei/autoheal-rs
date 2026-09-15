@@ -6,7 +6,7 @@ use tokio::time::{MissedTickBehavior, sleep};
 use tracing::{Level, event};
 use twistlock::client::Client;
 use twistlock::filters::Filters;
-use twistlock::models::container::Container;
+use twistlock::models::container::ContainerSummary;
 
 use crate::config::HealerConfig;
 use crate::webhook::WebHookNotifier;
@@ -53,7 +53,7 @@ impl DockerHealer {
         }
     }
 
-    pub async fn check_container_health(&self, container_info: &Container, times: usize) {
+    pub async fn check_container_health(&self, container_info: &ContainerSummary, times: usize) {
         let container_short_id = container_info.get_short_id();
 
         match container_info.get_name() {
