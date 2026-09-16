@@ -11,13 +11,7 @@
             "cargo": {
                 "args": ["run", "--bin=autoheal-rs"]
             },
-            "args": [],
-            "env": {
-                "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,autoheal_rs=TRACE"
-            },
-            "internalConsoleOptions": "neverOpen",
-            "terminal": "integrated"
+            "args": []
         },
         {
             "name": "Debug executable 'autoheal-rs' over http",
@@ -28,12 +22,8 @@
             },
             "args": [],
             "env": {
-                "RUST_BACKTRACE": "1",
-                "DOCKER_SOCK": "tcp://localhost:2376",
-                "RUST_LOG": "DEBUG,autoheal_rs=TRACE"
-            },
-            "internalConsoleOptions": "neverOpen",
-            "terminal": "integrated"
+                "DOCKER_SOCK": "tcp://localhost:2376"
+            }
         },
         {
             "name": "Debug unit tests in executable 'autoheal-rs'",
@@ -43,13 +33,7 @@
                 "args": ["test", "--bin=autoheal-rs"]
             },
             "args": [],
-            "cwd": "${workspaceFolder}",
-            "env": {
-                "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,autoheal_rs=TRACE"
-            },
-            "internalConsoleOptions": "neverOpen",
-            "terminal": "integrated"
+            "cwd": "${workspaceFolder}"
         },
         {
             "name": "Debug integration test 'integration_tests'",
@@ -58,13 +42,7 @@
             "cargo": {
                 "args": ["test", "--no-run", "--test=integration_tests"]
             },
-            "args": [],
-            "env": {
-                "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,autoheal_rs=TRACE"
-            },
-            "internalConsoleOptions": "neverOpen",
-            "terminal": "integrated"
+            "args": []
         }
     ]
 }
