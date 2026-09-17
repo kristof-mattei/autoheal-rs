@@ -7,6 +7,7 @@ use tracing::{Level, event};
 use twistlock::client::Client;
 use twistlock::filters::Filters;
 use twistlock::models::container::ContainerSummary;
+use twistlock::models::id::ContainerId;
 
 use crate::config::HealerConfig;
 use crate::webhook::WebHookNotifier;
@@ -87,7 +88,7 @@ impl DockerHealer {
 
                     match self
                         .client
-                        .restart_container(container_short_id, timeout)
+                        .restart_container(&container_info.id, timeout)
                         .await
                     {
                         Ok(()) => {
@@ -126,7 +127,7 @@ impl DockerHealer {
             sleep(self.healer_config.start_period).await;
         }
 
-        let mut history_unhealthy = HashMap::<Box<str>, (Option<Box<str>>, usize)>::new();
+        let mut history_unhealthy = HashMap::<ContainerId, (Option<Box<str>>, usize)>::new();
 
         let mut interval = tokio::time::interval(self.healer_config.interval);
         interval.set_missed_tick_behavior(MissedTickBehavior::Delay);
@@ -137,7 +138,7 @@ impl DockerHealer {
             match self.client.list_containers(&self.filters).await {
                 Ok(containers) => {
                     let mut new_history =
-                        HashMap::<Box<str>, (Option<Box<str>>, usize)>::with_capacity(
+                        HashMap::<ContainerId, (Option<Box<str>>, usize)>::with_capacity(
                             containers.len(),
                         );
 
