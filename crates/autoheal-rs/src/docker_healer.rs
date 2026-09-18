@@ -173,7 +173,7 @@ impl DockerHealer {
                             event!(
                                 Level::INFO,
                                 container_name = %name.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
-                                container_id = %key,
+                                container_short_id = %key.as_short(),
                                 "Container returned to healthy state.",
                             );
                         }
