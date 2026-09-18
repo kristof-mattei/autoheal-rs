@@ -9,6 +9,7 @@ use hyper_util::client::legacy::Client;
 use hyper_util::client::legacy::connect::Connect;
 use hyper_util::rt::TokioExecutor;
 use tracing::{Level, event};
+use twistlock::models::id::ContainerId;
 
 /// Executes a request on a client.
 ///
@@ -35,34 +36,34 @@ struct WebHookInvocation {
     uri: Uri,
     container_name: Box<str>,
     container_short_id: Box<str>,
-    state: State,
+    outcome: RestartOutcome,
 }
 
 impl WebHookInvocation {
     fn to_title(&self) -> &str {
-        match self.state {
-            State::Success => "Container successfully restarted",
-            State::Failure(_) => "Container failed to restart",
+        match self.outcome {
+            RestartOutcome::Success => "Container successfully restarted",
+            RestartOutcome::Failure(_) => "Container failed to restart",
         }
     }
 
     fn to_priority(&self) -> usize {
-        match self.state {
-            State::Success => 3,
-            State::Failure(_) => 5,
+        match self.outcome {
+            RestartOutcome::Success => 3,
+            RestartOutcome::Failure(_) => 5,
         }
     }
 
     fn to_tags(&self) -> &str {
-        match self.state {
-            State::Success => "white_check_mark",
-            State::Failure(_) => "x",
+        match self.outcome {
+            RestartOutcome::Success => "white_check_mark",
+            RestartOutcome::Failure(_) => "x",
         }
     }
 }
 
 #[derive(Debug)]
-enum State {
+pub enum RestartOutcome {
     Success,
     Failure(eyre::Report),
 }
@@ -72,10 +73,11 @@ pub struct WebHookNotifier {
 }
 
 impl WebHookNotifier {
-    pub fn notify_webhook_success<S1: Into<Box<str>>, S2: Into<Box<str>>>(
+    pub fn notify<S: Into<Box<str>>>(
         &self,
-        container_short_id: S1,
-        container_name: S2,
+        container_id: &ContainerId,
+        container_name: S,
+        outcome: RestartOutcome,
     ) {
         let Some(uri) = self.uri.clone() else {
             return;
@@ -84,30 +86,8 @@ impl WebHookNotifier {
         let invocation = WebHookInvocation {
             uri,
             container_name: container_name.into(),
-            container_short_id: container_short_id.into(),
-            state: State::Success,
-        };
-
-        tokio::task::spawn(async move {
-            notify_webhook_and_log(invocation).await;
-        });
-    }
-
-    pub fn notify_webhook_failure<S1: Into<Box<str>>, S2: Into<Box<str>>>(
-        &self,
-        container_name: S1,
-        container_short_id: S2,
-        error: eyre::Report,
-    ) {
-        let Some(uri) = self.uri.clone() else {
-            return;
-        };
-
-        let invocation = WebHookInvocation {
-            uri,
-            container_name: container_name.into(),
-            container_short_id: container_short_id.into(),
-            state: State::Failure(error),
+            container_short_id: container_id.as_short().into(),
+            outcome,
         };
 
         tokio::task::spawn(async move {
@@ -130,12 +110,12 @@ async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Repo
         .enable_all_versions()
         .build();
 
-    let message = match invocation.state {
-        State::Success => format!(
+    let message = match invocation.outcome {
+        RestartOutcome::Success => format!(
             "Container \"{}\" ({}) was unhealthy, but was successfully restarted.",
             invocation.container_name, invocation.container_short_id
         ),
-        State::Failure(ref error) => format!(
+        RestartOutcome::Failure(ref error) => format!(
             "Container \"{}\" ({}) was unhealthy and we failed to restarted it. Please check the logs for more info. \nError: {}",
             invocation.container_name, invocation.container_short_id, error
         ),
