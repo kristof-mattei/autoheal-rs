@@ -1,4 +1,13 @@
 <!-- header goes here -->
+## [1.13.11](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.10..v1.13.11) - 2026-09-18
+
+### 🐛 Bug Fixes
+
+- Treat an empty or blank `RUST_LOG` like an absent one by [@kristof-mattei](https://github.com/kristof-mattei) ([`a6d3def`](https://github.com/kristof-mattei/autoheal-rs/commit/a6d3def23097a681bbcf6338e8b9138479a57be1))
+
+### ⚙️ Miscellaneous Tasks
+
+- Add the `authors` and `vendor` OCI labels to the container by [@kristof-mattei](https://github.com/kristof-mattei) ([`c99a47a`](https://github.com/kristof-mattei/autoheal-rs/commit/c99a47add3497590e832ec4c69e4027a13afa808))
 ## [1.13.10](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.9..v1.13.10) - 2026-09-15
 
 ### 🐛 Bug Fixes
