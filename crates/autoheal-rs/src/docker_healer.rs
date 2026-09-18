@@ -10,7 +10,7 @@ use twistlock::models::container::ContainerSummary;
 use twistlock::models::id::ContainerId;
 
 use crate::config::HealerConfig;
-use crate::webhook::WebHookNotifier;
+use crate::webhook::{RestartOutcome, WebHookNotifier};
 
 pub struct DockerHealer {
     client: Client,
@@ -92,8 +92,11 @@ impl DockerHealer {
                         .await
                     {
                         Ok(()) => {
-                            self.notifier
-                                .notify_webhook_success(container_short_id, container_name);
+                            self.notifier.notify(
+                                &container_info.id,
+                                container_name,
+                                RestartOutcome::Success,
+                            );
                         },
                         Err(error) => {
                             event!(
@@ -104,10 +107,10 @@ impl DockerHealer {
                                 "Restarting container failed.",
                             );
 
-                            self.notifier.notify_webhook_failure(
+                            self.notifier.notify(
+                                &container_info.id,
                                 container_name,
-                                container_short_id,
-                                error.into(),
+                                RestartOutcome::Failure(error.into()),
                             );
                         },
                     }
