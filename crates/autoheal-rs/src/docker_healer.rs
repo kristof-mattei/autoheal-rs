@@ -5,7 +5,7 @@ use http::Uri;
 use tokio::time::{MissedTickBehavior, sleep};
 use tracing::{Level, event};
 use twistlock::client::Client;
-use twistlock::filters::Filters;
+use twistlock::filters::{Filters, Status};
 use twistlock::models::container::ContainerSummary;
 use twistlock::models::id::ContainerId;
 
@@ -66,7 +66,7 @@ impl DockerHealer {
                 );
             },
             Some(container_name) => {
-                if &*container_info.state == "restarting" {
+                if container_info.state == Status::Restarting {
                     event!(
                         Level::INFO,
                         %container_name,
