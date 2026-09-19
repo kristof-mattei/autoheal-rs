@@ -1,4 +1,18 @@
 <!-- header goes here -->
+## [1.13.12](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.11..v1.13.12) - 2026-09-19
+
+### 🐛 Bug Fixes
+
+- Log `container_short_id` in the recovery event, like every other event by [@kristof-mattei](https://github.com/kristof-mattei) ([`9d90d12`](https://github.com/kristof-mattei/autoheal-rs/commit/9d90d12e0704671845e885282f1fe6930a88cc9a))
+
+### 🚜 Refactor
+
+- *(webhook)* Merge the notify functions into `WebHookNotifier::notify`, taking a `&ContainerId` by [@kristof-mattei](https://github.com/kristof-mattei) ([`fcd797a`](https://github.com/kristof-mattei/autoheal-rs/commit/fcd797a9014be10a15388516ef9c610024b7e012))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(codeql)* Install mold before the Rust analysis by [@kristof-mattei](https://github.com/kristof-mattei) ([`57ea65e`](https://github.com/kristof-mattei/autoheal-rs/commit/57ea65e196db2aa5643351b8f5de254ad035cba6))
+- *(release)* Copy the container to Docker Hub from a `docker-io` environment that links to the released tags by [@kristof-mattei](https://github.com/kristof-mattei) ([`0e842b0`](https://github.com/kristof-mattei/autoheal-rs/commit/0e842b00a4b6b771dfc406af570eae697cf3337e))
 ## [1.13.11](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.10..v1.13.11) - 2026-09-18
 
 ### 🐛 Bug Fixes
