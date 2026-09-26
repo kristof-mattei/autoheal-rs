@@ -1,4 +1,22 @@
 <!-- header goes here -->
+## [1.13.12](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.11..v1.13.12) - 2026-09-26
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate twistlock to v0.8.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d9dc167`](https://github.com/kristof-mattei/autoheal-rs/commit/d9dc1675a27c3bfac4cd85b8ea9e6b3dd5512220))
+- Log `container_short_id` in the recovery event, like every other event by [@kristof-mattei](https://github.com/kristof-mattei) ([`9d90d12`](https://github.com/kristof-mattei/autoheal-rs/commit/9d90d12e0704671845e885282f1fe6930a88cc9a))
+
+### 🚜 Refactor
+
+- *(webhook)* Merge the notify functions into `WebHookNotifier::notify`, taking a `&ContainerId` by [@kristof-mattei](https://github.com/kristof-mattei) ([`fcd797a`](https://github.com/kristof-mattei/autoheal-rs/commit/fcd797a9014be10a15388516ef9c610024b7e012))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Copy the container to Docker Hub from a `docker-io` environment that links to the released tags by [@kristof-mattei](https://github.com/kristof-mattei) ([`0e842b0`](https://github.com/kristof-mattei/autoheal-rs/commit/0e842b00a4b6b771dfc406af570eae697cf3337e))
+
+### 💼 Other
+
+- Link the container binaries with mold by [@kristof-mattei](https://github.com/kristof-mattei) ([`525e8a0`](https://github.com/kristof-mattei/autoheal-rs/commit/525e8a0bed4f69ffeb72679c79ff7ba10fc034b2))
 ## [1.13.11](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.10..v1.13.11) - 2026-09-18
 
 ### 🐛 Bug Fixes
