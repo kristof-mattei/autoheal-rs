@@ -30,7 +30,7 @@ function cleanup() {
     echo "exit was $exit_status"
     # prevent autoheal-rs from restarting test containers while they stop
     docker compose stop autoheal-rs
-    if (( exit_status != 0 )); then
+    if ((exit_status != 0)); then
         docker compose logs autoheal-rs
     fi
     docker compose down --timeout 1 || true

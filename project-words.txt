@@ -19,6 +19,7 @@ lintian
 mattei
 mimalloc
 miri
+mkhl
 monomorphization
 multiplatform
 nextest
