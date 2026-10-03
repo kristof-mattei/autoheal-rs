@@ -1,4 +1,27 @@
 <!-- header goes here -->
+## [1.13.12](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.11..v1.13.12) - 2026-10-03
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate hyper-rustls to v0.27.10 by [@renovate[bot]](https://github.com/renovate[bot]) ([`21d8d17`](https://github.com/kristof-mattei/autoheal-rs/commit/21d8d17840d2c293bb6ef0329e2822ea078fe6d4))
+- *(deps)* Declare the `rt` feature of `tokio-util`, we depend on it directly by [@kristof-mattei](https://github.com/kristof-mattei) ([`3cd0983`](https://github.com/kristof-mattei/autoheal-rs/commit/3cd09834a324e7f73f649c80372747a0441706b7))
+- *(deps)* Update rust crate twistlock to v0.8.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d9dc167`](https://github.com/kristof-mattei/autoheal-rs/commit/d9dc1675a27c3bfac4cd85b8ea9e6b3dd5512220))
+- *(deps)* Update rust crate hyper-util to v0.1.21 by [@renovate[bot]](https://github.com/renovate[bot]) ([`4d5bae0`](https://github.com/kristof-mattei/autoheal-rs/commit/4d5bae074083c07f86614efb0ac09c2086033daf))
+- Log `container_short_id` in the recovery event, like every other event by [@kristof-mattei](https://github.com/kristof-mattei) ([`9d90d12`](https://github.com/kristof-mattei/autoheal-rs/commit/9d90d12e0704671845e885282f1fe6930a88cc9a))
+
+### 🚜 Refactor
+
+- *(webhook)* Merge the notify functions into `WebHookNotifier::notify`, taking a `&ContainerId` by [@kristof-mattei](https://github.com/kristof-mattei) ([`fcd797a`](https://github.com/kristof-mattei/autoheal-rs/commit/fcd797a9014be10a15388516ef9c610024b7e012))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(codeql)* Install mold before the Rust analysis by [@kristof-mattei](https://github.com/kristof-mattei) ([`57ea65e`](https://github.com/kristof-mattei/autoheal-rs/commit/57ea65e196db2aa5643351b8f5de254ad035cba6))
+- *(devcontainer)* Install mold from the GitHub release by [@kristof-mattei](https://github.com/kristof-mattei) ([`6cece4f`](https://github.com/kristof-mattei/autoheal-rs/commit/6cece4fb9cca8839d21090057728982422f1b1f9))
+- *(release)* Copy the container to Docker Hub from a `docker-io` environment that links to the released tags by [@kristof-mattei](https://github.com/kristof-mattei) ([`0e842b0`](https://github.com/kristof-mattei/autoheal-rs/commit/0e842b00a4b6b771dfc406af570eae697cf3337e))
+
+### 💼 Other
+
+- Link the container binaries with mold by [@kristof-mattei](https://github.com/kristof-mattei) ([`525e8a0`](https://github.com/kristof-mattei/autoheal-rs/commit/525e8a0bed4f69ffeb72679c79ff7ba10fc034b2))
 ## [1.13.11](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.10..v1.13.11) - 2026-09-18
 
 ### 🐛 Bug Fixes
