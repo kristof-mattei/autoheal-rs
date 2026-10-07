@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [1.13.13](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.12..v1.13.13) - 2026-10-07
+
+### 🐛 Bug Fixes
+
+- Exit with 128+n as PID 1 instead of warning about a failed re-raise by [@kristof-mattei](https://github.com/kristof-mattei) ([`3cfcb79`](https://github.com/kristof-mattei/autoheal-rs/commit/3cfcb79a354fa9b5a0ec3b77496690ee4bf2657b))
 ## [1.13.12](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.11..v1.13.12) - 2026-10-07
 
 ### 🐛 Bug Fixes
