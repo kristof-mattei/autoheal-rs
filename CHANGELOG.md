@@ -1,4 +1,52 @@
 <!-- header goes here -->
+## [1.13.12](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.11..v1.13.12) - 2026-10-07
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate hyper-rustls to v0.27.10 by [@renovate[bot]](https://github.com/renovate[bot]) ([`21d8d17`](https://github.com/kristof-mattei/autoheal-rs/commit/21d8d17840d2c293bb6ef0329e2822ea078fe6d4))
+- *(deps)* Declare the `rt` feature of `tokio-util`, we depend on it directly by [@kristof-mattei](https://github.com/kristof-mattei) ([`3cd0983`](https://github.com/kristof-mattei/autoheal-rs/commit/3cd09834a324e7f73f649c80372747a0441706b7))
+- *(deps)* Update rust crate twistlock to v0.8.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d9dc167`](https://github.com/kristof-mattei/autoheal-rs/commit/d9dc1675a27c3bfac4cd85b8ea9e6b3dd5512220))
+- *(deps)* Update rust crate hyper-util to v0.1.21 by [@renovate[bot]](https://github.com/renovate[bot]) ([`4d5bae0`](https://github.com/kristof-mattei/autoheal-rs/commit/4d5bae074083c07f86614efb0ac09c2086033daf))
+- *(deps)* Update rust crate libc to v0.2.190 by [@renovate[bot]](https://github.com/renovate[bot]) ([`bd1e435`](https://github.com/kristof-mattei/autoheal-rs/commit/bd1e4352e733e21471affefa88df0c73aac6f0d6))
+- *(deps)* Update rust crate tokio to v1.53.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`edf0d25`](https://github.com/kristof-mattei/autoheal-rs/commit/edf0d25b1e5ebb456d3fd9d0cff14cb2a274c08f))
+- *(deps)* Update rust crate hyper to v1.12.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d5402e0`](https://github.com/kristof-mattei/autoheal-rs/commit/d5402e019fd458c55b2def05477d3d2d48df57ea))
+- Log `container_short_id` in the recovery event, like every other event by [@kristof-mattei](https://github.com/kristof-mattei) ([`9d90d12`](https://github.com/kristof-mattei/autoheal-rs/commit/9d90d12e0704671845e885282f1fe6930a88cc9a))
+
+### 🚜 Refactor
+
+- *(webhook)* Merge the notify functions into `WebHookNotifier::notify`, taking a `&ContainerId` by [@kristof-mattei](https://github.com/kristof-mattei) ([`fcd797a`](https://github.com/kristof-mattei/autoheal-rs/commit/fcd797a9014be10a15388516ef9c610024b7e012))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Increase timeouts by [@kristof-mattei](https://github.com/kristof-mattei) ([`afdcbb4`](https://github.com/kristof-mattei/autoheal-rs/commit/afdcbb4ad0875a47571030915a6e00c07283b90e))
+- *(codeql)* Install mold before the Rust analysis by [@kristof-mattei](https://github.com/kristof-mattei) ([`57ea65e`](https://github.com/kristof-mattei/autoheal-rs/commit/57ea65e196db2aa5643351b8f5de254ad035cba6))
+- *(devcontainer)* Install mold from the GitHub release by [@kristof-mattei](https://github.com/kristof-mattei) ([`6cece4f`](https://github.com/kristof-mattei/autoheal-rs/commit/6cece4fb9cca8839d21090057728982422f1b1f9))
+- *(docker)* Compare the PR image against its base commit's image instead of `edge` by [@kristof-mattei](https://github.com/kristof-mattei) ([`73bd78b`](https://github.com/kristof-mattei/autoheal-rs/commit/73bd78b97674f97a64d1b60f3fa294d8fcf5cf3a))
+- *(github)* Lint the pull request title by [@kristof-mattei](https://github.com/kristof-mattei) ([`35a772a`](https://github.com/kristof-mattei/autoheal-rs/commit/35a772aaf4901097a0d8c27bd681515f8f1f9bea))
+- *(release)* Copy the container to Docker Hub from a `docker-io` environment that links to the released tags by [@kristof-mattei](https://github.com/kristof-mattei) ([`0e842b0`](https://github.com/kristof-mattei/autoheal-rs/commit/0e842b00a4b6b771dfc406af570eae697cf3337e))
+- *(release)* Compare the release commit's base image instead of `edge` by [@kristof-mattei](https://github.com/kristof-mattei) ([`08f21ab`](https://github.com/kristof-mattei/autoheal-rs/commit/08f21ab3ca6724b24275b69c9479a49fba0823a2))
+- Correct the outcome list above the `all-done` jobs by [@kristof-mattei](https://github.com/kristof-mattei) ([`a7253ea`](https://github.com/kristof-mattei/autoheal-rs/commit/a7253ea0c1cc184670fab4549d75d6b9c19f951c))
+- Ignore the zizmor pin audits on `rui314/setup-mold` by [@kristof-mattei](https://github.com/kristof-mattei) ([`eeb876c`](https://github.com/kristof-mattei/autoheal-rs/commit/eeb876c9545d08c06da5360d8a53438d9a22fd3e))
+- Set rustflags through `CARGO_TARGET_<TRIPLE>_RUSTFLAGS` so the mold flag in `.cargo/config.toml` stays in effect by [@kristof-mattei](https://github.com/kristof-mattei) ([`1697a82`](https://github.com/kristof-mattei/autoheal-rs/commit/1697a8221031e92885cb81607f7076b52efbdf26))
+- Install mold in `deb-build` with `rui314/setup-mold` by [@kristof-mattei](https://github.com/kristof-mattei) ([`61154fc`](https://github.com/kristof-mattei/autoheal-rs/commit/61154fc3c0f57ae713fc81950325361bdab2b57f))
+- Explain why `RUSTFLAGS` cannot be used and link the Cargo reference by [@kristof-mattei](https://github.com/kristof-mattei) ([`f7ade0b`](https://github.com/kristof-mattei/autoheal-rs/commit/f7ade0b0524065116029e57574d0bf8d069ad185))
+- Shfmt by [@kristof-mattei](https://github.com/kristof-mattei) ([`6fbb336`](https://github.com/kristof-mattei/autoheal-rs/commit/6fbb3360eb67cbb99bd16caf8ba3b51e8e1af54f))
+- Support GitHub stacked PRs by [@kristof-mattei](https://github.com/kristof-mattei) ([`5f43637`](https://github.com/kristof-mattei/autoheal-rs/commit/5f43637d79da34027396a78034bc9618e9d1aaf8))
+- Run the changelog selection check on stacked PRs by [@kristof-mattei](https://github.com/kristof-mattei) ([`02e9dd7`](https://github.com/kristof-mattei/autoheal-rs/commit/02e9dd7b88a57134eadcf5034a1cdc9418d1c928))
+- Fail the retag when the PR's artifacts were built against another base by [@kristof-mattei](https://github.com/kristof-mattei) ([`4f413a3`](https://github.com/kristof-mattei/autoheal-rs/commit/4f413a3ee58db1614ba3437e6ee9188be9668dc8))
+- Identify the build cache's PR from the incoming PR's image by [@kristof-mattei](https://github.com/kristof-mattei) ([`adfa27a`](https://github.com/kristof-mattei/autoheal-rs/commit/adfa27aa44c8f8a8ac1d0e7437d05e4cb96842ce))
+- End the `grcov` test-module exclusion at the closing brace by [@kristof-mattei](https://github.com/kristof-mattei) ([`12d6daf`](https://github.com/kristof-mattei/autoheal-rs/commit/12d6daf7f488ff326e1ce0f0015c17b80a7a0971))
+- End the `grcov` test-module branch exclusion at the closing brace by [@kristof-mattei](https://github.com/kristof-mattei) ([`2a9d642`](https://github.com/kristof-mattei/autoheal-rs/commit/2a9d6424a522b62e6c9f5bdd9b11c44bb8239dd1))
+- End the `grcov` test-module exclusions only at a bare closing brace by [@kristof-mattei](https://github.com/kristof-mattei) ([`0e0176f`](https://github.com/kristof-mattei/autoheal-rs/commit/0e0176f7f2120fa4ea73e52e1ad987ba62319b8f))
+- Consolidate the coverage pipeline into `generate-test-report.sh` by [@kristof-mattei](https://github.com/kristof-mattei) ([`a30c4db`](https://github.com/kristof-mattei/autoheal-rs/commit/a30c4dbb2df96934f42afd83df484c328e3eeba0))
+
+### ◀️ Revert
+
+- *(github)* Lint the pull request title by [@kristof-mattei](https://github.com/kristof-mattei) ([`d5d1305`](https://github.com/kristof-mattei/autoheal-rs/commit/d5d1305b1026c616cc8a12e141e9f32546fca5eb))
+
+### 💼 Other
+
+- Link the container binaries with mold by [@kristof-mattei](https://github.com/kristof-mattei) ([`525e8a0`](https://github.com/kristof-mattei/autoheal-rs/commit/525e8a0bed4f69ffeb72679c79ff7ba10fc034b2))
 ## [1.13.11](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.10..v1.13.11) - 2026-09-18
 
 ### 🐛 Bug Fixes
