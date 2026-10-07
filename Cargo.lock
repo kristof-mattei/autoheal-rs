@@ -112,6 +112,7 @@ dependencies = [
  "clap",
  "color-eyre",
  "console-subscriber",
+ "futures-util",
  "hashbrown",
  "http",
  "http-body-util",
