@@ -1,4 +1,13 @@
 <!-- header goes here -->
+## [1.13.14](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.13..v1.13.14) - 2026-10-07
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove CodeQL by [@kristof-mattei](https://github.com/kristof-mattei) ([`e065d20`](https://github.com/kristof-mattei/autoheal-rs/commit/e065d201dcd7901fa879e98f95795dd22adaec55))
+
+### 💼 Other
+
+- Inline `build-scripts` into the `Dockerfile` by [@kristof-mattei](https://github.com/kristof-mattei) ([`9fcfac0`](https://github.com/kristof-mattei/autoheal-rs/commit/9fcfac00d115a651c6de13c257c33ab217aef0e0))
 ## [1.13.13](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.12..v1.13.13) - 2026-10-07
 
 ### 🐛 Bug Fixes
