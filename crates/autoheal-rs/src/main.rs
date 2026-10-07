@@ -4,7 +4,6 @@ mod docker_healer;
 mod helpers;
 mod shutdown;
 mod signal_handlers;
-mod task_tracker_ext;
 mod unhealthy_filters;
 mod utils;
 mod webhook;
@@ -19,10 +18,10 @@ use color_eyre::config::HookBuilder;
 use color_eyre::eyre;
 use config::AppConfig;
 use docker_healer::DockerHealer;
-use task_tracker_ext::TaskTrackerExt as _;
+use futures_util::future::{BoxFuture, FutureExt as _};
+use futures_util::stream::{FuturesUnordered, StreamExt as _};
 use tokio::time::timeout;
 use tokio_util::sync::CancellationToken;
-use tokio_util::task::TaskTracker;
 use tracing::{Level, event};
 use tracing_subscriber::layer::SubscriberExt as _;
 use tracing_subscriber::util::SubscriberInitExt as _;
@@ -149,34 +148,25 @@ async fn start_tasks() -> Shutdown {
 
     let cancellation_token = CancellationToken::new();
 
-    let tasks = TaskTracker::new();
+    let mut tasks = FuturesUnordered::new();
 
-    {
+    tasks.push(spawn_task("Monitor", {
         let cancellation_token = cancellation_token.clone();
 
-        tasks.spawn_with_name("Monitor", async move {
-            let _guard = cancellation_token.clone().drop_guard();
-
+        async move {
             cancellation_token
                 .run_until_cancelled(docker_healer.monitor_containers())
                 .await;
-        });
-    }
 
-    // now we wait forever for either
-    // * SIGTERM
-    // * CTRL+c (SIGINT)
-    // * cancellation of the shutdown token, triggered by another task when it
-    //   completes unexpectedly (which means it failed)
+            Ok(())
+        }
+    }));
+
+    // biased so that when multiple are ready at once, task failure wins over signals
     let shutdown_reason = tokio::select! {
         biased;
-        () = cancellation_token.cancelled() => {
-            event!(Level::WARN, "Underlying task stopped, stopping all other tasks");
-
-            Shutdown::OperationalFailure {
-                code: ExitCode::FAILURE,
-                message: "Some task unexpectedly failed which triggered a shutdown."
-            }
+        Some((name, result)) = tasks.next() => {
+            task_stopped(name, result)
         },
         result = signal_handlers::wait_for_sigterm() => {
             result
@@ -186,16 +176,22 @@ async fn start_tasks() -> Shutdown {
         },
     };
 
-    // catch all cancel in case we got here via something else than a cancellation token
     cancellation_token.cancel();
 
-    tasks.close();
-
-    // wait for the tasks that holds the server to exit gracefully
-    // this is easier to write than x separate timeoouts
-    // while we don't know if any of them gets killed
-    // this will do for now, and we can always trace back the logs
-    let drained = timeout(Duration::from_secs(10), tasks.wait()).await.is_ok();
+    let drained = timeout(Duration::from_secs(10), async {
+        while let Some((name, result)) = tasks.next().await {
+            if let Err(report) = result {
+                event!(
+                    Level::ERROR,
+                    task = name,
+                    ?report,
+                    "Task failed during the shutdown"
+                );
+            }
+        }
+    })
+    .await
+    .is_ok();
 
     if !drained {
         event!(Level::ERROR, "Task didn't stop within allotted time!");
@@ -210,4 +206,35 @@ async fn start_tasks() -> Shutdown {
     }
 
     shutdown_reason
+}
+
+type TaskResult = Result<(), eyre::Report>;
+
+fn spawn_task<F>(name: &'static str, task: F) -> BoxFuture<'static, (&'static str, TaskResult)>
+where
+    F: Future<Output = TaskResult> + Send + 'static,
+{
+    let handle = spawn_with_name(name, task);
+
+    async move {
+        let result = match handle.await {
+            Ok(result) => result,
+            Err(join_error) => Err(eyre::Report::new(join_error)),
+        };
+
+        (name, result)
+    }
+    .boxed()
+}
+
+/// Every task runs until the shutdown, so one that stops before it is a failure.
+fn task_stopped(name: &'static str, result: TaskResult) -> Shutdown {
+    match result {
+        Ok(()) => {
+            Shutdown::UnexpectedError(eyre::eyre!("Task `{}` stopped before the shutdown", name))
+        },
+        Err(report) => {
+            Shutdown::UnexpectedError(report.wrap_err(format!("Task `{}` failed", name)))
+        },
+    }
 }
