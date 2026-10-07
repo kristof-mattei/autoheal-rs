@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [1.13.15](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.14..v1.13.15) - 2026-10-07
+
+### 🚜 Refactor
+
+- Replace `Shutdown::Signal(u8)` with a two-variant `Signal` by [@kristof-mattei](https://github.com/kristof-mattei) ([`f610f2c`](https://github.com/kristof-mattei/autoheal-rs/commit/f610f2ca95cf2644d740c42e117d33385438bf6a))
 ## [1.13.14](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.13..v1.13.14) - 2026-10-07
 
 ### ⚙️ Miscellaneous Tasks
