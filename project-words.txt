@@ -8,6 +8,7 @@ cliffignore
 ctarget
 cttc
 dorny
+einval
 endfor
 endmacro
 errorlens
@@ -54,6 +55,7 @@ tostring
 trixie
 trunc
 twistlock
+uncatchable
 uninlined
 uninspectable
 unseparated
