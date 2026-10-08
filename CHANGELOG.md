@@ -1,4 +1,10 @@
 <!-- header goes here -->
+## [1.13.16](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.15..v1.13.16) - 2026-10-08
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate twistlock to v0.8.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`695257c`](https://github.com/kristof-mattei/autoheal-rs/commit/695257cce984badf176edc7c97816a8903640cf0))
+- Exit with the failing task's error instead of a canned message by [@kristof-mattei](https://github.com/kristof-mattei) ([`1f3ffa9`](https://github.com/kristof-mattei/autoheal-rs/commit/1f3ffa9cbe9a0bb23bba60567d67836251dc9988))
 ## [1.13.15](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.14..v1.13.15) - 2026-10-07
 
 ### 🚜 Refactor
