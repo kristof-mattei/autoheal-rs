@@ -1,4 +1,13 @@
 <!-- header goes here -->
+## [1.13.17](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.16..v1.13.17) - 2026-10-10
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio-util to v0.7.20 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d7d2873`](https://github.com/kristof-mattei/autoheal-rs/commit/d7d2873454976e5eb818326b213c760c79182b7f))
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove the merge-SHA `TODO` that the retag base check covers by [@kristof-mattei](https://github.com/kristof-mattei) ([`cfebda2`](https://github.com/kristof-mattei/autoheal-rs/commit/cfebda2941093385c351175c27760fff87bc5681))
 ## [1.13.16](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.15..v1.13.16) - 2026-10-08
 
 ### 🐛 Bug Fixes
