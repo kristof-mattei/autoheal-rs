@@ -12,6 +12,7 @@ use crate::config::{Config, DockerConfig, HealerConfig};
 const DEFAULT_DOCKER_HOST: &str = "/var/run/docker.sock";
 
 #[derive(Parser, Debug)]
+#[command(about, version)]
 pub struct Cli {
     #[arg(env, default_value = DEFAULT_DOCKER_HOST, value_parser = parse_docker_host, help = "Path to docker TCP/UNIX socket", long="docker")]
     pub docker_host: Endpoint,

@@ -14,6 +14,7 @@ use std::env::VarError;
 use std::process::ExitCode;
 use std::time::Duration;
 
+use clap::Parser as _;
 use color_eyre::config::HookBuilder;
 use color_eyre::eyre;
 use config::Config;
@@ -30,6 +31,7 @@ use tracing_subscriber::{EnvFilter, Layer as _};
 use twistlock::client::Client;
 
 use crate::build_env::get_build_env;
+use crate::cli::Cli;
 use crate::shutdown::Shutdown;
 use crate::utils::flatten_shutdown_handle;
 use crate::utils::task::spawn_with_name;
@@ -78,6 +80,9 @@ fn main() -> Shutdown {
         .install()
         .expect("Failed to install panic handler");
 
+    // parse before tracing is set up, so clap's help and usage errors are not preceded by log output
+    let cli = Cli::parse();
+
     let (env_filter, parsing_error) = build_filter();
 
     init_tracing(env_filter).expect("Failed to set up tracing");
@@ -100,7 +105,7 @@ fn main() -> Shutdown {
         .block_on(async {
             // explicitly launch everything in a spawned task
             // see https://docs.rs/tokio/latest/tokio/attr.main.html#non-worker-async-function
-            let handle = spawn_with_name("main task runner", start_tasks());
+            let handle = spawn_with_name("main task runner", start_tasks(cli));
 
             flatten_shutdown_handle(handle).await
         });
@@ -124,18 +129,19 @@ fn print_header() {
     );
 }
 
-async fn start_tasks() -> Shutdown {
+async fn start_tasks(cli: Cli) -> Shutdown {
     print_header();
+
+    let config = Config::from(cli);
+
+    config.log();
 
     let Config {
         docker: docker_config,
         healer: healer_config,
         container_label,
         webhook_url,
-    } = match Config::build() {
-        Ok(config) => config,
-        Err(error) => return Shutdown::from(error),
-    };
+    } = config;
 
     let filters = unhealthy_filters::build(container_label.as_deref());
 
