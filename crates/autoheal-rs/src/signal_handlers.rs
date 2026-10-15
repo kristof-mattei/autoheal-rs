@@ -1,3 +1,5 @@
+use std::io::Write as _;
+
 use color_eyre::eyre;
 use libc::c_int;
 #[cfg(not(any(target_os = "windows", miri)))]
@@ -95,6 +97,9 @@ pub fn terminate_by_signal(signal: Signal) {
     unsafe {
         libc::signal(signum, libc::SIG_DFL);
     }
+
+    // the raise terminates without flushing stdout
+    let _r = std::io::stdout().flush();
 
     // SAFETY: `raise(3)` has no preconditions
     unsafe {
