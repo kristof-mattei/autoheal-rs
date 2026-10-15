@@ -1,4 +1,5 @@
 mod build_env;
+mod cli;
 mod config;
 mod docker_healer;
 mod helpers;
@@ -15,7 +16,7 @@ use std::time::Duration;
 
 use color_eyre::config::HookBuilder;
 use color_eyre::eyre;
-use config::AppConfig;
+use config::Config;
 use docker_healer::DockerHealer;
 use futures_util::future::{BoxFuture, FutureExt as _};
 use futures_util::stream::{FuturesUnordered, StreamExt as _};
@@ -126,12 +127,12 @@ fn print_header() {
 async fn start_tasks() -> Shutdown {
     print_header();
 
-    let AppConfig {
-        docker_config,
-        healer_config,
+    let Config {
+        docker: docker_config,
+        healer: healer_config,
         container_label,
         webhook_url,
-    } = match AppConfig::build() {
+    } = match Config::build() {
         Ok(config) => config,
         Err(error) => return Shutdown::from(error),
     };
