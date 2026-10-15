@@ -8,10 +8,9 @@ mod unhealthy_filters;
 mod utils;
 mod webhook;
 
-use std::convert::Infallible;
 use std::env;
 use std::env::VarError;
-use std::process::{ExitCode, Termination as _};
+use std::process::ExitCode;
 use std::time::Duration;
 
 use color_eyre::config::HookBuilder;
@@ -70,7 +69,7 @@ fn init_tracing(filter: EnvFilter) -> Result<(), eyre::Report> {
         .try_init()?)
 }
 
-fn main() -> ExitCode {
+fn main() -> Shutdown {
     HookBuilder::default()
         .capture_span_trace_by_default(true)
         .display_env_section(false)
@@ -82,8 +81,8 @@ fn main() -> ExitCode {
     init_tracing(env_filter).expect("Failed to set up tracing");
 
     // bubble up the parsing error
-    if let Err(error) = parsing_error.map_or(Ok(()), Err) {
-        return Err::<Infallible, _>(error).report();
+    if let Some(error) = parsing_error {
+        return Shutdown::from(error);
     }
 
     // initialize the runtime
@@ -100,7 +99,7 @@ fn main() -> ExitCode {
             flatten_shutdown_handle(handle).await
         });
 
-    shutdown.report()
+    shutdown
 }
 
 fn print_header() {
