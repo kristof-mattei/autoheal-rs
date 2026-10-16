@@ -1,14 +1,14 @@
 use std::io::Write as _;
 
 use color_eyre::eyre;
+#[cfg(not(miri))]
+use color_eyre::eyre::WrapErr as _;
 use libc::c_int;
 #[cfg(not(any(target_os = "windows", miri)))]
 use tokio::signal::unix::{self, SignalKind, signal};
 #[cfg(all(target_os = "windows", not(miri)))]
 use tokio::signal::windows;
 use tracing::{Level, event};
-
-use crate::wrap_and_report;
 
 #[expect(
     clippy::as_conversions,
@@ -57,13 +57,11 @@ pub struct SignalListeners {
 impl SignalListeners {
     #[cfg(not(any(target_os = "windows", miri)))]
     pub fn register() -> Result<Self, eyre::Report> {
-        let terminate = signal(SignalKind::terminate()).map_err(|error| {
-            wrap_and_report!(Level::ERROR, error, "Failed to register SIGTERM handler")
-        })?;
+        let terminate =
+            signal(SignalKind::terminate()).wrap_err("Failed to register SIGTERM handler")?;
 
-        let interrupt = signal(SignalKind::interrupt()).map_err(|error| {
-            wrap_and_report!(Level::ERROR, error, "Failed to register CTRL+c handler")
-        })?;
+        let interrupt =
+            signal(SignalKind::interrupt()).wrap_err("Failed to register CTRL+c handler")?;
 
         Ok(Self {
             terminate,
@@ -73,9 +71,7 @@ impl SignalListeners {
 
     #[cfg(all(target_os = "windows", not(miri)))]
     pub fn register() -> Result<Self, eyre::Report> {
-        let interrupt = windows::ctrl_c().map_err(|error| {
-            wrap_and_report!(Level::ERROR, error, "Failed to register CTRL+c handler")
-        })?;
+        let interrupt = windows::ctrl_c().wrap_err("Failed to register CTRL+c handler")?;
 
         Ok(Self { interrupt })
     }

@@ -2,7 +2,6 @@ mod build_env;
 mod cli;
 mod config;
 mod docker_healer;
-mod helpers;
 mod shutdown;
 mod signal_handlers;
 mod unhealthy_filters;
