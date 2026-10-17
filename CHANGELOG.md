@@ -1,4 +1,45 @@
 <!-- header goes here -->
+## [2.0.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.17..v2.0.0) - 2026-10-17
+
+### 🚀 Features
+
+- Log the error that ends the process through tracing by [@kristof-mattei](https://github.com/kristof-mattei) ([`5b61161`](https://github.com/kristof-mattei/autoheal-rs/commit/5b6116102ed652284cf7b9da70257810b49922cc))
+- Log when the shutdown completes by [@kristof-mattei](https://github.com/kristof-mattei) ([`6e874eb`](https://github.com/kristof-mattei/autoheal-rs/commit/6e874ebe34d8f4c18e5b29301809665601b83eee))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to v1.53.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`ffd892c`](https://github.com/kristof-mattei/autoheal-rs/commit/ffd892c70097be89feccd3cfdc1d460b79cdf1e8))
+- *(deps)* Update rust crate libc to v0.2.191 by [@renovate[bot]](https://github.com/renovate[bot]) ([`ed4dd63`](https://github.com/kristof-mattei/autoheal-rs/commit/ed4dd6309b9ccfda277edbc04b8ef9239b2774b0))
+- Flush stdout before re-raising the signal by [@kristof-mattei](https://github.com/kristof-mattei) ([`d07a33e`](https://github.com/kristof-mattei/autoheal-rs/commit/d07a33eec63a67bcd698e338fcdb2d41eae7d4ef))
+- Report an invalid `RUST_LOG` as an operational failure by [@kristof-mattei](https://github.com/kristof-mattei) ([`22efddb`](https://github.com/kristof-mattei/autoheal-rs/commit/22efddb161bf238546eb85dba0d65eafc6c3e6b0))
+- [**breaking**] Let clap handle `--help`, `--version` and usage errors by [@kristof-mattei](https://github.com/kristof-mattei) ([`4e75389`](https://github.com/kristof-mattei/autoheal-rs/commit/4e75389300e585d511d9d9ee90b91a004ab1eb35))
+- Separate `error=true` from the `skip` list in the Dockerfile `check` directive by [@kristof-mattei](https://github.com/kristof-mattei) ([`a2d3c17`](https://github.com/kristof-mattei/autoheal-rs/commit/a2d3c17ccf0b8155d91fb1861f92a09056706246))
+- Register signal listeners before startup by [@kristof-mattei](https://github.com/kristof-mattei) ([`a0ca4ae`](https://github.com/kristof-mattei/autoheal-rs/commit/a0ca4ae3498a698cbba01ce2ff49dd94e32d1bf3))
+- Log the message and source in `wrap_and_report!`, not the whole report by [@kristof-mattei](https://github.com/kristof-mattei) ([`aff54a9`](https://github.com/kristof-mattei/autoheal-rs/commit/aff54a918c4a723f5a3c174ff9c00b4c305e3975))
+- Log the full error chain in `wrap_and_report!` by [@kristof-mattei](https://github.com/kristof-mattei) ([`a10dfe9`](https://github.com/kristof-mattei/autoheal-rs/commit/a10dfe99a6cc72418f2c91cb8156cc959151ca9f))
+- Report the `Shutdown::from` caller as the error's location by [@kristof-mattei](https://github.com/kristof-mattei) ([`1a0d5ef`](https://github.com/kristof-mattei/autoheal-rs/commit/1a0d5ef513f77595c180e1bb57171e8518f5e054))
+
+### 🚜 Refactor
+
+- Remove the unused `Display` impl for `Shutdown` by [@kristof-mattei](https://github.com/kristof-mattei) ([`e470394`](https://github.com/kristof-mattei/autoheal-rs/commit/e47039468eb1e8e70004805b4c0d25077c54ab61))
+- Return `Shutdown` from `main` by [@kristof-mattei](https://github.com/kristof-mattei) ([`d267a45`](https://github.com/kristof-mattei/autoheal-rs/commit/d267a45c92d5aecd4125ef13627de016fe907861))
+- Split `Cli` out of `config.rs` and rename `AppConfig` to `Config` by [@kristof-mattei](https://github.com/kristof-mattei) ([`a2034c8`](https://github.com/kristof-mattei/autoheal-rs/commit/a2034c8bae138c7dfbcdb231b342823ad40a1fc3))
+- Pass `Config` to `start_tasks` by [@kristof-mattei](https://github.com/kristof-mattei) ([`f6089df`](https://github.com/kristof-mattei/autoheal-rs/commit/f6089df21325f9ebd336198f7e16a74fade5682d))
+- Import `wrap_and_report!` only outside Miri by [@kristof-mattei](https://github.com/kristof-mattei) ([`8cc939e`](https://github.com/kristof-mattei/autoheal-rs/commit/8cc939efdcc859f2944b45266d3f213c704920a3))
+- Build the signal handlers on Windows by [@kristof-mattei](https://github.com/kristof-mattei) ([`d31ed07`](https://github.com/kristof-mattei/autoheal-rs/commit/d31ed072b62dc46f1fd2dafb2338a3349ef98965))
+- Return the `match` from `build_filter` by [@kristof-mattei](https://github.com/kristof-mattei) ([`adacf6d`](https://github.com/kristof-mattei/autoheal-rs/commit/adacf6d058b4f6ca58098a540b511f2b6e45a8df))
+
+### 🧪 Testing
+
+- Run the signal tests only on Unix and outside Miri by [@kristof-mattei](https://github.com/kristof-mattei) ([`1f8f90c`](https://github.com/kristof-mattei/autoheal-rs/commit/1f8f90c1b298c63783c9d7d895bc8ca5ff4c1b11))
+- Drop the crate name from the signal test's child marker by [@kristof-mattei](https://github.com/kristof-mattei) ([`0a90ba1`](https://github.com/kristof-mattei/autoheal-rs/commit/0a90ba1fb2bc568bd6c28a624dfe05565671b58c))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Check new ballot entries by default by [@kristof-mattei](https://github.com/kristof-mattei) ([`5289fde`](https://github.com/kristof-mattei/autoheal-rs/commit/5289fde59cfc0439d843f2c8f37df2f7e91fac56))
+- *(release)* Verify the release commit against the rendered ballot by [@kristof-mattei](https://github.com/kristof-mattei) ([`4de328a`](https://github.com/kristof-mattei/autoheal-rs/commit/4de328a3550b5e4972c766d8c36296d4ca8ce8be))
+- *(release)* Exclude superseded dependency bumps through `.cliffignore` by [@kristof-mattei](https://github.com/kristof-mattei) ([`029c3c1`](https://github.com/kristof-mattei/autoheal-rs/commit/029c3c143158eef954188717243b1a6abc37839e))
+- Preload the `docker/scout-action` binary with a token by [@kristof-mattei](https://github.com/kristof-mattei) ([`590641a`](https://github.com/kristof-mattei/autoheal-rs/commit/590641abb20536d4b3d3d522513dbc806d6ba24e))
 ## [1.13.17](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.16..v1.13.17) - 2026-10-10
 
 ### 🐛 Bug Fixes
