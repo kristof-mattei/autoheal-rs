@@ -9,6 +9,7 @@ mod unhealthy_filters;
 mod utils;
 mod webhook;
 
+use std::convert::Infallible;
 use std::env;
 use std::env::VarError;
 use std::process::ExitCode;
@@ -34,7 +35,6 @@ use crate::build_env::get_build_env;
 use crate::cli::Cli;
 use crate::shutdown::Shutdown;
 use crate::signal_handlers::{Signal, SignalListeners};
-use crate::utils::flatten_shutdown_handle;
 use crate::utils::task::spawn_with_name;
 use crate::webhook::WebHookNotifier;
 
@@ -106,7 +106,7 @@ fn main() -> Shutdown {
     config.log();
 
     // initialize the runtime
-    let shutdown: Shutdown = tokio::runtime::Builder::new_multi_thread()
+    let Err(shutdown) = tokio::runtime::Builder::new_multi_thread()
         .enable_io()
         .enable_time()
         .build()
@@ -116,7 +116,7 @@ fn main() -> Shutdown {
             // see https://docs.rs/tokio/latest/tokio/attr.main.html#non-worker-async-function
             let handle = spawn_with_name("main task runner", start_tasks(config));
 
-            flatten_shutdown_handle(handle).await
+            handle.await?
         });
 
     shutdown
@@ -138,12 +138,9 @@ fn print_header() {
     );
 }
 
-async fn start_tasks(config: Config) -> Shutdown {
+async fn start_tasks(config: Config) -> Result<Infallible, Shutdown> {
     // when running as PID 1, a signal before this registration is discarded
-    let mut signal_listeners = match SignalListeners::register() {
-        Ok(signal_listeners) => signal_listeners,
-        Err(report) => return Shutdown::from(report),
-    };
+    let mut signal_listeners = SignalListeners::register()?;
 
     let Config {
         docker: docker_config,
@@ -154,15 +151,9 @@ async fn start_tasks(config: Config) -> Shutdown {
 
     let filters = unhealthy_filters::build(container_label.as_deref());
 
-    let docker_client = match Client::build(docker_config.docker_host) {
-        Ok(client) => client,
-        Err(error) => return Shutdown::from(error),
-    };
+    let docker_client = Client::build(docker_config.docker_host)?;
 
-    let notifier = match WebHookNotifier::new(webhook_url) {
-        Ok(notifier) => notifier,
-        Err(error) => return Shutdown::from(error),
-    };
+    let notifier = WebHookNotifier::new(webhook_url)?;
 
     let docker_healer = DockerHealer::new(
         docker_client,
@@ -218,7 +209,7 @@ async fn start_tasks(config: Config) -> Shutdown {
         biased;
         drained = drain => drained.is_ok(),
         second_signal = signal_listeners.wait() => {
-            return abandon_drain(shutdown_reason, second_signal);
+            return Err(abandon_drain(shutdown_reason, second_signal));
         },
     };
 
@@ -228,16 +219,16 @@ async fn start_tasks(config: Config) -> Shutdown {
 
     // a shutdown that already reports a failure is returned unchanged
     if !drained && matches!(shutdown_reason, Shutdown::Success | Shutdown::Signal(_)) {
-        return Shutdown::OperationalFailure {
+        return Err(Shutdown::OperationalFailure {
             code: ExitCode::FAILURE,
             message: "Tasks didn't stop within the allotted time",
             error: None,
-        };
+        });
     }
 
     event!(Level::INFO, "Shutdown completed");
 
-    shutdown_reason
+    Err(shutdown_reason)
 }
 
 type TaskResult = Result<(), eyre::Report>;
