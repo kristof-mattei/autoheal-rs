@@ -105,7 +105,7 @@ fn main() -> Shutdown {
     config.log();
 
     // initialize the runtime
-    let shutdown: Shutdown = tokio::runtime::Builder::new_multi_thread()
+    let Err(shutdown) = tokio::runtime::Builder::new_multi_thread()
         .enable_io()
         .enable_time()
         .build()
@@ -137,12 +137,9 @@ fn print_header() {
     );
 }
 
-async fn start_tasks(config: Config) -> Shutdown {
+async fn start_tasks(config: Config) -> Result<!, Shutdown> {
     // when running as PID 1, a signal before this registration is discarded
-    let mut signal_listeners = match SignalListeners::register() {
-        Ok(signal_listeners) => signal_listeners,
-        Err(report) => return Shutdown::from(report),
-    };
+    let mut signal_listeners = SignalListeners::register()?;
 
     let Config {
         docker: docker_config,
@@ -153,15 +150,12 @@ async fn start_tasks(config: Config) -> Shutdown {
 
     let filters = unhealthy_filters::build(container_label.as_deref());
 
-    let docker_client = match Client::build(
+    let docker_client = Client::build(
         docker_config.docker_host,
         docker_config.cacert,
         docker_config.client_credentials,
         docker_config.timeout,
-    ) {
-        Ok(client) => client,
-        Err(error) => return Shutdown::from(error),
-    };
+    )?;
 
     let docker_healer = DockerHealer::new(docker_client, healer_config, filters, webhook_url);
 
@@ -211,7 +205,7 @@ async fn start_tasks(config: Config) -> Shutdown {
         biased;
         drained = drain => drained.is_ok(),
         second_signal = signal_listeners.wait() => {
-            return abandon_drain(shutdown_reason, second_signal);
+            return Err(abandon_drain(shutdown_reason, second_signal));
         },
     };
 
@@ -221,16 +215,16 @@ async fn start_tasks(config: Config) -> Shutdown {
 
     // a shutdown that already reports a failure is returned unchanged
     if !drained && matches!(shutdown_reason, Shutdown::Success | Shutdown::Signal(_)) {
-        return Shutdown::OperationalFailure {
+        return Err(Shutdown::OperationalFailure {
             code: ExitCode::FAILURE,
             message: "Tasks didn't stop within the allotted time",
             error: None,
-        };
+        });
     }
 
     event!(Level::INFO, "Shutdown completed");
 
-    shutdown_reason
+    Err(shutdown_reason)
 }
 
 type TaskResult = Result<(), eyre::Report>;
