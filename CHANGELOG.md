@@ -1,10 +1,21 @@
 <!-- header goes here -->
+## [2.0.2](https://github.com/kristof-mattei/autoheal-rs/compare/v2.0.1..v2.0.2) - 2026-10-20
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* List breaking changes in a section of their own by [@kristof-mattei](https://github.com/kristof-mattei) ([`e2a4a21`](https://github.com/kristof-mattei/autoheal-rs/commit/e2a4a2167f6921d49bc2b7d43b62b3c13a9d1e11))
+- Shorten the retag run wait below the `ubuntu-slim` 15-minute job limit by [@kristof-mattei](https://github.com/kristof-mattei) ([`e847e26`](https://github.com/kristof-mattei/autoheal-rs/commit/e847e266d79c0a7e97558b09659652cc2a58aed9))
 ## [2.0.1](https://github.com/kristof-mattei/autoheal-rs/compare/v2.0.0..v2.0.1) - 2026-10-20
 
 ### 🐛 Bug Fixes
 
 - *(deps)* Update rust crate tokio to v1.54.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`e75d9fe`](https://github.com/kristof-mattei/autoheal-rs/commit/e75d9fe5aeb5ac92266d2b38628f60a60c37f998))
 ## [2.0.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.17..v2.0.0) - 2026-10-17
+
+### ⚠️ Breaking Changes
+
+- Let clap handle `--help`, `--version` and usage errors by [@kristof-mattei](https://github.com/kristof-mattei) ([`4e75389`](https://github.com/kristof-mattei/autoheal-rs/commit/4e75389300e585d511d9d9ee90b91a004ab1eb35))
+  - Usage errors exit with code 2 instead of 1
 
 ### 🚀 Features
 
@@ -17,7 +28,6 @@
 - *(deps)* Update rust crate libc to v0.2.191 by [@renovate[bot]](https://github.com/renovate[bot]) ([`ed4dd63`](https://github.com/kristof-mattei/autoheal-rs/commit/ed4dd6309b9ccfda277edbc04b8ef9239b2774b0))
 - Flush stdout before re-raising the signal by [@kristof-mattei](https://github.com/kristof-mattei) ([`d07a33e`](https://github.com/kristof-mattei/autoheal-rs/commit/d07a33eec63a67bcd698e338fcdb2d41eae7d4ef))
 - Report an invalid `RUST_LOG` as an operational failure by [@kristof-mattei](https://github.com/kristof-mattei) ([`22efddb`](https://github.com/kristof-mattei/autoheal-rs/commit/22efddb161bf238546eb85dba0d65eafc6c3e6b0))
-- [**breaking**] Let clap handle `--help`, `--version` and usage errors by [@kristof-mattei](https://github.com/kristof-mattei) ([`4e75389`](https://github.com/kristof-mattei/autoheal-rs/commit/4e75389300e585d511d9d9ee90b91a004ab1eb35))
 - Separate `error=true` from the `skip` list in the Dockerfile `check` directive by [@kristof-mattei](https://github.com/kristof-mattei) ([`a2d3c17`](https://github.com/kristof-mattei/autoheal-rs/commit/a2d3c17ccf0b8155d91fb1861f92a09056706246))
 - Register signal listeners before startup by [@kristof-mattei](https://github.com/kristof-mattei) ([`a0ca4ae`](https://github.com/kristof-mattei/autoheal-rs/commit/a0ca4ae3498a698cbba01ce2ff49dd94e32d1bf3))
 - Log the message and source in `wrap_and_report!`, not the whole report by [@kristof-mattei](https://github.com/kristof-mattei) ([`aff54a9`](https://github.com/kristof-mattei/autoheal-rs/commit/aff54a918c4a723f5a3c174ff9c00b4c305e3975))
