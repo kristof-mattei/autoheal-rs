@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [2.0.1](https://github.com/kristof-mattei/autoheal-rs/compare/v2.0.0..v2.0.1) - 2026-10-20
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to v1.54.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`e75d9fe`](https://github.com/kristof-mattei/autoheal-rs/commit/e75d9fe5aeb5ac92266d2b38628f60a60c37f998))
 ## [2.0.0](https://github.com/kristof-mattei/autoheal-rs/compare/v1.13.17..v2.0.0) - 2026-10-17
 
 ### 🚀 Features
