@@ -50,7 +50,7 @@ impl DockerHealer {
             client,
             filters,
             healer_config,
-            notifier: WebHookNotifier { uri: webhook_uri },
+            notifier: WebHookNotifier::new(webhook_uri),
         }
     }
 

@@ -13,7 +13,6 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean \
 RUN apt-get update \
     && apt-get upgrade --yes \
     && apt-get install --no-install-recommends --yes \
-        ca-certificates \
         patch \
         xz-utils
 
@@ -134,9 +133,6 @@ root:x:0:
 EOF
 
 COPY --from=rust-build /output/bin/${APPLICATION_NAME} /app/autoheal-rs
-
-# certificates
-COPY --from=rust-base /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 USER root
 
