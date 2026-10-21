@@ -1,7 +1,6 @@
 use std::time::Duration;
 
 use hashbrown::HashMap;
-use http::Uri;
 use tokio::time::{MissedTickBehavior, sleep};
 use tracing::{Level, event};
 use twistlock::client::Client;
@@ -44,13 +43,13 @@ impl DockerHealer {
         client: Client,
         healer_config: HealerConfig,
         filters: Filters,
-        webhook_uri: Option<Uri>,
+        notifier: WebHookNotifier,
     ) -> Self {
         Self {
             client,
             filters,
             healer_config,
-            notifier: WebHookNotifier::new(webhook_uri),
+            notifier,
         }
     }
 

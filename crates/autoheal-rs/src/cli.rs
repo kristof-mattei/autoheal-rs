@@ -3,7 +3,7 @@ use std::str::FromStr as _;
 use std::time::Duration;
 
 use clap::{Args, Parser};
-use hyper::Uri;
+use reqwest::Url;
 use twistlock::client::ClientCredentialPaths;
 use twistlock::config::Endpoint;
 
@@ -66,7 +66,7 @@ pub struct Cli {
     pub timeout: Duration,
 
     #[arg(long, env)]
-    pub webhook_url: Option<Uri>,
+    pub webhook_url: Option<Url>,
 }
 
 // flattened as `Option<Self>`. clap still marks the non-`Option` fields required, hence `required = false`. The group enforces both-or-neither

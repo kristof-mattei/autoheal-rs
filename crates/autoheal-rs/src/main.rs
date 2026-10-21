@@ -36,6 +36,7 @@ use crate::shutdown::Shutdown;
 use crate::signal_handlers::{Signal, SignalListeners};
 use crate::utils::flatten_shutdown_handle;
 use crate::utils::task::spawn_with_name;
+use crate::webhook::WebHookNotifier;
 
 #[global_allocator]
 static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
@@ -163,7 +164,12 @@ async fn start_tasks(config: Config) -> Shutdown {
         Err(error) => return Shutdown::from(error),
     };
 
-    let docker_healer = DockerHealer::new(docker_client, healer_config, filters, webhook_url);
+    let notifier = match WebHookNotifier::new(webhook_url) {
+        Ok(notifier) => notifier,
+        Err(error) => return Shutdown::from(error),
+    };
+
+    let docker_healer = DockerHealer::new(docker_client, healer_config, filters, notifier);
 
     let cancellation_token = CancellationToken::new();
 
