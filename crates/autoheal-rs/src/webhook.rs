@@ -1,35 +1,21 @@
+use std::time::Duration;
+
 use color_eyre::eyre;
-use http::{Request, Response};
+use http::Request;
 use http_body_util::Full;
-use hyper::body::{Body, Bytes};
+use hyper::body::Bytes;
 use hyper::http::HeaderValue;
 use hyper::{Method, Uri};
-use hyper_rustls::HttpsConnectorBuilder;
+use hyper_rustls::{HttpsConnector, HttpsConnectorBuilder};
 use hyper_util::client::legacy::Client;
-use hyper_util::client::legacy::connect::Connect;
+use hyper_util::client::legacy::connect::HttpConnector;
 use hyper_util::rt::TokioExecutor;
 use tracing::{Level, event};
 use twistlock::models::id::ContainerId;
 
-/// Executes a request on a client.
-///
-/// # Errors
-///
-/// When the request errors.
-pub async fn execute_request<C, B>(
-    client: &Client<C, B>,
-    request: Request<B>,
-) -> Result<Response<hyper::body::Incoming>, hyper_util::client::legacy::Error>
-where
-    C: Connect + Clone + Send + Sync + 'static,
-    B: Body + Send + 'static + Unpin,
-    B::Data: Send,
-    B::Error: Into<Box<dyn std::error::Error + Send + Sync>>,
-{
-    let response = client.request(request).await?;
+const WEBHOOK_TIMEOUT: Duration = Duration::from_secs(30);
 
-    Ok(response)
-}
+type WebHookClient = Client<HttpsConnector<HttpConnector>, Full<Bytes>>;
 
 #[derive(Debug)]
 struct WebHookInvocation {
@@ -68,48 +54,69 @@ pub enum RestartOutcome {
     Failure(eyre::Report),
 }
 
+struct WebHook {
+    uri: Uri,
+    client: WebHookClient,
+}
+
 pub struct WebHookNotifier {
-    pub uri: Option<Uri>,
+    webhook: Option<WebHook>,
 }
 
 impl WebHookNotifier {
+    pub fn new(uri: Option<Uri>) -> Self {
+        let webhook = uri.map(|uri| {
+            let connector = HttpsConnectorBuilder::new()
+                .with_webpki_roots()
+                .https_or_http()
+                .enable_all_versions()
+                .build();
+
+            WebHook {
+                uri,
+                client: Client::builder(TokioExecutor::new()).build(connector),
+            }
+        });
+
+        Self { webhook }
+    }
+
     pub fn notify<S: Into<Box<str>>>(
         &self,
         container_id: &ContainerId,
         container_name: S,
         outcome: RestartOutcome,
     ) {
-        let Some(uri) = self.uri.clone() else {
+        let Some(ref webhook) = self.webhook else {
             return;
         };
 
         let invocation = WebHookInvocation {
-            uri,
+            uri: webhook.uri.clone(),
             container_name: container_name.into(),
             container_short_id: container_id.as_short().into(),
             outcome,
         };
 
+        let client = webhook.client.clone();
+
         tokio::task::spawn(async move {
-            notify_webhook_and_log(invocation).await;
+            notify_webhook_and_log(&client, invocation).await;
         });
     }
 }
 
-async fn notify_webhook_and_log(invocation: WebHookInvocation) {
-    match notify_webhook(&invocation).await {
+async fn notify_webhook_and_log(client: &WebHookClient, invocation: WebHookInvocation) {
+    match notify_webhook(client, &invocation).await {
         Ok(()) => event!(Level::TRACE, ?invocation, "Successfully notified webhook"),
-        Err(error) => event!(Level::TRACE, ?error, ?invocation, "Failure sending webhook"),
+        Err(error) => event!(Level::ERROR, ?error, ?invocation, "Failure sending webhook"),
     }
 }
 
-async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Report> {
-    let connector = HttpsConnectorBuilder::new()
-        .with_native_roots()?
-        .https_or_http()
-        .enable_all_versions()
-        .build();
-
+async fn notify_webhook(
+    client: &WebHookClient,
+    invocation: &WebHookInvocation,
+) -> Result<(), eyre::Report> {
     let message = match invocation.outcome {
         RestartOutcome::Success => format!(
             "Container \"{}\" ({}) was unhealthy, but was successfully restarted.",
@@ -126,17 +133,18 @@ async fn notify_webhook(invocation: &WebHookInvocation) -> Result<(), eyre::Repo
         .method(Method::POST)
         .header(
             hyper::header::CONTENT_TYPE,
-            HeaderValue::from_static("application/json"),
+            HeaderValue::from_static("text/plain; charset=utf-8"),
         )
         .header("X-Title", invocation.to_title())
         .header("X-Priority", invocation.to_priority())
         .header("X-Tags", invocation.to_tags())
         .body(Full::new(Bytes::from(message)))?;
 
-    let client = Client::builder(TokioExecutor::new()).build(connector);
+    let response = tokio::time::timeout(WEBHOOK_TIMEOUT, client.request(request)).await??;
 
-    execute_request(&client, request)
-        .await
-        .map(|_| ())
-        .map_err(Into::into)
+    if !response.status().is_success() {
+        return Err(eyre::eyre!("Webhook responded with {}", response.status()));
+    }
+
+    Ok(())
 }
