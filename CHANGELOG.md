@@ -1,4 +1,11 @@
 <!-- header goes here -->
+## [2.1.1](https://github.com/kristof-mattei/autoheal-rs/compare/v2.1.0..v2.1.1) - 2026-10-21
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Github Actions lockfile by [@kristof-mattei](https://github.com/kristof-mattei) ([`cbb2c25`](https://github.com/kristof-mattei/autoheal-rs/commit/cbb2c25d049203198a0d136334cf72546363c1e6))
+- *(ci)* Allow ref-pinned actions in `zizmor` since `actions.lock` pins them by [@kristof-mattei](https://github.com/kristof-mattei) ([`7b78db9`](https://github.com/kristof-mattei/autoheal-rs/commit/7b78db9c9c257e04524ad83949334b7bc1af6ecc))
+- *(ci)* Github Actions lockfile by [@kristof-mattei](https://github.com/kristof-mattei) ([`27b6a60`](https://github.com/kristof-mattei/autoheal-rs/commit/27b6a60090324910f678ed58552f41ef83108317))
 ## [2.1.0](https://github.com/kristof-mattei/autoheal-rs/compare/v2.0.2..v2.1.0) - 2026-10-21
 
 ### 🚀 Features
