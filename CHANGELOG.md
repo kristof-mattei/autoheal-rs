@@ -1,4 +1,23 @@
 <!-- header goes here -->
+## [2.1.0](https://github.com/kristof-mattei/autoheal-rs/compare/v2.0.2..v2.1.0) - 2026-10-21
+
+### 🚀 Features
+
+- *(webhook)* Send notifications with reqwest by [@kristof-mattei](https://github.com/kristof-mattei) ([`2ac4dfe`](https://github.com/kristof-mattei/autoheal-rs/commit/2ac4dfec0340f4003dd308aa4108fde0aef3d5e5))
+
+### 🐛 Bug Fixes
+
+- *(webhook)* Fail on non-2xx responses and unresponsive endpoints by [@kristof-mattei](https://github.com/kristof-mattei) ([`565d5a8`](https://github.com/kristof-mattei/autoheal-rs/commit/565d5a8394f80a78c08082df953f8a8d84ec3c5c))
+- *(webhook)* Reject URLs with a scheme other than `http` or `https` by [@kristof-mattei](https://github.com/kristof-mattei) ([`86cbba2`](https://github.com/kristof-mattei/autoheal-rs/commit/86cbba29dd4fb3e52a4730fe03654b8ee5e014ad))
+
+### 🚜 Refactor
+
+- Import `Url` from the `url` crate by [@kristof-mattei](https://github.com/kristof-mattei) ([`b74508d`](https://github.com/kristof-mattei/autoheal-rs/commit/b74508d9ec829fdeee39e479d883241d18718860))
+
+### 💼 Other
+
+- Remove the CA bundle from the image by [@kristof-mattei](https://github.com/kristof-mattei) ([`ebc781c`](https://github.com/kristof-mattei/autoheal-rs/commit/ebc781c87ab6c129a655c74cbad2dcac17cf90e2))
+- Restore the CA bundle from an uncached `certs` stage by [@kristof-mattei](https://github.com/kristof-mattei) ([`a5c9aad`](https://github.com/kristof-mattei/autoheal-rs/commit/a5c9aadbdfae8318d2a9d79ba4b985e49b6f01e2))
 ## [2.0.2](https://github.com/kristof-mattei/autoheal-rs/compare/v2.0.1..v2.0.2) - 2026-10-20
 
 ### ⚙️ Miscellaneous Tasks
