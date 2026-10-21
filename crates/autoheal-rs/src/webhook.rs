@@ -1,25 +1,16 @@
 use std::time::Duration;
 
 use color_eyre::eyre;
-use http::Request;
-use http_body_util::Full;
-use hyper::body::Bytes;
-use hyper::http::HeaderValue;
-use hyper::{Method, Uri};
-use hyper_rustls::{HttpsConnector, HttpsConnectorBuilder};
-use hyper_util::client::legacy::Client;
-use hyper_util::client::legacy::connect::HttpConnector;
-use hyper_util::rt::TokioExecutor;
+use reqwest::header::CONTENT_TYPE;
+use reqwest::{Client, Url};
 use tracing::{Level, event};
 use twistlock::models::id::ContainerId;
 
 const WEBHOOK_TIMEOUT: Duration = Duration::from_secs(30);
 
-type WebHookClient = Client<HttpsConnector<HttpConnector>, Full<Bytes>>;
-
 #[derive(Debug)]
 struct WebHookInvocation {
-    uri: Uri,
+    url: Url,
     container_name: Box<str>,
     container_short_id: Box<str>,
     outcome: RestartOutcome,
@@ -55,8 +46,8 @@ pub enum RestartOutcome {
 }
 
 struct WebHook {
-    uri: Uri,
-    client: WebHookClient,
+    url: Url,
+    client: Client,
 }
 
 pub struct WebHookNotifier {
@@ -64,21 +55,16 @@ pub struct WebHookNotifier {
 }
 
 impl WebHookNotifier {
-    pub fn new(uri: Option<Uri>) -> Self {
-        let webhook = uri.map(|uri| {
-            let connector = HttpsConnectorBuilder::new()
-                .with_webpki_roots()
-                .https_or_http()
-                .enable_all_versions()
-                .build();
+    pub fn new(url: Option<Url>) -> Result<Self, reqwest::Error> {
+        let Some(url) = url else {
+            return Ok(Self { webhook: None });
+        };
 
-            WebHook {
-                uri,
-                client: Client::builder(TokioExecutor::new()).build(connector),
-            }
-        });
+        let client = Client::builder().timeout(WEBHOOK_TIMEOUT).build()?;
 
-        Self { webhook }
+        Ok(Self {
+            webhook: Some(WebHook { url, client }),
+        })
     }
 
     pub fn notify<S: Into<Box<str>>>(
@@ -92,7 +78,7 @@ impl WebHookNotifier {
         };
 
         let invocation = WebHookInvocation {
-            uri: webhook.uri.clone(),
+            url: webhook.url.clone(),
             container_name: container_name.into(),
             container_short_id: container_id.as_short().into(),
             outcome,
@@ -106,7 +92,7 @@ impl WebHookNotifier {
     }
 }
 
-async fn notify_webhook_and_log(client: &WebHookClient, invocation: WebHookInvocation) {
+async fn notify_webhook_and_log(client: &Client, invocation: WebHookInvocation) {
     match notify_webhook(client, &invocation).await {
         Ok(()) => event!(Level::TRACE, ?invocation, "Successfully notified webhook"),
         Err(error) => event!(Level::ERROR, ?error, ?invocation, "Failure sending webhook"),
@@ -114,7 +100,7 @@ async fn notify_webhook_and_log(client: &WebHookClient, invocation: WebHookInvoc
 }
 
 async fn notify_webhook(
-    client: &WebHookClient,
+    client: &Client,
     invocation: &WebHookInvocation,
 ) -> Result<(), eyre::Report> {
     let message = match invocation.outcome {
@@ -128,19 +114,15 @@ async fn notify_webhook(
         ),
     };
 
-    let request = Request::builder()
-        .uri(invocation.uri.clone())
-        .method(Method::POST)
-        .header(
-            hyper::header::CONTENT_TYPE,
-            HeaderValue::from_static("text/plain; charset=utf-8"),
-        )
+    let response = client
+        .post(invocation.url.clone())
+        .header(CONTENT_TYPE, "text/plain; charset=utf-8")
         .header("X-Title", invocation.to_title())
         .header("X-Priority", invocation.to_priority())
         .header("X-Tags", invocation.to_tags())
-        .body(Full::new(Bytes::from(message)))?;
-
-    let response = tokio::time::timeout(WEBHOOK_TIMEOUT, client.request(request)).await??;
+        .body(message)
+        .send()
+        .await?;
 
     if !response.status().is_success() {
         return Err(eyre::eyre!("Webhook responded with {}", response.status()));

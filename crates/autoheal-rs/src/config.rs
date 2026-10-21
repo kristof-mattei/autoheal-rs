@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 use std::time::Duration;
 
-use hyper::Uri;
+use reqwest::Url;
 use tracing::{Level, event};
 use twistlock::client::ClientCredentialPaths;
 use twistlock::config::Endpoint;
@@ -24,7 +24,7 @@ pub struct Config {
     pub container_label: Option<String>,
     pub docker: DockerConfig,
     pub healer: HealerConfig,
-    pub webhook_url: Option<Uri>,
+    pub webhook_url: Option<Url>,
 }
 
 impl Config {
