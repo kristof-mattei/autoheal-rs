@@ -1,10 +1,11 @@
 use std::time::Duration;
 
 use color_eyre::eyre;
+use reqwest::Client;
 use reqwest::header::CONTENT_TYPE;
-use reqwest::{Client, Url};
 use tracing::{Level, event};
 use twistlock::models::id::ContainerId;
+use url::Url;
 
 const WEBHOOK_TIMEOUT: Duration = Duration::from_secs(30);
 

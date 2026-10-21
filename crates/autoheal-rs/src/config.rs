@@ -1,10 +1,10 @@
 use std::path::PathBuf;
 use std::time::Duration;
 
-use reqwest::Url;
 use tracing::{Level, event};
 use twistlock::client::ClientCredentialPaths;
 use twistlock::config::Endpoint;
+use url::Url;
 
 pub struct DockerConfig {
     pub docker_host: Endpoint,
