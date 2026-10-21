@@ -8,7 +8,6 @@ cliffignore
 ctarget
 cttc
 dorny
-einval
 endfor
 endmacro
 errorlens
@@ -25,6 +24,7 @@ monomorphization
 multiplatform
 nextest
 nologin
+ntfy
 oras
 pathbuf
 pkgs
@@ -48,14 +48,12 @@ taiki
 targetplatformdash
 telem
 tera
-timeoouts
 tmpfs
 topo
 tostring
 trixie
 trunc
 twistlock
-uncatchable
 uninlined
 uninspectable
 unseparated

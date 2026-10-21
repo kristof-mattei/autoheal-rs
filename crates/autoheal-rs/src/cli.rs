@@ -65,7 +65,7 @@ pub struct Cli {
     )]
     pub timeout: Duration,
 
-    #[arg(long, env)]
+    #[arg(long, env, value_parser = parse_webhook_url)]
     pub webhook_url: Option<Url>,
 }
 
@@ -140,6 +140,19 @@ fn parse_duration(value: &str) -> Result<Duration, String> {
     Ok(Duration::from_secs(seconds))
 }
 
+fn parse_webhook_url(value: &str) -> Result<Url, String> {
+    let url =
+        Url::parse(value).map_err(|error| format!("Could not parse `{}`: {}", value, error))?;
+
+    match url.scheme() {
+        "http" | "https" => Ok(url),
+        scheme => Err(format!(
+            "Unsupported scheme `{}`, expected `http` or `https`",
+            scheme
+        )),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use std::path::Path;
@@ -194,5 +207,39 @@ mod tests {
         let error = parse(&["--client-cert", "/certs/cert.pem"]).unwrap_err();
 
         assert_eq!(error.kind(), ErrorKind::MissingRequiredArgument);
+    }
+
+    #[test]
+    fn webhook_url_with_http_scheme() {
+        let config = parse(&["--webhook-url", "http://ntfy.example/autoheal"]).unwrap();
+
+        assert_eq!(
+            config.webhook_url.unwrap().as_str(),
+            "http://ntfy.example/autoheal"
+        );
+    }
+
+    #[test]
+    fn webhook_url_with_https_scheme() {
+        let config = parse(&["--webhook-url", "https://ntfy.example/autoheal"]).unwrap();
+
+        assert_eq!(
+            config.webhook_url.unwrap().as_str(),
+            "https://ntfy.example/autoheal"
+        );
+    }
+
+    #[test]
+    fn webhook_url_with_other_scheme_is_rejected() {
+        let error = parse(&["--webhook-url", "ftp://ntfy.example/autoheal"]).unwrap_err();
+
+        assert_eq!(error.kind(), ErrorKind::ValueValidation);
+    }
+
+    #[test]
+    fn webhook_url_without_scheme_is_rejected() {
+        let error = parse(&["--webhook-url", "ntfy.example/autoheal"]).unwrap_err();
+
+        assert_eq!(error.kind(), ErrorKind::ValueValidation);
     }
 }
