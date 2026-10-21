@@ -124,6 +124,7 @@ dependencies = [
  "tracing-error",
  "tracing-subscriber",
  "twistlock",
+ "url",
 ]
 
 [[package]]

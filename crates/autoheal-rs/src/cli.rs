@@ -3,9 +3,9 @@ use std::str::FromStr as _;
 use std::time::Duration;
 
 use clap::{Args, Parser};
-use reqwest::Url;
 use twistlock::client::ClientCredentialPaths;
 use twistlock::config::Endpoint;
+use url::Url;
 
 use crate::config::{Config, DockerConfig, HealerConfig};
 
