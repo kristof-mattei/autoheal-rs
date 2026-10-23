@@ -41,7 +41,7 @@ impl WebHookInvocation {
 }
 
 #[derive(Debug)]
-pub enum RestartOutcome {
+pub(crate) enum RestartOutcome {
     Success,
     Failure(eyre::Report),
 }
@@ -51,12 +51,12 @@ struct WebHook {
     client: Client,
 }
 
-pub struct WebHookNotifier {
+pub(crate) struct WebHookNotifier {
     webhook: Option<WebHook>,
 }
 
 impl WebHookNotifier {
-    pub fn new(url: Option<Url>) -> Result<Self, reqwest::Error> {
+    pub(crate) fn new(url: Option<Url>) -> Result<Self, reqwest::Error> {
         let Some(url) = url else {
             return Ok(Self { webhook: None });
         };
@@ -68,7 +68,7 @@ impl WebHookNotifier {
         })
     }
 
-    pub fn notify<S: Into<Box<str>>>(
+    pub(crate) fn notify<S: Into<Box<str>>>(
         &self,
         container_id: &ContainerId,
         container_name: S,

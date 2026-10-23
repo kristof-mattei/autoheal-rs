@@ -11,7 +11,7 @@ use twistlock::models::id::ContainerId;
 use crate::config::HealerConfig;
 use crate::webhook::{RestartOutcome, WebHookNotifier};
 
-pub struct DockerHealer {
+pub(crate) struct DockerHealer {
     client: Client,
     filters: Filters,
     healer_config: HealerConfig,
@@ -39,7 +39,7 @@ fn get_timeout(labels: &HashMap<Box<str>, Box<str>>) -> Option<Duration> {
 }
 
 impl DockerHealer {
-    pub fn new(
+    pub(crate) fn new(
         client: Client,
         healer_config: HealerConfig,
         filters: Filters,
@@ -53,7 +53,11 @@ impl DockerHealer {
         }
     }
 
-    pub async fn check_container_health(&self, container_info: &ContainerSummary, times: usize) {
+    pub(crate) async fn check_container_health(
+        &self,
+        container_info: &ContainerSummary,
+        times: usize,
+    ) {
         let container_short_id = container_info.get_short_id();
 
         match container_info.get_name() {
@@ -118,7 +122,7 @@ impl DockerHealer {
         }
     }
 
-    pub async fn monitor_containers(&self) -> ! {
+    pub(crate) async fn monitor_containers(&self) -> ! {
         if self.healer_config.start_period.as_secs() > 0 {
             event!(
                 Level::INFO,
@@ -167,6 +171,7 @@ impl DockerHealer {
                         }
 
                         let name = container.get_name().map(Into::into);
+
                         new_history.insert(container.id, (name, times));
                     }
 

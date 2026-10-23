@@ -1,7 +1,7 @@
 use hashbrown::{HashMap, HashSet};
 use twistlock::filters::{Filters, Health};
 
-pub fn build(autoheal_container_label_filter: Option<&str>) -> Filters {
+pub(crate) fn build(autoheal_container_label_filter: Option<&str>) -> Filters {
     let rewritten = match autoheal_container_label_filter {
         Some("all") | None => None,
         Some(v) => {
