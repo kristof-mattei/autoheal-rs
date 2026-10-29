@@ -1,4 +1,20 @@
 <!-- header goes here -->
+## [2.1.2](https://github.com/kristof-mattei/autoheal-rs/compare/v2.1.1..v2.1.2) - 2026-10-29
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to v1.54.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a85fdb5`](https://github.com/kristof-mattei/autoheal-rs/commit/a85fdb57f13dd05025b5ef88ceacef93574c7894))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(lint)* Address new lints by [@kristof-mattei](https://github.com/kristof-mattei) ([`6f1ab51`](https://github.com/kristof-mattei/autoheal-rs/commit/6f1ab51bbf9a23dafec10e9d0fbc4dd814a68d4d))
+- *(release)* Render the breaking change description as a paragraph, not a list item by [@kristof-mattei](https://github.com/kristof-mattei) ([`639bae2`](https://github.com/kristof-mattei/autoheal-rs/commit/639bae2d5d5fbeec2a97b950b044af86bbbe8ff6))
+- Deny allow-by-default `rustc` lints without a `clippy` equivalent by [@kristof-mattei](https://github.com/kristof-mattei) ([`94b0f18`](https://github.com/kristof-mattei/autoheal-rs/commit/94b0f1828518c3aa3d64b75dded6c80c0d505f2e))
+- Track Clippy 1.97 and 1.99 restriction lints, deny `inline_modules` by [@kristof-mattei](https://github.com/kristof-mattei) ([`c06adf7`](https://github.com/kristof-mattei/autoheal-rs/commit/c06adf7d6eb1c68e64c9de790e50c159c562e3f2))
+- Move the next-version calculation into `calculate-next-version` by [@kristof-mattei](https://github.com/kristof-mattei) ([`2afb59c`](https://github.com/kristof-mattei/autoheal-rs/commit/2afb59c01fdbb35748fdab8de0715c3e40b27001))
+- Check the public API against the latest release with `cargo semver-checks` by [@kristof-mattei](https://github.com/kristof-mattei) ([`b72d110`](https://github.com/kristof-mattei/autoheal-rs/commit/b72d1106cf6c65384f63a6277ffc2c2eecb63af3))
+- Stop denying `unused_results`, too noisy by [@kristof-mattei](https://github.com/kristof-mattei) ([`ea0ba8d`](https://github.com/kristof-mattei/autoheal-rs/commit/ea0ba8d39e52203f388338255ebc1e2f52c582c6))
+- Set up sccache before installing `cargo-edit` by [@kristof-mattei](https://github.com/kristof-mattei) ([`f6bdb23`](https://github.com/kristof-mattei/autoheal-rs/commit/f6bdb23a4d4a441d85d77c70e5450461fd129415))
 ## [2.1.1](https://github.com/kristof-mattei/autoheal-rs/compare/v2.1.0..v2.1.1) - 2026-10-21
 
 ### ⚙️ Miscellaneous Tasks
@@ -41,7 +57,8 @@
 ### ⚠️ Breaking Changes
 
 - Let clap handle `--help`, `--version` and usage errors by [@kristof-mattei](https://github.com/kristof-mattei) ([`4e75389`](https://github.com/kristof-mattei/autoheal-rs/commit/4e75389300e585d511d9d9ee90b91a004ab1eb35))
-  - Usage errors exit with code 2 instead of 1
+
+  Usage errors exit with code 2 instead of 1
 
 ### 🚀 Features
 
