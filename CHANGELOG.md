@@ -1,4 +1,19 @@
 <!-- header goes here -->
+## [4.0.0](https://github.com/kristof-mattei/autoheal-rs/compare/v3.0.0..v4.0.0) - 2026-10-29
+
+### ⚠️ Breaking Changes
+
+- Parse durations with humantime by [@kristof-mattei](https://github.com/kristof-mattei) ([`cec990f`](https://github.com/kristof-mattei/autoheal-rs/commit/cec990f17a70bbb0026a0a9d85570d5f24e997ae))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate twistlock to v0.11.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`4f1ccb1`](https://github.com/kristof-mattei/autoheal-rs/commit/4f1ccb1ffd057c69bd123275aeb360a3568918c6))
+- Replace misspelled `rerun-if-changed-env` build script directives by [@kristof-mattei](https://github.com/kristof-mattei) ([`e23e057`](https://github.com/kristof-mattei/autoheal-rs/commit/e23e057297597154b6281adcc4e399ac428df530))
+- Log the inspected state of a container that left the unhealthy list by [@kristof-mattei](https://github.com/kristof-mattei) ([`5d032d8`](https://github.com/kristof-mattei/autoheal-rs/commit/5d032d86308c249a9052afb1b064477e9910eabb))
+
+### 🚜 Refactor
+
+- Return `Result<Infallible, Shutdown>` from `start_tasks` so startup failures propagate with `?` by [@kristof-mattei](https://github.com/kristof-mattei) ([`bd2ae55`](https://github.com/kristof-mattei/autoheal-rs/commit/bd2ae55fd936d32f3f1db8e6dcdb50d3fb6213f9))
 ## [3.0.0](https://github.com/kristof-mattei/autoheal-rs/compare/v2.1.1..v3.0.0) - 2026-10-29
 
 ### ⚠️ Breaking Changes
