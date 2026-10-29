@@ -2,11 +2,12 @@ use std::time::Duration;
 
 use color_eyre::eyre;
 use hashbrown::HashMap;
+use reqwest::StatusCode;
 use tokio::time::{MissedTickBehavior, sleep, timeout};
 use tracing::{Level, event};
 use twistlock::client::Client;
 use twistlock::endpoint::ApiEndpointCallError;
-use twistlock::filters::{Filters, Status};
+use twistlock::filters::{Filters, Health, Status};
 use twistlock::models::container::{ContainerSummary, StopTimeout};
 use twistlock::models::id::ContainerId;
 
@@ -19,6 +20,77 @@ pub(crate) struct DockerHealer {
     filters: Filters,
     healer_config: HealerConfig,
     notifier: WebHookNotifier,
+}
+
+enum Watch {
+    /// Consecutive unhealthy polls.
+    Unhealthy(usize),
+    Recovering,
+}
+
+/// The outcome for a container that is no longer in the unhealthy list.
+enum Outcome {
+    Healthy,
+    NoHealthCheck,
+    NotRunning(Status),
+    Removed,
+}
+
+impl Outcome {
+    /// `None` while the container is still recovering.
+    fn from_state(status: Status, health: Option<&Health>) -> Option<Self> {
+        match status {
+            Status::Running => match health {
+                Some(&Health::Healthy) => Some(Outcome::Healthy),
+                Some(&(Health::Starting | Health::Unhealthy)) => None,
+                Some(&Health::None) | None => Some(Outcome::NoHealthCheck),
+            },
+            Status::Restarting => None,
+            status @ (Status::Created
+            | Status::Removing
+            | Status::Paused
+            | Status::Exited
+            | Status::Dead) => Some(Outcome::NotRunning(status)),
+        }
+    }
+
+    fn log(&self, container_name: &str, container_short_id: &str) {
+        match *self {
+            Outcome::Healthy => {
+                event!(
+                    Level::INFO,
+                    %container_name,
+                    %container_short_id,
+                    "Container returned to healthy state.",
+                );
+            },
+            Outcome::NoHealthCheck => {
+                event!(
+                    Level::INFO,
+                    %container_name,
+                    %container_short_id,
+                    "Container no longer has a health check.",
+                );
+            },
+            Outcome::NotRunning(ref status) => {
+                event!(
+                    Level::WARN,
+                    %container_name,
+                    %container_short_id,
+                    %status,
+                    "Container is not running.",
+                );
+            },
+            Outcome::Removed => {
+                event!(
+                    Level::INFO,
+                    %container_name,
+                    %container_short_id,
+                    "Container was removed.",
+                );
+            },
+        }
+    }
 }
 
 async fn with_timeout<T, F>(limit: Duration, call: F) -> Result<T, eyre::Report>
@@ -143,6 +215,24 @@ impl DockerHealer {
         }
     }
 
+    async fn outcome(&self, container_id: &ContainerId) -> Result<Option<Outcome>, eyre::Report> {
+        with_timeout(self.docker_timeout, async {
+            match self.client.inspect_container(container_id).await {
+                Ok(container) => Ok(Outcome::from_state(
+                    container.state.status,
+                    container.state.health.as_ref().map(|health| &health.status),
+                )),
+                Err(ApiEndpointCallError::Daemon { status, .. })
+                    if status == StatusCode::NOT_FOUND =>
+                {
+                    Ok(Some(Outcome::Removed))
+                },
+                Err(error) => Err(error),
+            }
+        })
+        .await
+    }
+
     pub(crate) async fn monitor_containers(&self) -> ! {
         if !self.healer_config.start_period.is_zero() {
             event!(
@@ -154,7 +244,7 @@ impl DockerHealer {
             sleep(self.healer_config.start_period).await;
         }
 
-        let mut history_unhealthy = HashMap::<ContainerId, (Option<Box<str>>, usize)>::new();
+        let mut watched = HashMap::<ContainerId, (Option<Box<str>>, Watch)>::new();
 
         let mut interval = tokio::time::interval(self.healer_config.interval);
         interval.set_missed_tick_behavior(MissedTickBehavior::Delay);
@@ -169,15 +259,16 @@ impl DockerHealer {
             .await
             {
                 Ok(containers) => {
-                    let mut new_history =
-                        HashMap::<ContainerId, (Option<Box<str>>, usize)>::with_capacity(
+                    let mut new_watched =
+                        HashMap::<ContainerId, (Option<Box<str>>, Watch)>::with_capacity(
                             containers.len(),
                         );
 
                     for container in containers {
-                        let times = history_unhealthy
-                            .get(&container.id)
-                            .map_or(1, |&(_, t)| t + 1);
+                        let times = match watched.get(&container.id) {
+                            Some(&(_, Watch::Unhealthy(times))) => times + 1,
+                            Some(&(_, Watch::Recovering)) | None => 1,
+                        };
 
                         if container
                             .names
@@ -198,21 +289,37 @@ impl DockerHealer {
 
                         let name = container.get_name().map(Into::into);
 
-                        new_history.insert(container.id, (name, times));
+                        new_watched.insert(container.id, (name, Watch::Unhealthy(times)));
                     }
 
-                    for (key, (name, _)) in history_unhealthy {
-                        if !new_history.contains_key(&key) {
-                            event!(
-                                Level::INFO,
-                                container_name = %name.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
-                                container_short_id = %key.as_short(),
-                                "Container returned to healthy state.",
-                            );
+                    for (container_id, (name, _)) in watched {
+                        if new_watched.contains_key(&container_id) {
+                            continue;
+                        }
+
+                        let container_name = name.as_deref().unwrap_or("<UNNAMED CONTAINER>");
+                        let container_short_id = container_id.as_short();
+
+                        match self.outcome(&container_id).await {
+                            Ok(None) => {
+                                new_watched.insert(container_id, (name, Watch::Recovering));
+                            },
+                            Ok(Some(outcome)) => {
+                                outcome.log(container_name, container_short_id);
+                            },
+                            Err(error) => {
+                                event!(
+                                    Level::WARN,
+                                    ?error,
+                                    %container_name,
+                                    %container_short_id,
+                                    "Failed to inspect container. No longer watching it.",
+                                );
+                            },
                         }
                     }
 
-                    history_unhealthy = new_history;
+                    watched = new_watched;
                 },
                 Err(error) => {
                     event!(Level::ERROR, ?error, "Failed to fetch container info");
@@ -228,8 +335,9 @@ mod tests {
 
     use hashbrown::HashMap;
     use pretty_assertions::assert_eq;
+    use twistlock::filters::{Health, Status};
 
-    use super::get_timeout;
+    use super::{Outcome, get_timeout};
 
     fn labels(timeout: &str) -> HashMap<Box<str>, Box<str>> {
         HashMap::from_iter([("autoheal.stop.timeout".into(), timeout.into())])
@@ -251,5 +359,48 @@ mod tests {
     #[test]
     fn stop_timeout_label_absent() {
         assert_eq!(get_timeout(&HashMap::new()), None);
+    }
+
+    #[test]
+    fn running_and_healthy_has_recovered() {
+        assert!(matches!(
+            Outcome::from_state(Status::Running, Some(&Health::Healthy)),
+            Some(Outcome::Healthy)
+        ));
+    }
+
+    #[test]
+    fn running_and_starting_is_pending() {
+        assert!(Outcome::from_state(Status::Running, Some(&Health::Starting)).is_none());
+    }
+
+    #[test]
+    fn running_and_unhealthy_is_pending() {
+        assert!(Outcome::from_state(Status::Running, Some(&Health::Unhealthy)).is_none());
+    }
+
+    #[test]
+    fn restarting_is_pending() {
+        assert!(Outcome::from_state(Status::Restarting, Some(&Health::Starting)).is_none());
+    }
+
+    #[test]
+    fn running_without_health_check() {
+        assert!(matches!(
+            Outcome::from_state(Status::Running, None),
+            Some(Outcome::NoHealthCheck)
+        ));
+        assert!(matches!(
+            Outcome::from_state(Status::Running, Some(&Health::None)),
+            Some(Outcome::NoHealthCheck)
+        ));
+    }
+
+    #[test]
+    fn exited_is_not_running_despite_its_health() {
+        assert!(matches!(
+            Outcome::from_state(Status::Exited, Some(&Health::Unhealthy)),
+            Some(Outcome::NotRunning(Status::Exited))
+        ));
     }
 }
