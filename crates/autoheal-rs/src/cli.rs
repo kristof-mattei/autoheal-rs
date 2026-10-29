@@ -8,12 +8,17 @@ use url::Url;
 
 use crate::config::{Config, DockerConfig, HealerConfig};
 
-const DEFAULT_DOCKER_HOST: &str = "unix:///var/run/docker.sock";
-
 #[derive(Parser, Debug)]
 #[command(about, version)]
 pub(crate) struct Cli {
-    #[arg(env, default_value = DEFAULT_DOCKER_HOST, value_parser = parse_docker_host, help = "Docker daemon host, in the format of the Docker CLI's DOCKER_HOST", long)]
+    #[arg(
+        env,
+        default_value = "",
+        hide_default_value = true,
+        help = "Docker daemon address",
+        long,
+        value_parser = parse_docker_host
+    )]
     pub docker_host: Endpoint,
 
     #[arg(long, env)]
@@ -169,7 +174,7 @@ mod tests {
 
     use super::Cli;
 
-    // without `--docker-host`, clap parses `DEFAULT_DOCKER_HOST`, a unix socket, which `Endpoint` rejects on Windows. tcp parses on every platform
+    // `--docker-host` prevents the tests from parsing `DOCKER_HOST`
     fn parse(args: &[&str]) -> Result<Cli, clap::Error> {
         Cli::try_parse_from(
             ["autoheal-rs", "--docker-host", "tcp://127.0.0.1:2375"]
