@@ -34,7 +34,6 @@ reqwest = { version = "=0.13.5", default-features = false, features = [
     "http2",
     "rustls",
 ] }
-thiserror = "=2.0.21"
 tokio = { version = "=1.54.1", features = [
     "macros",
     "net",
