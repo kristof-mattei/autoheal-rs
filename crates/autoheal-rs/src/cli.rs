@@ -26,19 +26,19 @@ pub(crate) struct Cli {
 
     #[arg(
         env,
-        default_value = "10",
+        default_value = "10s",
         long,
-        help = "When container is unhealthy, how long to wait for it to stop, before forcefully restarting it, in seconds",
-        value_parser = parse_duration
+        help = "When container is unhealthy, how long to wait for it to stop, before forcefully restarting it",
+        value_parser = humantime::parse_duration
     )]
     pub autoheal_default_stop_timeout: Duration,
 
     #[arg(
         env,
-        default_value = "5",
+        default_value = "5s",
         long,
-        help = "Interval between checks, in seconds",
-        value_parser = parse_duration
+        help = "Interval between checks",
+        value_parser = parse_interval
     )]
     pub autoheal_interval: Duration,
 
@@ -47,9 +47,9 @@ pub(crate) struct Cli {
 
     #[arg(
         env,
-        default_value = "0",
-        help = "Startup timeout, in seconds",
-        value_parser = parse_duration,
+        default_value = "0s",
+        help = "Startup timeout",
+        value_parser = humantime::parse_duration,
         long,
    )]
     pub autoheal_start_period: Duration,
@@ -66,10 +66,10 @@ pub(crate) struct Cli {
 
     #[arg(
         env = "timeout",
-        default_value = "30",
+        default_value = "30s",
         long,
-        help = "Timeout for a Docker API call, in seconds, added to the stop timeout for a restart",
-        value_parser = parse_duration
+        help = "Timeout for a Docker API call, added to the stop timeout for a restart",
+        value_parser = humantime::parse_duration
     )]
     pub timeout: Duration,
 
@@ -147,12 +147,16 @@ fn parse_docker_host(value: &str) -> Result<Endpoint, ParseError> {
     Endpoint::from_str(value)
 }
 
-fn parse_duration(value: &str) -> Result<Duration, String> {
-    let seconds = value
-        .parse()
+// `tokio::time::interval` panics on a zero period
+fn parse_interval(value: &str) -> Result<Duration, String> {
+    let interval = humantime::parse_duration(value)
         .map_err(|error| format!("Could not parse `{}`: {}", value, error))?;
 
-    Ok(Duration::from_secs(seconds))
+    if interval.is_zero() {
+        return Err(String::from("Interval must be greater than zero"));
+    }
+
+    Ok(interval)
 }
 
 fn parse_webhook_url(value: &str) -> Result<Url, String> {
@@ -171,6 +175,7 @@ fn parse_webhook_url(value: &str) -> Result<Url, String> {
 #[cfg(test)]
 mod tests {
     use std::path::Path;
+    use std::time::Duration;
 
     use clap::Parser as _;
     use clap::error::ErrorKind;
@@ -254,6 +259,40 @@ mod tests {
     #[test]
     fn webhook_url_without_scheme_is_rejected() {
         let error = parse(&["--webhook-url", "ntfy.example/autoheal"]).unwrap_err();
+
+        assert_eq!(error.kind(), ErrorKind::ValueValidation);
+    }
+
+    #[test]
+    fn duration_defaults() {
+        let config = parse(&[]).unwrap();
+
+        assert_eq!(
+            config.autoheal_default_stop_timeout,
+            Duration::from_secs(10)
+        );
+        assert_eq!(config.autoheal_interval, Duration::from_secs(5));
+        assert_eq!(config.autoheal_start_period, Duration::ZERO);
+        assert_eq!(config.timeout, Duration::from_secs(30));
+    }
+
+    #[test]
+    fn duration_with_units() {
+        let config = parse(&["--autoheal-start-period", "1m 30s"]).unwrap();
+
+        assert_eq!(config.autoheal_start_period, Duration::from_secs(90));
+    }
+
+    #[test]
+    fn duration_without_unit_is_rejected() {
+        let error = parse(&["--autoheal-default-stop-timeout", "10"]).unwrap_err();
+
+        assert_eq!(error.kind(), ErrorKind::ValueValidation);
+    }
+
+    #[test]
+    fn zero_interval_is_rejected() {
+        let error = parse(&["--autoheal-interval", "0s"]).unwrap_err();
 
         assert_eq!(error.kind(), ErrorKind::ValueValidation);
     }

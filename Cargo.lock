@@ -114,6 +114,7 @@ dependencies = [
  "console-subscriber",
  "futures-util",
  "hashbrown",
+ "humantime",
  "libc",
  "mimalloc",
  "pretty_assertions",
