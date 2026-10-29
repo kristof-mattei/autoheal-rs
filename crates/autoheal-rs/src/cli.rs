@@ -3,18 +3,17 @@ use std::str::FromStr as _;
 use std::time::Duration;
 
 use clap::{Args, Parser};
-use twistlock::client::ClientCredentialPaths;
-use twistlock::config::Endpoint;
+use twistlock::config::{ClientCredentialPaths, Endpoint, ParseError, Tls};
 use url::Url;
 
 use crate::config::{Config, DockerConfig, HealerConfig};
 
-const DEFAULT_DOCKER_HOST: &str = "/var/run/docker.sock";
+const DEFAULT_DOCKER_HOST: &str = "unix:///var/run/docker.sock";
 
 #[derive(Parser, Debug)]
 #[command(about, version)]
 pub(crate) struct Cli {
-    #[arg(env, default_value = DEFAULT_DOCKER_HOST, value_parser = parse_docker_host, help = "Path to docker TCP/UNIX socket", long="docker")]
+    #[arg(env, default_value = DEFAULT_DOCKER_HOST, value_parser = parse_docker_host, help = "Docker daemon host, in the format of the Docker CLI's DOCKER_HOST", long="docker")]
     pub docker_host: Endpoint,
 
     #[arg(long, env)]
@@ -60,7 +59,7 @@ pub(crate) struct Cli {
         env = "timeout",
         default_value = "30",
         long,
-        help = "Docker socket timeout, in seconds, only used when connecting over tcp",
+        help = "Timeout for a Docker API call, in seconds, added to the stop timeout for a restart",
         value_parser = parse_duration
     )]
     pub timeout: Duration,
@@ -101,10 +100,17 @@ impl From<ClientCredentialArgs> for ClientCredentialPaths {
 
 impl From<Cli> for Config {
     fn from(cli: Cli) -> Self {
+        let docker_host = match (cli.cacert, cli.client_credentials) {
+            (None, None) => cli.docker_host,
+            (ca_cert, client_credentials) => cli.docker_host.with_tls(Tls {
+                verify: true,
+                ca_cert,
+                client_credentials: client_credentials.map(Into::into),
+            }),
+        };
+
         let docker = DockerConfig {
-            docker_host: cli.docker_host,
-            cacert: cli.cacert,
-            client_credentials: cli.client_credentials.map(Into::into),
+            docker_host,
             timeout: cli.timeout,
         };
 
@@ -128,7 +134,7 @@ impl From<Cli> for Config {
     }
 }
 
-fn parse_docker_host(value: &str) -> Result<Endpoint, String> {
+fn parse_docker_host(value: &str) -> Result<Endpoint, ParseError> {
     Endpoint::from_str(value)
 }
 
@@ -163,7 +169,7 @@ mod tests {
 
     use super::Cli;
 
-    // without `--docker`, clap parses `DEFAULT_DOCKER_HOST`, a unix socket, which `Endpoint` rejects on Windows (no `Socket` variant there). tcp parses on every platform
+    // without `--docker`, clap parses `DEFAULT_DOCKER_HOST`, a unix socket, which `Endpoint` rejects on Windows. tcp parses on every platform
     fn parse(args: &[&str]) -> Result<Cli, clap::Error> {
         Cli::try_parse_from(
             ["autoheal-rs", "--docker", "tcp://127.0.0.1:2375"]

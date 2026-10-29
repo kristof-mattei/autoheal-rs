@@ -1,11 +1,13 @@
 use std::time::Duration;
 
 use hashbrown::HashMap;
-use tokio::time::{MissedTickBehavior, sleep};
+use thiserror::Error;
+use tokio::time::{MissedTickBehavior, sleep, timeout};
 use tracing::{Level, event};
 use twistlock::client::Client;
+use twistlock::endpoint::ApiEndpointCallError;
 use twistlock::filters::{Filters, Status};
-use twistlock::models::container::ContainerSummary;
+use twistlock::models::container::{ContainerSummary, StopTimeout};
 use twistlock::models::id::ContainerId;
 
 use crate::config::HealerConfig;
@@ -13,9 +15,28 @@ use crate::webhook::{RestartOutcome, WebHookNotifier};
 
 pub(crate) struct DockerHealer {
     client: Client,
+    docker_timeout: Duration,
     filters: Filters,
     healer_config: HealerConfig,
     notifier: WebHookNotifier,
+}
+
+#[derive(Debug, Error)]
+enum DockerCallError {
+    #[error("The Docker daemon did not answer within {:?}", .0)]
+    TimedOut(Duration),
+    #[error(transparent)]
+    Api(#[from] ApiEndpointCallError),
+}
+
+async fn with_timeout<T, F>(limit: Duration, call: F) -> Result<T, DockerCallError>
+where
+    F: Future<Output = Result<T, ApiEndpointCallError>>,
+{
+    match timeout(limit, call).await {
+        Ok(result) => Ok(result?),
+        Err(_elapsed) => Err(DockerCallError::TimedOut(limit)),
+    }
 }
 
 fn get_timeout(labels: &HashMap<Box<str>, Box<str>>) -> Option<Duration> {
@@ -41,12 +62,14 @@ fn get_timeout(labels: &HashMap<Box<str>, Box<str>>) -> Option<Duration> {
 impl DockerHealer {
     pub(crate) fn new(
         client: Client,
+        docker_timeout: Duration,
         healer_config: HealerConfig,
         filters: Filters,
         notifier: WebHookNotifier,
     ) -> Self {
         Self {
             client,
+            docker_timeout,
             filters,
             healer_config,
             notifier,
@@ -89,10 +112,13 @@ impl DockerHealer {
                         "Container repeatedly found to be unhealthy. Restarting container now with timeout.",
                     );
 
-                    match self
-                        .client
-                        .restart_container(&container_info.id, timeout)
-                        .await
+                    // the daemon answers a restart once the container has stopped
+                    match with_timeout(
+                        timeout.saturating_add(self.docker_timeout),
+                        self.client
+                            .restart_container(&container_info.id, StopTimeout::After(timeout)),
+                    )
+                    .await
                     {
                         Ok(()) => {
                             self.notifier.notify(
@@ -141,7 +167,12 @@ impl DockerHealer {
         loop {
             interval.tick().await;
 
-            match self.client.list_containers(&self.filters).await {
+            match with_timeout(
+                self.docker_timeout,
+                self.client.list_containers(&self.filters),
+            )
+            .await
+            {
                 Ok(containers) => {
                     let mut new_history =
                         HashMap::<ContainerId, (Option<Box<str>>, usize)>::with_capacity(

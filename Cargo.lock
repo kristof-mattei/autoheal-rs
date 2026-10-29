@@ -118,6 +118,7 @@ dependencies = [
  "mimalloc",
  "pretty_assertions",
  "reqwest",
+ "thiserror",
  "tokio",
  "tokio-util",
  "tracing",
@@ -764,9 +765,7 @@ dependencies = [
  "http",
  "hyper",
  "hyper-util",
- "log",
  "rustls",
- "rustls-native-certs",
  "tokio",
  "tokio-rustls",
  "tower-service",
@@ -777,19 +776,6 @@ name = "hyper-timeout"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b90d566bffbce6a75bd8b09a05aa8c2cb1fabb6cb348f8840c9e4c90a0d83b0"
-dependencies = [
- "hyper",
- "hyper-util",
- "pin-project-lite",
- "tokio",
- "tower-service",
-]
-
-[[package]]
-name = "hyper-unix-socket"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "57d9d6b7df434b566b1bbfb464633e7ae23f93fc218afb38f3b8906a95535592"
 dependencies = [
  "hyper",
  "hyper-util",
@@ -1489,7 +1475,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "48e13bd8c0e9365c43cfa5c9e8f9ad49d3c8444926c9aac819e0e4dc503c8fdf"
 dependencies = [
  "aws-lc-rs",
- "log",
  "once_cell",
  "rustls-pki-types",
  "rustls-webpki",
@@ -2064,26 +2049,24 @@ checksum = "e421abadd41a4225275504ea4d6566923418b7f05506fbc9c0fe86ba7396114b"
 
 [[package]]
 name = "twistlock"
-version = "0.8.1"
+version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8091e5ead2abfbac30a791e409e08f0ba7db3e674dab2d43b8988e17270062a7"
+checksum = "20552d79dec3e02ad6bb0b1e01601c9550025a4ede22f4bb17298952d95e30d4"
 dependencies = [
+ "bytes",
  "hashbrown",
  "http",
+ "http-body",
  "http-body-util",
- "hyper",
- "hyper-rustls",
- "hyper-unix-socket",
- "hyper-util",
  "ipnet",
  "percent-encoding",
- "rustls",
- "rustls-native-certs",
+ "reqwest",
  "serde",
  "serde_json",
  "thiserror",
  "tokio",
  "tracing",
+ "url",
 ]
 
 [[package]]

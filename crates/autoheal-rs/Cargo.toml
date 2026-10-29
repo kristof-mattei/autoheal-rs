@@ -34,6 +34,7 @@ reqwest = { version = "=0.13.5", default-features = false, features = [
     "http2",
     "rustls",
 ] }
+thiserror = "=2.0.21"
 tokio = { version = "=1.54.1", features = [
     "macros",
     "net",
@@ -46,7 +47,7 @@ tokio-util = "=0.7.20"
 tracing = "=0.1.44"
 tracing-error = "=0.2.1"
 tracing-subscriber = { version = "=0.3.23", features = ["env-filter"] }
-twistlock = "=0.8.1"
+twistlock = "=0.10.0"
 url = "=2.5.8"
 
 [dev-dependencies]
