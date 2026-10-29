@@ -118,7 +118,6 @@ dependencies = [
  "mimalloc",
  "pretty_assertions",
  "reqwest",
- "thiserror",
  "tokio",
  "tokio-util",
  "tracing",

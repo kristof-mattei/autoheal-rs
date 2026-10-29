@@ -1,7 +1,7 @@
 use std::time::Duration;
 
+use color_eyre::eyre;
 use hashbrown::HashMap;
-use thiserror::Error;
 use tokio::time::{MissedTickBehavior, sleep, timeout};
 use tracing::{Level, event};
 use twistlock::client::Client;
@@ -21,21 +21,16 @@ pub(crate) struct DockerHealer {
     notifier: WebHookNotifier,
 }
 
-#[derive(Debug, Error)]
-enum DockerCallError {
-    #[error("The Docker daemon did not answer within {:?}", .0)]
-    TimedOut(Duration),
-    #[error(transparent)]
-    Api(#[from] ApiEndpointCallError),
-}
-
-async fn with_timeout<T, F>(limit: Duration, call: F) -> Result<T, DockerCallError>
+async fn with_timeout<T, F>(limit: Duration, call: F) -> Result<T, eyre::Report>
 where
     F: Future<Output = Result<T, ApiEndpointCallError>>,
 {
     match timeout(limit, call).await {
         Ok(result) => Ok(result?),
-        Err(_elapsed) => Err(DockerCallError::TimedOut(limit)),
+        Err(elapsed) => Err(eyre::Report::new(elapsed).wrap_err(format!(
+            "The Docker daemon did not answer within {:?}",
+            limit
+        ))),
     }
 }
 
@@ -139,7 +134,7 @@ impl DockerHealer {
                             self.notifier.notify(
                                 &container_info.id,
                                 container_name,
-                                RestartOutcome::Failure(error.into()),
+                                RestartOutcome::Failure(error),
                             );
                         },
                     }
