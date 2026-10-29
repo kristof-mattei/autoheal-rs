@@ -1,4 +1,39 @@
 <!-- header goes here -->
+## [3.0.0](https://github.com/kristof-mattei/autoheal-rs/compare/v2.1.1..v3.0.0) - 2026-10-29
+
+### ⚠️ Breaking Changes
+
+- Update `twistlock` to 0.10.0 by [@kristof-mattei](https://github.com/kristof-mattei) ([`ba4b391`](https://github.com/kristof-mattei/autoheal-rs/commit/ba4b39102a8fd1dde055ecee2dd0e5afdedfd166))
+
+  A `DOCKER_HOST` without a scheme is now a TCP host, so `/var/run/docker.sock` connects to `tcp://localhost:2375/var/run/docker.sock`. The default is now `unix:///var/run/docker.sock`, and a bare socket path needs the `unix://` prefix. When `--cacert` (`CA`) or `--client-key` and `--client-cert` (`CLIENT_KEY`, `CLIENT_CERT`) are set, a `tcp://` host now connects over TLS and verifies the daemon certificate; before, it connected without TLS. For a TCP host other than `localhost` or a loopback address, `HTTP_PROXY` and `HTTPS_PROXY` now apply.
+- *(cli)* Rename `--docker` to `--docker-host` by [@kristof-mattei](https://github.com/kristof-mattei) ([`15e0d41`](https://github.com/kristof-mattei/autoheal-rs/commit/15e0d41f3162eb919f3454c097706621cbeb1fee))
+
+### 🚀 Features
+
+- *(cli)* Default `--docker-host` to the platform's socket by [@kristof-mattei](https://github.com/kristof-mattei) ([`e237be7`](https://github.com/kristof-mattei/autoheal-rs/commit/e237be72d907b9b81c9fd20f138ddae0b26c31c0))
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate tokio to v1.54.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a85fdb5`](https://github.com/kristof-mattei/autoheal-rs/commit/a85fdb57f13dd05025b5ef88ceacef93574c7894))
+
+### 📚 Documentation
+
+- *(cli)* Explain that `--cacert`, `--client-key` and `--client-cert` enable TLS by [@kristof-mattei](https://github.com/kristof-mattei) ([`c711517`](https://github.com/kristof-mattei/autoheal-rs/commit/c7115179742b50f0af65fcbabfa9965ab993a762))
+
+### 🚜 Refactor
+
+- Return a Docker call timeout as `eyre::Report` by [@kristof-mattei](https://github.com/kristof-mattei) ([`1274f54`](https://github.com/kristof-mattei/autoheal-rs/commit/1274f54086c4e5cb583ae6600079733539591215))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(lint)* Address new lints by [@kristof-mattei](https://github.com/kristof-mattei) ([`6f1ab51`](https://github.com/kristof-mattei/autoheal-rs/commit/6f1ab51bbf9a23dafec10e9d0fbc4dd814a68d4d))
+- *(release)* Render the breaking change description as a paragraph, not a list item by [@kristof-mattei](https://github.com/kristof-mattei) ([`639bae2`](https://github.com/kristof-mattei/autoheal-rs/commit/639bae2d5d5fbeec2a97b950b044af86bbbe8ff6))
+- Deny allow-by-default `rustc` lints without a `clippy` equivalent by [@kristof-mattei](https://github.com/kristof-mattei) ([`94b0f18`](https://github.com/kristof-mattei/autoheal-rs/commit/94b0f1828518c3aa3d64b75dded6c80c0d505f2e))
+- Track Clippy 1.97 and 1.99 restriction lints, deny `inline_modules` by [@kristof-mattei](https://github.com/kristof-mattei) ([`c06adf7`](https://github.com/kristof-mattei/autoheal-rs/commit/c06adf7d6eb1c68e64c9de790e50c159c562e3f2))
+- Move the next-version calculation into `calculate-next-version` by [@kristof-mattei](https://github.com/kristof-mattei) ([`2afb59c`](https://github.com/kristof-mattei/autoheal-rs/commit/2afb59c01fdbb35748fdab8de0715c3e40b27001))
+- Check the public API against the latest release with `cargo semver-checks` by [@kristof-mattei](https://github.com/kristof-mattei) ([`b72d110`](https://github.com/kristof-mattei/autoheal-rs/commit/b72d1106cf6c65384f63a6277ffc2c2eecb63af3))
+- Stop denying `unused_results`, too noisy by [@kristof-mattei](https://github.com/kristof-mattei) ([`ea0ba8d`](https://github.com/kristof-mattei/autoheal-rs/commit/ea0ba8d39e52203f388338255ebc1e2f52c582c6))
+- Set up sccache before installing `cargo-edit` by [@kristof-mattei](https://github.com/kristof-mattei) ([`f6bdb23`](https://github.com/kristof-mattei/autoheal-rs/commit/f6bdb23a4d4a441d85d77c70e5450461fd129415))
 ## [2.1.1](https://github.com/kristof-mattei/autoheal-rs/compare/v2.1.0..v2.1.1) - 2026-10-21
 
 ### ⚙️ Miscellaneous Tasks
@@ -41,7 +76,8 @@
 ### ⚠️ Breaking Changes
 
 - Let clap handle `--help`, `--version` and usage errors by [@kristof-mattei](https://github.com/kristof-mattei) ([`4e75389`](https://github.com/kristof-mattei/autoheal-rs/commit/4e75389300e585d511d9d9ee90b91a004ab1eb35))
-  - Usage errors exit with code 2 instead of 1
+
+  Usage errors exit with code 2 instead of 1
 
 ### 🚀 Features
 
