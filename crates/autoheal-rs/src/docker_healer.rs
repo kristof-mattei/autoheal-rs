@@ -36,14 +36,14 @@ where
 
 fn get_timeout(labels: &HashMap<Box<str>, Box<str>>) -> Option<Duration> {
     if let Some(timeout) = labels.get("autoheal.stop.timeout") {
-        match timeout.parse::<u64>() {
-            Ok(value) => Some(Duration::from_secs(value)),
+        match humantime::parse_duration(timeout) {
+            Ok(value) => Some(value),
             Err(error) => {
                 event!(
                     Level::WARN,
                     ?timeout,
                     ?error,
-                    "Could not parse timeout as `u64`"
+                    "Could not parse timeout as a duration"
                 );
 
                 None
@@ -144,7 +144,7 @@ impl DockerHealer {
     }
 
     pub(crate) async fn monitor_containers(&self) -> ! {
-        if self.healer_config.start_period.as_secs() > 0 {
+        if !self.healer_config.start_period.is_zero() {
             event!(
                 Level::INFO,
                 delay = ?self.healer_config.start_period,
@@ -219,5 +219,37 @@ impl DockerHealer {
                 },
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::time::Duration;
+
+    use hashbrown::HashMap;
+    use pretty_assertions::assert_eq;
+
+    use super::get_timeout;
+
+    fn labels(timeout: &str) -> HashMap<Box<str>, Box<str>> {
+        HashMap::from_iter([("autoheal.stop.timeout".into(), timeout.into())])
+    }
+
+    #[test]
+    fn stop_timeout_label_with_units() {
+        assert_eq!(
+            get_timeout(&labels("1m 30s")),
+            Some(Duration::from_secs(90))
+        );
+    }
+
+    #[test]
+    fn stop_timeout_label_without_unit_is_ignored() {
+        assert_eq!(get_timeout(&labels("90")), None);
+    }
+
+    #[test]
+    fn stop_timeout_label_absent() {
+        assert_eq!(get_timeout(&HashMap::new()), None);
     }
 }

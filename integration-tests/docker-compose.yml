@@ -42,8 +42,8 @@ services:
       - no-new-privileges:true
     environment:
       AUTOHEAL_CONTAINER_LABEL: ${AUTOHEAL_CONTAINER_LABEL:?}
-      AUTOHEAL_INTERVAL: "1"
-      AUTOHEAL_DEFAULT_STOP_TIMEOUT: "1"
+      AUTOHEAL_INTERVAL: "1s"
+      AUTOHEAL_DEFAULT_STOP_TIMEOUT: "1s"
       AUTOHEAL_EXCLUDE_CONTAINERS: ${COMPOSE_PROJECT_NAME:?}-unhealthy-excluded-1
       # WEBHOOK_URL: https://ntfy.sh/...
     volumes:
