@@ -54,7 +54,11 @@ pub(crate) struct Cli {
    )]
     pub autoheal_start_period: Duration,
 
-    #[arg(long, env = "CA")]
+    #[arg(
+        long,
+        env = "CA",
+        help = "Path to the CA certificate used to verify the Docker daemon, enables TLS"
+    )]
     pub cacert: Option<PathBuf>,
 
     #[command(flatten)]
@@ -81,7 +85,7 @@ pub(crate) struct ClientCredentialArgs {
         long,
         env,
         required = false,
-        help = "Path to the client private key for mutual TLS with the Docker daemon"
+        help = "Path to the client private key for mutual TLS with the Docker daemon, enables TLS"
     )]
     pub client_key: PathBuf,
 
@@ -89,7 +93,7 @@ pub(crate) struct ClientCredentialArgs {
         long,
         env,
         required = false,
-        help = "Path to the client certificate for mutual TLS with the Docker daemon"
+        help = "Path to the client certificate for mutual TLS with the Docker daemon, enables TLS"
     )]
     pub client_cert: PathBuf,
 }
