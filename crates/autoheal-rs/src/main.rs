@@ -154,12 +154,7 @@ async fn start_tasks(config: Config) -> Shutdown {
 
     let filters = unhealthy_filters::build(container_label.as_deref());
 
-    let docker_client = match Client::build(
-        docker_config.docker_host,
-        docker_config.cacert,
-        docker_config.client_credentials,
-        docker_config.timeout,
-    ) {
+    let docker_client = match Client::build(docker_config.docker_host) {
         Ok(client) => client,
         Err(error) => return Shutdown::from(error),
     };
@@ -169,7 +164,13 @@ async fn start_tasks(config: Config) -> Shutdown {
         Err(error) => return Shutdown::from(error),
     };
 
-    let docker_healer = DockerHealer::new(docker_client, healer_config, filters, notifier);
+    let docker_healer = DockerHealer::new(
+        docker_client,
+        docker_config.timeout,
+        healer_config,
+        filters,
+        notifier,
+    );
 
     let cancellation_token = CancellationToken::new();
 

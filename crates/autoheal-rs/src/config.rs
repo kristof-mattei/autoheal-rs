@@ -1,15 +1,11 @@
-use std::path::PathBuf;
 use std::time::Duration;
 
 use tracing::{Level, event};
-use twistlock::client::ClientCredentialPaths;
 use twistlock::config::Endpoint;
 use url::Url;
 
 pub(crate) struct DockerConfig {
     pub docker_host: Endpoint,
-    pub cacert: Option<PathBuf>,
-    pub client_credentials: Option<ClientCredentialPaths>,
     pub timeout: Duration,
 }
 
