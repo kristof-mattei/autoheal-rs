@@ -21,11 +21,11 @@ pub(crate) struct Cli {
     )]
     pub docker_host: Endpoint,
 
-    #[arg(long, env)]
+    #[arg(long, env = "AUTOHEAL_RS_CONTAINER_LABEL")]
     pub autoheal_container_label: Option<String>,
 
     #[arg(
-        env,
+        env = "AUTOHEAL_RS_DEFAULT_STOP_TIMEOUT",
         default_value = "10s",
         long,
         help = "When container is unhealthy, how long to wait for it to stop, before forcefully restarting it",
@@ -34,7 +34,7 @@ pub(crate) struct Cli {
     pub autoheal_default_stop_timeout: Duration,
 
     #[arg(
-        env,
+        env = "AUTOHEAL_RS_INTERVAL",
         default_value = "5s",
         long,
         help = "Interval between checks",
@@ -42,11 +42,11 @@ pub(crate) struct Cli {
     )]
     pub autoheal_interval: Duration,
 
-    #[arg(long, env)]
+    #[arg(long, env = "AUTOHEAL_RS_EXCLUDE_CONTAINERS")]
     pub autoheal_exclude_containers: Vec<String>,
 
     #[arg(
-        env,
+        env = "AUTOHEAL_RS_START_PERIOD",
         default_value = "0s",
         help = "Startup timeout",
         value_parser = humantime::parse_duration,
@@ -56,7 +56,7 @@ pub(crate) struct Cli {
 
     #[arg(
         long,
-        env = "CA",
+        env = "AUTOHEAL_RS_CACERT",
         help = "Path to the CA certificate used to verify the Docker daemon, enables TLS"
     )]
     pub cacert: Option<PathBuf>,
@@ -65,7 +65,7 @@ pub(crate) struct Cli {
     pub client_credentials: Option<ClientCredentialArgs>,
 
     #[arg(
-        env = "timeout",
+        env = "AUTOHEAL_RS_TIMEOUT",
         default_value = "30s",
         long,
         help = "Timeout for a Docker API call, added to the stop timeout for a restart",
@@ -73,7 +73,7 @@ pub(crate) struct Cli {
     )]
     pub timeout: Duration,
 
-    #[arg(long, env, value_parser = parse_webhook_url)]
+    #[arg(long, env = "AUTOHEAL_RS_WEBHOOK_URL", value_parser = parse_webhook_url)]
     pub webhook_url: Option<Url>,
 }
 
@@ -83,7 +83,7 @@ pub(crate) struct Cli {
 pub(crate) struct ClientCredentialArgs {
     #[arg(
         long,
-        env,
+        env = "AUTOHEAL_RS_CLIENT_KEY",
         required = false,
         help = "Path to the client private key for mutual TLS with the Docker daemon, enables TLS"
     )]
@@ -91,7 +91,7 @@ pub(crate) struct ClientCredentialArgs {
 
     #[arg(
         long,
-        env,
+        env = "AUTOHEAL_RS_CLIENT_CERT",
         required = false,
         help = "Path to the client certificate for mutual TLS with the Docker daemon, enables TLS"
     )]

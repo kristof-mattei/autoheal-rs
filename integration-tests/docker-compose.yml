@@ -41,11 +41,11 @@ services:
     security_opt:
       - no-new-privileges:true
     environment:
-      AUTOHEAL_CONTAINER_LABEL: ${AUTOHEAL_CONTAINER_LABEL:?}
-      AUTOHEAL_INTERVAL: "1s"
-      AUTOHEAL_DEFAULT_STOP_TIMEOUT: "1s"
-      AUTOHEAL_EXCLUDE_CONTAINERS: ${COMPOSE_PROJECT_NAME:?}-unhealthy-excluded-1
-      # WEBHOOK_URL: https://ntfy.sh/...
+      AUTOHEAL_RS_CONTAINER_LABEL: ${AUTOHEAL_CONTAINER_LABEL:?}
+      AUTOHEAL_RS_INTERVAL: "1s"
+      AUTOHEAL_RS_DEFAULT_STOP_TIMEOUT: "1s"
+      AUTOHEAL_RS_EXCLUDE_CONTAINERS: ${COMPOSE_PROJECT_NAME:?}-unhealthy-excluded-1
+      # AUTOHEAL_RS_WEBHOOK_URL: https://ntfy.sh/...
     volumes:
       - type: bind
         source: "${DOCKER_SOCKET:-/var/run/docker.sock}"
