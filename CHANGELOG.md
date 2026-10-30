@@ -1,4 +1,15 @@
 <!-- header goes here -->
+## [5.0.0](https://github.com/kristof-mattei/autoheal-rs/compare/v4.0.0..v5.0.0) - 2026-10-30
+
+### ⚠️ Breaking Changes
+
+- Prefix the environment variables with `AUTOHEAL_RS_` by [@kristof-mattei](https://github.com/kristof-mattei) ([`175f5b2`](https://github.com/kristof-mattei/autoheal-rs/commit/175f5b2aa5dfe92c473efd986c1d5423c8430c9c))
+- *(cli)* Drop the `autoheal-` prefix from the flags by [@kristof-mattei](https://github.com/kristof-mattei) ([`72ebf99`](https://github.com/kristof-mattei/autoheal-rs/commit/72ebf997b10eb25d00fd7ae7d385a614a97db59c))
+- Drop the `AUTOHEAL_RS_` prefix from the environment variables by [@kristof-mattei](https://github.com/kristof-mattei) ([`5bcf187`](https://github.com/kristof-mattei/autoheal-rs/commit/5bcf1871272a7c993dc20f8b1e240ee96064b35c))
+
+### ⚡ Performance
+
+- Remove the redundant workspace build from `Dockerfile` by [@kristof-mattei](https://github.com/kristof-mattei) ([`23c6dc3`](https://github.com/kristof-mattei/autoheal-rs/commit/23c6dc32e5e06e82e0129b22eb99221233fd73cb))
 ## [4.0.0](https://github.com/kristof-mattei/autoheal-rs/compare/v3.0.0..v4.0.0) - 2026-10-29
 
 ### ⚠️ Breaking Changes
