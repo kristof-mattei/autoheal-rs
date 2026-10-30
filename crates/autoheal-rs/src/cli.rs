@@ -22,7 +22,7 @@ pub(crate) struct Cli {
     pub docker_host: Endpoint,
 
     #[arg(long, env = "AUTOHEAL_RS_CONTAINER_LABEL")]
-    pub autoheal_container_label: Option<String>,
+    pub container_label: Option<String>,
 
     #[arg(
         env = "AUTOHEAL_RS_DEFAULT_STOP_TIMEOUT",
@@ -31,7 +31,7 @@ pub(crate) struct Cli {
         help = "When container is unhealthy, how long to wait for it to stop, before forcefully restarting it",
         value_parser = humantime::parse_duration
     )]
-    pub autoheal_default_stop_timeout: Duration,
+    pub default_stop_timeout: Duration,
 
     #[arg(
         env = "AUTOHEAL_RS_INTERVAL",
@@ -40,10 +40,10 @@ pub(crate) struct Cli {
         help = "Interval between checks",
         value_parser = parse_interval
     )]
-    pub autoheal_interval: Duration,
+    pub interval: Duration,
 
     #[arg(long, env = "AUTOHEAL_RS_EXCLUDE_CONTAINERS")]
-    pub autoheal_exclude_containers: Vec<String>,
+    pub exclude_containers: Vec<String>,
 
     #[arg(
         env = "AUTOHEAL_RS_START_PERIOD",
@@ -52,7 +52,7 @@ pub(crate) struct Cli {
         value_parser = humantime::parse_duration,
         long,
    )]
-    pub autoheal_start_period: Duration,
+    pub start_period: Duration,
 
     #[arg(
         long,
@@ -124,20 +124,20 @@ impl From<Cli> for Config {
         };
 
         let healer = HealerConfig {
-            default_stop_timeout: cli.autoheal_default_stop_timeout,
-            interval: cli.autoheal_interval,
+            default_stop_timeout: cli.default_stop_timeout,
+            interval: cli.interval,
             exclude_containers: cli
-                .autoheal_exclude_containers
+                .exclude_containers
                 .into_iter()
                 .map(String::into_boxed_str)
                 .collect::<Box<[_]>>(),
-            start_period: cli.autoheal_start_period,
+            start_period: cli.start_period,
         };
 
         Config {
             docker,
             healer,
-            container_label: cli.autoheal_container_label,
+            container_label: cli.container_label,
             webhook_url: cli.webhook_url,
         }
     }
@@ -267,32 +267,29 @@ mod tests {
     fn duration_defaults() {
         let config = parse(&[]).unwrap();
 
-        assert_eq!(
-            config.autoheal_default_stop_timeout,
-            Duration::from_secs(10)
-        );
-        assert_eq!(config.autoheal_interval, Duration::from_secs(5));
-        assert_eq!(config.autoheal_start_period, Duration::ZERO);
+        assert_eq!(config.default_stop_timeout, Duration::from_secs(10));
+        assert_eq!(config.interval, Duration::from_secs(5));
+        assert_eq!(config.start_period, Duration::ZERO);
         assert_eq!(config.timeout, Duration::from_secs(30));
     }
 
     #[test]
     fn duration_with_units() {
-        let config = parse(&["--autoheal-start-period", "1m 30s"]).unwrap();
+        let config = parse(&["--start-period", "1m 30s"]).unwrap();
 
-        assert_eq!(config.autoheal_start_period, Duration::from_secs(90));
+        assert_eq!(config.start_period, Duration::from_secs(90));
     }
 
     #[test]
     fn duration_without_unit_is_rejected() {
-        let error = parse(&["--autoheal-default-stop-timeout", "10"]).unwrap_err();
+        let error = parse(&["--default-stop-timeout", "10"]).unwrap_err();
 
         assert_eq!(error.kind(), ErrorKind::ValueValidation);
     }
 
     #[test]
     fn zero_interval_is_rejected() {
-        let error = parse(&["--autoheal-interval", "0s"]).unwrap_err();
+        let error = parse(&["--interval", "0s"]).unwrap_err();
 
         assert_eq!(error.kind(), ErrorKind::ValueValidation);
     }
