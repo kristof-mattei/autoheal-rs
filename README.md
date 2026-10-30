@@ -21,7 +21,7 @@ services:
         target: /var/run/docker.sock
     environment:
       # `autoheal` matches containers labeled `autoheal=true`, `all` matches every container
-      AUTOHEAL_CONTAINER_LABEL: autoheal
+      AUTOHEAL_RS_CONTAINER_LABEL: autoheal
 ```
 
 The socket gives the container root on the host.
