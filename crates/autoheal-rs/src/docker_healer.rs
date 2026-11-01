@@ -100,7 +100,7 @@ where
     match timeout(limit, call).await {
         Ok(result) => Ok(result?),
         Err(elapsed) => Err(eyre::Report::new(elapsed).wrap_err(format!(
-            "The Docker daemon did not answer within {:?}",
+            "The Docker API call did not complete within {:?}",
             limit
         ))),
     }
@@ -179,7 +179,7 @@ impl DockerHealer {
                         "Container repeatedly found to be unhealthy. Restarting container now with timeout.",
                     );
 
-                    // the daemon answers a restart once the container has stopped
+                    // the restart future resolves after the container has stopped and started again
                     match with_timeout(
                         timeout.saturating_add(self.docker_timeout),
                         self.client
