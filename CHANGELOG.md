@@ -1,4 +1,14 @@
 <!-- header goes here -->
+## [5.0.1](https://github.com/kristof-mattei/autoheal-rs/compare/v5.0.0..v5.0.1) - 2026-11-01
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate twistlock to v0.12.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d4f8b4d`](https://github.com/kristof-mattei/autoheal-rs/commit/d4f8b4dbbb0510024ec83d26fe81a68885aa76e9))
+- *(deps)* Address `twistlock` v0.12.0 breaking changes by [@kristof-mattei](https://github.com/kristof-mattei) ([`27622c2`](https://github.com/kristof-mattei/autoheal-rs/commit/27622c246fe33a43731995fd62ef0345d21d91e4))
+
+### 🚜 Refactor
+
+- Replace human verbs for the Docker daemon with technical ones by [@kristof-mattei](https://github.com/kristof-mattei) ([`664d59b`](https://github.com/kristof-mattei/autoheal-rs/commit/664d59bf47a49d4645bdc3a6eed18da31a96fe81))
 ## [5.0.0](https://github.com/kristof-mattei/autoheal-rs/compare/v4.0.0..v5.0.0) - 2026-10-30
 
 ### ⚠️ Breaking Changes
