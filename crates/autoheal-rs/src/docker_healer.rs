@@ -215,22 +215,26 @@ impl DockerHealer {
         }
     }
 
-    async fn outcome(&self, container_id: &ContainerId) -> Result<Option<Outcome>, eyre::Report> {
-        with_timeout(self.docker_timeout, async {
-            match self.client.inspect_container(container_id).await {
-                Ok(container) => Ok(Outcome::from_state(
-                    container.state.status,
-                    container.state.health.as_ref().map(|health| &health.status),
-                )),
-                Err(ApiEndpointCallError::Daemon { status, .. })
-                    if status == StatusCode::NOT_FOUND =>
-                {
-                    Ok(Some(Outcome::Removed))
-                },
-                Err(error) => Err(error),
-            }
-        })
-        .await
+    async fn outcome(
+        &self,
+        container_id: &ContainerId,
+    ) -> Result<Option<Outcome>, ApiEndpointCallError> {
+        match self
+            .client
+            .inspect_container(container_id)
+            .timeout(self.docker_timeout)
+            .send()
+            .await
+        {
+            Ok(container) => Ok(Outcome::from_state(
+                container.state.status,
+                container.state.health.as_ref().map(|health| &health.status),
+            )),
+            Err(ApiEndpointCallError::Daemon { status, .. }) if status == StatusCode::NOT_FOUND => {
+                Ok(Some(Outcome::Removed))
+            },
+            Err(error) => Err(error),
+        }
     }
 
     pub(crate) async fn monitor_containers(&self) -> ! {
@@ -252,11 +256,12 @@ impl DockerHealer {
         loop {
             interval.tick().await;
 
-            match with_timeout(
-                self.docker_timeout,
-                self.client.list_containers(&self.filters),
-            )
-            .await
+            match self
+                .client
+                .list_containers(&self.filters)
+                .timeout(self.docker_timeout)
+                .send()
+                .await
             {
                 Ok(containers) => {
                     let mut new_watched =
