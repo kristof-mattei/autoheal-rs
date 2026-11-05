@@ -1,4 +1,13 @@
 <!-- header goes here -->
+## [5.1.0](https://github.com/kristof-mattei/autoheal-rs/compare/v5.0.3..v5.1.0) - 2026-11-05
+
+### 🚀 Features
+
+- Add `SECURITY.md` to explain our policy by [@kristof-mattei](https://github.com/kristof-mattei) ([`c8b9be5`](https://github.com/kristof-mattei/autoheal-rs/commit/c8b9be58c582819eda7816f44505d2da904bb936))
+
+### 📚 Documentation
+
+- Correct stale comments and remove narrating ones by [@kristof-mattei](https://github.com/kristof-mattei) ([`03787c2`](https://github.com/kristof-mattei/autoheal-rs/commit/03787c22626a77dac8b71526fa7fd659ef177644))
 ## [5.0.3](https://github.com/kristof-mattei/autoheal-rs/compare/v5.0.2..v5.0.3) - 2026-11-05
 
 ### 🐛 Bug Fixes
