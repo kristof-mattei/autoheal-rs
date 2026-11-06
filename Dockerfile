@@ -117,7 +117,8 @@ FROM --platform=${BUILDPLATFORM} debian:trixie-slim@sha256:a72b4433de1cf7d6bae0c
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-    && apt-get install --no-install-recommends --yes ca-certificates
+    && apt-get install --no-install-recommends --yes ca-certificates \
+    && rm --recursive --force /var/lib/apt/lists/*
 
 # Final stage, no `BUILDPLATFORM`, this one is run where it is deployed
 FROM scratch
