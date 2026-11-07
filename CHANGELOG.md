@@ -1,4 +1,29 @@
 <!-- header goes here -->
+## [5.1.1](https://github.com/kristof-mattei/autoheal-rs/compare/v5.1.0..v5.1.1) - 2026-11-07
+
+### 🐛 Bug Fixes
+
+- *(docker)* Restore `docker-clean` and clear the apt lists in build stages by [@kristof-mattei](https://github.com/kristof-mattei) ([`ef0a0a4`](https://github.com/kristof-mattei/autoheal-rs/commit/ef0a0a42bb7090fe532f65183fe115ee0ba00a1f))
+- *(docker)* Keep the `certs` stage's apt lists out of the registry build cache by [@kristof-mattei](https://github.com/kristof-mattei) ([`3b58191`](https://github.com/kristof-mattei/autoheal-rs/commit/3b581916f27bf7db8aafeb771766363bc0181e62))
+- Add context to the webhook HTTP client build error by [@kristof-mattei](https://github.com/kristof-mattei) ([`d00e91d`](https://github.com/kristof-mattei/autoheal-rs/commit/d00e91d00ebaddb4cd6d857dafe960eacec8772f))
+
+### 📚 Documentation
+
+- Rewrite narrating and hard-wrapped comments by [@kristof-mattei](https://github.com/kristof-mattei) ([`4c4488c`](https://github.com/kristof-mattei/autoheal-rs/commit/4c4488c9bd01ee491a771f582c493fcae855204b))
+
+### 🎨 Styling
+
+- *(docker)* Quote `${TARGET}` and `${APPLICATION_NAME}` in `RUN` instructions by [@kristof-mattei](https://github.com/kristof-mattei) ([`11eab77`](https://github.com/kristof-mattei/autoheal-rs/commit/11eab77be3ab09c087d326f937540367eb751748))
+
+### ⚙️ Miscellaneous Tasks
+
+- Move name up by [@kristof-mattei](https://github.com/kristof-mattei) ([`ca49af7`](https://github.com/kristof-mattei/autoheal-rs/commit/ca49af73371b86a51371902985942b8fd2915d28))
+- Use the shared Qlty source from `qlty-config` by [@kristof-mattei](https://github.com/kristof-mattei) ([`222c681`](https://github.com/kristof-mattei/autoheal-rs/commit/222c68110b2e908f821d3b40b76b88c3d050e643))
+- Record nightly-only `implicit_provenance_casts` lint by [@kristof-mattei](https://github.com/kristof-mattei) ([`a051591`](https://github.com/kristof-mattei/autoheal-rs/commit/a051591df2161a987760a081cbc77254f341ad2c))
+
+### 💼 Other
+
+- *(docker)* Declare `ARG TARGET` in `rust-cargo-build` by [@kristof-mattei](https://github.com/kristof-mattei) ([`39704b1`](https://github.com/kristof-mattei/autoheal-rs/commit/39704b141237d7c46d5270cdf9c07594ed8b97e1))
 ## [5.1.0](https://github.com/kristof-mattei/autoheal-rs/compare/v5.0.3..v5.1.0) - 2026-11-05
 
 ### 🚀 Features
