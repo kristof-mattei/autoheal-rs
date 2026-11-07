@@ -17,7 +17,7 @@ use std::time::Duration;
 
 use clap::Parser as _;
 use color_eyre::config::HookBuilder;
-use color_eyre::eyre;
+use color_eyre::eyre::{self, Context as _};
 use config::Config;
 use docker_healer::DockerHealer;
 use futures_util::future::{BoxFuture, FutureExt as _};
@@ -153,7 +153,8 @@ async fn start_tasks(config: Config) -> Result<Infallible, Shutdown> {
 
     let docker_client = Client::build(docker_config.docker_host)?;
 
-    let notifier = WebHookNotifier::new(webhook_url)?;
+    let notifier =
+        WebHookNotifier::new(webhook_url).wrap_err("Failed to build the webhook HTTP client")?;
 
     let docker_healer = DockerHealer::new(
         docker_client,
