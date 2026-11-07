@@ -275,6 +275,8 @@ impl DockerHealer {
                             Some(&(_, Watch::Recovering)) | None => 1,
                         };
 
+                        let name = container.get_name().map(Into::into);
+
                         if container
                             .names
                             .iter()
@@ -282,17 +284,13 @@ impl DockerHealer {
                         {
                             event!(
                                 Level::INFO,
-                                container_name = %container
-                                    .get_name()
-                                    .unwrap_or("<UNNAMED CONTAINER>"),
+                                container_name = %name.as_deref().unwrap_or("<UNNAMED CONTAINER>"),
                                 container_short_id = %container.get_short_id(),
                                 "Container is unhealthy, but it is excluded",
                             );
                         } else {
                             self.check_container_health(&container, times).await;
                         }
-
-                        let name = container.get_name().map(Into::into);
 
                         new_watched.insert(container.id, (name, Watch::Unhealthy(times)));
                     }
