@@ -155,7 +155,7 @@ impl DockerHealer {
                 event!(
                     Level::WARN,
                     %container_short_id,
-                    "Container name was null, which implies container does not exist - don't restart.",
+                    "Container name was null, which implies container does not exist. Skipping restart.",
                 );
             },
             Some(container_name) => {
@@ -164,7 +164,7 @@ impl DockerHealer {
                         Level::INFO,
                         %container_name,
                         %container_short_id,
-                        "Container found to be restarting - don't restart.",
+                        "Container found to be restarting. Skipping restart.",
                     );
                 } else {
                     let timeout = get_timeout(&container_info.labels)
@@ -176,7 +176,7 @@ impl DockerHealer {
                         %container_short_id,
                         times_unhealthy = %times,
                         timeout = ?timeout,
-                        "Container repeatedly found to be unhealthy. Restarting container now with timeout.",
+                        "Container found to be unhealthy. Restarting container now with timeout.",
                     );
 
                     // the restart future resolves after the container has stopped and started again
