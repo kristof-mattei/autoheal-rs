@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [5.1.3](https://github.com/kristof-mattei/autoheal-rs/compare/v5.1.2..v5.1.3) - 2026-11-08
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate twistlock to v0.13.0 by [renovate\[bot\]](https://github.com/renovate[bot]) ([`88da198`](https://github.com/kristof-mattei/autoheal-rs/commit/88da198f8ddcab6d6f7407d3a41a8e9cc2f1db66))
 ## [5.1.2](https://github.com/kristof-mattei/autoheal-rs/compare/v5.1.1..v5.1.2) - 2026-11-08
 
 ### ⚙️ Miscellaneous Tasks
