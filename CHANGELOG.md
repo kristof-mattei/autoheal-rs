@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [5.1.5](https://github.com/kristof-mattei/autoheal-rs/compare/v5.1.4..v5.1.5) - 2026-11-11
+
+### 🚜 Refactor
+
+- Move `TaskResult` to the top of `main.rs` by [Kristof Mattei](https://github.com/kristof-mattei) ([`6be2cfb`](https://github.com/kristof-mattei/autoheal-rs/commit/6be2cfbd0746262d74782a45b1225d796d6d264b))
 ## [5.1.4](https://github.com/kristof-mattei/autoheal-rs/compare/v5.1.3..v5.1.4) - 2026-11-08
 
 ### 🐛 Bug Fixes
