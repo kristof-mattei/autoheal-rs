@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [5.1.6](https://github.com/kristof-mattei/autoheal-rs/compare/v5.1.5..v5.1.6) - 2026-11-17
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate clap to v4.6.8 by [renovate\[bot\]](https://github.com/renovate[bot]) ([`df71fa4`](https://github.com/kristof-mattei/autoheal-rs/commit/df71fa42d0dd3d294b7ddc36fd801fec4656e723))
 ## [5.1.5](https://github.com/kristof-mattei/autoheal-rs/compare/v5.1.4..v5.1.5) - 2026-11-11
 
 ### 🚜 Refactor
