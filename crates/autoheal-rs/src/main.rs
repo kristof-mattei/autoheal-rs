@@ -9,7 +9,6 @@ mod unhealthy_filters;
 mod utils;
 mod webhook;
 
-use std::convert::Infallible;
 use std::env;
 use std::env::VarError;
 use std::process::ExitCode;
@@ -140,7 +139,7 @@ fn print_header() {
     );
 }
 
-async fn start_tasks(config: Config) -> Result<Infallible, Shutdown> {
+async fn start_tasks(config: Config) -> Result<!, Shutdown> {
     // when running as PID 1, a signal before this registration is discarded
     let mut signal_listeners = SignalListeners::register()?;
 
