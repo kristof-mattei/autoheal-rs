@@ -1,4 +1,12 @@
 <!-- header goes here -->
+## [5.1.7](https://github.com/kristof-mattei/autoheal-rs/compare/v5.1.6..v5.1.7) - 2026-11-27
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update rust crate url to v2.5.9 by [renovate\[bot\]](https://github.com/renovate[bot]) ([`5c3b138`](https://github.com/kristof-mattei/autoheal-rs/commit/5c3b1383d25f2bcab47e7b44ceddbc444d5e7be2))
+- *(deps)* Update rust crate hashbrown to v0.17.2 by [renovate\[bot\]](https://github.com/renovate[bot]) ([`f5a5c61`](https://github.com/kristof-mattei/autoheal-rs/commit/f5a5c6118ca23d3e3a9a48ec765c3e1e85727558))
+- *(deps)* Update rust crate clap to v4.6.10 by [renovate\[bot\]](https://github.com/renovate[bot]) ([`3eb551d`](https://github.com/kristof-mattei/autoheal-rs/commit/3eb551d7f342e315814ed58da3fe132f8245ef6e))
+- Use never type by [Kristof Mattei](https://github.com/kristof-mattei) ([`a4e8508`](https://github.com/kristof-mattei/autoheal-rs/commit/a4e85080193c6dcc927f60016a446bd1d550954f))
 ## [5.1.6](https://github.com/kristof-mattei/autoheal-rs/compare/v5.1.5..v5.1.6) - 2026-11-17
 
 ### 🐛 Bug Fixes
